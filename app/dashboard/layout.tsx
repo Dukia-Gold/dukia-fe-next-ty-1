@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Dukia Gold",
-  description: "Dukia Gold Trading Platform - Buy and Sell Gold",
+  title: "Dashboard - Dukia Gold",
+  description: "Dashboard - Dukia Gold Trading Platform - Buy and Sell Gold",
 };
 
 export default function RootLayout({
