@@ -13,6 +13,14 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        "futura-md-bt": "'Futura Md BT', sans-serif",
+      },
+      colors: { 
+        dukiaBlue: "#1c254e",
+        dukiaGold: "#d5b16a",
+        dukiaGrey: "#2a303c",
+      }
     },
   },
   plugins: [],
