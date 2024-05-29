@@ -42,7 +42,7 @@ export default function Home() {
     }
   }, []);
 
-  // AOS.init();
+  AOS.init();
 
   return (
     <main className="">
