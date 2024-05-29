@@ -2,12 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaCartShopping } from "react-icons/fa6";
 import MobileNav from "./MobileNav";
 import { usePathname } from "next/navigation";
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
 
 type header = {
   // name: string
@@ -21,8 +23,19 @@ const Header: FC<header> = () => {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   return (
-    <header className="fixed w-[100vw] flex flex-col">
+    <header
+      data-aos="fade-down"
+      data-aos-offset="200"
+      data-aos-delay="50"
+      data-aos-duration="800"
+      data-aos-easing="ease-in-out"
+      className="fixed w-[100vw] flex flex-col"
+    >
       <div className="bg-dukiaGrey flex justify-between items-center px-3 md:px-12 xl:px-24 py-4">
         <Link href="/">
           {" "}

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { usePathname } from "next/navigation";
 import { FaCartShopping } from "react-icons/fa6";
@@ -12,6 +12,13 @@ type MobileNavProps = {
 
 const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
   const pathname = usePathname();
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  });
 
   if (!isOpen) {
     // Return null if the modal is not open
@@ -20,7 +27,7 @@ const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
 
   // Return the modal
   return (
-    <div className="fixed sm:hidden top-0 left-0 w-full h-full bg-[#00000040] flex justify-end">
+    <div className="fixed sm:hidden top-0 left-0 w-full h-[100vh] bg-[#00000040] flex justify-end">
       <div className="bg-white w-[50%] h-[100vh]">
         <div className="bg-dukiaGrey h-full p-5 flex flex-col justify-between items-start">
           <div className="flex items-center justify-between w-full">
