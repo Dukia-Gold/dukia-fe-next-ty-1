@@ -5,8 +5,8 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Dashboard - Dukia Gold",
-  description: "Dashboard - Dukia Gold Trading Platform - Buy and Sell Gold",
+  title: "Dashboard - Dukia Gold Trading Platform",
+  description: "Buy and sell gold with Dukia Gold, a gold and precious metals refiner and the only full-service bullion-merchant in Nigeria, West Africa.",
 };
 
 export default function RootLayout({

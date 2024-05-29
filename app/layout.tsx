@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Dukia Gold",
-  description: "Dukia Gold Trading Platform - Buy and Sell Gold",
+  description: "Buy and sell gold with Dukia Gold, a gold and precious metals refiner and the only full-service bullion-merchant in Nigeria, West Africa.",
 };
 
 export default function RootLayout({
