@@ -79,12 +79,18 @@ const Header: FC<header> = () => {
 
             <FaCartShopping size={24} color="white" />
           </div>
-          <button className="text-dukiaBlue bg-white border border-dukiaGold px-4 py-1 rounded-3xl hover:bg-dukiaBlue hover:text-white">
-            Login
-          </button>
-          <button className="bg-dukiaBlue text-white py-1 px-4 rounded-3xl hover:bg-dukiaGold">
-            Get Started
-          </button>
+
+          <Link href="/login">
+            <button className="text-dukiaBlue bg-white border border-dukiaGold px-4 py-1 rounded-3xl hover:bg-dukiaBlue hover:text-white">
+              Login
+            </button>
+          </Link>
+
+          <Link href="/register">
+            <button className="bg-dukiaBlue text-white py-1 px-4 rounded-3xl hover:bg-dukiaGold">
+              Get Started
+            </button>
+          </Link>
         </div>
 
         <GiHamburgerMenu
