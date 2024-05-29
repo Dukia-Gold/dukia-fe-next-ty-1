@@ -42,7 +42,9 @@ export default function Home() {
     }
   }, []);
 
-  AOS.init();
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
   return (
     <main className="">
