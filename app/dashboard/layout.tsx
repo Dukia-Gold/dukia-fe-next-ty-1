@@ -1,22 +1,50 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-// import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Dashboard - Dukia Gold Trading Platform",
-  description: "Buy and sell gold with Dukia Gold, a gold and precious metals refiner and the only full-service bullion-merchant in Nigeria, West Africa.",
+  title: "Dukia Gold",
+  description:
+    "Buy and sell gold with Dukia Gold, a gold and precious metals refiner and the only full-service bullion-merchant in Nigeria, West Africa.",
 };
 
-export default function RootLayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <div>
+       <nav>
+        {/* Dashboard navigation here */}
+       </nav>
+       <main className={inter.className}>
+         {children}
+       </main>
+     </div>
   );
 }
+
+// /app/dashboard/layout.tsx
+// import { ReactNode } from 'react';
+
+// interface DashboardLayoutProps {
+//   children: ReactNode;
+// }
+
+// const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+//   return (
+//     <div>
+//       <nav>
+//         {/* Dashboard navigation here */}
+//       </nav>
+//       <main>
+//         {children}
+//       </main>
+//     </div>
+//   );
+// };
+
+// export default DashboardLayout;
+

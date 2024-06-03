@@ -34,7 +34,9 @@ const Header: FC<header> = () => {
       data-aos-delay="50"
       data-aos-duration="800"
       data-aos-easing="ease-in-out"
-      className="fixed w-[100vw] flex flex-col"
+      className={`${
+        pathname === "/dashboard" ? "hidden" : "fixed"
+      } w-[100vw] flex flex-col`}
     >
       <div className="bg-dukiaGrey flex justify-between items-center px-3 md:px-12 xl:px-24 py-4">
         <Link href="/">
