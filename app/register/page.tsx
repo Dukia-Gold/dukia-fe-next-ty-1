@@ -12,6 +12,20 @@ interface FormData {
 const RegisterPage = () => {
   const { registerIndividual, registerJoint, registerCorporate } = registerAuth();
   const [tab, setTab] = useState("0");
+  const [ individualFormData, setIndividualFormData ] = useState<FormData>({
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    nationality: "",
+    email: "",
+    phone: "",
+    gender: "",
+    date_of_birth: "",
+    password: "",
+    confirm_password: "",
+  })
+
+  console.log(individualFormData);
   
   const handleRegisterIndividual = async (event: any) => {
     event.preventDefault();
@@ -106,6 +120,12 @@ const RegisterPage = () => {
                 id="first_name"
                 required
                 type="text"
+                onChange={(e) => {
+                  setIndividualFormData((prev) => ({
+                    ...prev,
+                    first_name: e.target.value,
+                  }));
+                }}
                 placeholder="First Name"
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
               />
@@ -115,6 +135,12 @@ const RegisterPage = () => {
               <input
                 id="middle_name"
                 type="text"
+                onChange={(e) => {
+                  setIndividualFormData((prev) => ({
+                    ...prev,
+                    middle_name: e.target.value,
+                  }));
+                }}
                 placeholder="Middle Name"
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
               />
@@ -125,6 +151,12 @@ const RegisterPage = () => {
                 id="last_name"
                 required
                 type="text"
+                onChange={(e) => {
+                  setIndividualFormData((prev) => ({
+                    ...prev,
+                    last_name: e.target.value,
+                  }));
+                }}
                 placeholder="Last name"
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
               />
@@ -133,7 +165,7 @@ const RegisterPage = () => {
               <strong>Nationality *</strong>
               <div id="select-wrapper-133827" data-te-select-wrapper-ref="">
                 <div data-te-select-form-outline-ref="" className="relative">
-                  <input
+                  {/* <input
                     data-te-select-input-ref=""
                     className="peer block min-h-[auto] w-full rounded border-0 bg-transparent outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-gray-200 dark:placeholder:text-gray-200 [&amp;:not([data-te-input-placeholder-active])]:placeholder:opacity-0 cursor-pointer data-[te-input-disabled]:bg-[#e9ecef] data-[te-input-disabled]:cursor-default group-data-[te-was-validated]/validation:mb-4 dark:data-[te-input-disabled]:bg-zinc-600 py-[0.32rem] px-3 leading-[1.6]"
                     type="text"
@@ -145,7 +177,7 @@ const RegisterPage = () => {
                     readOnly
                     data-te-input-placeholder-active=""
                     data-te-input-state-active=""
-                  />
+                  /> */}
                   <span className="absolute right-3 text-[0.8rem] cursor-pointer peer-focus:text-primary peer-data-[te-input-focused]:text-primary group-data-[te-was-validated]/validation:peer-valid:text-green-600 group-data-[te-was-validated]/validation:peer-invalid:text-[rgb(220,76,100)] w-5 h-5 top-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -459,6 +491,12 @@ const RegisterPage = () => {
                 id="email-reg"
                 name="email"
                 type="email"
+                onChange={(e) => {
+                  setIndividualFormData((prev) => ({
+                    ...prev,
+                    email: e.target.value,
+                  }));
+                }}
                 required
                 placeholder="example@maildomain.com"
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
@@ -470,6 +508,12 @@ const RegisterPage = () => {
                 id="phone"
                 required
                 type="text"
+                onChange={(e) => {
+                  setIndividualFormData((prev) => ({
+                    ...prev,
+                    phone: e.target.value,
+                  }));
+                }}
                 placeholder="+2348020000000"
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
               />
@@ -479,6 +523,12 @@ const RegisterPage = () => {
               <select
                 id="gender"
                 required
+                onChange={(e) => {
+                  setIndividualFormData((prev) => ({
+                    ...prev,
+                    gender: e.target.value,
+                  }));
+                }}
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
                 defaultValue="0"
               >
@@ -487,7 +537,7 @@ const RegisterPage = () => {
                 <option value="female"> Female </option>
               </select>
             </label>
-            <div className="relative">
+            {/* <div className="relative">
               <input
                 type="text"
                 id="floating_outlined"
@@ -500,7 +550,7 @@ const RegisterPage = () => {
               >
                 Floating outlined
               </label>
-            </div>
+            </div> */}
             <label className="grid gap-3">
               <strong>Date of Birth*</strong>
               {/* <input id="birthday" type="date" required className="focus:shadow-md border rounded-lg outline-none px-2 p-2" /> */}
@@ -513,6 +563,12 @@ const RegisterPage = () => {
                   type="date"
                   required
                   id="birthday"
+                  onChange={(e) => {
+                    setIndividualFormData((prev) => ({
+                      ...prev,
+                      date_of_birth: e.target.value,
+                    }));
+                  }}
                   className="peer block min-h-[auto] w-full border rounded-lg  bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&amp;:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                   placeholder="Select a date"
                 />
@@ -530,6 +586,12 @@ const RegisterPage = () => {
               <input
                 id="password-reg"
                 type="password"
+                onChange={(e) => {
+                  setIndividualFormData((prev) => ({
+                    ...prev,
+                    password: e.target.value,
+                  }));
+                }}
                 required
                 placeholder="Your Password"
                 className="focus:shadow-md border rounded-lg outline-none px-2 p-2"
@@ -541,6 +603,12 @@ const RegisterPage = () => {
                 id="password_confirmation"
                 type="password"
                 required
+                onChange={(e) => {
+                  setIndividualFormData((prev) => ({
+                    ...prev,
+                    confirm_password: e.target.value,
+                  }));
+                }}
                 placeholder="Your Password"
                 className="focus:shadow-md border rounded-lg outline-none px-2 p-2"
               />

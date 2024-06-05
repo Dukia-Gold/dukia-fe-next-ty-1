@@ -5,9 +5,9 @@ import useAuth from '@/api/auth/useAuth';
 
 const DashboardPage = () => {
   const { logout } = useAuth();
-  const secret = process.env.JWT_SECRET_KEY;
+  // const secret = process.env.JWT_SECRET_KEY;
 
-  console.log(secret);
+  // console.log(secret);
 
   return (
     <div><button onClick={logout}>Logout</button>DashboardPage</div>
