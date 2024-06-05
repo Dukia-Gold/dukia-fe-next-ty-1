@@ -12,25 +12,10 @@ interface FormData {
 const RegisterPage = () => {
   const { registerIndividual, registerJoint, registerCorporate } = registerAuth();
   const [tab, setTab] = useState("0");
-  const [ individualFormData, setIndividualFormData ] = useState<FormData>({
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    nationality: "",
-    email: "",
-    phone: "",
-    gender: "",
-    date_of_birth: "",
-    password: "",
-    confirm_password: "",
-  })
-
-  console.log(individualFormData);
   
   const handleRegisterIndividual = async (event: any) => {
     event.preventDefault();
     const data = new FormData(event.target);
-    console.log(data); // Reference by form input's `name` tag
 
     try {
         await registerIndividual(data);
@@ -117,15 +102,9 @@ const RegisterPage = () => {
             <label className="grid gap-3">
               <strong>First Name*</strong>
               <input
-                id="first_name"
+                name="first_name"
                 required
                 type="text"
-                onChange={(e) => {
-                  setIndividualFormData((prev) => ({
-                    ...prev,
-                    first_name: e.target.value,
-                  }));
-                }}
                 placeholder="First Name"
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
               />
@@ -133,14 +112,8 @@ const RegisterPage = () => {
             <label className="grid gap-3">
               <strong>Middle Name</strong>
               <input
-                id="middle_name"
+                name="middle_name"
                 type="text"
-                onChange={(e) => {
-                  setIndividualFormData((prev) => ({
-                    ...prev,
-                    middle_name: e.target.value,
-                  }));
-                }}
                 placeholder="Middle Name"
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
               />
@@ -148,18 +121,17 @@ const RegisterPage = () => {
             <label className="grid gap-3">
               <strong>Last Name*</strong>
               <input
-                id="last_name"
+                name="last_name"
                 required
                 type="text"
-                onChange={(e) => {
-                  setIndividualFormData((prev) => ({
-                    ...prev,
-                    last_name: e.target.value,
-                  }));
-                }}
                 placeholder="Last name"
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
               />
+            </label>
+            <label htmlFor="" className="gird gap-3">
+              <select name="nationality" id="">
+                <option value="NGA">Nigeria</option>
+              </select>
             </label>
             <label className="grid gap-3">
               <strong>Nationality *</strong>
@@ -488,15 +460,8 @@ const RegisterPage = () => {
             <label className="grid gap-3">
               <strong>Email*</strong>
               <input
-                id="email-reg"
                 name="email"
                 type="email"
-                onChange={(e) => {
-                  setIndividualFormData((prev) => ({
-                    ...prev,
-                    email: e.target.value,
-                  }));
-                }}
                 required
                 placeholder="example@maildomain.com"
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
@@ -505,15 +470,9 @@ const RegisterPage = () => {
             <label className="grid gap-3">
               <strong>Phone*</strong>
               <input
-                id="phone"
+                name="phone"
                 required
                 type="text"
-                onChange={(e) => {
-                  setIndividualFormData((prev) => ({
-                    ...prev,
-                    phone: e.target.value,
-                  }));
-                }}
                 placeholder="+2348020000000"
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
               />
@@ -521,14 +480,8 @@ const RegisterPage = () => {
             <label className="grid gap-3">
               <strong>Gender*</strong>
               <select
-                id="gender"
+                name="gender"
                 required
-                onChange={(e) => {
-                  setIndividualFormData((prev) => ({
-                    ...prev,
-                    gender: e.target.value,
-                  }));
-                }}
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"
                 defaultValue="0"
               >
@@ -562,13 +515,7 @@ const RegisterPage = () => {
                 <input
                   type="date"
                   required
-                  id="birthday"
-                  onChange={(e) => {
-                    setIndividualFormData((prev) => ({
-                      ...prev,
-                      date_of_birth: e.target.value,
-                    }));
-                  }}
+                  name="birthday"
                   className="peer block min-h-[auto] w-full border rounded-lg  bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&amp;:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                   placeholder="Select a date"
                 />
@@ -584,14 +531,8 @@ const RegisterPage = () => {
             <label className="grid gap-3">
               <strong>Password*</strong>
               <input
-                id="password-reg"
+                name="password"
                 type="password"
-                onChange={(e) => {
-                  setIndividualFormData((prev) => ({
-                    ...prev,
-                    password: e.target.value,
-                  }));
-                }}
                 required
                 placeholder="Your Password"
                 className="focus:shadow-md border rounded-lg outline-none px-2 p-2"
@@ -600,15 +541,9 @@ const RegisterPage = () => {
             <label className="grid gap-3">
               <strong>Confirm Password*</strong>
               <input
-                id="password_confirmation"
+                name="password_confirmation"
                 type="password"
                 required
-                onChange={(e) => {
-                  setIndividualFormData((prev) => ({
-                    ...prev,
-                    confirm_password: e.target.value,
-                  }));
-                }}
                 placeholder="Your Password"
                 className="focus:shadow-md border rounded-lg outline-none px-2 p-2"
               />
@@ -617,7 +552,7 @@ const RegisterPage = () => {
             <label className="grid gap-3">
               <strong>Referal Code (Optional)</strong>
               <input
-                id="referral_code"
+                name="referral_code"
                 type="text"
                 placeholder=""
                 className="border-[1px] focus:shadow-md outline-none rounded-lg px-2 p-2"

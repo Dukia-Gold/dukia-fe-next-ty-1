@@ -3,40 +3,17 @@ import React from "react";
 
 const registerAuth = () => {
   const registerIndividual = async (formData: any) => {
-    const data = new FormData();
-    for (const key in FormData) {
-      if (formData[key] instanceof File) {
-        data.append(key, formData[key]);
-      } else {
-        data.append(key, formData[key]);
-      }
-    }
 
     try {
-      // const response = await fetch(
-      //   "https://api.dukiapreciousmetals.co/api/register",
-      //   {
-      //     method: "POST",
-
-      //     body: JSON.stringify(data),
-      //   }
-      // );
-      const reponse = await axios({
+      const response = await axios({
         url: "https://api.dukiapreciousmetals.co/api/register",
         method: "POST",
-        data: data,
+        data: formData,
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       });
-      const response = await axios.post(
-        "https://api.dukiapreciousmetals.co/api/register",
-        {
-          body: JSON.stringify(data),
-        }
-      );
-      // const result = await response.json();
-      console.log(response);
+
       return response;
     } catch (error) {
       throw error;
