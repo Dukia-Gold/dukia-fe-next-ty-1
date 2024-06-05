@@ -1,20 +1,20 @@
-import { jwtVerify, SignJWT } from "jose";
-import cookieSignature from "cookie-signature";
+//import { jwtVerify, SignJWT } from "jose";
+//import cookieSignature from "cookie-signature";
 
-interface UserJwtPayload {
-    jti: string;
-    iat: number;
-}
+//interface UserJwtPayload {
+   // jti: string;
+  //  iat: number;
+//}
 
-export const getJwtSecretKey = () => {
-    const secret = process.env.JWT_SECRET_KEY;
+//export const getJwtSecretKey = () => {
+   // const secret = process.env.JWT_SECRET_KEY;
 
-    if(!secret || secret.length === 0) {
-        throw new Error('JWT_SECRET_KEY is not set. Please set it in your environment variables.');
-    }
+  //  if(!secret || secret.length === 0) {
+  //      throw new Error('JWT_SECRET_KEY is not set. Please set it in your environment variables.');
+  //  }
 
-    return secret;
-}
+   // return secret;
+//}
 
 // export const verifyAuth = async (token: string) => {
 //     try {
@@ -25,15 +25,15 @@ export const getJwtSecretKey = () => {
 //     }
 // }
 
-export const signToken = (token: string) => {
-    const secretKey = "cookie023200";
-    if (!secretKey || secretKey.length === 0) {
-        throw new Error('SIGN_KEY is not set.');
-    }
+//export const signToken = (token: string) => {
+    //const secretKey = "cookie023200";
+   // if (!secretKey || secretKey.length === 0) {
+        //throw new Error('SIGN_KEY is not set.');
+   // }
 
-    const signedToken = cookieSignature.sign(token, secretKey);
+   // const signedToken = cookieSignature.sign(token, secretKey);
 
-    return signedToken;
+   // return signedToken;
 }
 
 // export const unSignToken = (signedToken: string) => {
