@@ -8,76 +8,82 @@ import AOS from "aos";
 import "aos/dist/aos.css"; // You can also use <link> for styles
 
 export default function Home() {
-  const [isOnline, setIsOnline] = useState(window.navigator.onLine);
+  const [isOnline, setIsOnline] = useState(false);
+  const [remainingTime, setRemainingTime] = useState<number | null>(null);
 
   useEffect(() => {
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+    // Check if window is defined (client-side only)
+    if (typeof window !== "undefined") {
+      setIsOnline(window.navigator.onLine);
 
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
+      const handleOnline = () => {
+        toast.success("You are back online!", {
+          position: "bottom-right",
+        });
+        setIsOnline(true);
+      };
+
+      const handleOffline = () => {
+        toast.error("You are offline!", {
+          position: "bottom-right",
+        });
+        setIsOnline(false);
+      };
+
+      window.addEventListener("online", handleOnline);
+      window.addEventListener("offline", handleOffline);
+
+      // Cleanup event listeners on component unmount
+      return () => {
+        window.removeEventListener("online", handleOnline);
+        window.removeEventListener("offline", handleOffline);
+      };
+    }
   }, []);
-
-  const handleOnline = () => {
-    console.log("Network is online");
-    setIsOnline(true);
-  };
-
-  const handleOffline = () => {
-    console.log("Network is offline");
-    setIsOnline(false);
-  };
 
   // const [isOnline, setIsOnline] = useState(true);
 
-  // useEffect(() => {
-  //   if ('serviceWorker' in navigator) {
-  //     navigator.serviceWorker.register('/sw.js')
-  //       .then(registration => {
-  //         console.log('Service Worker registered with scope:', registration.scope);
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/sw.js")
+        .then((registration) => {
+          console.log(
+            "Service Worker registered with scope:",
+            registration.scope
+          );
 
-  //         const resetServiceWorkerTimeout = () => {
-  //           if (navigator.serviceWorker.controller) {
-  //             navigator.serviceWorker.controller.postMessage('resetTimeout');
-  //           }
-  //         };
+          const resetServiceWorkerTimeout = () => {
+            if (navigator.serviceWorker.controller) {
+              navigator.serviceWorker.controller.postMessage("resetTimeout");
+            }
+          };
 
-  //         document.addEventListener('mousemove', resetServiceWorkerTimeout);
-  //         document.addEventListener('keydown', resetServiceWorkerTimeout);
+          document.addEventListener("mousemove", resetServiceWorkerTimeout);
+          document.addEventListener("keydown", resetServiceWorkerTimeout);
 
-  //         window.addEventListener('online', updateNetworkStatus);
-  //         window.addEventListener('offline', updateNetworkStatus);
+          // Initialize the timer on page load
+          resetServiceWorkerTimeout();
+        })
+        .catch((error) => {
+          console.error("Service Worker registration failed:", error);
+        });
 
-  //         function updateNetworkStatus() {
-  //           if (navigator.serviceWorker.controller) {
-  //             navigator.serviceWorker.controller.postMessage('network-status');
-  //           }
-  //         }
+      navigator.serviceWorker.addEventListener("message", (event) => {
+        if (event.data === "logout") {
+          handleLogout();
+        } else if (event.data.type === "timer") {
+          setRemainingTime(event.data.remainingTime);
+        }
+      });
+    }
+  }, []);
 
-  //         // Check the initial network status
-  //         updateNetworkStatus();
-  //       })
-  //       .catch(error => {
-  //         console.error('Service Worker registration failed:', error);
-  //       });
-
-  //     navigator.serviceWorker.addEventListener('message', event => {
-  //       if (event.data === 'logout') {
-  //         handleLogout();
-  //       } else if (event.data.type === 'network-status') {
-  //         setIsOnline(event.data.status === 'online');
-  //       }
-  //     });
-  //   }
-  // }, []);
-
-  // const handleLogout = () => {
-  //   // Perform any necessary logout operations, such as clearing tokens, etc.
-  //   console.log('Logging out due to inactivity...');
-  //   window.location.href = '/login'; // Redirect to the login page or perform other logout actions
-  // };
+  const handleLogout = () => {
+    // Perform any necessary logout operations, such as clearing tokens, etc.
+    console.log("Logging out due to inactivity...");
+    window.location.href = "/login"; // Redirect to the login page or perform other logout actions
+  };
 
   useEffect(() => {
     AOS.init();
@@ -85,14 +91,19 @@ export default function Home() {
 
   return (
     <>
-      {!isOnline && <div className="pt-24 offline-banner">You are offline</div>}
-      {isOnline === null ? (
+      {remainingTime !== null && (
+        <div className="pt-24 fixed top-2.5 right-2.5 bg-black text-white py-1 px-2.5 rounded">
+          Remaining time: {remainingTime / 1000} seconds
+        </div>
+      )}
+      {/* {!isOnline && <div className="pt-24 offline-banner">You are offline</div>} */}
+      {/* {isOnline === null ? (
         <p className="pt-24">Checking network status...</p>
       ) : isOnline ? (
         <p className="pt-24">You are online</p>
       ) : (
         <p className="pt-24">You are offline</p>
-      )}
+      )} */}
       <ToastContainer />
     </>
     // <main className="">

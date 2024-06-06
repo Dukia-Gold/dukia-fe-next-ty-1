@@ -23,22 +23,30 @@ const Header: FC<header> = () => {
     setIsOpen(false);
   };
 
+  // data-aos="fade-down"
+  //     data-aos-offset="200"
+  //     data-aos-delay="50"
+  //     data-aos-duration="800"
+  //     data-aos-easing="ease-in-out"
+
   useEffect(() => {
     AOS.init();
   }, []);
 
   return (
     <header
-      data-aos="fade-down"
-      data-aos-offset="200"
-      data-aos-delay="50"
-      data-aos-duration="800"
-      data-aos-easing="ease-in-out"
       className={`${
         pathname === "/dashboard" ? "hidden" : "fixed"
       } w-[100vw] flex flex-col`}
     >
-      <div className="bg-dukiaGrey flex justify-between items-center px-3 md:px-12 xl:px-24 py-4">
+      {/* GOLD PRICE */}
+      <div className="flex justify-between py-3 px-3 md:px-12 xl:px-20 bg-dukiaGold">
+        <div></div>
+        <div></div>
+      </div>
+
+      {/* MAIN HEADER */}
+      <div className="bg-dukiaBlue flex justify-between items-center px-3 md:px-10 xl:px-20 py-2">
         <Link href="/">
           {" "}
           <Image
@@ -49,63 +57,56 @@ const Header: FC<header> = () => {
           />{" "}
         </Link>
 
-        <nav className="hidden sm:block">
-          <ul className="flex text-sm font-medium items-center gap-5 lg:gap-10 text-white">
-            {/* HOME */}
-            <li
-              className={`${
-                pathname === "/" ? "text-dukiaGold" : ""
-              } hover:text-dukiaGold`}
-            >
-              <Link href="/">Home</Link>
-            </li>
-
-            {/* BUY GOLD */}
-            <li className="hover:text-dukiaGold">
-              <Link
-                href="https://www.dukiapreciousmetals.co/buy-gold"
-                className="flex items-center gap-0.5"
+        <div className="flex items-center gap-6">
+          <nav className="hidden sm:block">
+            <ul className="flex text-sm items-center gap-4 lg:gap-4 text-white">
+              {/* HOME */}
+              <li
+                className={`${
+                  pathname === "/" ? "text-dukiaGold font-bold" : ""
+                } hover:text-dukiaGold hover:font-semibold`}
               >
-                <p>Buy Gold</p>
-                <RiArrowDropDownLine size={30} />
-              </Link>
-            </li>
+                <Link href="/">Home</Link>
+              </li>
 
-            {/* ABOUT US */}
-            <li className="hover:text-dukiaGold">
-              <Link href="/">About Us</Link>
-            </li>
+              {/* ABOUT US */}
+              <li className="hover:text-dukiaGold hover:font-semibold">
+                <Link href="/">About Dukia</Link>
+              </li>
 
-            {/* GUIDES */}
-            <li className="hover:text-dukiaGold">
-              <Link href="/" className="flex items-center gap-0.5">
-                <p>Guides</p>
-                <RiArrowDropDownLine size={30} />
-              </Link>
-            </li>
-          </ul>
-        </nav>
+              {/* BUY GOLD */}
+              <li className="hover:text-dukiaGold hover:font-semibold">
+                <Link
+                  href="https://www.dukiapreciousmetals.co/buy-gold"
+                  className="flex items-center gap-0.5"
+                >
+                  <p>Buy Gold</p>
+                  <RiArrowDropDownLine size={30} />
+                </Link>
+              </li>
 
-        <div className="hidden sm:flex items-center gap-4 text-xs">
-          <div className="relative">
-            <div className="absolute top-[-0.75rem] right-[-0.7rem] text-white bg-dukiaGold rounded-[50%] py-0.5 px-1.5 font-bold">
-              <p>0</p>
-            </div>
+              {/* GUIDES */}
+              <li className="hover:text-dukiaGold hover:font-semibold">
+                <Link href="/">
+                  <p>Guides</p>
+                </Link>
+              </li>
+            </ul>
+          </nav>
 
-            <FaCartShopping size={24} color="white" />
+          <div className="hidden sm:flex items-center gap-2 text-sm">
+            <Link href="/login">
+              <button className="text-white font-semibold py-3 px-5 rounded-lg border border-white">
+                Log In
+              </button>
+            </Link>
+
+            <Link href="/register">
+              <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
+                Register
+              </button>
+            </Link>
           </div>
-
-          <Link href="/login">
-            <button className="text-dukiaBlue bg-white border border-dukiaGold px-4 py-1 rounded-3xl hover:bg-dukiaBlue hover:text-white">
-              Login
-            </button>
-          </Link>
-
-          <Link href="/register">
-            <button className="bg-dukiaBlue text-white py-1 px-4 rounded-3xl hover:bg-dukiaGold">
-              Get Started
-            </button>
-          </Link>
         </div>
 
         <GiHamburgerMenu
@@ -115,12 +116,6 @@ const Header: FC<header> = () => {
           size={28}
         />
       </div>
-
-      <div>
-        <div></div>
-        <div></div>
-      </div>
-
       <MobileNav isOpen={isOpen} toggle={closeMobileNav} />
     </header>
   );

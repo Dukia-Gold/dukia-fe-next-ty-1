@@ -17,8 +17,8 @@ const config: Config = {
         "futura-md-bt": "'Futura Md BT', sans-serif",
       },
       colors: { 
-        dukiaBlue: "#1c254e",
-        dukiaGold: "#d5b16a",
+        dukiaBlue: "#111827",
+        dukiaGold: "#DAAA38",
         dukiaGrey: "#2a303c",
       }
     },

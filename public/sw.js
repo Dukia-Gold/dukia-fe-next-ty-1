@@ -1,6 +1,8 @@
 // public/sw.js
 
+let inactivityPreTimeout;
 let inactivityTimeout;
+let preTimeoutPeriod = 600000; // 10 minutes
 let timeoutPeriod = 30000; // 30 seconds
 let remainingTime = timeoutPeriod;
 
@@ -12,20 +14,28 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   console.log('Service Worker activated.');
   self.clients.claim();
-  updateNetworkStatus();
 });
 
 self.addEventListener('message', (event) => {
   if (event.data === 'resetTimeout') {
-    resetInactivityTimeout();
+    resetInactivityPreTimeout();
   }
 });
 
-function resetInactivityTimeout() {
+function resetInactivityPreTimeout() {
+  if (inactivityPreTimeout) {
+    clearTimeout(inactivityPreTimeout);
+  }
   if (inactivityTimeout) {
-    clearTimeout(inactivityTimeout);
+    clearInterval(inactivityTimeout);
   }
 
+  inactivityPreTimeout = setTimeout(() => {
+    startInactivityTimeout();
+  }, preTimeoutPeriod);
+}
+
+function startInactivityTimeout() {
   remainingTime = timeoutPeriod;
 
   inactivityTimeout = setInterval(() => {
@@ -55,16 +65,3 @@ function updateTimer() {
     });
   });
 }
-
-function updateNetworkStatus() {
-  const status = navigator.onLine ? 'online' : 'offline';
-  self.clients.matchAll().then(clients => {
-    clients.forEach(client => {
-      client.postMessage({ type: 'network-status', status });
-    });
-  });
-}
-
-// Listen for online and offline events
-self.addEventListener('online', updateNetworkStatus);
-self.addEventListener('offline', updateNetworkStatus);
