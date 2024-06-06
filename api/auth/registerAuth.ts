@@ -1,9 +1,12 @@
 import axios from "axios";
-import React from "react";
+import { useRouter } from "next/navigation";
 
-const registerAuth = () => {
+
+
+const RegisterAuth = () => {
+  const router = useRouter();
+
   const registerIndividual = async (formData: any) => {
-
     try {
       const response = await axios({
         url: "https://api.dukiapreciousmetals.co/api/register",
@@ -14,7 +17,8 @@ const registerAuth = () => {
         },
       });
 
-      return response;
+      router.push('/login');
+      // return response;
     } catch (error) {
       throw error;
     }
@@ -63,4 +67,4 @@ const registerAuth = () => {
   return { registerIndividual, registerJoint, registerCorporate };
 };
 
-export default registerAuth;
+export default RegisterAuth;

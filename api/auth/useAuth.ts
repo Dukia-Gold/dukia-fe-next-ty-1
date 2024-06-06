@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import cookie from "js-cookie";
 // import cookieSignature from "cookie-signature";

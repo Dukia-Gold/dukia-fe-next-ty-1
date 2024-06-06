@@ -1,6 +1,6 @@
 "use client";
 
-import registerAuth from "@/api/auth/registerAuth";
+import RegisterAuth from "@/api/auth/registerAuth";
 import { useState } from "react";
 
 interface FormData {
@@ -10,7 +10,7 @@ interface FormData {
 
 
 const RegisterPage = () => {
-  const { registerIndividual, registerJoint, registerCorporate } = registerAuth();
+  const { registerIndividual, registerJoint, registerCorporate } = RegisterAuth();
   const [tab, setTab] = useState("0");
   
   const handleRegisterIndividual = async (event: any) => {
