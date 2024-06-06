@@ -5,7 +5,7 @@ import axios from "axios";
 import cookie from "js-cookie";
 // import cookieSignature from "cookie-signature";
 import { useRouter } from 'next/navigation';
-import { signToken } from "@/lib/auth";
+// import { signToken } from "@/lib/auth";
 
 const useAuth = () => {
   const [token, setToken] = useState<string>("");
