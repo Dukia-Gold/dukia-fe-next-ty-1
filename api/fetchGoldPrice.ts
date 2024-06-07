@@ -3,9 +3,15 @@
 import axios from 'axios';
 import { useState } from 'react';
 
+interface GoldPrice {
+    oz: number;
+    kg: number;
+    g: number;
+}
+
 const useFetchGoldPrice = () => {
-    const [ask, setAsk] = useState([]);
-    const [bid, setBid] = useState([]);
+    const [ask, setAsk] = useState<GoldPrice>({ oz: 0, kg: 0, g: 0 });
+    const [bid, setBid] = useState<GoldPrice>({ oz: 0, kg: 0, g: 0 });
 
     const fetchGoldPrice = async () => {
         try {
