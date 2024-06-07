@@ -10,7 +10,7 @@ const LoginPage = () => {
   const { login, error } = useAuth();
   const logintoken = cookie.get("auth-token");
   // const signedToken: string = cookie.get("auth-token") as string;
-  console.log(logintoken);
+  // console.log(logintoken);
   // console.log(logintoken);
   // console.log(token);
   // const [email, setEmail] = useState<string>('');

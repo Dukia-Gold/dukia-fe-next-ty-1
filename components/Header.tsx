@@ -5,17 +5,18 @@ import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { FaCartShopping } from "react-icons/fa6";
 import MobileNav from "./MobileNav";
 import { usePathname } from "next/navigation";
-import AOS from "aos";
-import "aos/dist/aos.css"; // You can also use <link> for styles
+// import AOS from "aos";
+// import "aos/dist/aos.css"; // You can also use <link> for styles
+import useFetchGoldPrice from "@/api/fetchGoldPrice";
 
 type header = {
   // name: string
 };
 
 const Header: FC<header> = () => {
+  const { ask, bid, fetchGoldPrice } = useFetchGoldPrice();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -23,15 +24,24 @@ const Header: FC<header> = () => {
     setIsOpen(false);
   };
 
-  // data-aos="fade-down"
-  //     data-aos-offset="200"
-  //     data-aos-delay="50"
-  //     data-aos-duration="800"
-  //     data-aos-easing="ease-in-out"
-
   useEffect(() => {
-    AOS.init();
-  }, []);
+        // Fetch the gold price initially when the component mounts
+        fetchGoldPrice();
+
+        // Set an interval to fetch the gold price periodically
+        const interval = setInterval(() => {
+            fetchGoldPrice();
+        }, 12000); // Fetch every 60 seconds
+
+        // Clear the interval when the component unmounts
+        return () => clearInterval(interval);
+    }, []);
+
+  console.log(ask);
+
+  // useEffect(() => {
+  //   AOS.init();
+  // }, []);
 
   return (
     <header
@@ -40,13 +50,24 @@ const Header: FC<header> = () => {
       } w-[100vw] flex flex-col`}
     >
       {/* GOLD PRICE */}
-      <div className="flex justify-between py-3 px-3 md:px-12 xl:px-20 bg-dukiaGold">
-        <div></div>
-        <div></div>
+      <div className="flex flex-col md:items-center  md:flex-row justify-between gap-1 py-3 px-1.5 md:px-5 lg:px-10 xl:px-20
+      bg-dukiaGold text-sm text-dukiaBlue font-semibold"> 
+          <p className="flex items-center gap-0.5 lg:gap-1">GOLD ASK: 
+            <span className="text-xs font-normal">$ {ask.oz}/oz</span>|
+            <span className="text-xs font-normal">$ {ask.g}/g</span>|
+            <span className="text-xs font-normal">$ {ask.kg}/kg</span>
+            -0.01% (-$0.12)
+          </p> 
+
+          <p className="flex items-center gap-0.5 lg:gap-1">GOLD BID: 
+            <span className="text-xs font-normal">$ {bid.oz}/oz</span>|
+            <span className="text-xs font-normal">$ {bid.g}/g</span>|
+            <span className="text-xs font-normal">$ {bid.kg}/kg</span>
+          </p> 
       </div>
 
       {/* MAIN HEADER */}
-      <div className="bg-dukiaBlue flex justify-between items-center px-3 md:px-10 xl:px-20 py-2">
+      <div className="bg-dukiaBlue flex justify-between items-center px-3 md:px-5 lg:px-10 xl:px-20 py-2">
         <Link href="/">
           {" "}
           <Image
