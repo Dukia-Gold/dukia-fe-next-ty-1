@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   keywords: ['dukia', 'gold', 'buy', 'sell', 'pool allocated', 'buy gold', 'sell gold', 'Gold in Nigeria', 'Philoro'].join(', '),
   // authors: ["Dukia Gold - Precious Metals Refining Co. Ltd."],
   // themeColor: "#000000",
-  language: "English",
+  // language: "English",
   robots: ["index", "follow"].join(', '),
 };
 
