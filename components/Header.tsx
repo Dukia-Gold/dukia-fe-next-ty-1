@@ -19,6 +19,8 @@ const Header: FC<header> = () => {
   const { ask, bid, fetchGoldPrice } = useFetchGoldPrice();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [askClass, setAskClass] = useState('');
+    const [bidClass, setBidClass] = useState('');
 
   const closeMobileNav = () => {
     setIsOpen(false);
@@ -37,6 +39,20 @@ const Header: FC<header> = () => {
         return () => clearInterval(interval);
     }, []);
 
+  useEffect(() => {
+        // Trigger bounce animation when ask price changes
+        setAskClass('animate-bounce');
+        const timeout = setTimeout(() => setAskClass(''), 1500); // Remove bounce class after animation
+        return () => clearTimeout(timeout);
+    }, [ask]);
+
+    useEffect(() => {
+        // Trigger bounce animation when bid price changes
+        setBidClass('animate-bounce');
+        const timeout = setTimeout(() => setBidClass(''), 1500); // Remove bounce class after animation
+        return () => clearTimeout(timeout);
+    }, [bid]);
+
   console.log(ask);
 
   // useEffect(() => {
@@ -53,16 +69,16 @@ const Header: FC<header> = () => {
       <div className="flex flex-col md:items-center  md:flex-row justify-between gap-1 py-3 px-1.5 md:px-5 lg:px-10 xl:px-20
       bg-dukiaGold text-sm text-dukiaBlue font-semibold"> 
           <p className="flex items-center gap-0.5 lg:gap-1">GOLD ASK: 
-            <span className="text-xs font-normal">$ {ask.oz}/oz</span>|
-            <span className="text-xs font-normal">$ {ask.g}/g</span>|
-            <span className="text-xs font-normal">$ {ask.kg}/kg</span>
+            <span className={`text-xs font-normal ${askClass}`}>$ {ask.oz}/oz</span>|
+            <span className={`text-xs font-normal ${askClass}`}>$ {ask.g}/g</span>|
+            <span className={`text-xs font-normal ${askClass}`}>$ {ask.kg}/kg</span>
             -0.01% (-$0.12)
           </p> 
 
           <p className="flex items-center gap-0.5 lg:gap-1">GOLD BID: 
-            <span className="text-xs font-normal">$ {bid.oz}/oz</span>|
-            <span className="text-xs font-normal">$ {bid.g}/g</span>|
-            <span className="text-xs font-normal">$ {bid.kg}/kg</span>
+            <span className={`text-xs font-normal ${bidClass}`}>$ {bid.oz}/oz</span>|
+            <span className={`text-xs font-normal ${bidClass}`}>$ {bid.g}/g</span>|
+            <span className={`text-xs font-normal ${bidClass}`}>$ {bid.kg}/kg</span>
           </p> 
       </div>
 
