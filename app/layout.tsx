@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Dukia Gold Precious Metals Refining ",
   description: "Buy and sell gold with Dukia Gold,  a gold and precious metals refiner and the only full-service bullion-merchant in Nigeria, West Africa. ",
   keywords: ['dukia', 'gold', 'buy', 'sell', 'pool allocated', 'buy gold', 'sell gold', 'Gold in Nigeria', 'Philoro'].join(', '),
-  author: "Dukia Gold - Precious Metals Refining Co. Ltd.",
+  authors: "Dukia Gold - Precious Metals Refining Co. Ltd.",
   themeColor: "#000000",
   language: "English",
   robots: ["index", "follow"].join(', '),
