@@ -89,8 +89,8 @@ const Header: FC<header> = () => {
           <Image
             src="https://res.cloudinary.com/dcu3hr3eo/image/upload/c_scale,w_134/v1686236202/Dukia_Gold_Logo_TRA_cwhx0e.png"
             alt="Dukia Gold's Logo"
-            width={60}
-            height={60}
+            width={85}
+            height={85}
           />{" "}
         </Link>
 
