@@ -4,8 +4,8 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const useFetchGoldPrice = () => {
-    const [ask, setAsk] = useState(0);
-    const [bid, setBid] = useState(0);
+    const [ask, setAsk] = useState({});
+    const [bid, setBid] = useState({});
 
     const fetchGoldPrice = async () => {
         try {
