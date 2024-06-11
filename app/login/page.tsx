@@ -3,6 +3,7 @@
 import useAuth from "@/api/auth/useAuth";
 import cookie from "js-cookie";
 import { useState } from "react";
+import AuthBox from "@/components/authComponents/AuthBox";
 
 
 
@@ -24,8 +25,10 @@ const LoginPage = () => {
   };
 
   return (
-    <main className="h-screen bg-[#f1f5f9] pt-24 flex flex-col justify-center items-center">
-      <div className="w-[75%] h-[50%] shadow-lg">
+    <main className="bg-white pt-44 pb-[1.41rem] flex justify-center">
+
+      <AuthBox />
+      {/*<div className="w-[75%] h-[50%] shadow-lg">
         <div>LoginPage</div>
         <form onSubmit={handleLogin} className="flex flex-col gap-2 p-4 text-sm">
           <input type="email" name="email" id="" placeholder="Enter your email" className="border p-2 outline-none rounded-md border-black" />
@@ -36,7 +39,7 @@ const LoginPage = () => {
           
           <button type="submit" className="p-2 bg-dukiaBlue text-white">Log in</button>
         </form>
-      </div>
+      </div>*/}
     </main>
   );
 };

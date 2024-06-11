@@ -23,19 +23,19 @@ const useAuth = () => {
           device_name: deviceName,
         }
       );
-      const { access_token, user: userData } = response.data;
+      const { authorization, expires, user: userData } = response.data;
 
-      setToken(access_token.plainTextToken);
+      setToken(authorization);
       setUser(userData);
 
       // const secretKey = process.env.SIGN_KEY;
-      console.log(access_token);
+      console.log(authorization);
       // const signedToken = signToken(token);
 
-      const expiresAt = access_token.accessToken.expires_at;
+      const expiresAt = expires;
       const expiryDate = new Date(expiresAt);
       
-      cookie.set("auth-token", access_token.plainTextToken, { expires: expiryDate, secure: true, sameSite: 'none' }); // expires in 1 day
+      cookie.set("auth-token", authorization, { expires: expiryDate, secure: true, sameSite: 'none' }); // expires in 1 day
       router.push('/dashboard');
     } catch (error: unknown) {
       if (error instanceof Error) {
