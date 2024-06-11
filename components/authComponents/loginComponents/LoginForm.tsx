@@ -1,7 +1,5 @@
 import useAuth from "@/api/auth/useAuth";
 
-
-
 const LoginForm = () => {
 	const { login, error } = useAuth();
 
