@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import AOS from "aos";
 import "aos/dist/aos.css"; // You can also use <link> for styles
+import Hero from "@/components/landingPageComponents/landingPageSections/Hero";
 
 export default function Home() {
   const [isOnline, setIsOnline] = useState(false);
@@ -92,7 +92,8 @@ export default function Home() {
   return (
     <main className="">
       {/* HERO */}
-      <section className="h-screen pt-24 px-3 md:px-12 xl:px-24 py-4 flex flex-col xl:flex-row gap-3 justify-center items-center bg-[#f1f5f9]">
+      <Hero />
+      {/* <section className="h-screen pt-24 px-3 md:px-12 xl:px-24 py-4 flex flex-col xl:flex-row gap-3 justify-center items-center bg-[#f1f5f9]">
         <Image
           src="https://res.cloudinary.com/dcu3hr3eo/image/upload/v1685716140/Dukia-Gold-Hero_fokz3g.png"
           alt="Gold Bars"
@@ -118,7 +119,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* BUY GOLD WITH EASE */}
       <section className="flex flex-col gap-8 px-1 md:px-12 xl:px-24 py-20 bg-dukiaGrey justify-between">
@@ -303,15 +304,6 @@ export default function Home() {
           Remaining time: {remainingTime / 1000} seconds
         </div>
       )}
-      {/* {!isOnline && <div className="pt-24 offline-banner">You are offline</div>} */}
-      {/* {isOnline === null ? (
-        <p className="pt-24">Checking network status...</p>
-      ) : isOnline ? (
-        <p className="pt-24">You are online</p>
-      ) : (
-        <p className="pt-24">You are offline</p>
-      )} */}
-      <ToastContainer />
     </main>
   );
 }
