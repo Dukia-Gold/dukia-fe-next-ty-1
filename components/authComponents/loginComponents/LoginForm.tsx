@@ -1,7 +1,7 @@
 import useAuth from "@/api/auth/useAuth";
 
 const LoginForm = () => {
-  const { login, error, loginLoading } = useAuth();
+  const { login, loginLoading } = useAuth();
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -41,8 +41,6 @@ const LoginForm = () => {
             placeholder="Enter Password"
           />
         </div>
-
-        {error && <div style={{ color: "red" }}>{error}</div>}
 
         <p className="text-end">Forgot Password?</p>
       </div>

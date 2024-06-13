@@ -11,6 +11,7 @@ export default function Home() {
   const [isOnline, setIsOnline] = useState(false);
   const [remainingTime, setRemainingTime] = useState<number | null>(null);
 
+  // ONLINE OR OFFLINE
   useEffect(() => {
     // Check if window is defined (client-side only)
     if (typeof window !== "undefined") {
@@ -41,8 +42,7 @@ export default function Home() {
     }
   }, []);
 
-  // const [isOnline, setIsOnline] = useState(true);
-
+  // SESSION ACTIVITY
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker

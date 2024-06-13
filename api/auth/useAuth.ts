@@ -4,11 +4,11 @@ import { useState } from "react";
 import axios from "axios";
 import cookie from "js-cookie";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const useAuth = () => {
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
   const [user, setUser] = useState(null);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const login = async (email: string, password: string, deviceName: string) => {
@@ -35,11 +35,18 @@ const useAuth = () => {
 
       router.push("/dashboard");
       setLoginLoading(false);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("Unknown error");
+    } catch (error: any) {
+      // console.log(error.response.status);
+      if (error.response.status === 401) {
+        toast.error("Wrong email or password!", {
+          position: "bottom-right",
+        });
+        setLoginLoading(false);
+      } else if (error.response.status === 404) {
+        toast.error("This email is not registered!", {
+          position: "bottom-right",
+        });
+        setLoginLoading(false);
       }
     }
   };
@@ -56,7 +63,7 @@ const useAuth = () => {
     // }
   };
 
-  return { user, error, loginLoading, login, logout };
+  return { user, loginLoading, login, logout };
 };
 
 export default useAuth;
