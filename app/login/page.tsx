@@ -1,11 +1,9 @@
-"use client"
+"use client";
 
 import useAuth from "@/api/auth/useAuth";
 import cookie from "js-cookie";
 import { useState } from "react";
 import AuthBox from "@/components/authComponents/AuthBox";
-
-
 
 const LoginPage = () => {
   const { login, error } = useAuth();
@@ -25,21 +23,8 @@ const LoginPage = () => {
   };
 
   return (
-    <main className="bg-white pt-44 pb-[1.41rem] flex justify-center">
-
+    <main className="bg-white pt-52 md:pt-44 pb-[1.41rem] flex justify-center">
       <AuthBox />
-      {/*<div className="w-[75%] h-[50%] shadow-lg">
-        <div>LoginPage</div>
-        <form onSubmit={handleLogin} className="flex flex-col gap-2 p-4 text-sm">
-          <input type="email" name="email" id="" placeholder="Enter your email" className="border p-2 outline-none rounded-md border-black" />
-
-          <input type="password" name="password" id="" placeholder="Enter your password" className="border p-2 outline-none rounded-md border-black" />
-
-          {error && <div style={{ color: 'red' }}>{error}</div>}
-          
-          <button type="submit" className="p-2 bg-dukiaBlue text-white">Log in</button>
-        </form>
-      </div>*/}
     </main>
   );
 };

@@ -37,7 +37,7 @@ const Header: FC<header> = () => {
 
         // Clear the interval when the component unmounts
         return () => clearInterval(interval);
-    }, []);
+    }, [fetchGoldPrice]);
 
   useEffect(() => {
         // Trigger bounce animation when ask price changes
@@ -53,8 +53,6 @@ const Header: FC<header> = () => {
         return () => clearTimeout(timeout);
     }, [bid]);
 
-  console.log(ask);
-
   // useEffect(() => {
   //   AOS.init();
   // }, []);
@@ -68,17 +66,17 @@ const Header: FC<header> = () => {
       {/* GOLD PRICE */}
       <div className="flex flex-col md:items-center  md:flex-row justify-between gap-1 py-3 px-1.5 md:px-5 lg:px-10 xl:px-20
       bg-dukiaGold text-sm text-dukiaBlue font-semibold"> 
-          <p className="flex items-center gap-0.5 lg:gap-1">GOLD ASK: 
-            <span className={`text-xs font-normal ${askClass}`}>$ {ask.oz}/oz</span>|
-            <span className={`text-xs font-normal ${askClass}`}>$ {ask.g}/g</span>|
-            <span className={`text-xs font-normal ${askClass}`}>$ {ask.kg}/kg</span>
+          <p className="flex items-center md:gap-0.5 lg:gap-1">GOLD ASK: 
+            <span className={`text-xs font-normal ${askClass}`}>${ask.oz}/oz</span>|
+            <span className={`text-xs font-normal ${askClass}`}>${ask.g}/g</span>|
+            <span className={`text-xs font-normal ${askClass}`}>${ask.kg}/kg</span>
             -0.01% (-$0.12)
           </p> 
 
           <p className="flex items-center gap-0.5 lg:gap-1">GOLD BID: 
-            <span className={`text-xs font-normal ${bidClass}`}>$ {bid.oz}/oz</span>|
-            <span className={`text-xs font-normal ${bidClass}`}>$ {bid.g}/g</span>|
-            <span className={`text-xs font-normal ${bidClass}`}>$ {bid.kg}/kg</span>
+            <span className={`text-xs font-normal ${bidClass}`}>${bid.oz}/oz</span>|
+            <span className={`text-xs font-normal ${bidClass}`}>${bid.g}/g</span>|
+            <span className={`text-xs font-normal ${bidClass}`}>${bid.kg}/kg</span>
           </p> 
       </div>
 
