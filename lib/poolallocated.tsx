@@ -103,7 +103,7 @@ const PoolAllocated= () => {
     };
   }, []);
 
-  return {  }
+  return { Gram }
 
 //   return (
 //     <div className="container mx-auto p-4 max-w-md">
