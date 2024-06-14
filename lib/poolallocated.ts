@@ -82,6 +82,8 @@ const PoolAllocated= () => {
 
   const toggleMode = () => {
     setIsGramToPrice(!isGramToPrice);
+    setGram('0.00');
+    setPrice('0.00');
     resetTimer();
   };
 
@@ -103,48 +105,7 @@ const PoolAllocated= () => {
     };
   }, []);
 
-  return { Gram }
-
-//   return (
-//     <div className="container mx-auto p-4 max-w-md">
-//       <h1 className="text-2xl font-bold mb-4 text-center">Gold Price Calculator</h1>
-//       <div className="mb-4 text-center">
-//         <button 
-//           onClick={toggleMode} 
-//           className="px-4 py-2 bg-blue-500 text-white rounded">
-//           {isGramToPrice ? 'Switch to Price to Gram' : 'Switch to Gram to Price'}
-//         </button>
-//       </div>
-//       {isGramToPrice ? (
-//         <>
-//           <label htmlFor="GramInput" className="block text-left mb-2">Enter weight in Gram:</label>
-//           <input
-//             type="text"
-//             id="GramInput"
-//             value={Gram}
-//             onChange={handleGramInput}
-//             className="w-full p-2 mb-4 border border-gray-300 rounded"
-//           />
-//           <p className="text-left mb-2">Gold price per Gram: <span id="goldPrice" className="font-semibold">{formatNumber(goldPricePerGram.toFixed(2), true)}</span></p>
-//           <p className="text-left mb-2">Total value: <span id="totalValue" className="font-semibold">{price}</span></p>
-//         </>
-//       ) : (
-//         <>
-//           <label htmlFor="priceInput" className="block text-left mb-2">Enter total price in dollars:</label>
-//           <input
-//             type="text"
-//             id="priceInput"
-//             value={price}
-//             onChange={handlePriceInput}
-//             className="w-full p-2 mb-4 border border-gray-300 rounded"
-//           />
-//           <p className="text-left mb-2">Gold price per Gram: <span id="goldPrice" className="font-semibold">{formatNumber(goldPricePerGram.toFixed(2), true)}</span></p>
-//           <p className="text-left mb-2">Weight in Gram: <span id="totalGram" className="font-semibold">{Gram}</span></p>
-//         </>
-//       )}
-//       <p className="text-left">Time until next update: <span id="timer" className="font-semibold">{timer}</span> seconds</p>
-//     </div>
-//   );
+  return { price, handlePriceInput, Gram, handleGramInput, resetTimer, formatNumber, goldPricePerGram, timer, toggleMode, isGramToPrice };
 };
 
 export default PoolAllocated;

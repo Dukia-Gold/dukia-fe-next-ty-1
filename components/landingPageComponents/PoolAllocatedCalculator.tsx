@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import PoolAllocated from "@/lib/poolallocated";
 
 const PoolAllocatedCalculator = () => {
+  const { price, handlePriceInput, Gram, handleGramInput, resetTimer, formatNumber, goldPricePerGram, timer, toggleMode, isGramToPrice } = PoolAllocated();
   const [tab, setTab] = useState(true);
   return (
     <div className="text-black rounded-2xl w-[95%] md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 bg-[#F3F3F4]">
@@ -10,16 +12,20 @@ const PoolAllocatedCalculator = () => {
 
       <form className="pb-6 px-6 flex flex-col gap-6">
         <div className="flex flex-col gap-2">
-          {/* NAIRA - N */}
-          <div className={`${tab ? "flex" : "hidden"} flex-col gap-1`}>
+          {/* NAIRA INPUT - NAIRA to G */}
+          <div className={`${isGramToPrice ? "hidden" : "flex"} flex-col gap-1`}>
             <div className="flex flex-col gap-2">
               <label htmlFor="currency" className="text-sm font-semibold">
-                Currency
+                Currency (Naira)
               </label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 name="currency"
                 id="currency"
+                value={price}
+                onChange={handlePriceInput}
                 className="text-dukiaBlue py-4 px-6 outline-none border border-dukiaBlue/[15%] rounded-lg placeholder:text-dukiaBlue/[50%]"
                 placeholder="Enter Naira Value"
               />
@@ -27,16 +33,20 @@ const PoolAllocatedCalculator = () => {
             <p className="text-sm">Starting from N5,000</p>
           </div>
 
-          {/* WEIGHT - G to NAIRA */}
-          <div className={`${tab ? "hidden" : "flex"} flex flex-col gap-1`}>
+          {/* WEIGHT INPUT - G to NAIRA */}
+          <div className={`${isGramToPrice ? "flex" : "hidden"} flex flex-col gap-1`}>
             <div className="flex flex-col gap-2">
               <label htmlFor="weight" className="text-sm font-semibold">
-                Weight
+                Weight (Gram)
               </label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 name="weight"
                 id="weight"
+                value={Gram}
+                onChange={handleGramInput}
                 className="text-dukiaBlue py-4 px-6 outline-none border border-dukiaBlue/[15%] rounded-lg placeholder:text-dukiaBlue/[50%]"
                 placeholder="Weight(g)"
               />
@@ -47,10 +57,7 @@ const PoolAllocatedCalculator = () => {
           <div className="flex justify-center">
             <svg
               className="cursor-pointer"
-              onClick={() => {
-                setTab((prevState) => !prevState);
-                // resetTimer();
-              }}
+              onClick={toggleMode}
               width="40"
               height="40"
               viewBox="0 0 40 40"
@@ -74,33 +81,27 @@ const PoolAllocatedCalculator = () => {
             </svg>
           </div>
 
-          <div className={`${tab ? "flex" : "hidden"} flex flex-col gap-1`}>
+          {/* WEIGHT DISPLAY - NAIRA to G */}
+          <div className={`${isGramToPrice ? "hidden" : "flex"} flex flex-col gap-1`}>
             <div className="flex flex-col gap-2">
               <label htmlFor="weight" className="text-sm font-semibold">
-                Weight
+                Weight (Gram)
               </label>
-              <input
-                type="number"
-                name="weight"
-                id="weight"
-                className="text-dukiaBlue py-4 px-6 outline-none border border-dukiaBlue/[15%] rounded-lg placeholder:text-dukiaBlue/[50%]"
-                placeholder="Weight(g)"
-              />
+              <div className=" bg-white h-[3.125rem] text-dukiaBlue flex items-center px-6 border border-dukiaBlue/[15%] rounded-lg placeholder:text-dukiaBlue/[50%]">
+                <p>{Gram}</p>
+              </div>
             </div>
           </div>
 
-          <div className={`${tab ? "hidden" : "flex"} flex-col gap-1`}>
+          {/* NAIRA DISPLAY - G to NAIRA */}
+          <div className={`${isGramToPrice ? "flex" : "hidden"} flex-col gap-1`}>
             <div className="flex flex-col gap-2">
               <label htmlFor="currency" className="text-sm font-semibold">
-                Currency
+                Currency (Naira)
               </label>
-              <input
-                type="number"
-                name="currency"
-                id="currency"
-                className="text-dukiaBlue py-4 px-6 outline-none border border-dukiaBlue/[15%] rounded-lg placeholder:text-dukiaBlue/[50%]"
-                placeholder="Enter Naira Value"
-              />
+              <div className=" bg-white h-[3.125rem] text-dukiaBlue flex items-center px-6 border border-dukiaBlue/[15%] rounded-lg placeholder:text-dukiaBlue/[50%]">
+                <p>{price}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -109,7 +110,7 @@ const PoolAllocatedCalculator = () => {
           Continue
         </button>
 
-        <p className="text-right text-sm">Time until next update: <span id="timer" className="font-semibold">30</span> seconds</p>
+        <p className="text-right text-sm">Time until next update: <span id="timer" className="font-semibold">{timer}</span> seconds</p>
       </form>
     </div>
   );
