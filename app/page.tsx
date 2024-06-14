@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import AOS from "aos";
 import "aos/dist/aos.css"; // You can also use <link> for styles
 import Hero from "@/components/landingPageComponents/landingPageSections/Hero";
+// import PoolAllocated from "@/lib/poolallocated";
 
 export default function Home() {
   const [isOnline, setIsOnline] = useState(false);
@@ -93,6 +94,7 @@ export default function Home() {
     <main className="">
       {/* HERO */}
       <Hero />
+      {/* <PoolAllocated /> */}
       {/* <section className="h-screen pt-24 px-3 md:px-12 xl:px-24 py-4 flex flex-col xl:flex-row gap-3 justify-center items-center bg-[#f1f5f9]">
         <Image
           src="https://res.cloudinary.com/dcu3hr3eo/image/upload/v1685716140/Dukia-Gold-Hero_fokz3g.png"
