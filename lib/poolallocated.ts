@@ -105,7 +105,7 @@ const PoolAllocated= () => {
     };
   }, []);
 
-  return { price, handlePriceInput, Gram, handleGramInput, resetTimer, formatNumber, goldPricePerGram, timer, toggleMode, isGramToPrice };
+  return { price, handlePriceInput, Gram, handleGramInput, resetTimer, formatNumber, goldPricePerGram, timer, toggleMode, isGramToPrice, setPrice };
 };
 
 export default PoolAllocated;

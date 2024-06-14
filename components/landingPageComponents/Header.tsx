@@ -62,7 +62,7 @@ const Header: FC<header> = () => {
   return (
     <header
       className={`${
-        pathname === "/dashboard" ? "hidden" : "fixed"
+        pathname === "/dashboard" ? "hidden" : "fixed z-50"
       } w-[100vw] flex flex-col`}
     >
       {/* GOLD PRICE */}
@@ -72,7 +72,7 @@ const Header: FC<header> = () => {
             <span className={`text-xs font-normal ${askClass}`}>$ {ask.oz}/oz</span>|
             <span className={`text-xs font-normal ${askClass}`}>$ {ask.g}/g</span>|
             <span className={`text-xs font-normal ${askClass}`}>$ {ask.kg}/kg</span>
-            -0.01% (-$0.12)
+            <span className="text-xs hidden sm:block">-0.01% (-$0.12)</span>
           </p> 
 
           <p className="flex items-center gap-0.5 lg:gap-1">GOLD BID: 

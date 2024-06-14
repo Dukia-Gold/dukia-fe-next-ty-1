@@ -27,8 +27,8 @@ const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
 
   // Return the modal
   return (
-    <div className="fixed sm:hidden top-0 left-0 w-full h-[100vh] bg-[#00000040] flex justify-end">
-      <div className="bg-dukiaBlue w-[50%] h-[100vh] absolute z-50 p-5 flex flex-col justify-between items-start">
+    <div className="fixed z-50 sm:hidden top-0 left-0 w-full h-[100vh] bg-[#00000040] flex justify-end">
+      <div className="bg-dukiaBlue w-[50%] h-[100vh] absolute z-50 p-5 pb-36 flex flex-col justify-between items-start">
         <div className="flex items-center justify-between w-full">
           <Link href="/">
             {" "}
