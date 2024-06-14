@@ -5,7 +5,7 @@ const PoolAllocatedCalculator = () => {
   const { price, handlePriceInput, Gram, handleGramInput, resetTimer, formatNumber, goldPricePerGram, timer, toggleMode, isGramToPrice } = PoolAllocated();
   const [tab, setTab] = useState(true);
   return (
-    <div className="text-black rounded-2xl w-[95%] md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 bg-[#F3F3F4]">
+    <div className="text-black rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 bg-[#F3F3F4]">
       <div className=" rounded-t-2xl py-4 flex justify-center bg-dukiaBlue text-white font-semibold">
         <p>Pool Allocated Calculator</p>
       </div>
