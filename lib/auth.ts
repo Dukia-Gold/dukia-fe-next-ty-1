@@ -20,6 +20,7 @@ export const verifyAuth = async (token: string) => {
         const verified = await jwtVerify(token, new TextEncoder().encode(getJwtSecretKey()));
         return verified.payload as UserJwtPayload;
     } catch (error) {
-        throw new Error('Invalid token. Please login again.')
+        console.log('Invalid token. Please login again.');
+        throw new Error('Invalid token. Please login again.');
     }
 }
