@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 
 
@@ -24,22 +25,22 @@ const RegisterAuth = () => {
     }
   };
 
-  const registerJoint = async (data: any) => {
+  const registerJoint = async (formData: any) => {
     try {
-      const response = await fetch(
-        "https://api.dukiapreciousmetals.co/api/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      const result = await response.json();
-      console.log(result);
-      return result;
-    } catch (error) {
+      const response = await axios({
+        url: "https://api.dukiapreciousmetals.co/api/joint-account/register",
+        method: "POST",
+        data: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      toast.success("Joint Account Created Successfully");
+      router.push('/login');
+      // return response;
+    } catch (error: any) {
+      toast.error(error.response.data.message);
       throw error;
     }
   };

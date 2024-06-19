@@ -6,6 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css"; // You can also use <link> for styles
 import Hero from "@/components/landingPageComponents/landingPageSections/Hero";
 import WhoWeAre from "@/components/landingPageComponents/landingPageSections/WhoWeAre";
+import WhatWeOffer from "@/components/landingPageComponents/landingPageSections/WhatWeOffer";
 
 export default function Home() {
   const [isOnline, setIsOnline] = useState(false);
@@ -96,6 +97,9 @@ export default function Home() {
 
       {/* WHO WE ARE */}
       <WhoWeAre />
+
+      {/* WHAT WE OFFER */}
+      <WhatWeOffer />
 
       {remainingTime !== null && (
         <div className="pt-24 fixed top-2.5 right-2.5 bg-black text-white py-1 px-2.5 rounded">
