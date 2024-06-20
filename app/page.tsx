@@ -8,6 +8,7 @@ import WhoWeAre from "@/components/landingPageComponents/landingPageSections/Who
 import WhatWeOffer from "@/components/landingPageComponents/landingPageSections/WhatWeOffer";
 import Newsletter from "@/components/landingPageComponents/landingPageSections/Newsletter";
 import { toast } from "@/components/ui/use-toast";
+import FAQ from "@/components/landingPageComponents/landingPageSections/FAQ";
 
 export default function Home() {
   const [isOnline, setIsOnline] = useState(false);
@@ -103,6 +104,9 @@ export default function Home() {
 
       {/* WHAT WE OFFER */}
       <WhatWeOffer />
+
+      {/* FAQ */}
+      <FAQ />
 
       {/* NEWSLETTER */}
       <Newsletter />

@@ -18,7 +18,7 @@ const Newsletter = () => {
   };
 
   return (
-    <div className="py-12 px-4 sm:px-0 flex flex-col gap-6 items-center bg-[#F3F3F4]">
+    <section className="py-12 px-4 sm:px-0 flex flex-col gap-6 items-center bg-[#F3F3F4]">
       <div className="flex flex-col items-center gap-2">
         <svg
           width="80"
@@ -71,7 +71,7 @@ const Newsletter = () => {
             {loading ? "Loading" : "Subscribe"}
         </button>
       </form>
-    </div>
+    </section>
   );
 };
 

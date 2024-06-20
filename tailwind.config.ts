@@ -20,7 +20,7 @@ const config = {
       colors: { 
         dukiaBlue: "#111827",
         dukiaGold: "#DAAA38",
-        dukiaGrey: "#2a303c",
+        dukiaGrey: "#F3F3F4",
       },
       keyframes: {
         "accordion-down": {
