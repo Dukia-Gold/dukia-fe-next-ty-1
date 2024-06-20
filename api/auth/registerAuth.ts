@@ -1,6 +1,6 @@
+import { toast } from "@/components/ui/use-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 
 
 
@@ -36,11 +36,17 @@ const RegisterAuth = () => {
         },
       });
 
-      toast.success("Joint Account Created Successfully");
+      toast({
+        description: "Joint Account Created Successfully",
+      });
       router.push('/login');
       // return response;
     } catch (error: any) {
-      toast.error(error.response.data.message);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: error.response?.data?.message || "An error occured!",
+      });
       throw error;
     }
   };
