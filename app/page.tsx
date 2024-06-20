@@ -9,6 +9,8 @@ import WhatWeOffer from "@/components/landingPageComponents/landingPageSections/
 import Newsletter from "@/components/landingPageComponents/landingPageSections/Newsletter";
 import { toast } from "@/components/ui/use-toast";
 import FAQ from "@/components/landingPageComponents/landingPageSections/FAQ";
+import AsFeaturedIn from "@/components/landingPageComponents/landingPageSections/AsFeaturedIn";
+import CustomerReviews from "@/components/landingPageComponents/landingPageSections/CustomersReviews";
 
 export default function Home() {
   const [isOnline, setIsOnline] = useState(false);
@@ -96,19 +98,18 @@ export default function Home() {
 
   return (
     <main className="">
-      {/* HERO */}
       <Hero />
 
-      {/* WHO WE ARE */}
       <WhoWeAre />
 
-      {/* WHAT WE OFFER */}
       <WhatWeOffer />
 
-      {/* FAQ */}
+      <AsFeaturedIn />
+
+      <CustomerReviews />
+
       <FAQ />
 
-      {/* NEWSLETTER */}
       <Newsletter />
 
       {remainingTime !== null && (
