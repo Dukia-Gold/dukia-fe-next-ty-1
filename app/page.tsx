@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import AOS from "aos";
 import "aos/dist/aos.css"; // You can also use <link> for styles
 import Hero from "@/components/landingPageComponents/landingPageSections/Hero";
 import WhoWeAre from "@/components/landingPageComponents/landingPageSections/WhoWeAre";
 import WhatWeOffer from "@/components/landingPageComponents/landingPageSections/WhatWeOffer";
+import Newsletter from "@/components/landingPageComponents/landingPageSections/Newsletter";
+import { toast } from "@/components/ui/use-toast";
 
 export default function Home() {
   const [isOnline, setIsOnline] = useState(false);
@@ -19,15 +20,17 @@ export default function Home() {
       setIsOnline(window.navigator.onLine);
 
       const handleOnline = () => {
-        toast.success("You are back online!", {
-          position: "bottom-right",
+        toast({
+          description: "You are back online!",
         });
         setIsOnline(true);
       };
 
       const handleOffline = () => {
-        toast.error("You are offline!", {
-          position: "bottom-right",
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "You are offline!",
         });
         setIsOnline(false);
       };
@@ -100,6 +103,9 @@ export default function Home() {
 
       {/* WHAT WE OFFER */}
       <WhatWeOffer />
+
+      {/* NEWSLETTER */}
+      <Newsletter />
 
       {remainingTime !== null && (
         <div className="pt-24 fixed top-2.5 right-2.5 bg-black text-white py-1 px-2.5 rounded">

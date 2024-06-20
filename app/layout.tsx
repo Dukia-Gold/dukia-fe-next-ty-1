@@ -3,8 +3,7 @@ import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/landingPageComponents/Header";
 import Footer from "@/components/landingPageComponents/Footer";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -32,7 +31,7 @@ export default function RootLayout({
         <main className="min-h-screen flex flex-col justify-between">
           {children}
 
-          <ToastContainer />
+          <Toaster />
           <Footer />
         </main>
         </body>

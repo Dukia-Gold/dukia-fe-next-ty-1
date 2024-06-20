@@ -4,9 +4,10 @@ import { useState } from "react";
 import axios from "axios";
 import cookie from "js-cookie";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/use-toast";
 
 const useAuth = () => {
+  const { toast } = useToast();
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
   const [user, setUser] = useState(null);
   const router = useRouter();
@@ -38,13 +39,17 @@ const useAuth = () => {
     } catch (error: any) {
       // console.log(error.response.status);
       if (error.response.status === 401) {
-        toast.error("Wrong email or password!", {
-          position: "bottom-right",
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: error.response?.data?.message || "Wrong email or password!",
         });
         setLoginLoading(false);
       } else if (error.response.status === 404) {
-        toast.error("This email is not registered!", {
-          position: "bottom-right",
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: error.response?.data?.message || "This email is not registered!",
         });
         setLoginLoading(false);
       }
