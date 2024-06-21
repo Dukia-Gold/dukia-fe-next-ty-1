@@ -3,8 +3,8 @@ import React from "react";
 
 const AboutHero = () => {
   return (
-    <section className="min-h-screen bg-hero-pattern bg-cover bg-no-repeat bg-center bg-fixed pt-48 xl:pt-36 px-3 md:px-12 xl:px-28 py-4 flex flex-col justify-center items-center">
-      <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+    <section className="relative min-h-screen bg-hero-pattern bg-cover bg-no-repeat bg-center bg-fixed pt-48 xl:pt-36 px-3 md:px-12 xl:px-28 py-4 flex flex-col justify-center items-center">
+      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60"></div>
 
       <div className="flex flex-col gap-2 items-center z-20">
         <Image
@@ -15,8 +15,8 @@ const AboutHero = () => {
         />{" "}
 
         <div className="flex flex-col gap-6 items-center text-white">
-            <div className="flex flex-col gap-2 text-center max-w-[75%]">
-                <p className="font-extrabold text-5xl">About Dukia Gold</p>
+            <div className="flex flex-col gap-2 text-center md:max-w-[75%]">
+                <p className="font-extrabold text-5xl">About <br className="md:hidden"/> Dukia Gold</p>
 
                 <p>Lorem ipsum dolor sit amet consectetur. Fermentum velit dignissim pretium aenean sagittis parturient faucibus. Donec scelerisque cursus cras rhoncus viverra nibh orci.</p>
             </div>

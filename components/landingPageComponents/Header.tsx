@@ -118,10 +118,10 @@ const Header: FC<header> = () => {
               {/* ABOUT US */}
               <li
                 className={`${
-                  pathname === "/about-us" ? "text-dukiaGold font-bold" : ""
+                  pathname === "/about-dukia-gold" ? "text-dukiaGold font-bold" : ""
                 } hover:text-dukiaGold hover:font-semibold`}
               >
-                <Link href="/about-us">About Dukia</Link>
+                <Link href="/about-dukia-gold">About Dukia</Link>
               </li>
 
               {/* BUY GOLD */}
