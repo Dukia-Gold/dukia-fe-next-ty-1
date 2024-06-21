@@ -2,8 +2,20 @@ import React, { useState } from "react";
 import PoolAllocated from "@/lib/poolallocated";
 
 const PoolAllocatedCalculator = () => {
-  const { price, handlePriceInput, Gram, handleGramInput, resetTimer, formatNumber, goldPricePerGram, timer, toggleMode, isGramToPrice } = PoolAllocated();
+  const {
+    price,
+    handlePriceInput,
+    Gram,
+    handleGramInput,
+    resetTimer,
+    formatNumber,
+    goldPricePerGram,
+    timer,
+    toggleMode,
+    isGramToPrice,
+  } = PoolAllocated();
   const [tab, setTab] = useState(true);
+  
   return (
     <div className="z-20 text-black rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 bg-[#F3F3F4]">
       <div className=" rounded-t-2xl py-4 flex justify-center bg-dukiaBlue text-white font-semibold">
@@ -13,7 +25,9 @@ const PoolAllocatedCalculator = () => {
       <form className="pb-6 px-6 flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           {/* NAIRA INPUT - NAIRA to G */}
-          <div className={`${isGramToPrice ? "hidden" : "flex"} flex-col gap-1`}>
+          <div
+            className={`${isGramToPrice ? "hidden" : "flex"} flex-col gap-1`}
+          >
             <div className="flex flex-col gap-2">
               <label htmlFor="currency" className="text-sm font-semibold">
                 Currency (Naira)
@@ -34,7 +48,11 @@ const PoolAllocatedCalculator = () => {
           </div>
 
           {/* WEIGHT INPUT - G to NAIRA */}
-          <div className={`${isGramToPrice ? "flex" : "hidden"} flex flex-col gap-1`}>
+          <div
+            className={`${
+              isGramToPrice ? "flex" : "hidden"
+            } flex flex-col gap-1`}
+          >
             <div className="flex flex-col gap-2">
               <label htmlFor="weight" className="text-sm font-semibold">
                 Weight (Gram)
@@ -82,7 +100,11 @@ const PoolAllocatedCalculator = () => {
           </div>
 
           {/* WEIGHT DISPLAY - NAIRA to G */}
-          <div className={`${isGramToPrice ? "hidden" : "flex"} flex flex-col gap-1`}>
+          <div
+            className={`${
+              isGramToPrice ? "hidden" : "flex"
+            } flex flex-col gap-1`}
+          >
             <div className="flex flex-col gap-2">
               <label htmlFor="weight" className="text-sm font-semibold">
                 Weight (Gram)
@@ -94,7 +116,9 @@ const PoolAllocatedCalculator = () => {
           </div>
 
           {/* NAIRA DISPLAY - G to NAIRA */}
-          <div className={`${isGramToPrice ? "flex" : "hidden"} flex-col gap-1`}>
+          <div
+            className={`${isGramToPrice ? "flex" : "hidden"} flex-col gap-1`}
+          >
             <div className="flex flex-col gap-2">
               <label htmlFor="currency" className="text-sm font-semibold">
                 Currency (Naira)
@@ -110,7 +134,13 @@ const PoolAllocatedCalculator = () => {
           Continue
         </button>
 
-        <p className="text-right text-sm">Time until next update: <span id="timer" className="font-semibold">{timer}</span> seconds</p>
+        <p className="text-right text-sm">
+          Time until next update:{" "}
+          <span id="timer" className="font-semibold">
+            {timer}
+          </span>{" "}
+          seconds
+        </p>
       </form>
     </div>
   );

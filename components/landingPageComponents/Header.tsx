@@ -9,51 +9,44 @@ import MobileNav from "./MobileNav";
 import { usePathname } from "next/navigation";
 // import AOS from "aos";
 // import "aos/dist/aos.css"; // You can also use <link> for styles
-import useFetchGoldPrice from "@/api/fetchGoldPrice";
+import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
 
 type header = {
   // name: string
 };
 
 const Header: FC<header> = () => {
-  const { ask, bid, fetchGoldPrice } = useFetchGoldPrice();
+  const { ask, bid, fetchGoldPrice } = useFetchGoldPriceDollars();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [askClass, setAskClass] = useState('');
-    const [bidClass, setBidClass] = useState('');
+  const [askClass, setAskClass] = useState("");
+  const [bidClass, setBidClass] = useState("");
 
   const closeMobileNav = () => {
     setIsOpen(false);
   };
 
   useEffect(() => {
-        // Fetch the gold price initially when the component mounts
-        fetchGoldPrice();
+    fetchGoldPrice();
 
-        // Set an interval to fetch the gold price periodically
-        const interval = setInterval(() => {
-            fetchGoldPrice();
-        }, 12000); // Fetch every 60 seconds
+    const interval = setInterval(() => {
+      fetchGoldPrice();
+    }, 12000);
 
-        // Clear the interval when the component unmounts
-        return () => clearInterval(interval);
-    }, []);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
-        // Trigger bounce animation when ask price changes
-        setAskClass('animate-bounce');
-        const timeout = setTimeout(() => setAskClass(''), 1500); // Remove bounce class after animation
-        return () => clearTimeout(timeout);
-    }, [ask]);
+    setAskClass("animate-bounce");
+    const timeout = setTimeout(() => setAskClass(""), 1500);
+    return () => clearTimeout(timeout);
+  }, [ask]);
 
-    useEffect(() => {
-        // Trigger bounce animation when bid price changes
-        setBidClass('animate-bounce');
-        const timeout = setTimeout(() => setBidClass(''), 1500); // Remove bounce class after animation
-        return () => clearTimeout(timeout);
-    }, [bid]);
-
-  // console.log(ask);
+  useEffect(() => {
+    setBidClass("animate-bounce");
+    const timeout = setTimeout(() => setBidClass(""), 1500);
+    return () => clearTimeout(timeout);
+  }, [bid]);
 
   // useEffect(() => {
   //   AOS.init();
@@ -66,20 +59,36 @@ const Header: FC<header> = () => {
       } w-[100vw] flex flex-col`}
     >
       {/* GOLD PRICE */}
-      <div className="flex flex-col md:items-center  md:flex-row justify-between gap-1 py-3 px-1.5 md:px-5 lg:px-10 xl:px-20
-      bg-dukiaGold text-sm text-dukiaBlue font-semibold"> 
-          <p className="flex items-center gap-0.5 lg:gap-1">GOLD ASK: 
-            <span className={`text-xs font-normal ${askClass}`}>$ {ask.oz}/oz</span>|
-            <span className={`text-xs font-normal ${askClass}`}>$ {ask.g}/g</span>|
-            <span className={`text-xs font-normal ${askClass}`}>$ {ask.kg}/kg</span>
-            <span className="text-xs hidden sm:block">-0.01% (-$0.12)</span>
-          </p> 
+      <div
+        className="flex flex-col md:items-center  md:flex-row justify-between gap-1 py-3 px-1.5 md:px-5 lg:px-10 xl:px-20
+      bg-dukiaGold text-sm text-dukiaBlue font-semibold"
+      >
+        <p className="flex items-center gap-0.5 lg:gap-1">
+          GOLD ASK:
+          <span className={`text-xs font-normal ${askClass}`}>
+            $ {ask.oz}/oz
+          </span>
+          |
+          <span className={`text-xs font-normal ${askClass}`}>$ {ask.g}/g</span>
+          |
+          <span className={`text-xs font-normal ${askClass}`}>
+            $ {ask.kg}/kg
+          </span>
+          <span className="text-xs hidden sm:block">-0.01% (-$0.12)</span>
+        </p>
 
-          <p className="flex items-center gap-0.5 lg:gap-1">GOLD BID: 
-            <span className={`text-xs font-normal ${bidClass}`}>$ {bid.oz}/oz</span>|
-            <span className={`text-xs font-normal ${bidClass}`}>$ {bid.g}/g</span>|
-            <span className={`text-xs font-normal ${bidClass}`}>$ {bid.kg}/kg</span>
-          </p> 
+        <p className="flex items-center gap-0.5 lg:gap-1">
+          GOLD BID:
+          <span className={`text-xs font-normal ${bidClass}`}>
+            $ {bid.oz}/oz
+          </span>
+          |
+          <span className={`text-xs font-normal ${bidClass}`}>$ {bid.g}/g</span>
+          |
+          <span className={`text-xs font-normal ${bidClass}`}>
+            $ {bid.kg}/kg
+          </span>
+        </p>
       </div>
 
       {/* MAIN HEADER */}
@@ -107,8 +116,12 @@ const Header: FC<header> = () => {
               </li>
 
               {/* ABOUT US */}
-              <li className="hover:text-dukiaGold hover:font-semibold">
-                <Link href="/">About Dukia</Link>
+              <li
+                className={`${
+                  pathname === "/about-us" ? "text-dukiaGold font-bold" : ""
+                } hover:text-dukiaGold hover:font-semibold`}
+              >
+                <Link href="/about-us">About Dukia</Link>
               </li>
 
               {/* BUY GOLD */}

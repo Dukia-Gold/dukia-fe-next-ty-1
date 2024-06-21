@@ -1,35 +1,76 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import PoolAllocated from "@/lib/poolallocated";
+import { useFetchGoldPriceNaira } from "@/api/fetchGoldPrice";
+import { ShoppingCart } from "lucide-react";
 
 const WhoWeAre: React.FC = () => {
+  // const [gram1, setGram1] = useState("0.00");
+  // const [gram2, setGram2] = useState("0.00");
+  // const [gram3, setGram3] = useState("0.00");
+  // const { setPrice, Gram } = PoolAllocated();
+
+  // const calcGram = (
+  //   price: string,
+  //   setGram: React.Dispatch<React.SetStateAction<string>>
+  // ) => {
+  //   setPrice(price);
+  //   setGram(Gram);
+  // };
+
+  // useEffect(() => {
+  //   calcGram("15000", setGram1);
+  //   calcGram("10000", setGram2);
+  //   calcGram("20000", setGram3);
+
+  //   const interval = setInterval(() => {
+  //     calcGram("15000", setGram1);
+  //     calcGram("10000", setGram2);
+  //     calcGram("20000", setGram3);
+  //   }, 12000); // Fetch every 60 seconds
+
+  //   // Clear the interval when the component unmounts
+  //   return () => clearInterval(interval);
+  // }, [Gram, setPrice]);
+
+  const fetchGoldPrice  = useFetchGoldPriceNaira();
+  // const [askClass, setAskClass] = useState("");
+  // const [bidClass, setBidClass] = useState("");
   const [gram1, setGram1] = useState("0.00");
   const [gram2, setGram2] = useState("0.00");
   const [gram3, setGram3] = useState("0.00");
-  const { setPrice, Gram } = PoolAllocated();
 
-  const calcGram = (
-    price: string,
-    setGram: React.Dispatch<React.SetStateAction<string>>
-  ) => {
-    setPrice(price);
-    setGram(Gram);
-  };
+  // const calcGram = (
+  //   price: string,
+  //   setGram: React.Dispatch<React.SetStateAction<string>>
+  // ) => {
+  //   fetchGoldPrice();
+
+  //   const size = ask.g / parseFloat(price);
+
+  //   ask.g
+  // };
 
   useEffect(() => {
-    calcGram("15000", setGram1);
-    calcGram("10000", setGram2);
-    calcGram("20000", setGram3);
+    fetchGoldPrice();
 
     const interval = setInterval(() => {
-      calcGram("15000", setGram1);
-      calcGram("10000", setGram2);
-      calcGram("20000", setGram3);
-    }, 12000); // Fetch every 60 seconds
+      fetchGoldPrice();
+    }, 12000);
 
-    // Clear the interval when the component unmounts
     return () => clearInterval(interval);
-  }, [Gram, setPrice]);
+  }, []);
+
+  // useEffect(() => {
+  //   setAskClass("animate-bounce");
+  //   const timeout = setTimeout(() => setAskClass(""), 1500);
+  //   return () => clearTimeout(timeout);
+  // }, [ask]);
+
+  // useEffect(() => {
+  //   setBidClass("animate-bounce");
+  //   const timeout = setTimeout(() => setBidClass(""), 1500);
+  //   return () => clearTimeout(timeout);
+  // }, [bid]);
 
   return (
     <section className="flex flex-col gap-8 px-4 lg:px-12 xl:px-28 bg-white text-dukiaBlue justify-between">
@@ -106,9 +147,15 @@ const WhoWeAre: React.FC = () => {
             <div className="absolute rounded-b-2xl bottom-0 left-0 w-full">
               <div className="relative w-full flex flex-col items-center">
                 <div className="w-full h-full absolute top-0 left-0 bg-white opacity-25"></div>
-                <div className="z-20 py-4 font-semibold text-lg text-center">
-                  <p>Fractional Gold</p>
-                  <p>N15,000</p>
+                <div className="z-20 flex items-center justify-between w-full py-4 px-11 font-semibold text-lg">
+                  <div>
+                    <p>Fractional Gold</p>
+                    <p>N10,000</p>
+                  </div>
+
+                  <div className="p-4 text-white bg-dukiaBlue rounded-lg">
+                    <ShoppingCart className="cursor-pointer" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -129,9 +176,15 @@ const WhoWeAre: React.FC = () => {
             <div className="absolute rounded-b-2xl bottom-0 left-0 w-full">
               <div className="relative w-full flex flex-col items-center">
                 <div className="w-full h-full absolute top-0 left-0 bg-white opacity-25"></div>
-                <div className="z-20 py-4 font-semibold text-lg text-center">
-                  <p>Fractional Gold</p>
-                  <p>N20,000</p>
+                <div className="z-20 flex items-center justify-between w-full py-4 px-11 font-semibold text-lg">
+                  <div>
+                    <p>Fractional Gold</p>
+                    <p>N15,000</p>
+                  </div>
+
+                  <div className="p-4 text-white bg-dukiaBlue rounded-[50%]">
+                    <ShoppingCart className="cursor-pointer" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -152,9 +205,13 @@ const WhoWeAre: React.FC = () => {
             <div className="absolute rounded-b-2xl bottom-0 left-0 w-full">
               <div className="relative w-full flex flex-col items-center">
                 <div className="w-full h-full absolute top-0 left-0 bg-white opacity-25"></div>
-                <div className="z-20 py-4 font-semibold text-lg text-center">
-                  <p>Fractional Gold</p>
-                  <p>N10,000</p>
+                <div className="z-20 flex items-center justify-between w-full py-4 px-12 font-semibold text-lg">
+                  <div>
+                    <p>Fractional Gold</p>
+                    <p>N20,000</p>
+                  </div>
+
+                  <ShoppingCart className="cursor-pointer hover:animate-bounce" size={50} />
                 </div>
               </div>
             </div>
