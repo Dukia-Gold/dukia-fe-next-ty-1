@@ -32,7 +32,7 @@ const WhoWeAre: React.FC = () => {
   }, [Gram, setPrice]);
 
   return (
-    <section className="flex flex-col gap-8 px-3 md:px-12 xl:px-28 bg-white text-dukiaBlue justify-between">
+    <section className="flex flex-col gap-8 px-4 lg:px-12 xl:px-28 bg-white text-dukiaBlue justify-between">
       <section className="py-12 flex flex-col gap-14">
         {/* TEXTS */}
         <div className="flex flex-col md:items-center gap-2">
@@ -90,7 +90,7 @@ const WhoWeAre: React.FC = () => {
           Pool Allocated Buys
         </p>
 
-        <div className="flex overflow-x-auto flex-col lg:flex-row gap-6">
+        <div className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-6">
           <div className="bg-[#f3f3f4] relative w-full md:w-[25.6875rem] h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
               <p className="font-semibold text-white">{gram1} gram</p>
@@ -137,7 +137,7 @@ const WhoWeAre: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-[#f3f3f4] relative w-full md:w-[25.6875rem] h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
+          <div className="lg:col-start-1 2xl:col-start-3 lg:col-end-3 bg-[#f3f3f4] relative w-full md:w-auto h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
               <p className="font-semibold text-white">{gram3} gram</p>
             </div>

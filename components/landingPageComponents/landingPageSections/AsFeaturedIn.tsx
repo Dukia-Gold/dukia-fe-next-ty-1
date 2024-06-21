@@ -11,7 +11,7 @@ const AsFeaturedIn = () => {
   return (
     <section className="px-2 md:px-8 py-12 bg-dukiaGrey text-dukiaBlue flex flex-col gap-14 items-center">
       <div className="flex flex-col gap-2 text-center">
-        <p className="font-bold text-2xl">As Featured In</p>
+        <p className="font-bold text-[1.75rem]">As Featured In</p>
         <p>
           Look at what various respectable publications have to say about Dukia
           Gold!

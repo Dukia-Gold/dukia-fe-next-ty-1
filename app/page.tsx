@@ -11,6 +11,7 @@ import { toast } from "@/components/ui/use-toast";
 import FAQ from "@/components/landingPageComponents/landingPageSections/FAQ";
 import AsFeaturedIn from "@/components/landingPageComponents/landingPageSections/AsFeaturedIn";
 import CustomerReviews from "@/components/landingPageComponents/landingPageSections/CustomersReviews";
+import WhyChooseDukia from "@/components/landingPageComponents/landingPageSections/WhyChooseDukia";
 
 export default function Home() {
   const [isOnline, setIsOnline] = useState(false);
@@ -103,6 +104,8 @@ export default function Home() {
       <WhoWeAre />
 
       <WhatWeOffer />
+
+      <WhyChooseDukia />
 
       <AsFeaturedIn />
 
