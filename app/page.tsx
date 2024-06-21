@@ -104,9 +104,9 @@ export default function Home() {
 
       <WhatWeOffer />
 
-      <AsFeaturedIn />
+      {/* <AsFeaturedIn />
 
-      <CustomerReviews />
+      <CustomerReviews /> */}
 
       <FAQ />
 
