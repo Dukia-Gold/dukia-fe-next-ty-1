@@ -67,6 +67,7 @@ const CoinsPage = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onClick={handleClick}
+                className="cursor-pointer"
               />
             </CardContent>
             <CardFooter className="relative w-full rounded-b-2xl">
