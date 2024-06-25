@@ -2,6 +2,14 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useFetchGoldPriceNaira } from "@/api/fetchGoldPrice";
 import { ShoppingCart } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Link from "next/link";
 
 const WhoWeAre: React.FC = () => {
   // const [gram1, setGram1] = useState("0.00");
@@ -32,7 +40,7 @@ const WhoWeAre: React.FC = () => {
   //   return () => clearInterval(interval);
   // }, [Gram, setPrice]);
 
-  const fetchGoldPrice  = useFetchGoldPriceNaira();
+  const fetchGoldPrice = useFetchGoldPriceNaira();
   // const [askClass, setAskClass] = useState("");
   // const [bidClass, setBidClass] = useState("");
   const [gram1, setGram1] = useState("0.00");
@@ -92,36 +100,48 @@ const WhoWeAre: React.FC = () => {
         {/* GOLD CARDS */}
         <div className="flex flex-col items-center lg:flex-row justify-center gap-6">
           {/* Gold Bars */}
-          <div className="bg-[#f3f3f4] py-10 rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-10">
-            <p className="font-bold text-[1.375rem] text-black">Gold Bars</p>
-
-            <Image
-              src="https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
-              alt="Dukia Gold: Gold Bar 1 g - Philoro"
-              width={350}
-              height={350}
-            />
-
-            <button className="py-[0.875rem] border-2 font-semibold rounded-lg border-dukiaBlue/[25%] px-[1.875rem]">
-              Learn More
-            </button>
-          </div>
+          <Card className="shadow-2xl py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
+            <CardHeader>
+              <CardTitle>Gold Bars</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Image
+                src="https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
+                alt="Dukia Gold: Gold Bar 1 g - Philoro"
+                width={350}
+                height={350}
+              />
+            </CardContent>
+            <CardFooter>
+              <Link href="/buy-gold/bars">
+                <button className="py-[0.875rem] border-2 font-semibold rounded-lg border-dukiaBlue/[25%] hover:border-dukiaBlue px-[1.875rem]">
+                  Learn More
+                </button>
+              </Link>
+            </CardFooter>
+          </Card>
 
           {/* Gold Coins */}
-          <div className="bg-[#f3f3f4] py-10 rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-10">
-            <p className="font-bold text-[1.375rem] text-black">Gold Coins</p>
-
-            <Image
-              src="https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718368347/Gold_Coin_yzjtdx.png"
-              alt="Dukia Gold: Gold Bar 1 g - Philoro"
-              width={350}
-              height={350}
-            />
-
-            <button className="py-[0.875rem] border-2 font-semibold rounded-lg border-dukiaBlue/[25%] px-[1.875rem]">
-              Learn More
-            </button>
-          </div>
+          <Card className="shadow-2xl py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
+            <CardHeader>
+              <CardTitle>Gold Coins</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Image
+                src="https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718368347/Gold_Coin_yzjtdx.png"
+                alt="Dukia Gold: Gold Bar 1 g - Philoro"
+                width={350}
+                height={350}
+              />
+            </CardContent>
+            <CardFooter>
+              <Link href="/buy-gold/bars">
+                <button className="py-[0.875rem] border-2 font-semibold rounded-lg border-dukiaBlue/[25%] hover:border-dukiaBlue px-[1.875rem]">
+                  Learn More
+                </button>
+              </Link>
+            </CardFooter>
+          </Card>
         </div>
       </section>
 
@@ -132,7 +152,7 @@ const WhoWeAre: React.FC = () => {
         </p>
 
         <div className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-6">
-          <div className="bg-[#f3f3f4] relative w-full md:w-[25.6875rem] h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
+          <div className="shadow-2xl relative w-full md:w-[25.6875rem] h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
               <p className="font-semibold text-white">{gram1} gram</p>
             </div>
@@ -161,7 +181,7 @@ const WhoWeAre: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-[#f3f3f4] relative w-full md:w-[25.6875rem] h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
+          <div className="shadow-2xl relative w-full md:w-[25.6875rem] h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
               <p className="font-semibold text-white">{gram2} gram</p>
             </div>
@@ -182,7 +202,7 @@ const WhoWeAre: React.FC = () => {
                     <p>N15,000</p>
                   </div>
 
-                  <div className="p-4 text-white bg-dukiaBlue rounded-[50%]">
+                  <div className="p-4 text-white bg-dukiaBlue rounded-lg">
                     <ShoppingCart className="cursor-pointer" />
                   </div>
                 </div>
@@ -190,7 +210,7 @@ const WhoWeAre: React.FC = () => {
             </div>
           </div>
 
-          <div className="lg:col-start-1 2xl:col-start-3 lg:col-end-3 bg-[#f3f3f4] relative w-full md:w-auto h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
+          <div className="lg:col-start-1 2xl:col-start-3 lg:col-end-3 shadow-2xl relative w-full md:w-auto h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
               <p className="font-semibold text-white">{gram3} gram</p>
             </div>
@@ -211,7 +231,9 @@ const WhoWeAre: React.FC = () => {
                     <p>N20,000</p>
                   </div>
 
-                  <ShoppingCart className="cursor-pointer hover:animate-bounce" size={50} />
+                  <div className="p-4 text-white bg-dukiaBlue rounded-lg">
+                    <ShoppingCart className="cursor-pointer" />
+                  </div>
                 </div>
               </div>
             </div>

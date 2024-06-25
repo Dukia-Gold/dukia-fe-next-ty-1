@@ -4,6 +4,11 @@ import { usePathname } from "next/navigation";
 import { FaCartShopping } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "../ui/collapsible";
 
 type MobileNavProps = {
   isOpen: boolean;
@@ -28,7 +33,7 @@ const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
   // Return the modal
   return (
     <div className="fixed z-50 sm:hidden top-0 left-0 w-full h-[100vh] bg-[#00000040] flex justify-end">
-      <div className="bg-dukiaBlue w-[50%] h-[100vh] absolute z-50 p-5 pb-36 flex flex-col justify-between items-start">
+      <div className="bg-dukiaBlue w-[50%] h-[100vh] absolute z-50 p-5 pb-32 flex flex-col justify-between items-start">
         <div className="flex items-center justify-between w-full">
           <Link href="/">
             {" "}
@@ -53,27 +58,81 @@ const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
                 pathname === "/" ? "text-dukiaGold font-bold" : ""
               } hover:text-dukiaGold hover:font-semibold`}
             >
-              <Link href="/">Home</Link>
+              <Link href="/" onClick={toggle}>
+                Home
+              </Link>
             </li>
 
             {/* ABOUT US */}
-            <li className="hover:text-dukiaGold hover:font-semibold">
-              <Link href="/">About Dukia</Link>
+            <li className={`${
+                pathname === "/about-dukia-gold" ? "text-dukiaGold font-bold" : ""
+              } hover:text-dukiaGold hover:font-semibold`}>
+              <Link href="/about-dukia-gold" onClick={toggle}>
+                About Dukia
+              </Link>
             </li>
 
             {/* BUY GOLD */}
-            <li className="hover:text-dukiaGold hover:font-semibold">
-              <Link
+            <li>
+              <Collapsible className="flex flex-col gap-2">
+                <div className="flex items-center gap-0.5 cursor-pointer">
+                  <Link
+                    href="/buy-gold"
+                    onClick={toggle}
+                    className={`${
+                      pathname === "/buy-gold" ||
+                      pathname === "/buy-gold/bars" ||
+                      pathname === "/buy-gold/coins"
+                        ? "text-dukiaGold font-bold"
+                        : ""
+                    } hover:text-dukiaGold hover:font-semibold`}
+                  >
+                    <p>Buy Gold</p>
+                  </Link>
+                  <CollapsibleTrigger>
+                    <RiArrowDropDownLine size={30} />
+                  </CollapsibleTrigger>
+                </div>
+
+                <CollapsibleContent className="flex flex-col gap-2">
+                  <Link
+                    href="/buy-gold/bars"
+                    onClick={toggle}
+                    className={`${
+                      pathname === "/buy-gold/bars"
+                        ? "text-dukiaGold font-bold"
+                        : ""
+                    } font-normal`}
+                  >
+                    Gold Bars
+                  </Link>
+                  <Link
+                    href="/buy-gold/coins"
+                    onClick={toggle}
+                    className={`${
+                      pathname === "/buy-gold/coins"
+                        ? "text-dukiaGold font-bold"
+                        : ""
+                    } font-normal`}
+                  >
+                    Gold Coins
+                  </Link>
+                </CollapsibleContent>
+              </Collapsible>
+              {/* <Link
                 href="https://www.dukiapreciousmetals.co/buy-gold"
                 className="flex items-center gap-0.5"
               >
                 <p>Buy Gold</p>
                 <RiArrowDropDownLine size={30} />
-              </Link>
+              </Link> */}
             </li>
 
             {/* GUIDES */}
-            <li className="hover:text-dukiaGold hover:font-semibold">
+            <li
+              onClick={toggle}
+              className="hover:text-dukiaGold hover:font-semibold"
+            >
               <Link href="/">
                 <p>Guides</p>
               </Link>

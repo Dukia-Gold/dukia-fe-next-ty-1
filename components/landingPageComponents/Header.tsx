@@ -10,6 +10,11 @@ import { usePathname } from "next/navigation";
 // import AOS from "aos";
 // import "aos/dist/aos.css"; // You can also use <link> for styles
 import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "../ui/hover-card";
 
 type header = {
   // name: string
@@ -118,21 +123,57 @@ const Header: FC<header> = () => {
               {/* ABOUT US */}
               <li
                 className={`${
-                  pathname === "/about-dukia-gold" ? "text-dukiaGold font-bold" : ""
+                  pathname === "/about-dukia-gold"
+                    ? "text-dukiaGold font-bold"
+                    : ""
                 } hover:text-dukiaGold hover:font-semibold`}
               >
                 <Link href="/about-dukia-gold">About Dukia</Link>
               </li>
 
               {/* BUY GOLD */}
-              <li className="hover:text-dukiaGold hover:font-semibold">
-                <Link
-                  href="https://www.dukiapreciousmetals.co/buy-gold"
-                  className="flex items-center gap-0.5"
-                >
-                  <p>Buy Gold</p>
-                  <RiArrowDropDownLine size={30} />
-                </Link>
+              <li
+                className={`${
+                  pathname === "/buy-gold" ||
+                  pathname === "/buy-gold/bars" ||
+                  pathname === "/buy-gold/coins"
+                    ? "text-dukiaGold font-bold"
+                    : ""
+                } hover:text-dukiaGold hover:font-semibold`}
+              >
+                {/* <HoverCard>
+                  <HoverCardTrigger>
+                    <Link
+                      href="/buy-gold"
+                      className="flex items-center gap-0.5 cursor-pointer"
+                    >
+                      <p>Buy Gold</p>
+                      <RiArrowDropDownLine size={30} />
+                    </Link>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-32 text-dukiaBlue flex flex-col gap-2">
+                    <Link
+                      href="/buy-gold/bars"
+                      className={`${
+                        pathname === "/buy-gold/bars"
+                          ? "text-dukiaGold font-bold"
+                          : ""
+                      } font-normal hover:font-bold`}
+                    >
+                      Gold Bars
+                    </Link>
+                    <Link
+                      href="/buy-gold/coins"
+                      className={`${
+                        pathname === "/buy-gold/coins"
+                          ? "text-dukiaGold font-bold"
+                          : ""
+                      } font-normal hover:font-bold`}
+                    >
+                      Gold Coins
+                    </Link>
+                  </HoverCardContent>
+                </HoverCard> */}
               </li>
 
               {/* GUIDES */}
