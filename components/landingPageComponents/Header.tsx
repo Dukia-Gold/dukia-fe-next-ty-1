@@ -141,15 +141,12 @@ const Header: FC<header> = () => {
                     : ""
                 } hover:text-dukiaGold hover:font-semibold`}
               >
-                {/* <HoverCard>
-                  <HoverCardTrigger>
-                    <Link
-                      href="/buy-gold"
-                      className="flex items-center gap-0.5 cursor-pointer"
-                    >
+                <HoverCard>
+                  <HoverCardTrigger asChild>
+                    <div className="flex items-center gap-0.5 cursor-pointer">
                       <p>Buy Gold</p>
                       <RiArrowDropDownLine size={30} />
-                    </Link>
+                    </div>
                   </HoverCardTrigger>
                   <HoverCardContent className="w-32 text-dukiaBlue flex flex-col gap-2">
                     <Link
@@ -173,7 +170,7 @@ const Header: FC<header> = () => {
                       Gold Coins
                     </Link>
                   </HoverCardContent>
-                </HoverCard> */}
+                </HoverCard>
               </li>
 
               {/* GUIDES */}

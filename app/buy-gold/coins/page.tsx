@@ -11,9 +11,11 @@ import Image from "next/image";
 import { useState } from "react";
 
 const CoinsPage = () => {
-  const [imageSrc, setImageSrc] = useState(
-    "https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
-  );
+  const [isFront, setIsFront] = useState(true);
+
+  const handleMouseEnter = () => setIsFront(false);
+  const handleMouseLeave = () => setIsFront(true);
+  const handleClick = () => setIsFront(!isFront);
 
   const CoinsArray = [
     {
@@ -48,41 +50,23 @@ const CoinsPage = () => {
       <p className="xl:hidden font-bold text-[2.5rem]">Gold Coins</p>
 
       <div className="w-full grid md:px-20 lg:px-0 lg:grid-cols-2 2xl:grid-cols-4 gap-6">
-        {CoinsArray.map((item) => (
+        {CoinsArray.map((coin) => (
           <Card
-            key={item.key}
+            key={coin.key}
             className="shadow-lg pt-5 border-none rounded-2xl flex flex-col items-center w-[100%] gap-5"
           >
             <CardHeader>
-              <CardTitle className="text-center">{item.title}</CardTitle>
+              <CardTitle className="text-center">{coin.title}</CardTitle>
             </CardHeader>
             <CardContent>
               <Image
-                src={
-                  item.imageFront ??
-                  "https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
-                }
-                alt={item.title}
+                src={isFront ? coin.imageFront : coin.imageBack}
+                alt={coin.title}
                 width={350}
                 height={350}
-                onClick={() =>
-                  setImageSrc(
-                    item.imageBack ??
-                      "https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
-                  )
-                }
-                onMouseEnter={() =>
-                  setImageSrc(
-                    item.imageBack ??
-                      "https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
-                  )
-                }
-                onMouseLeave={() =>
-                  setImageSrc(
-                    item.imageFront ??
-                      "https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
-                  )
-                }
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onClick={handleClick}
               />
             </CardContent>
             <CardFooter className="relative w-full rounded-b-2xl">
