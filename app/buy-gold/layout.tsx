@@ -19,17 +19,13 @@ export default function BuyGoldLayout({ children }: BuyGoldLayoutProps) {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-10 text-dukiaBlue gap-3">
           <div className="flex items-center gap-2 text-lg font-bold text-dukiaBlue">
             <Link href="/">Home</Link>
-
-            {pathname === "/buy-gold" ? (
-              <>
-                {" "}
-                <ArrowRight size={18} />{" "}
-                <Link href="/buy-gold" className="text-dukiaGold">
-                  Buy Gold
-                </Link>{" "}
-              </>
-            ) : null}
-
+            <ArrowRight size={18} />{" "}
+            <Link
+              href="/buy-gold"
+              className={`${pathname === "/buy-gold" ? "text-dukiaGold" : ""}`}
+            >
+              Buy Gold
+            </Link>
             {pathname === "/buy-gold/bars" ? (
               <>
                 {" "}
@@ -39,7 +35,6 @@ export default function BuyGoldLayout({ children }: BuyGoldLayoutProps) {
                 </Link>{" "}
               </>
             ) : null}
-
             {pathname === "/buy-gold/coins" ? (
               <>
                 {" "}
