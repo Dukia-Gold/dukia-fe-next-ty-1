@@ -52,7 +52,7 @@ const BuyGoldPage = () => {
             />
           </CardContent>
           <CardFooter>
-            <Link href="/buy-gold/bars">
+            <Link href="/buy-gold/coins">
               <button className="py-[0.875rem] border-2 font-semibold rounded-lg border-dukiaBlue/[25%] hover:border-dukiaBlue px-[1.875rem]">
                 See Catalogue
               </button>

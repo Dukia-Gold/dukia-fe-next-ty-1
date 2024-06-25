@@ -39,8 +39,8 @@ export default function BuyGoldLayout({ children }: BuyGoldLayoutProps) {
               <>
                 {" "}
                 <ArrowRight size={18} />{" "}
-                <Link href="/buy-gold/bars" className="text-dukiaGold">
-                  Gold Bars
+                <Link href="/buy-gold/coins" className="text-dukiaGold">
+                  Gold Coins
                 </Link>{" "}
               </>
             ) : null}
