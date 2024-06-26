@@ -24,45 +24,21 @@ const CustomerReviews = () => {
     },
     {
       key: 2,
-      name: "Abdullah Yusuf",
+      name: "Bolaji Anifowoshe",
       review:
-        "I was new to gold trading and did not know where to start. Thankfully, I found the Dukia Gold website and it made the whole process easy and stress-free. They have a wide variety of products at fair prices. The educational resources on the website helped me understand more about investing in gold",
+        "I was impressed with the level of security and privacy measures the trading platform had. I felt comfortable trading with them with a solid assurance that my transactions were safe and secure.",
     },
     {
       key: 3,
-      name: "Abdullah Yusuf",
+      name: "Abdullateef Olushola",
       review:
-        "I was new to gold trading and did not know where to start. Thankfully, I found the Dukia Gold website and it made the whole process easy and stress-free. They have a wide variety of products at fair prices. The educational resources on the website helped me understand more about investing in gold",
+        "Their customer service team is top-notch and always available to answer any questions I have on gold investment. Now, I feel like a pro!",
     },
     {
       key: 4,
-      name: "Abdullah Yusuf",
+      name: "Wale Soneye",
       review:
-        "I was new to gold trading and did not know where to start. Thankfully, I found the Dukia Gold website and it made the whole process easy and stress-free. They have a wide variety of products at fair prices. The educational resources on the website helped me understand more about investing in gold",
-    },
-    {
-      key: 5,
-      name: "Abdullah Yusuf",
-      review:
-        "I was new to gold trading and did not know where to start. Thankfully, I found the Dukia Gold website and it made the whole process easy and stress-free. They have a wide variety of products at fair prices. The educational resources on the website helped me understand more about investing in gold",
-    },
-    {
-      key: 6,
-      name: "Abdullah Yusuf",
-      review:
-        "I was new to gold trading and did not know where to start. Thankfully, I found the Dukia Gold website and it made the whole process easy and stress-free. They have a wide variety of products at fair prices. The educational resources on the website helped me understand more about investing in gold",
-    },
-    {
-      key: 7,
-      name: "Abdullah Yusuf",
-      review:
-        "I was new to gold trading and did not know where to start. Thankfully, I found the Dukia Gold website and it made the whole process easy and stress-free. They have a wide variety of products at fair prices. The educational resources on the website helped me understand more about investing in gold",
-    },
-    {
-      key: 8,
-      name: "Abdullah Yusuf",
-      review:
-        "I was new to gold trading and did not know where to start. Thankfully, I found the Dukia Gold website and it made the whole process easy and stress-free. They have a wide variety of products at fair prices. The educational resources on the website helped me understand more about investing in gold",
+        "I had a delightful experience using the Dukia Gold Trading Platform to make my first gold purchase. It was user-friendly and easy to navigate. I highly recommend this platform to anyone interested in investing in gold.",
     },
   ];
 
@@ -85,27 +61,19 @@ const CustomerReviews = () => {
           {reviewsArray.map((review) => (
             <CarouselItem
               key={review.key}
-              className="md:basis-1/2 lg:basis-1/4"
+              className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
             >
-              <Card className="rounded-2xl">
-                <CardContent className="flex flex-col pt-5 aspect-video gap-3 justify-center text-dukiaBlue text-sm">
-                  <div className="flex justify-end"><Quote size={14} color="#111827" /></div>
-                  <p>{review.review}</p>
+              <Card className="rounded-2xl md:h-72">
+                <CardContent className="flex flex-col pt-5 aspect-video gap-3 justify-between w-full h-full text-dukiaBlue text-sm">
+                  <div>
+                    <div className="flex justify-end"><Quote size={14} color="#111827" /></div>
+                    <p>{review.review}</p>
+                  </div>
                   <p className="font-bold">{review.name}</p>
                 </CardContent>
               </Card>
             </CarouselItem>
           ))}
-          {/* {Array.from({ length: 8 }).map((_, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4">
-              <Card className="rounded-2xl">
-                <CardContent className="flex aspect-video items-center justify-center">
-                  <p>Abdullah Yusuf</p>
-                  <p>I was new to gold trading and did not know where to start. Thankfully, I found the Dukia Gold website and it made the whole process easy and stress-free. They have a wide variety of products at fair prices. The educational resources on the website helped me understand more about investing in gold</p>
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          ))} */}
         </CarouselContent>
         <CarouselPrevious className="absolute text-white bg-dukiaBlue rounded-r-[50%] w-11 h-14 top-1/2 left-0" />
         <CarouselNext className="absolute text-white bg-dukiaBlue rounded-l-[50%] w-11 h-14 top-1/2 right-0" />
