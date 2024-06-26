@@ -64,9 +64,13 @@ const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
             </li>
 
             {/* ABOUT US */}
-            <li className={`${
-                pathname === "/about-dukia-gold" ? "text-dukiaGold font-bold" : ""
-              } hover:text-dukiaGold hover:font-semibold`}>
+            <li
+              className={`${
+                pathname === "/about-dukia-gold"
+                  ? "text-dukiaGold font-bold"
+                  : ""
+              } hover:text-dukiaGold hover:font-semibold`}
+            >
               <Link href="/about-dukia-gold" onClick={toggle}>
                 About Dukia
               </Link>
@@ -119,13 +123,6 @@ const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
                   </Link>
                 </CollapsibleContent>
               </Collapsible>
-              {/* <Link
-                href="https://www.dukiapreciousmetals.co/buy-gold"
-                className="flex items-center gap-0.5"
-              >
-                <p>Buy Gold</p>
-                <RiArrowDropDownLine size={30} />
-              </Link> */}
             </li>
 
             {/* GUIDES */}
@@ -142,6 +139,11 @@ const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
 
         <div className="flex flex-col gap-2 text-sm">
           <Link href="/login">
+            <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
+              Login / Register
+            </button>
+          </Link>
+          {/* <Link href="/login">
             <button className="text-white font-semibold py-3 px-5 rounded-lg border border-white">
               Log In
             </button>
@@ -151,7 +153,7 @@ const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
             <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
               Register
             </button>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>
