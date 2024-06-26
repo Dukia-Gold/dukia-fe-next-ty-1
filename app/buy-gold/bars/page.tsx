@@ -10,12 +10,86 @@ import {
 import Image from "next/image";
 import { useState } from "react";
 
+interface Bar {
+  key: number;
+  title: string;
+  imageFront: string;
+  imageBack: string;
+}
+
+interface BarCardProps {
+  bar: Bar;
+  isFront: boolean;
+  handleMouseEnter: () => void;
+  handleMouseLeave: () => void;
+  handleClick: () => void;
+}
+
+const BarCard: React.FC<BarCardProps> = ({
+  bar,
+  isFront,
+  handleMouseEnter,
+  handleMouseLeave,
+  handleClick,
+}) => {
+  return (
+    <Card
+      key={bar.key}
+      className="shadow-lg pt-5 border-none rounded-2xl flex flex-col items-center w-[100%] gap-5"
+    >
+      <CardHeader>
+        <CardTitle className="text-center">{bar.title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Image
+          src={isFront ? bar.imageFront : bar.imageBack}
+          alt={bar.title}
+          width={350}
+          height={350}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleClick}
+          className="cursor-pointer"
+        />
+      </CardContent>
+      <CardFooter className="relative w-full rounded-b-2xl">
+        <div className="absolute inset-0 bg-black/[6%] blur w-full h-full"></div>
+        <div className="pt-5 w-full h-full inset-0 text-dukiaGold text-center">
+          <p className="text-sm">
+            Please call{" "}
+            <span className="font-bold text-base underline">
+              +234 703 323 8121
+            </span>{" "}
+            or send an email to{" "}
+            <span className="font-bold text-base underline">
+              sales@dukiapreciousmetals.co
+            </span>{" "}
+            to order.
+          </p>
+        </div>
+      </CardFooter>
+    </Card>
+  );
+};
+
 const BarsPage = () => {
-  const [imageSrc, setImageSrc] = useState(
-    "https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
+  const [flippedState, setFlippedState] = useState<{ [key: number]: boolean }>(
+    {}
   );
 
-  const BarsArrays = [
+  const handleMouseEnter = (key: number) => {
+    setFlippedState((prev) => ({ ...prev, [key]: false }));
+  };
+
+  const handleMouseLeave = (key: number) => {
+    setFlippedState((prev) => ({ ...prev, [key]: true }));
+  };
+
+  const handleClick = (key: number) => {
+    setFlippedState((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const BarsArray: Bar[] = [
     {
       key: 1,
       title: "1g - Philoro",
@@ -60,50 +134,15 @@ const BarsPage = () => {
       <p className="xl:hidden font-bold text-[2.5rem]">Gold Bars</p>
 
       <div className="w-full grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {BarsArrays.map((item) => (
-          <Card
-            key={item.key}
-            className="shadow-lg pt-5 border-none rounded-2xl flex flex-col items-center w-[100%] gap-5"
-          >
-            <CardHeader>
-              <CardTitle>{item.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Image
-                src={
-                  item.imageFront ??
-                  "https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
-                }
-                alt={item.title}
-                width={350}
-                height={350}
-                onClick={() =>
-                  setImageSrc(
-                    item.imageBack ??
-                      "https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
-                  )
-                }
-                onMouseEnter={() =>
-                  setImageSrc(
-                    item.imageBack ??
-                      "https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
-                  )
-                }
-                onMouseLeave={() =>
-                  setImageSrc(
-                    item.imageFront ??
-                      "https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1718367921/Gold_Bar_ly3nbk.png"
-                  )
-                }
-              />
-            </CardContent>
-            <CardFooter className="relative w-full rounded-b-2xl">
-              <div className="absolute inset-0 bg-black/[6%] blur w-full h-full"></div>
-              <div className=" pt-5 w-full h-full inset-0 text-dukiaGold text-center">
-                <p className="text-sm">Please call <span className="font-bold text-base underline">+234 703 323 8121</span> or send an email to <span className="font-bold text-base underline">sales@dukiapreciousmetals.co</span> to order.</p> 
-              </div>
-            </CardFooter>
-          </Card>
+        {BarsArray.map((bar) => (
+          <BarCard
+            key={bar.key}
+            bar={bar}
+            isFront={flippedState[bar.key] !== false}
+            handleMouseEnter={() => handleMouseEnter(bar.key)}
+            handleMouseLeave={() => handleMouseLeave(bar.key)}
+            handleClick={() => handleClick(bar.key)}
+          />
         ))}
       </div>
     </div>
