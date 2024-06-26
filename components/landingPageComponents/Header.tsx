@@ -184,6 +184,11 @@ const Header: FC<header> = () => {
 
           <div className="hidden sm:flex items-center gap-2 text-sm">
             <Link href="/login">
+              <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
+                Login / Register
+              </button>
+            </Link>
+            {/* <Link href="/login">
               <button className="text-white font-semibold py-3 px-5 rounded-lg border border-white">
                 Log In
               </button>
@@ -193,7 +198,7 @@ const Header: FC<header> = () => {
               <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
                 Register
               </button>
-            </Link>
+            </Link> */}
           </div>
         </div>
 
