@@ -38,7 +38,7 @@ const RegisterForm = () => {
           <div className="flex flex-col gap-2">
             <label htmlFor="">Account Type</label>
             <Select>
-              <SelectTrigger className="w-full outline-none border border-dukiaBlue/[15%] px-6 py-4 text-dukiaBlue/[50%]">
+              <SelectTrigger className="w-full focus:ring-transparent focus:ring-offset-0 border border-dukiaBlue/[15%] px-6 py-4 text-dukiaBlue/[50%] font-normal">
                 <SelectValue placeholder="Choose one" />
               </SelectTrigger>
               <SelectContent>
