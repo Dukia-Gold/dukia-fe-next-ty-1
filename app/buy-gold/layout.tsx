@@ -74,7 +74,8 @@ export default function BuyGoldLayout({ children }: BuyGoldLayoutProps) {
           </div>
         </div>
 
-        {cloneElement(children as React.ReactElement, { searchTerm: searchTerm })}
+        {/* {cloneElement(children as React.ReactElement, { searchTerm: searchTerm })} */}
+        {children}
       </div>
 
       <Newsletter />

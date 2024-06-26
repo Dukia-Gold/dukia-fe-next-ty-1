@@ -37,7 +37,8 @@ const AsFeaturedIn = () => {
     {
       key: 2,
       logo: "https://res.cloudinary.com/dvcw253zw/image/upload/f_auto/v1719398978/nth.png",
-      title: "SEC Endorses Dukia Gold Sole Dealer, Refiner, Trader In Gold As Precious Metal",
+      title:
+        "SEC Endorses Dukia Gold Sole Dealer, Refiner, Trader In Gold As Precious Metal",
       content:
         "The Securities and Exchange Commission, SEC, has endorsed Dukia Gold, as the only bonafide and designated legal entity for gold refining, bullion merchant (public trading of gold as an Investment Precious Metal IPM) and vaulting services provider in Nigeria for physical gold delivery on the capital market through the Lagos Commodities and Futures Exchange, LCFE.",
       link: "https://nigeriatransporthub.com.ng/sec-endorses-dukia-gold-sole-dealer-refiner-trader-in-gold-as-precious-metal/",
@@ -45,7 +46,8 @@ const AsFeaturedIn = () => {
     {
       key: 3,
       logo: "https://res.cloudinary.com/dcu3hr3eo/image/upload/f_auto/v1680794772/this-day-live-logo_cjby5z.png",
-      title: "Dukia Gold, Philoro Sign Agreement to Deepen Precious Metals Value Chain",
+      title:
+        "Dukia Gold, Philoro Sign Agreement to Deepen Precious Metals Value Chain",
       content:
         "Dukia Gold & Precious Metals Refining and Philoro Global Trading AG Switzerland have signed an agreement to collaborate in the development of small-scale and artisanal gold mining value chain in Africa.",
       link: "https://www.thisdaylive.com/index.php/2022/05/15/dukia-gold-philoro-sign-agreement-to-deepen-precious-metals-value-chain/",
@@ -61,7 +63,8 @@ const AsFeaturedIn = () => {
     {
       key: 5,
       logo: "https://res.cloudinary.com/dcu3hr3eo/image/upload/v1680794976/Businessday-Logo..._xyoqub.png",
-      title: "FG launches Dukia gold, creates first precious metal refining market",
+      title:
+        "FG launches Dukia gold, creates first precious metal refining market",
       content:
         "The Minister of Mines and Steel Development, Olamilekan Adegbite, will on Tuesday officially launch the commencement of the Dukia Gold & Precious Metals Raw Materials Buying Programme of Nigeria’s first gold and precious metals refining company, Dukia Gold and Precious Metals Refining Company Limited.",
       link: "https://businessday.ng/news/article/fg-launches-dukia-gold-creates-first-precious-metal-refining-market/",
@@ -73,6 +76,39 @@ const AsFeaturedIn = () => {
       content:
         "The Federal Government, Tuesday, inaugurated Nigeria’s first Gold and precious Metals Refining Conglomerate, an operation of Dukia Gold a Precious Metals Raw Materials Buying Program in collaboration with Heritage Bank.",
       link: "https://guardian.ng/business-services/federal-government-inaugurates-first-gold-refining-company/",
+    },
+    {
+      key: 7,
+      logo: "https://res.cloudinary.com/dcu3hr3eo/image/upload/f_auto/v1680795695/logo_top_dark-1_d9secs.png",
+      title:
+        "Dukia Gold, Philoro Collaborate To Boost Precious Metals Value Chain",
+      content:
+        "Two companies, Dukia Gold & Precious Metals Refining Co. Ltd Nigeria and Philoro Global Trading AG, Switzerland, have signed a “Working Together Agreement”, to collaborate towards the development of the precious metals small scale and artisanal gold mining value chain.The agreement was sealed on the sidelines of the Investing in African Mining Indaba, taking place in Capetown, South Africa.",
+      link: "https://www.nipc.gov.ng/2022/05/14/dukia-gold-philoro-collaborate-to-boost-precious-metals-value-chain/",
+    },
+    {
+      key: 8,
+      logo: "https://res.cloudinary.com/dcu3hr3eo/image/upload/f_auto/v1680796658/INL-MASTHEAD-Logo-scaled_c1gmhg.jpg",
+      title: "Dukia To Trade Gold Bullion Bars On Lagos Commodities Exchange ",
+      content:
+        "Dukia Gold & Precious Metals Refining Company Limited has completed arrangements for the trading of fully refined London Bullion Market Association (LBMA) investment grade gold bullion bars, its derivatives and related products on the floor of the Lagos Commodities & Futures Exchange (LCFE).",
+      link: "https://independent.ng/dukia-to-trade-gold-bullion-bars-on-lagos-commodities-exchange/",
+    },
+    {
+      key: 9,
+      logo: "https://res.cloudinary.com/dcu3hr3eo/image/upload/f_auto/v1680796976/aa-logo_yr38d4.png",
+      title: "Nigeria: Govt Inaugurates Dukia Gold Refinery Project",
+      content:
+        "The federal government yesterday commissioned the operation of Dukia Gold and Precious Metals Project (DGPMP) that would enable Nigeria to mine her gold reserves properly, trade responsibly and refine locally.",
+      link: "https://allafrica.com/stories/202006100717.html",
+    },
+    {
+      key: 10,
+      logo: "https://res.cloudinary.com/dcu3hr3eo/image/upload/v1680797367/business-am-logo-white_btimyt.png",
+      title: "Commodities ecosystem livens up as Dukia trade gold on LCFE",
+      content:
+        "Nigeria’s commodities trading ecosystem for solid minerals is gaining traction providing a good sign for the economy, especially with regards to diversification, said Akin Akeredolu-Ale, managing director, Lagos Commodities & Futures Exchange (LCFE), at a recent virtual seminar.",
+      link: "https://www.businessamlive.com/commodities-ecosystem-livens-up-as-dukia-trade-gold-on-lcfe/",
     },
   ];
 
@@ -98,12 +134,12 @@ const AsFeaturedIn = () => {
               key={item.key}
               className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
             >
-              <Card className="rounded-2xl flex flex-col gap-2">
+              <Card className="max-h-96 rounded-2xl flex flex-col gap-2">
                 {/* <CardHeader>
                   <Image src={item.logo} alt="platformLogo" width={30} height={30} />
                   <CardTitle>{item.title}</CardTitle>
                 </CardHeader> */}
-                <CardContent className="text-sm text-dukiaBlue flex flex-col gap-2 aspect-square p-4">
+                <CardContent className="text-sm text-dukiaBlue flex flex-col justify-between gap-2 aspect-square p-4">
                   <div className="bg-dukiaGrey/[30%] rounded-lg w-full h-[176px] flex items-center justify-center">
                     <Image
                       src={item.logo}
@@ -114,16 +150,20 @@ const AsFeaturedIn = () => {
                     />
                   </div>
 
-                  <p className="w-[100%] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
-                    {item.title}
-                  </p>
-
-                  <p className="line-clamp-5">{item.content}</p>
-                  
-                  <Link href={item.link} target="_blank" className="flex items-center gap-2 hover:text-dukiaGold">
-                    <p className="font-semibold">
-                      Read More
+                  <div className="flex flex-col gap-2">
+                    <p className="w-[100%] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
+                      {item.title}
                     </p>
+
+                    <p className="line-clamp-5">{item.content}</p>
+                  </div>
+
+                  <Link
+                    href={item.link}
+                    target="_blank"
+                    className="flex items-center gap-2 hover:text-dukiaGold"
+                  >
+                    <p className="font-semibold">Read More</p>
                     <ArrowRight size={17} />
                   </Link>
                 </CardContent>
