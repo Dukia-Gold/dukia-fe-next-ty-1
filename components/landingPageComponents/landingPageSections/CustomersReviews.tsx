@@ -43,7 +43,7 @@ const CustomerReviews = () => {
   ];
 
   return (
-    <section className="px-2 md:px-8 py-12 bg-dukiaGrey text-dukiaBlue flex flex-col gap-14 items-center">
+    <section id="customer-review" className="px-2 md:px-8 py-12 bg-dukiaGrey text-dukiaBlue flex flex-col gap-14 items-center">
       <div className="flex flex-col gap-2 text-center">
         <p className="font-bold text-[1.75rem]">Customers Reviews</p>
         <p>
@@ -67,7 +67,7 @@ const CustomerReviews = () => {
                 <CardContent className="flex flex-col pt-5 aspect-video gap-3 justify-between w-full h-full text-dukiaBlue text-sm">
                   <div>
                     <div className="flex justify-end"><Quote size={14} color="#111827" /></div>
-                    <p>{review.review}</p>
+                    <blockquote className="italic">{review.review}</blockquote>
                   </div>
                   <p className="font-bold">{review.name}</p>
                 </CardContent>

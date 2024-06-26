@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -15,12 +16,15 @@ const Footer = () => {
         </div>
 
         <div className="text-sm flex flex-col gap-4 items-center md:items-start">
+          {/* NAME */}
           <div className="flex flex-col gap-1">
             <p className="font-extrabold text-base">Dukia Gold & Precious Metals Refining Co. Ltd.</p>
             <p className="text-xs">Your Precious Metals Refiner & Trusted Bullion Merchant</p>
           </div>
 
+          {/* CONTACT DETAILS */}
           <div className="flex flex-col gap-2">
+            {/* ADDRESS */}
             <div className="flex items-center gap-3">
               <div>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,6 +35,7 @@ const Footer = () => {
               <p>3B, Olusola Olude Close, Gbagada Phase 2, Lagos, Nigeria</p>
             </div>
 
+            {/* EMAIL */}
             <div className="flex items-center gap-3">
               <div>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,9 +43,10 @@ const Footer = () => {
                 </svg>
               </div>
 
-              <p>sales@dukiapreciousmetals.co</p>
+              <Link href="mailto:sales@dukiapreciousmetals.co" className="underline hover:text-dukiaGold">sales@dukiapreciousmetals.co</Link>
             </div>
 
+            {/* PHONE NUMBER */}
             <div className="flex items-center gap-3">
               <div>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +67,7 @@ const Footer = () => {
         <div className="flex flex-col gap-1">
           <p className="font-semibold">COMPANY</p>
           <div className="flex flex-col">
-            <p>About Us</p>
+            <Link href="about-us/dukia-gold" className="hover:text-dukiaGold">About Us</Link>
             <p>Why invest with us?</p>
           </div>
         </div>
@@ -70,9 +76,9 @@ const Footer = () => {
         <div className="flex flex-col gap-1">
           <p className="font-semibold">PRODUCTS</p>
           <div className="flex flex-col">
-            <p>Gold Bars</p>
-            <p>Gold Coins</p>
-            <p>Pool Allocated</p>
+            <Link href="/buy-gold/bars" className="hover:text-dukiaGold">Gold Bars</Link>
+            <Link href="/buy-gold/coins" className="hover:text-dukiaGold">Gold Coins</Link>
+            <Link href="/" className="hover:text-dukiaGold">Pool Allocated</Link>
           </div>
         </div>
 
@@ -81,7 +87,7 @@ const Footer = () => {
           <p className="font-semibold">GUIDES</p>
           <div className="flex flex-col">
             <p>Why invest in Gold?</p>
-            <p>FAQs</p>
+            <Link href="/#customer-review" className="hover:text-dukiaGold">FAQs</Link>
           </div>
         </div>
 

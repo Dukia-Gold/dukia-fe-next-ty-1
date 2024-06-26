@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 interface Coin {
@@ -62,7 +63,9 @@ const CoinCard: React.FC<CoinCardProps> = ({
             </span>{" "}
             or send an email to{" "}
             <span className="font-bold text-base underline">
-              sales@dukiapreciousmetals.co
+              <Link href="mailto:sales@dukiapreciousmetals.co">
+                sales@dukiapreciousmetals.co
+              </Link>
             </span>{" "}
             to order.
           </p>
