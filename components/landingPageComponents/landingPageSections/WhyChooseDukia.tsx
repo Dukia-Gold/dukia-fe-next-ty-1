@@ -15,7 +15,7 @@ const WhyChooseDukia: FC = () => {
               width={64}
               height={64}
             />
-            <p className="font-semibold">A Trustworthy Brand</p>
+            <p className="font-semibold text-center">A Trustworthy Brand</p>
           </div>
 
           <p className="text-sm text-center">
@@ -34,7 +34,7 @@ const WhyChooseDukia: FC = () => {
               width={64}
               height={64}
             />
-            <p className="font-semibold">Fairness & Integrity</p>
+            <p className="font-semibold text-center">Fairness & Integrity</p>
           </div>
 
           <p className="text-sm text-center">
@@ -54,7 +54,7 @@ const WhyChooseDukia: FC = () => {
               width={64}
               height={64}
             />
-            <p className="font-semibold">Ease of Trading</p>
+            <p className="font-semibold text-center">Ease of Trading</p>
           </div>
 
           <p className="text-sm text-center">
@@ -72,7 +72,7 @@ const WhyChooseDukia: FC = () => {
               width={64}
               height={64}
             />
-            <p className="font-semibold">Assured Safekeeping of your assets</p>
+            <p className="font-semibold text-center">Assured Safekeeping of your assets</p>
           </div>
 
           <p className="text-sm text-center">
@@ -88,7 +88,7 @@ const WhyChooseDukia: FC = () => {
               width={64}
               height={64}
             />
-            <p className="font-semibold">Risk Control and Management</p>
+            <p className="font-semibold text-center">Risk Control and Management</p>
           </div>
 
           <p className="text-sm text-center">

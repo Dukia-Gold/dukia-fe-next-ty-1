@@ -167,7 +167,7 @@ const WhoWeAre: React.FC = () => {
             <div className="absolute rounded-b-2xl bottom-0 left-0 w-full">
               <div className="relative w-full flex flex-col items-center">
                 <div className="w-full h-full absolute top-0 left-0 bg-white opacity-25"></div>
-                <div className="z-20 flex items-center justify-between w-full py-4 px-11 font-semibold text-lg">
+                <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
                     <p>N10,000</p>
@@ -196,7 +196,7 @@ const WhoWeAre: React.FC = () => {
             <div className="absolute rounded-b-2xl bottom-0 left-0 w-full">
               <div className="relative w-full flex flex-col items-center">
                 <div className="w-full h-full absolute top-0 left-0 bg-white opacity-25"></div>
-                <div className="z-20 flex items-center justify-between w-full py-4 px-11 font-semibold text-lg">
+                <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
                     <p>N15,000</p>
@@ -225,7 +225,7 @@ const WhoWeAre: React.FC = () => {
             <div className="absolute rounded-b-2xl bottom-0 left-0 w-full">
               <div className="relative w-full flex flex-col items-center">
                 <div className="w-full h-full absolute top-0 left-0 bg-white opacity-25"></div>
-                <div className="z-20 flex items-center justify-between w-full py-4 px-12 font-semibold text-lg">
+                <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
                     <p>N20,000</p>

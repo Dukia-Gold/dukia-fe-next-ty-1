@@ -140,7 +140,7 @@ const AsFeaturedIn = () => {
                   <CardTitle>{item.title}</CardTitle>
                 </CardHeader> */}
                 <CardContent className="text-sm text-dukiaBlue flex flex-col justify-between gap-2 aspect-square p-4">
-                  <div className="bg-dukiaGrey/[30%] rounded-lg w-full h-[176px] flex items-center justify-center">
+                  <div className={`${item.key === 1 || item.key === 10 ? "bg-dukiaBlue" : "bg-dukiaGrey/[30%]"} px-2.5 rounded-lg w-full h-[176px] flex items-center justify-center`}>
                     <Image
                       src={item.logo}
                       alt="platformLogo"
