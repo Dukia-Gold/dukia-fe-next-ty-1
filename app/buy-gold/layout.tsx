@@ -4,7 +4,7 @@ import Newsletter from "@/components/landingPageComponents/landingPageSections/N
 import { ArrowRight, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
+import { cloneElement, ReactNode, useState } from "react";
 
 type BuyGoldLayoutProps = {
   children: ReactNode;
@@ -12,6 +12,7 @@ type BuyGoldLayoutProps = {
 
 export default function BuyGoldLayout({ children }: BuyGoldLayoutProps) {
   const pathname = usePathname();
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="flex flex-col">
@@ -65,13 +66,15 @@ export default function BuyGoldLayout({ children }: BuyGoldLayoutProps) {
             <input
               type="text"
               placeholder="Search for gold, amount,quantity..."
-              disabled
+              disabled={pathname === '/buy-gold'}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value || "")}
               className="outline-none bg-transparent w-full text-dukiaBlue placeholder:text-dukiaBlue/[40%]"
             />
           </div>
         </div>
 
-        {children}
+        {cloneElement(children as React.ReactElement, { searchTerm: searchTerm })}
       </div>
 
       <Newsletter />

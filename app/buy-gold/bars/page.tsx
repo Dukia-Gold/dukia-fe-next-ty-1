@@ -25,6 +25,10 @@ interface BarCardProps {
   handleClick: () => void;
 }
 
+interface BarsPageProps {
+  searchTerm: string;
+}
+
 const BarCard: React.FC<BarCardProps> = ({
   bar,
   isFront,
@@ -72,7 +76,7 @@ const BarCard: React.FC<BarCardProps> = ({
   );
 };
 
-const BarsPage = () => {
+const BarsPage: React.FC<BarsPageProps> = ({ searchTerm }) => {
   const [flippedState, setFlippedState] = useState<{ [key: number]: boolean }>(
     {}
   );
@@ -129,12 +133,19 @@ const BarsPage = () => {
     },
   ];
 
+  // Ensure searchTerm is always a string
+  const normalizedSearchTerm = (searchTerm || "").toLowerCase();  
+
+  const filteredBars = BarsArray.filter((bar) =>
+    bar.title.toLowerCase().includes(normalizedSearchTerm)
+  );
+
   return (
     <div className="flex flex-col items-center gap-2.5 md:gap-5">
       <p className="xl:hidden font-bold text-[2.5rem]">Gold Bars</p>
 
       <div className="w-full grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {BarsArray.map((bar) => (
+      {filteredBars.map((bar) => (
           <BarCard
             key={bar.key}
             bar={bar}
