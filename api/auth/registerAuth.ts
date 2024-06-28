@@ -2,8 +2,6 @@ import { toast } from "@/components/ui/use-toast";
 import axios from "axios";
 import { useState } from "react";
 
-
-
 const RegisterAuth = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -21,7 +19,8 @@ const RegisterAuth = () => {
 
       toast({
         title: "Individual Account Created Successfully",
-        description: "Your Individual Account has been successfully created. Please, proceed to log in.",
+        description:
+          "Your Individual Account has been successfully created. Please, proceed to log in.",
       });
       setLoading(false);
 
@@ -46,14 +45,14 @@ const RegisterAuth = () => {
           "Content-Type": "application/json",
         },
       });
-
+      
+      setLoading(false);
+      window.location.reload();
       toast({
         title: "Joint Account Created Successfully",
-        description: "Your Joint Account has been created. You can now login with the primary email address",
+        description:
+          "Your Joint Account has been created. You can now login with the primary email address",
       });
-      setLoading(false);
-      
-      window.location.reload();
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -63,23 +62,31 @@ const RegisterAuth = () => {
     }
   };
 
-  const registerCorporate = async (data: any) => {
+  const registerCorporate = async (formData: any) => {
     try {
-      const response = await fetch(
-        "https://api.dukiapreciousmetals.co/api/register",
-        {
+      setLoading(true);
+      const response = await axios({
+        url: "https://api.dukiapreciousmetals.co/api/company/register",
           method: "POST",
+          data: formData,
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
-        }
-      );
-      const result = await response.json();
-      console.log(result);
-      return result;
-    } catch (error) {
-      throw error;
+      });
+
+      setLoading(false);
+      window.location.reload();
+      toast({
+        title: "Corporate Account Created Successfully",
+        description:
+          "Your Corporate Account has been created. You can now login with the primary email address",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: error.response?.data?.message || "An error occured!",
+      });
     }
   };
 

@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import RegisterAuth from "@/api/auth/registerAuth";
 import { Separator } from "@/components/ui/separator";
 
-type RegisterProps = {
+type JointRegisterProps = {
   tab: number;
   setTab: (tab: number) => void;
 };
@@ -21,7 +21,7 @@ dayjs.extend(customParseFormat);
 
 const dateFormat = "YYYY-MM-DD";
 
-const JointRegister = ({ tab, setTab }: RegisterProps) => {
+const JointRegister = ({ tab, setTab }: JointRegisterProps) => {
   const [first_name, setFirstName] = useState("");
   const [first_name2, setFirstName2] = useState("");
   const [middle_name, setMiddleName] = useState("");
@@ -87,7 +87,7 @@ const JointRegister = ({ tab, setTab }: RegisterProps) => {
   };
 
   return (
-    <div className="space-y-4">
+    <>
       {tab === 1 && (
         <form className="space-y-4" onSubmit={() => setTab(2)}>
           <p className="text-center font-bold py-2">APPLICANT ONE (PRIMARY ACCOUNT)</p>
@@ -391,7 +391,7 @@ const JointRegister = ({ tab, setTab }: RegisterProps) => {
           </div>
         </form>
       )}
-    </div>
+    </>
   );
 };
 

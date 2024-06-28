@@ -8,8 +8,8 @@ import {
 } from "@/components/ui/select";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import React, { useState } from "react";
 import RegisterAuth from "@/api/auth/registerAuth";
+import { useState } from "react";
 
 type RegisterProps = {
   tab: number;
@@ -17,8 +17,6 @@ type RegisterProps = {
 };
 
 dayjs.extend(customParseFormat);
-
-const dateFormat = "YYYY-MM-DD";
 
 const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
   const [first_name, setFirstName] = useState("");
@@ -66,7 +64,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
   };
 
   return (
-    <div className="space-y-4">
+    <>
       {tab === 1 && (
         <form className="space-y-4" onSubmit={() => setTab(2)}>
           {/* First Name */}
@@ -241,7 +239,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
           </div>
         </form>
       )}
-    </div>
+    </>
   );
 };
 

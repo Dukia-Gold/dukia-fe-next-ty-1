@@ -16,8 +16,6 @@ const RegisterForm = () => {
   const [tab, setTab] = useState<number>(1);
   const [type, setType] = useState("none");
 
-  console.log(type);
-
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="flex items-center justify-center text-white font-semibold">
@@ -58,7 +56,17 @@ const RegisterForm = () => {
             </Select>
 
             {type === "joint" && (
-              <p>Designed for shared account ownership. Complete the form below to get started.</p>
+              <p>
+                Designed for shared account ownership. Complete the form below
+                to get started.
+              </p>
+            )}
+
+            {type === "corporate" && (
+              <p>
+                Designed for corporate entities. Complete the form below to get
+                started.
+              </p>
             )}
           </div>
 
@@ -76,7 +84,7 @@ const RegisterForm = () => {
 
           {type === "joint" && <JointRegister tab={tab} setTab={setTab} />}
 
-          {type === "corporate" && <CorporateRegister />}
+          {type === "corporate" && <CorporateRegister tab={tab} setTab={setTab} />}
         </div>
       </div>
     </div>
