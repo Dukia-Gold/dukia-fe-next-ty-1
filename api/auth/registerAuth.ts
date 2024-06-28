@@ -1,14 +1,15 @@
 import { toast } from "@/components/ui/use-toast";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 
 
 const RegisterAuth = () => {
-  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const registerIndividual = async (formData: any) => {
     try {
+      setLoading(true);
       const response = await axios({
         url: "https://api.dukiapreciousmetals.co/api/register",
         method: "POST",
@@ -18,15 +19,25 @@ const RegisterAuth = () => {
         },
       });
 
-      router.push('/login');
-      // return response;
-    } catch (error) {
-      throw error;
+      toast({
+        title: "Individual Account Created Successfully",
+        description: "Your Individual Account has been successfully created. Please, proceed to log in.",
+      });
+      setLoading(false);
+
+      window.location.reload();
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: error.response?.data?.message || "An error occured!",
+      });
     }
   };
 
   const registerJoint = async (formData: any) => {
     try {
+      setLoading(true);
       const response = await axios({
         url: "https://api.dukiapreciousmetals.co/api/joint-account/register",
         method: "POST",
@@ -37,17 +48,18 @@ const RegisterAuth = () => {
       });
 
       toast({
-        description: "Joint Account Created Successfully",
+        title: "Joint Account Created Successfully",
+        description: "Your Joint Account has been created. You can now login with the primary email address",
       });
-      router.push('/login');
-      // return response;
+      setLoading(false);
+      
+      window.location.reload();
     } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: error.response?.data?.message || "An error occured!",
       });
-      throw error;
     }
   };
 
@@ -71,7 +83,7 @@ const RegisterAuth = () => {
     }
   };
 
-  return { registerIndividual, registerJoint, registerCorporate };
+  return { loading, registerIndividual, registerJoint, registerCorporate };
 };
 
 export default RegisterAuth;

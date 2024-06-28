@@ -1,4 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-  
+
+/* custom.css */
+.custom-ant-picker-focus:focus,
+.custom-ant-picker-focus:focus-within,
+.custom-ant-picker-focus:hover {
+  @apply border-dukiaBlue/[11%] ring-2 ring-transparent;
+}

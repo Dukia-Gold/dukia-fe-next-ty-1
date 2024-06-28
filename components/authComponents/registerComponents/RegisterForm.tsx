@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Select,
   SelectContent,
@@ -6,9 +8,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
+import IndividualRegister from "./IndividualRegister";
+import CorporateRegister from "./CorporateRegister";
+import JointRegister from "./JointRegister";
 
 const RegisterForm = () => {
   const [tab, setTab] = useState<number>(1);
+  const [type, setType] = useState("none");
+
+  console.log(type);
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -17,9 +25,7 @@ const RegisterForm = () => {
           onClick={() => {
             setTab(1);
           }}
-          className={`${
-            tab === 1 ? "bg-dukiaBlue" : ""
-          } border-2 border-dukiaGold py-2.5 px-5 rounded-[50%] cursor-pointer`}
+          className="bg-dukiaBlue border-2 border-dukiaGold py-2.5 px-5 rounded-[50%] cursor-pointer"
         >
           1
         </div>
@@ -37,8 +43,11 @@ const RegisterForm = () => {
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <label htmlFor="">Account Type</label>
-            <Select>
-              <SelectTrigger className="w-full focus:ring-transparent focus:ring-offset-0 border border-dukiaBlue/[15%] px-6 py-4 text-dukiaBlue/[50%] font-normal">
+            <Select
+              onValueChange={(value) => setType(value)}
+              disabled={tab === 2}
+            >
+              <SelectTrigger className="w-full focus:ring-transparent focus:ring-offset-0 border border-dukiaBlue/[15%] p-6 text-dukiaBlue/[50%] font-normal">
                 <SelectValue placeholder="Choose one" />
               </SelectTrigger>
               <SelectContent>
@@ -47,11 +56,27 @@ const RegisterForm = () => {
                 <SelectItem value="corporate">Corporate Account</SelectItem>
               </SelectContent>
             </Select>
+
+            {type === "joint" && (
+              <p>Designed for shared account ownership. Complete the form below to get started.</p>
+            )}
           </div>
 
-		  <div className="h-52 flex justify-center items-center">
-			<p className="text-xl max-w-[80%] text-center">Select an Account Type to continue</p>
-		  </div>
+          {type === "none" && (
+            <div className="h-52 flex justify-center items-center">
+              <p className="text-xl max-w-[80%] text-center">
+                Select an Account Type to continue
+              </p>
+            </div>
+          )}
+
+          {type === "individual" && (
+            <IndividualRegister tab={tab} setTab={setTab} />
+          )}
+
+          {type === "joint" && <JointRegister tab={tab} setTab={setTab} />}
+
+          {type === "corporate" && <CorporateRegister />}
         </div>
       </div>
     </div>
