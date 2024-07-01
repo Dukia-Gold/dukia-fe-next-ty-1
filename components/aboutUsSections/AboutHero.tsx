@@ -15,8 +15,21 @@ const AboutHero = () => {
           height={102.99}
         />{" "}
         <div className="flex flex-col gap-6 items-center text-white">
-          <div className="flex flex-col gap-2 text-center md:max-w-[75%]">
-            <p className="font-extrabold text-5xl">
+          <div className="flex flex-col gap-2 text-center md:max-w-[80%]">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
+              We Are Dukia Gold
+            </h1>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold mt-4">
+              Nigeria&apos;s Foremost & Largest Full-Service Bullion Dealer
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mt-6">
+              Creating ease of access to investment-grade gold and other
+              precious metals in Nigeria via a safe and secure trading platform.
+              With Dukia Gold, you have full control and peace of mind over
+              securing your financial future.
+            </p>
+
+            {/* <p className="font-extrabold text-5xl">
               About <br className="md:hidden" /> Dukia Gold
             </p>
 
@@ -24,7 +37,7 @@ const AboutHero = () => {
               Lorem ipsum dolor sit amet consectetur. Fermentum velit dignissim
               pretium aenean sagittis parturient faucibus. Donec scelerisque
               cursus cras rhoncus viverra nibh orci.
-            </p>
+            </p> */}
           </div>
 
           <div>
