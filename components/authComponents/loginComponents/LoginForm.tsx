@@ -1,7 +1,10 @@
 import useAuth from "@/api/auth/useAuth";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const LoginForm = () => {
   const { login, loginLoading } = useAuth();
+  const [viewPassword, setViewPassword] = useState<boolean>(false);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,14 +35,35 @@ const LoginForm = () => {
           <label htmlFor="password" className="font-semibold">
             Password
           </label>
-          <input
-            className="py-4 px-6 outline-none placeholder:text-dukiaBlue/[50%] border border-dukiaBlue/[15%] rounded-lg"
-            required
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Enter Password"
-          />
+          <div className="flex items-center pr-6 bg-white border border-dukiaBlue/[15%] rounded-lg">
+            <input
+              className="py-4 px-6 outline-none placeholder:text-dukiaBlue/[50%] rounded-lg w-full"
+              required
+              type={viewPassword ? "text" : "password"}
+              name="password"
+              id="password"
+              placeholder="***********"
+            />
+            {!viewPassword && (
+              <Eye
+                className="text-dukiaBlue/[50%] cursor-pointer"
+                size={20}
+                onClick={() => {
+                  setViewPassword(true);
+                }}
+              />
+            )}
+
+            {viewPassword && (
+              <EyeOff
+                className="text-dukiaBlue/[50%] cursor-pointer"
+                size={20}
+                onClick={() => {
+                  setViewPassword(false);
+                }}
+              />
+            )}
+          </div>
         </div>
 
         <p className="text-end">Forgot Password?</p>

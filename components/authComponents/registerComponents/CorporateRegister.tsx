@@ -7,7 +7,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DatePicker, DatePickerProps } from "antd";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
+import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
 type JointRegisterProps = {
@@ -15,14 +16,12 @@ type JointRegisterProps = {
   setTab: (tab: number) => void;
 };
 
-// dayjs.extend(customParseFormat);
-
 const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
   const [company_contact_email, setCompanyEmail] = useState("");
   const [company_contact_telephone, setCompanyTel] = useState("");
   const [company_country_of_incorporation, setCompanyCountry] = useState("");
   const [company_date_of_incorporation, setCompanyDate] =
-    useState<String | null>(null);
+    useState("");
   const [dateOfIncorporation, setDateOfIncorporation] = useState<Dayjs | null>(
     null
   );
@@ -43,6 +42,18 @@ const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
 
   const { loading, registerCorporate } = RegisterAuth();
 
+  const [viewPassword, setViewPassword] = useState<boolean>(false);
+  const [viewConfirmPassword, setViewConfirmPassword] =
+    useState<boolean>(false);
+  const [validationMessages, setValidationMessages] = useState({
+    length: "Password must be at least 8 characters long.",
+    uppercase: "Password must contain at least one uppercase letter.",
+    lowercase: "Password must contain at least one lowercase letter.",
+    number: "Password must contain at least one number.",
+    special: "Password must contain at least one special character.",
+  });
+
+  const valid = "2024-07-01";
   const dateFormat = "YYYY-MM-DD";
 
   const handleTaxIDInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,12 +72,74 @@ const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
     setDateOfIncorporation(date);
   };
 
-  // const handleDOBChange2: DatePickerProps["onChange"] = (date, dateString) => {
-  //   setBirthday2(dateString?.toString());
-  // };
+  const validatePassword = (password: string) => {
+    const messages = {
+      length:
+        password.length >= 8
+          ? ""
+          : "Password must be at least 8 characters long.",
+      uppercase: /[A-Z]/.test(password)
+        ? ""
+        : "Password must contain at least one uppercase letter.",
+      lowercase: /[a-z]/.test(password)
+        ? ""
+        : "Password must contain at least one lowercase letter.",
+      number: /[0-9]/.test(password)
+        ? ""
+        : "Password must contain at least one number.",
+      special: /[!@#$%^&*]/.test(password)
+        ? ""
+        : "Password must contain at least one special character.",
+    };
+    setValidationMessages(messages);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    validatePassword(newPassword);
+  };
+
+  const isTabOneValid = () => {
+    return (
+      company_name.trim() &&
+      company_type.trim() &&
+      company_tax_identification_number &&
+      company_registration_number.trim() &&
+      company_date_of_incorporation.trim() &&
+      company_country_of_incorporation.trim() &&
+      company_registered_address.trim()
+    );
+  }
+
+  const isFormValid = () => {
+    return (
+      company_name.trim() &&
+      company_type.trim() &&
+      company_tax_identification_number &&
+      company_registration_number.trim() &&
+      company_date_of_incorporation.trim() &&
+      company_country_of_incorporation.trim() &&
+      company_registered_address.trim() &&
+      phone.trim() &&
+      email.trim() &&
+      company_contact_email.trim() &&
+      company_contact_telephone.trim() &&
+      password.length >= 8 &&
+      /[A-Z]/.test(password) &&
+      /[a-z]/.test(password) &&
+      /[0-9]/.test(password) &&
+      /[!@#$%^&*]/.test(password) &&
+      password === password_confirmation
+    );
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (!isFormValid()) {
+      return;
+    }
 
     const formData = {
       company_contact_email,
@@ -96,7 +169,7 @@ const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
   };
 
   return (
-    <div>
+    <>
       {tab === 1 && (
         <form className="space-y-4" onSubmit={() => setTab(2)}>
           {/* Company Name */}
@@ -187,6 +260,7 @@ const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
               required
               value={dateOfIncorporation}
               onChange={handleIncorpDateChange}
+              maxDate={dayjs(valid, dateFormat)}
               className="px-6 py-3.5 font-normal custom-ant-picker-focus"
             />
           </div>
@@ -233,7 +307,7 @@ const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
           </div>
 
           <div className="pt-2">
-            <button className="bg-dukiaBlue w-full text-white mt-2 rounded-lg py-3 text-base">
+            <button disabled={!isTabOneValid()} className="bg-dukiaBlue w-full text-white mt-2 rounded-lg py-3 text-base disabled:bg-dukiaBlue/40 disabled:cursor-not-allowed">
               Continue
             </button>
           </div>
@@ -282,15 +356,40 @@ const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
             <label>
               Password <span className="text-red-500">*</span>
             </label>
-            <input
-              type="password"
-              name="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-              placeholder="**********"
-              className="rounded-lg border border-dukiaBlue/[15%] py-4 px-6 placeholder:text-dukiaBlue/[50%] font-normal outline-none"
-            />
+            <div className="flex items-center pr-6 bg-white border border-dukiaBlue/[15%] rounded-lg">
+              <input
+                className="py-4 px-6 outline-none font-normal placeholder:text-dukiaBlue/[50%] rounded-lg w-full"
+                required
+                onChange={handleChange}
+                value={password}
+                type={viewPassword ? "text" : "password"}
+                name="password"
+                id="password"
+                placeholder="*********"
+              />
+
+              {viewPassword ? (
+                <EyeOff
+                  className="text-dukiaBlue/[50%] cursor-pointer"
+                  size={20}
+                  onClick={() => setViewPassword(false)}
+                />
+              ) : (
+                <Eye
+                  className="text-dukiaBlue/[50%] cursor-pointer"
+                  size={20}
+                  onClick={() => setViewPassword(true)}
+                />
+              )}
+            </div>
+
+            {password && (
+              <div className="text-red-500 text-xs mt-2 space-y-1 pl-6">
+                {Object.values(validationMessages).map(
+                  (msg, index) => msg && <p key={index}>{msg}</p>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Confirm Password */}
@@ -298,15 +397,47 @@ const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
             <label>
               Confirm Password <span className="text-red-500">*</span>
             </label>
-            <input
-              type="password"
-              name="password_confirmation"
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
-              value={password_confirmation}
-              required
-              placeholder="**********"
-              className="rounded-lg border border-dukiaBlue/[15%] py-4 px-6 placeholder:text-dukiaBlue/[50%] font-normal outline-none"
-            />
+
+            <div className="flex items-center pr-6 bg-white border border-dukiaBlue/[15%] rounded-lg">
+              <input
+                className="py-4 px-6 outline-none font-normal placeholder:text-dukiaBlue/[50%] rounded-lg w-full"
+                required
+                onChange={(e) => setPasswordConfirmation(e.target.value)}
+                value={password_confirmation}
+                type={viewConfirmPassword ? "text" : "password"}
+                name="password_confirmation"
+                id="password_confirmation"
+                placeholder="*********"
+              />
+
+              {!viewConfirmPassword && (
+                <Eye
+                  className="text-dukiaBlue/[50%] cursor-pointer"
+                  size={20}
+                  onClick={() => {
+                    setViewConfirmPassword(true);
+                  }}
+                />
+              )}
+
+              {viewConfirmPassword && (
+                <EyeOff
+                  className="text-dukiaBlue/[50%] cursor-pointer"
+                  size={20}
+                  onClick={() => {
+                    setViewConfirmPassword(false);
+                  }}
+                />
+              )}
+            </div>
+
+            {/* {password_confirmation && } */}
+
+            {password_confirmation && password !== password_confirmation && (
+              <p className="text-red-600 mt-2">
+                The passwords don&apos;t match
+              </p>
+            )}
           </div>
 
           {/* Company's Contact Person Email */}
@@ -359,13 +490,13 @@ const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
           </div>
 
           <div className="pt-2">
-            <button className="bg-dukiaBlue w-full text-white mt-2 rounded-lg py-3 text-base">
+            <button disabled={!isFormValid()} className="bg-dukiaBlue w-full text-white mt-2 rounded-lg py-3 text-base disabled:bg-dukiaBlue/40 disabled:cursor-not-allowed">
               Create Corporate Gold Account
             </button>
           </div>
         </form>
       )}
-    </div>
+    </>
   );
 };
 

@@ -6,20 +6,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import React, { useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
+import { useState } from "react";
 import RegisterAuth from "@/api/auth/registerAuth";
 import { Separator } from "@/components/ui/separator";
+import { Eye, EyeOff } from "lucide-react";
 
 type JointRegisterProps = {
   tab: number;
   setTab: (tab: number) => void;
 };
-
-dayjs.extend(customParseFormat);
-
-const dateFormat = "YYYY-MM-DD";
 
 const JointRegister = ({ tab, setTab }: JointRegisterProps) => {
   const [first_name, setFirstName] = useState("");
@@ -36,26 +32,110 @@ const JointRegister = ({ tab, setTab }: JointRegisterProps) => {
   const [nationality2, setNationality2] = useState("");
   const [gender, setGender] = useState("");
   const [gender2, setGender2] = useState("");
-  const [birthday, setBirthday] = useState<String | null>(null);
-  const [birthday2, setBirthday2] = useState<String | null>(null);
+  const [birthday, setBirthday] = useState("");
+  const [birthdayVal, setBirthdayVal] = useState<Dayjs | null>(null);
+  const [birthday2, setBirthday2] = useState('');
+  const [birthdayVal2, setBirthdayVal2] = useState<Dayjs | null>(null);
   const [password, setPassword] = useState("");
   const [password_confirmation, setConfirmPassword] = useState("");
 
   const { loading, registerJoint } = RegisterAuth();
 
-  const adult = "2006-06-28";
+  const [viewPassword, setViewPassword] = useState<boolean>(false);
+  const [viewConfirmPassword, setViewConfirmPassword] =
+    useState<boolean>(false);
+  const [validationMessages, setValidationMessages] = useState({
+    length: "Password must be at least 8 characters long.",
+    uppercase: "Password must contain at least one uppercase letter.",
+    lowercase: "Password must contain at least one lowercase letter.",
+    number: "Password must contain at least one number.",
+    special: "Password must contain at least one special character.",
+  });
+
+  const adult = "2006-07-01";
   const dateFormat = "YYYY-MM-DD";
 
   const handleDOBChange: DatePickerProps["onChange"] = (date, dateString) => {
+    setBirthdayVal(date);
     setBirthday(dateString?.toString());
   };
 
   const handleDOBChange2: DatePickerProps["onChange"] = (date, dateString) => {
+    setBirthdayVal2(date);
     setBirthday2(dateString?.toString());
+  };
+
+  const validatePassword = (password: string) => {
+    const messages = {
+      length:
+        password.length >= 8
+          ? ""
+          : "Password must be at least 8 characters long.",
+      uppercase: /[A-Z]/.test(password)
+        ? ""
+        : "Password must contain at least one uppercase letter.",
+      lowercase: /[a-z]/.test(password)
+        ? ""
+        : "Password must contain at least one lowercase letter.",
+      number: /[0-9]/.test(password)
+        ? ""
+        : "Password must contain at least one number.",
+      special: /[!@#$%^&*]/.test(password)
+        ? ""
+        : "Password must contain at least one special character.",
+    };
+    setValidationMessages(messages);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    validatePassword(newPassword);
+  };
+
+  const isTabOneValid = () => {
+    return (
+      first_name.trim() &&
+      last_name.trim() &&
+      email.trim() &&
+      phone.trim() &&
+      nationality.trim() &&
+      gender.trim() &&
+      birthday.trim()
+    );
+  }
+
+  const isFormValid = () => {
+    return (
+      first_name.trim() &&
+      first_name2.trim() &&
+      last_name.trim() &&
+      last_name2.trim() &&
+      email.trim() &&
+      email2.trim() &&
+      phone.trim() &&
+      phone2.trim() &&
+      nationality.trim() &&
+      nationality2.trim() &&
+      gender.trim() &&
+      gender2.trim() &&
+      birthday.trim() &&
+      birthday2.trim() &&
+      password.length >= 8 &&
+      /[A-Z]/.test(password) &&
+      /[a-z]/.test(password) &&
+      /[0-9]/.test(password) &&
+      /[!@#$%^&*]/.test(password) &&
+      password === password_confirmation
+    );
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (!isFormValid()) {
+      return;
+    }
 
     const formData = {
       first_name,
@@ -208,6 +288,7 @@ const JointRegister = ({ tab, setTab }: JointRegisterProps) => {
             <DatePicker
               name="birthday"
               format={dateFormat}
+              value={birthdayVal}
               onChange={handleDOBChange}
               maxDate={dayjs(adult, dateFormat)}
               className="px-6 py-3.5 font-normal custom-ant-picker-focus"
@@ -215,7 +296,7 @@ const JointRegister = ({ tab, setTab }: JointRegisterProps) => {
           </div>
 
           <div className="pt-2">
-            <button className="bg-dukiaBlue w-full text-white mt-2 rounded-lg py-3 text-base">
+            <button disabled={!isTabOneValid()} className="bg-dukiaBlue w-full text-white mt-2 rounded-lg py-3 text-base disabled:bg-dukiaBlue/40 disabled:cursor-not-allowed">
               Continue
             </button>
           </div>
@@ -342,6 +423,7 @@ const JointRegister = ({ tab, setTab }: JointRegisterProps) => {
             <DatePicker
               name="birthday"
               format={dateFormat}
+              value={birthdayVal2}
               onChange={handleDOBChange2}
               maxDate={dayjs(adult, dateFormat)}
               className="px-6 py-3.5 font-normal custom-ant-picker-focus"
@@ -357,15 +439,40 @@ const JointRegister = ({ tab, setTab }: JointRegisterProps) => {
             <label>
               Password <span className="text-red-500">*</span>
             </label>
-            <input
-              type="password"
-              name="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-              placeholder="**********"
-              className="rounded-lg border border-dukiaBlue/[15%] py-4 px-6 placeholder:text-dukiaBlue/[50%] font-normal outline-none"
-            />
+            <div className="flex items-center pr-6 bg-white border border-dukiaBlue/[15%] rounded-lg">
+              <input
+                className="py-4 px-6 outline-none font-normal placeholder:text-dukiaBlue/[50%] rounded-lg w-full"
+                required
+                onChange={handleChange}
+                value={password}
+                type={viewPassword ? "text" : "password"}
+                name="password"
+                id="password"
+                placeholder="*********"
+              />
+
+              {viewPassword ? (
+                <EyeOff
+                  className="text-dukiaBlue/[50%] cursor-pointer"
+                  size={20}
+                  onClick={() => setViewPassword(false)}
+                />
+              ) : (
+                <Eye
+                  className="text-dukiaBlue/[50%] cursor-pointer"
+                  size={20}
+                  onClick={() => setViewPassword(true)}
+                />
+              )}
+            </div>
+            
+            {password && (
+              <div className="text-red-500 text-xs mt-2 space-y-1 pl-6">
+                {Object.values(validationMessages).map(
+                  (msg, index) => msg && <p key={index}>{msg}</p>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Confirm Password */}
@@ -373,19 +480,49 @@ const JointRegister = ({ tab, setTab }: JointRegisterProps) => {
             <label>
               Confirm Password <span className="text-red-500">*</span>
             </label>
-            <input
-              type="password"
-              name="password_confirmation"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              value={password_confirmation}
-              required
-              placeholder="**********"
-              className="rounded-lg border border-dukiaBlue/[15%] py-4 px-6 placeholder:text-dukiaBlue/[50%] font-normal outline-none"
-            />
+
+            <div className="flex items-center pr-6 bg-white border border-dukiaBlue/[15%] rounded-lg">
+              <input
+                className="py-4 px-6 outline-none font-normal placeholder:text-dukiaBlue/[50%] rounded-lg w-full"
+                required
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={password_confirmation}
+                type={viewConfirmPassword ? "text" : "password"}
+                name="password_confirmation"
+                id="password_confirmation"
+                placeholder="*********"
+              />
+
+              {!viewConfirmPassword && (
+                <Eye
+                  className="text-dukiaBlue/[50%] cursor-pointer"
+                  size={20}
+                  onClick={() => {
+                    setViewConfirmPassword(true);
+                  }}
+                />
+              )}
+
+              {viewConfirmPassword && (
+                <EyeOff
+                  className="text-dukiaBlue/[50%] cursor-pointer"
+                  size={20}
+                  onClick={() => {
+                    setViewConfirmPassword(false);
+                  }}
+                />
+              )}
+            </div>
+
+            {password_confirmation && password !== password_confirmation && (
+              <p className="text-red-600 mt-2">
+                The passwords don&apos;t match
+              </p>
+            )}
           </div>
 
           <div className="pt-2">
-            <button className="bg-dukiaBlue w-full text-white mt-2 rounded-lg py-3 text-base">
+            <button disabled={!isFormValid()} className="bg-dukiaBlue w-full text-white mt-2 rounded-lg py-3 text-base disabled:bg-dukiaBlue/40 disabled:cursor-not-allowed">
               Create Joint Gold Account
             </button>
           </div>
