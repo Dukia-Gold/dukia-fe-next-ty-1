@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "tinyurl.com",
+        hostname: "dukiagoldrefinery.co",
       },
       {
         protocol: "https",

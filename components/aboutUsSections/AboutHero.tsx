@@ -1,8 +1,12 @@
 import Image from "next/image";
-import Link from "next/link";
-import React from "react";
 
-const AboutHero = () => {
+type AboutHeroProps = {
+  handleScrollToNextSection: () => void;
+};
+
+const AboutHero = ({ handleScrollToNextSection }: AboutHeroProps) => {
+  
+
   return (
     <section className="relative min-h-screen bg-hero-pattern bg-cover bg-no-repeat bg-center bg-fixed pt-48 xl:pt-36 px-3 md:px-12 xl:px-28 py-4 flex flex-col justify-center items-center">
       <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60"></div>
@@ -41,11 +45,12 @@ const AboutHero = () => {
           </div>
 
           <div>
-            <Link href="/buy-gold">
-              <button className="bg-dukiaGold py-3 px-8 rounded-lg text-dukiaBlue font-semibold text-sm">
-                Buy Gold
-              </button>
-            </Link>
+            <button
+              className="bg-dukiaGold py-3 px-8 rounded-lg text-dukiaBlue font-semibold text-sm mt-6"
+              onClick={handleScrollToNextSection}
+            >
+              Read More
+            </button>
           </div>
         </div>
       </div>
