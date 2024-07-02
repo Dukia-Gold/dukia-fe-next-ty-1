@@ -27,24 +27,27 @@ const GoldPrice = () => {
     const timeout = setTimeout(() => setBidClass(""), 1500);
     return () => clearTimeout(timeout);
   }, [bid]);
-  
+
   return (
     <div
       className="flex flex-col md:items-center  md:flex-row justify-between gap-1 py-3 px-1.5 md:px-5 lg:px-10
   bg-dukiaGold text-sm text-dukiaBlue font-bold"
     >
-      <p className="flex items-center gap-0.5 lg:gap-1">
-        GOLD ASK:
-        <span className={`text-xs ${askClass}`}>$ {ask.oz}/oz</span>
-        |<span className={`text-xs ${askClass}`}>$ {ask.g}/g</span>|
+      <p>
+        GOLD ASK: <span className={`text-xs ${askClass}`}>$ {ask.oz}/oz</span>
+        <span className="mx-0.5">|</span>
+        <span className={`text-xs ${askClass}`}>$ {ask.g}/g</span>
+        <span className="mx-0.5">|</span>
         <span className={`text-xs ${askClass}`}>$ {ask.kg}/kg</span>
-        <span className="text-xs hidden sm:block">-0.01% (-$0.12)</span>
+        <span className="text-xs"> -0.01%(-$0.12)</span>
       </p>
 
-      <p className="flex items-center gap-0.5 lg:gap-1">
+      <p>
         GOLD BID:
         <span className={`text-xs ${bidClass}`}>$ {bid.oz}/oz</span>
-        |<span className={`text-xs ${bidClass}`}>$ {bid.g}/g</span>|
+        <span className="mx-0.5">|</span>
+        <span className={`text-xs ${bidClass}`}>$ {bid.g}/g</span>
+        <span className="mx-0.5">|</span>
         <span className={`text-xs ${bidClass}`}>$ {bid.kg}/kg</span>
       </p>
     </div>

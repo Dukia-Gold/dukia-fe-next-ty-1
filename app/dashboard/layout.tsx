@@ -1,6 +1,7 @@
 "use client"
 
 import GoldPrice from "@/components/dashboardComponents/GoldPrice";
+import MobileHeader from "@/components/dashboardComponents/MobileHeader";
 import Sidebar from "@/components/dashboardComponents/Sidebar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Metadata } from "next";
@@ -21,8 +22,11 @@ export default function DashboardLayout({
       <nav>{/* Dashboard navigation here */}</nav>
       <main className="flex flex-col lg:flex-row pt-0">
         <Sidebar />
+
         <ScrollArea className="w-full">
           <GoldPrice />
+          <MobileHeader />
+          
           {children}
         </ScrollArea>
       </main>
