@@ -1,3 +1,4 @@
+import Sidebar from "@/components/dashboardComponents/Sidebar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -16,7 +17,8 @@ export default function DashboardLayout({
        <nav>
         {/* Dashboard navigation here */}
        </nav>
-       <main>
+       <main className="flex">
+        <Sidebar />
          {children}
        </main>
      </div>

@@ -170,12 +170,12 @@ const WhoWeAre: React.FC = () => {
                 <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
-                    <p>N10,000</p>
+                    <p className="font-extrabold text-2xl">N10,000</p>
                   </div>
 
-                  <div className="p-4 text-white bg-dukiaBlue rounded-lg">
-                    <ShoppingCart className="cursor-pointer" />
-                  </div>
+                  <button className="px-4 py-2 text-white bg-dukiaBlue rounded-lg">
+                    Buy Now
+                  </button>
                 </div>
               </div>
             </div>
@@ -199,12 +199,12 @@ const WhoWeAre: React.FC = () => {
                 <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
-                    <p>N15,000</p>
+                    <p className="font-extrabold text-2xl">N15,000</p>
                   </div>
 
-                  <div className="p-4 text-white bg-dukiaBlue rounded-lg">
-                    <ShoppingCart className="cursor-pointer" />
-                  </div>
+                  <button className="px-4 py-2 text-white bg-dukiaBlue rounded-lg">
+                    Buy Now
+                  </button>
                 </div>
               </div>
             </div>
@@ -228,12 +228,12 @@ const WhoWeAre: React.FC = () => {
                 <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
-                    <p>N20,000</p>
+                    <p className="font-extrabold text-2xl">N20,000</p>
                   </div>
 
-                  <div className="p-4 text-white bg-dukiaBlue rounded-lg">
-                    <ShoppingCart className="cursor-pointer" />
-                  </div>
+                  <button className="px-4 py-2 text-white bg-dukiaBlue rounded-lg">
+                    Buy Now
+                  </button>
                 </div>
               </div>
             </div>
