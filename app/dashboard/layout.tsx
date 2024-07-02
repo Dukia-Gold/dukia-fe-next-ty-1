@@ -1,4 +1,5 @@
 import Sidebar from "@/components/dashboardComponents/Sidebar";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,13 +15,13 @@ export default function DashboardLayout({
 }>) {
   return (
     <div>
-       <nav>
-        {/* Dashboard navigation here */}
-       </nav>
-       <main className="flex">
+      <nav>{/* Dashboard navigation here */}</nav>
+      <main className="flex pt-0">
         <Sidebar />
-         {children}
-       </main>
-     </div>
+        <ScrollArea className="w-full">
+          {children}
+        </ScrollArea>
+      </main>
+    </div>
   );
 }
