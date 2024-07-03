@@ -10,11 +10,6 @@ import { Skeleton } from "../ui/skeleton";
 const Sidebar = () => {
   const pathname = usePathname();
   const user = useFetchUserData();
-  console.log(user);
-
-  // if (!user) {
-  //   return <p>Loading...</p>;
-  // }
 
   return (
     <aside className="hidden lg:flex flex-col justify-between pt-6 pb-32 w-72 bg-dukiaBlue h-screen text-white">

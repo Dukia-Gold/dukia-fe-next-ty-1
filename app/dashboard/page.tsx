@@ -1,21 +1,24 @@
-"use client"
+"use client";
 
-import useAuth from '@/api/auth/useAuth';
-import useFetchUserData from '@/lib/fetchUserData';
-// import withAuth from '@/lib/withAuth';
+import useFetchUserData from "@/lib/fetchUserData";
+import { Spin } from "antd";
 
 const DashboardPage = () => {
-  const { logout } = useAuth();
-  
-  // const secret = process.env.JWT_SECRET_KEY;
-
-  // console.log(secret);
+  const user = useFetchUserData();
 
   return (
-    <div><button onClick={logout}>Logout</button>DashboardPage</div>
-  )
-}
+    <main className="w-full h-screen">
+      {user ? (
+        <p>DashboardPage</p>
+      ) : (
+        <div className="w-full h-full flex items-center justify-center">
+          <Spin size="large" />
+        </div>
+      )}
+    </main>
+  );
+};
 
-export default DashboardPage
+export default DashboardPage;
 
 // export default withAuth(DashboardPage)
