@@ -4,9 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import profile from "../../assets/profile.jpg";
 import { usePathname } from "next/navigation";
+import useFetchUserData from "@/lib/fetchUserData";
+import { Skeleton } from "../ui/skeleton";
 
 const Sidebar = () => {
   const pathname = usePathname();
+  const user = useFetchUserData();
+  console.log(user);
+
+  // if (!user) {
+  //   return <p>Loading...</p>;
+  // }
+
   return (
     <aside className="hidden lg:flex flex-col justify-between pt-6 pb-32 w-72 bg-dukiaBlue h-screen text-white">
       <div className="flex flex-col items-center gap-10">
@@ -211,48 +220,90 @@ const Sidebar = () => {
         </nav>
       </div>
 
-      <div className="px-5 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Image
-            src={profile}
-            alt="Profile Image"
-            className="w-10 h-10 object-cover rounded-[50%]"
-          />
-
-          <div className="flex flex-col gap-1 font-semibold">
-            <p className="text-sm">Boluwatife Eze</p>
-            <p className="text-xs text-dukiaGold">SCP22032401017</p>
-          </div>
-        </div>
-
-        <svg
-          className="cursor-pointer"
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g clip-path="url(#clip0_395_3140)">
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M13.0883 9.41071C13.2445 9.56698 13.3323 9.77891 13.3323 9.99988C13.3323 10.2208 13.2445 10.4328 13.0883 10.589L8.37415 15.3032C8.29727 15.3828 8.20532 15.4463 8.10365 15.49C8.00198 15.5336 7.89263 15.5566 7.78198 15.5576C7.67133 15.5585 7.5616 15.5375 7.45919 15.4956C7.35677 15.4537 7.26373 15.3918 7.18548 15.3135C7.10724 15.2353 7.04536 15.1423 7.00346 15.0398C6.96156 14.9374 6.94048 14.8277 6.94144 14.717C6.9424 14.6064 6.96539 14.497 7.00906 14.3954C7.05274 14.2937 7.11622 14.2017 7.19581 14.1249L11.3208 9.99988L7.19581 5.87488C7.04401 5.71771 6.96002 5.50721 6.96192 5.28871C6.96382 5.07021 7.05146 4.8612 7.20596 4.70669C7.36047 4.55219 7.56948 4.46455 7.78798 4.46265C8.00648 4.46075 8.21698 4.54474 8.37415 4.69654L13.0883 9.41071Z"
-              fill="white"
+      {user ? (
+        <div className="px-5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Image
+              src={profile}
+              alt="Profile Image"
+              className="w-10 h-10 object-cover rounded-[50%]"
             />
-          </g>
-          <defs>
-            <clipPath id="clip0_395_3140">
-              <rect
-                width="20"
-                height="20"
+
+            <div className="flex flex-col gap-1 font-semibold">
+              <p className="text-sm">
+                {user.first_name} {user.last_name}
+              </p>
+              <p className="text-xs text-dukiaGold">{user.account_number}</p>
+            </div>
+          </div>
+
+          <svg
+            className="cursor-pointer"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_395_3140)">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M13.0883 9.41071C13.2445 9.56698 13.3323 9.77891 13.3323 9.99988C13.3323 10.2208 13.2445 10.4328 13.0883 10.589L8.37415 15.3032C8.29727 15.3828 8.20532 15.4463 8.10365 15.49C8.00198 15.5336 7.89263 15.5566 7.78198 15.5576C7.67133 15.5585 7.5616 15.5375 7.45919 15.4956C7.35677 15.4537 7.26373 15.3918 7.18548 15.3135C7.10724 15.2353 7.04536 15.1423 7.00346 15.0398C6.96156 14.9374 6.94048 14.8277 6.94144 14.717C6.9424 14.6064 6.96539 14.497 7.00906 14.3954C7.05274 14.2937 7.11622 14.2017 7.19581 14.1249L11.3208 9.99988L7.19581 5.87488C7.04401 5.71771 6.96002 5.50721 6.96192 5.28871C6.96382 5.07021 7.05146 4.8612 7.20596 4.70669C7.36047 4.55219 7.56948 4.46455 7.78798 4.46265C8.00648 4.46075 8.21698 4.54474 8.37415 4.69654L13.0883 9.41071Z"
                 fill="white"
-                transform="matrix(0 -1 1 0 0 20)"
               />
-            </clipPath>
-          </defs>
-        </svg>
-      </div>
+            </g>
+            <defs>
+              <clipPath id="clip0_395_3140">
+                <rect
+                  width="20"
+                  height="20"
+                  fill="white"
+                  transform="matrix(0 -1 1 0 0 20)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+      ) : (
+        <div className="px-5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-10 w-10 rounded-full" />
+            <div className="space-y-1">
+              <Skeleton className="h-2 w-[100px]" />
+              <Skeleton className="h-2 w-[50px]" />
+            </div>
+          </div>
+
+          <svg
+            className="cursor-pointer"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_395_3140)">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M13.0883 9.41071C13.2445 9.56698 13.3323 9.77891 13.3323 9.99988C13.3323 10.2208 13.2445 10.4328 13.0883 10.589L8.37415 15.3032C8.29727 15.3828 8.20532 15.4463 8.10365 15.49C8.00198 15.5336 7.89263 15.5566 7.78198 15.5576C7.67133 15.5585 7.5616 15.5375 7.45919 15.4956C7.35677 15.4537 7.26373 15.3918 7.18548 15.3135C7.10724 15.2353 7.04536 15.1423 7.00346 15.0398C6.96156 14.9374 6.94048 14.8277 6.94144 14.717C6.9424 14.6064 6.96539 14.497 7.00906 14.3954C7.05274 14.2937 7.11622 14.2017 7.19581 14.1249L11.3208 9.99988L7.19581 5.87488C7.04401 5.71771 6.96002 5.50721 6.96192 5.28871C6.96382 5.07021 7.05146 4.8612 7.20596 4.70669C7.36047 4.55219 7.56948 4.46455 7.78798 4.46265C8.00648 4.46075 8.21698 4.54474 8.37415 4.69654L13.0883 9.41071Z"
+                fill="white"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_395_3140">
+                <rect
+                  width="20"
+                  height="20"
+                  fill="white"
+                  transform="matrix(0 -1 1 0 0 20)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+      )}
     </aside>
   );
 };

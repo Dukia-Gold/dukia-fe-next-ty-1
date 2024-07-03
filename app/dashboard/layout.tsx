@@ -3,6 +3,7 @@
 import GoldPrice from "@/components/dashboardComponents/GoldPrice";
 import MobileHeader from "@/components/dashboardComponents/MobileHeader";
 import Sidebar from "@/components/dashboardComponents/Sidebar";
+import TopBar from "@/components/dashboardComponents/TopBar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Metadata } from "next";
 
@@ -26,6 +27,7 @@ export default function DashboardLayout({
         <ScrollArea className="w-full">
           <GoldPrice />
           <MobileHeader />
+          <TopBar />
           
           {children}
         </ScrollArea>

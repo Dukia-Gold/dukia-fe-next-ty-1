@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { usePathname } from "next/navigation";
-import { FaCartShopping } from "react-icons/fa6";
+// import { FaCartShopping } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -138,7 +138,7 @@ const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
         </nav>
 
         <div className="flex flex-col gap-2 text-sm">
-          <Link href="/login">
+          <Link onClick={toggle} href="/login">
             <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
               Login / Register
             </button>
