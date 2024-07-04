@@ -2,14 +2,46 @@
 
 import useFetchUserData from "@/lib/fetchUserData";
 import { Spin } from "antd";
+import Link from "next/link";
 
 const DashboardPage = () => {
   const user = useFetchUserData();
+  console.log(user);
 
   return (
     <main className="w-full h-screen">
       {user ? (
-        <p>DashboardPage</p>
+        <div className="py-4 px-1.5 md:px-5 lg:px-10 space-y-6">
+          {/* Top */}
+          <div className="flex items-center justify-between">
+            <div className="text-dukiaBlue">
+              <p className="font-bold text-xl">Hi {user.first_name},</p>
+              <p>Welcome back to your dashboard!</p>
+            </div>
+
+            <div className="flex gap-2 text-sm font-semibold">
+              <button className="text-white bg-dukiaBlue py-4 px-8 rounded-lg">
+                Withdraw
+              </button>
+              <button className="bg-dukiaGold py-4 px-8 rounded-lg">
+                Top Up
+              </button>
+            </div>
+          </div>
+
+          {/* KYC (if not verified) */}
+          {user.is_verified === 0 && (
+            <div className="bg-[#D20000]/[10%] text-[#D20000] py-4 rounded-lg text-sm flex justify-center">
+              <p>
+                <span className="font-bold">KYC Verification!</span> Please 
+                <Link href="/dashboard" className="underline">
+                  click here
+                </Link>
+                 to complete your KYC verification.
+              </p>
+            </div>
+          )}
+        </div>
       ) : (
         <div className="w-full h-full flex items-center justify-center">
           <Spin size="large" />

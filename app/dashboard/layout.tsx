@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import GoldPrice from "@/components/dashboardComponents/GoldPrice";
 import MobileHeader from "@/components/dashboardComponents/MobileHeader";
@@ -19,19 +19,16 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
-      <nav>{/* Dashboard navigation here */}</nav>
-      <main className="flex flex-col lg:flex-row pt-0">
-        <Sidebar />
+    <div className="flex flex-col lg:flex-row pt-0 overflow-hidden">
+      <Sidebar />
 
-        <ScrollArea className="w-full">
-          <GoldPrice />
-          <MobileHeader />
-          <TopBar />
-          
-          {children}
-        </ScrollArea>
-      </main>
+      <ScrollArea className="w-full">
+        <GoldPrice />
+        <MobileHeader />
+        <TopBar />
+
+        {children}
+      </ScrollArea>
     </div>
   );
 }
