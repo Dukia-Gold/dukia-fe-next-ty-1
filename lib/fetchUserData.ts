@@ -12,7 +12,7 @@ const useFetchUserData = () => {
   const fetchData = async () => {
     try {
       const response = await axios({
-        url: "https://api.dukiapreciousmetals.co/api/me",
+        url: "https://api.dukiapreciousmetals.co/api/v2/me",
         method: "GET",
         headers: {
           "Content-Type": "application/json",
