@@ -1,15 +1,19 @@
 import React from "react";
 import { Card, CardContent } from "../ui/card";
+import useFetchUserData from "@/lib/fetchUserData";
+import { Skeleton } from "../ui/skeleton";
 
 const Portfolio = () => {
+  const user = useFetchUserData();
+
   return (
-    <div className="xl:col-span-2 px-6 py-4 border border-dukiaBlue/[5%] rounded-lg bg-white space-y-3 text-dukiaBlue">
+    <div className="xl:col-span-2 px-3 md:px-6 py-4 border border-dukiaBlue/[5%] rounded-lg bg-white space-y-3 text-dukiaBlue">
       <div className="flex items-center justify-between">
         <p className="font-semibold">My Portfolio</p>
 
         <div className="flex gap-2">
           {/* Left */}
-          <div className="p-5 bg-dukiaGrey rounded-[50%] cursor-pointer">
+          <div className="p-2.5 md:p-5 bg-dukiaGrey rounded-[50%] cursor-pointer">
             <svg
               width="20"
               height="20"
@@ -39,7 +43,7 @@ const Portfolio = () => {
           </div>
 
           {/* Right */}
-          <div className="p-5 bg-dukiaGrey rounded-[50%] cursor-pointer">
+          <div className="p-2.5 md:p-5 bg-dukiaGrey rounded-[50%] cursor-pointer">
             <svg
               width="20"
               height="20"
@@ -70,46 +74,54 @@ const Portfolio = () => {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-3 gap-y-6 gap-x-4">
-        <Card className="bg-[#C6DEF1]">
-          <CardContent className="py-4 space-y-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-3 gap-y-6 gap-x-4">
+        <Card className="bg-[#C6DEF1] p-0">
+          <CardContent className="py-4 px-4 space-y-4">
             <p className="font-medium">Naira (₦)</p>
-            <p className="text-xl font-bold">₦ 2,500,000</p>
+            {user ? (
+              <p className="text-xl font-bold">₦ {user?.opening_balance_ng}</p>
+            ) : (
+              <Skeleton className="w-40 h-8" />
+            )}
           </CardContent>
         </Card>
 
         <Card className="bg-[#DBCDF0]">
-          <CardContent className="py-4 space-y-4">
-            <p className="font-medium">Gold (Au)</p>
-            <p className="text-xl font-bold">₦ 2,500,000</p>
+          <CardContent className="py-4 px-4 space-y-4">
+            <p className="font-medium">Gold (g)</p>
+            {user ? (
+              <p className="text-xl font-bold">{user?.opening_balance_au} Grams</p>
+            ) : (
+              <Skeleton className="w-40 h-8" />
+            )}
           </CardContent>
         </Card>
 
         <Card className="bg-[#F2C6DE]">
-          <CardContent className="py-4 space-y-4">
+          <CardContent className="py-4 px-4 space-y-4">
             <p className="font-medium">Silver (Ag)</p>
-            <p className="text-xl font-bold">₦ 2,500,000</p>
+            <p className="text-xl font-bold">0.00</p>
           </CardContent>
         </Card>
 
         <Card className="bg-[#C9E4DE]">
-          <CardContent className="py-4 space-y-4">
-            <p className="font-medium">Naira (₦)</p>
-            <p className="text-xl font-bold">₦ 2,500,000</p>
+          <CardContent className="py-4 px-4 space-y-4">
+            <p className="font-medium">Fiat (Au)</p>
+            <p className="text-xl font-bold">0.00</p>
           </CardContent>
         </Card>
 
         <Card className="bg-[#F7D9C4]">
-          <CardContent className="py-4 space-y-4">
+          <CardContent className="py-4 px-4 space-y-4">
             <p className="font-medium">Bitcoin (BTC)</p>
-            <p className="text-xl font-bold">₦ 2,500,000</p>
+            <p className="text-xl font-bold">0.00</p>
           </CardContent>
         </Card>
 
         <Card className="bg-[#FAEDCB]">
-          <CardContent className="py-4 space-y-4">
-            <p className="font-medium">Naira (₦)</p>
-            <p className="text-xl font-bold">₦ 2,500,000</p>
+          <CardContent className="py-4 px-4 space-y-4">
+            <p className="font-medium">Gold (oz)</p>
+            <p className="text-xl font-bold">0.00 oz</p>
           </CardContent>
         </Card>
       </div>

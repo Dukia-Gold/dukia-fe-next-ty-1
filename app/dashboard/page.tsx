@@ -39,7 +39,7 @@ const DashboardPage = () => {
           </div>
 
           {/* KYC (if not verified) */}
-          {user.is_verified === 0 && (
+          {user.is_bvn === 0 && (
             <div className="bg-[#D20000]/[10%] text-[#D20000] py-4 rounded-lg text-sm flex justify-center">
               <p>
                 <span className="font-bold">KYC Verification!</span> Please 
