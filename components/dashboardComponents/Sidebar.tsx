@@ -12,7 +12,7 @@ const Sidebar = () => {
   const user = useFetchUserData();
 
   return (
-    <aside className="hidden lg:flex flex-col justify-between pt-6 pb-32 w-72 bg-dukiaBlue h-screen text-white">
+    <aside className="hidden h-screen lg:flex flex-col justify-between pt-6 pb-32 w-72 bg-dukiaBlue text-white">
       <div className="flex flex-col items-center gap-10">
         <Link href="/">
           {" "}

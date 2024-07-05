@@ -8,3 +8,8 @@
 .custom-ant-picker-focus:hover {
   @apply border-dukiaBlue/[11%] ring-2 ring-transparent;
 }
+
+
+#dashboardLayout{
+  overflow-y: hidden;
+}

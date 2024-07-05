@@ -19,16 +19,19 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-col lg:flex-row pt-0 overflow-hidden">
+    <div
+      id="dashboardLayout"
+      className="flex flex-col lg:flex-row pt-0 overflow-hidden"
+    >
       <Sidebar />
 
-      <ScrollArea className="w-full">
+      <div className="w-full h-screen">
         <GoldPrice />
         <MobileHeader />
         <TopBar />
 
-        {children}
-      </ScrollArea>
+        <ScrollArea className="h-screen">{children}</ScrollArea>
+      </div>
     </div>
   );
 }

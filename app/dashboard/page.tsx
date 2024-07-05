@@ -1,5 +1,10 @@
 "use client";
 
+import Portfolio from "@/components/dashboardComponents/Portfolio";
+import Trade from "@/components/dashboardComponents/Trade";
+import Transactions from "@/components/dashboardComponents/Transactions";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import useFetchUserData from "@/lib/fetchUserData";
 import { Spin } from "antd";
 import Link from "next/link";
@@ -8,8 +13,12 @@ const DashboardPage = () => {
   const user = useFetchUserData();
   console.log(user);
 
+  const tags = Array.from({ length: 50 }).map(
+    (_, i, a) => `v1.2.0-beta.${a.length - i}`
+  );
+
   return (
-    <main className="w-full h-screen">
+    <main className="w-full bg-dukiaGrey h-screen">
       {user ? (
         <div className="py-4 px-1.5 md:px-5 lg:px-10 space-y-6">
           {/* Top */}
@@ -19,7 +28,7 @@ const DashboardPage = () => {
               <p>Welcome back to your dashboard!</p>
             </div>
 
-            <div className="flex gap-2 text-sm font-semibold">
+            <div className="hidden md:flex gap-2 text-sm font-semibold">
               <button className="text-white bg-dukiaBlue py-4 px-8 rounded-lg">
                 Withdraw
               </button>
@@ -41,6 +50,15 @@ const DashboardPage = () => {
               </p>
             </div>
           )}
+
+          <div className="grid gap-6">
+            <div className="grid xl:grid-cols-3 gap-y-6 gap-x-5">
+              <Portfolio />
+              <Trade />
+            </div>
+
+            <Transactions />
+          </div>
         </div>
       ) : (
         <div className="w-full h-full flex items-center justify-center">
