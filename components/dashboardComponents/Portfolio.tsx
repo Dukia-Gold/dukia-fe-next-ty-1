@@ -81,7 +81,7 @@ const Portfolio = () => {
             {user ? (
               <p className="text-xl font-bold">₦ {user?.opening_balance_ng}</p>
             ) : (
-              <Skeleton className="w-40 h-8" />
+              <Skeleton className="w-20 md:w-40 h-8" />
             )}
           </CardContent>
         </Card>
@@ -92,7 +92,7 @@ const Portfolio = () => {
             {user ? (
               <p className="text-xl font-bold">{user?.opening_balance_au} Grams</p>
             ) : (
-              <Skeleton className="w-40 h-8" />
+              <Skeleton className="w-20 md:w-40 h-8" />
             )}
           </CardContent>
         </Card>

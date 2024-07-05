@@ -60,7 +60,7 @@ const Header: FC<header> = () => {
   return (
     <header
       className={`${
-        pathname === "/dashboard" ? "hidden" : "fixed z-50"
+        pathname.startsWith("/dashboard") ? "hidden" : "fixed z-50"
       } w-[100vw] flex flex-col`}
     >
       {/* GOLD PRICE */}
