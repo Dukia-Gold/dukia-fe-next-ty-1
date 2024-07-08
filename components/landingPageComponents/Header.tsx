@@ -43,15 +43,15 @@ const Header: FC<header> = () => {
   }, []);
 
   useEffect(() => {
-    setAskClass("animate-bounce");
-    const timeout = setTimeout(() => setAskClass(""), 1500);
-    return () => clearTimeout(timeout);
+    setAskClass('flash');
+    const timeoutId = setTimeout(() => setAskClass(''), 1500);
+    return () => clearTimeout(timeoutId);
   }, [ask]);
 
   useEffect(() => {
-    setBidClass("animate-bounce");
-    const timeout = setTimeout(() => setBidClass(""), 1500);
-    return () => clearTimeout(timeout);
+    setBidClass('flash');
+    const timeoutId = setTimeout(() => setBidClass(''), 1500);
+    return () => clearTimeout(timeoutId);
   }, [bid]);
 
   // useEffect(() => {
@@ -71,15 +71,15 @@ const Header: FC<header> = () => {
       >
         <p className="flex items-center gap-0.5 lg:gap-1">
           GOLD ASK:
-          <span className={`text-xs font-normal ${askClass}`}>
+          <span className={`text-xs font-black ${askClass}`}>
             {formatCurrency(ask?.oz, "en-US", "USD")}/oz
           </span>
           |
-          <span className={`text-xs font-normal ${askClass}`}>
+          <span className={`text-xs font-black ${askClass}`}>
             {formatCurrency(ask?.g, "en-US", "USD")}/g
           </span>
           |
-          <span className={`text-xs font-normal ${askClass}`}>
+          <span className={`text-xs font-black ${askClass}`}>
             {formatCurrency(ask?.kg, "en-US", "USD")}/kg
           </span>
           <span className="text-xs hidden sm:block">-0.01% (-$0.12)</span>
@@ -87,15 +87,15 @@ const Header: FC<header> = () => {
 
         <p className="flex items-center gap-0.5 lg:gap-1">
           GOLD BID:
-          <span className={`text-xs font-normal ${bidClass}`}>
+          <span className={`text-xs font-black ${bidClass}`}>
             {formatCurrency(bid?.oz, "en-US", "USD")}/oz
           </span>
           |
-          <span className={`text-xs font-normal ${bidClass}`}>
+          <span className={`text-xs font-black ${bidClass}`}>
             {formatCurrency(bid?.g, "en-US", "USD")}/g
           </span>
           |
-          <span className={`text-xs font-normal ${bidClass}`}>
+          <span className={`text-xs font-black ${bidClass}`}>
             {formatCurrency(bid?.kg, "en-US", "USD")}/kg
           </span>
         </p>
