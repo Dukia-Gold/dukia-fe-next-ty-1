@@ -16,6 +16,7 @@ import {
   HoverCardTrigger,
 } from "../ui/hover-card";
 import { formatCurrency } from "@/lib/currencyformatter";
+import { GetUrl } from "@/lib/getUrl";
 
 type header = {
   // name: string
@@ -23,7 +24,7 @@ type header = {
 
 const Header: FC<header> = () => {
   const { ask, bid, fetchGoldPrice } = useFetchGoldPriceDollars();
-  const pathname = usePathname();
+  const pathname = GetUrl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [askClass, setAskClass] = useState("");
   const [bidClass, setBidClass] = useState("");

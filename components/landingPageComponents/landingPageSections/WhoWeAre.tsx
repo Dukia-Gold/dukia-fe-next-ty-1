@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { useFetchGoldPriceNaira } from "@/api/fetchGoldPrice";
-import { ShoppingCart } from "lucide-react";
+import { useFetchGoldPriceNaira1g } from "@/api/fetchGoldPrice";
 import {
   Card,
   CardContent,
@@ -11,75 +10,14 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/currencyformatter";
+import { formatDecimal } from "@/lib/decimalFormatter";
 
 const WhoWeAre: React.FC = () => {
-  // const [gram1, setGram1] = useState("0.00");
-  // const [gram2, setGram2] = useState("0.00");
-  // const [gram3, setGram3] = useState("0.00");
-  // const { setPrice, Gram } = PoolAllocated();
-
-  // const calcGram = (
-  //   price: string,
-  //   setGram: React.Dispatch<React.SetStateAction<string>>
-  // ) => {
-  //   setPrice(price);
-  //   setGram(Gram);
-  // };
-
-  // useEffect(() => {
-  //   calcGram("15000", setGram1);
-  //   calcGram("10000", setGram2);
-  //   calcGram("20000", setGram3);
-
-  //   const interval = setInterval(() => {
-  //     calcGram("15000", setGram1);
-  //     calcGram("10000", setGram2);
-  //     calcGram("20000", setGram3);
-  //   }, 12000); // Fetch every 60 seconds
-
-  //   // Clear the interval when the component unmounts
-  //   return () => clearInterval(interval);
-  // }, [Gram, setPrice]);
-
-  const fetchGoldPrice = useFetchGoldPriceNaira();
-  // const [askClass, setAskClass] = useState("");
-  // const [bidClass, setBidClass] = useState("");
-  const [gram1, setGram1] = useState("0.00");
-  const [gram2, setGram2] = useState("0.00");
-  const [gram3, setGram3] = useState("0.00");
-
-  // const calcGram = (
-  //   price: string,
-  //   setGram: React.Dispatch<React.SetStateAction<string>>
-  // ) => {
-  //   fetchGoldPrice();
-
-  //   const size = ask.g / parseFloat(price);
-
-  //   ask.g
-  // };
+  const { askNaira1g, fetchGoldPrice } = useFetchGoldPriceNaira1g();
 
   useEffect(() => {
-    fetchGoldPrice();
-
-    const interval = setInterval(() => {
-      fetchGoldPrice();
-    }, 12000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // useEffect(() => {
-  //   setAskClass("animate-bounce");
-  //   const timeout = setTimeout(() => setAskClass(""), 1500);
-  //   return () => clearTimeout(timeout);
-  // }, [ask]);
-
-  // useEffect(() => {
-  //   setBidClass("animate-bounce");
-  //   const timeout = setTimeout(() => setBidClass(""), 1500);
-  //   return () => clearTimeout(timeout);
-  // }, [bid]);
+    fetchGoldPrice(); // Ensure initial fetch is called
+  }, [fetchGoldPrice]);
 
   return (
     <section className="flex flex-col gap-8 px-4 lg:px-12 xl:px-28 bg-white text-dukiaBlue justify-between">
@@ -155,7 +93,7 @@ const WhoWeAre: React.FC = () => {
         <div className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-6">
           <div className="shadow-2xl relative w-full md:w-[25.6875rem] h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
-              <p className="font-semibold text-white">{gram1} gram</p>
+              <p className="font-semibold text-white">{askNaira1g ? formatDecimal(10000/askNaira1g, 4) : 0.00} gram</p>
             </div>
 
             <Image
@@ -171,7 +109,9 @@ const WhoWeAre: React.FC = () => {
                 <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
-                    <p className="font-extrabold text-2xl">{formatCurrency(10000)}</p>
+                    <p className="font-extrabold text-2xl">
+                      {formatCurrency(10000)}
+                    </p>
                   </div>
 
                   <button className="px-4 py-2 text-white bg-dukiaBlue rounded-lg">
@@ -184,7 +124,7 @@ const WhoWeAre: React.FC = () => {
 
           <div className="shadow-2xl relative w-full md:w-[25.6875rem] h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
-              <p className="font-semibold text-white">{gram2} gram</p>
+              <p className="font-semibold text-white">{askNaira1g ? formatDecimal(15000/askNaira1g, 4) : 0.00} gram</p>
             </div>
 
             <Image
@@ -200,7 +140,9 @@ const WhoWeAre: React.FC = () => {
                 <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
-                    <p className="font-extrabold text-2xl">{formatCurrency(15000)}</p>
+                    <p className="font-extrabold text-2xl">
+                      {formatCurrency(15000)}
+                    </p>
                   </div>
 
                   <button className="px-4 py-2 text-white bg-dukiaBlue rounded-lg">
@@ -213,7 +155,7 @@ const WhoWeAre: React.FC = () => {
 
           <div className="lg:col-start-1 2xl:col-start-3 lg:col-end-3 shadow-2xl relative w-full md:w-auto h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
-              <p className="font-semibold text-white">{gram3} gram</p>
+              <p className="font-semibold text-white">{askNaira1g ? formatDecimal(20000/askNaira1g, 4) : 0.00} gram</p>
             </div>
 
             <Image
@@ -229,7 +171,9 @@ const WhoWeAre: React.FC = () => {
                 <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
-                    <p className="font-extrabold text-2xl">{formatCurrency(20000)}</p>
+                    <p className="font-extrabold text-2xl">
+                      {formatCurrency(20000)}
+                    </p>
                   </div>
 
                   <button className="px-4 py-2 text-white bg-dukiaBlue rounded-lg">

@@ -1,3 +1,4 @@
+import { toast } from "@/components/ui/use-toast";
 import { User } from "@/types/user";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -21,8 +22,12 @@ const useFetchUserData = () => {
       });
 
       setUser(response.data); // Set the fetched user data to state
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "An error occured! Please, refresh the page",
+      });
     }
   };
 
