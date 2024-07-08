@@ -15,6 +15,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card";
+import { formatCurrency } from "@/lib/currencyformatter";
 
 type header = {
   // name: string
@@ -71,13 +72,15 @@ const Header: FC<header> = () => {
         <p className="flex items-center gap-0.5 lg:gap-1">
           GOLD ASK:
           <span className={`text-xs font-normal ${askClass}`}>
-            $ {ask.oz}/oz
+            {formatCurrency(ask?.oz, "en-US", "USD")}/oz
           </span>
           |
-          <span className={`text-xs font-normal ${askClass}`}>$ {ask.g}/g</span>
+          <span className={`text-xs font-normal ${askClass}`}>
+            {formatCurrency(ask?.g, "en-US", "USD")}/g
+          </span>
           |
           <span className={`text-xs font-normal ${askClass}`}>
-            $ {ask.kg}/kg
+            {formatCurrency(ask?.kg, "en-US", "USD")}/kg
           </span>
           <span className="text-xs hidden sm:block">-0.01% (-$0.12)</span>
         </p>
@@ -85,13 +88,15 @@ const Header: FC<header> = () => {
         <p className="flex items-center gap-0.5 lg:gap-1">
           GOLD BID:
           <span className={`text-xs font-normal ${bidClass}`}>
-            $ {bid.oz}/oz
+            {formatCurrency(bid?.oz, "en-US", "USD")}/oz
           </span>
           |
-          <span className={`text-xs font-normal ${bidClass}`}>$ {bid.g}/g</span>
+          <span className={`text-xs font-normal ${bidClass}`}>
+            {formatCurrency(bid?.g, "en-US", "USD")}/g
+          </span>
           |
           <span className={`text-xs font-normal ${bidClass}`}>
-            $ {bid.kg}/kg
+            {formatCurrency(bid?.kg, "en-US", "USD")}/kg
           </span>
         </p>
       </div>

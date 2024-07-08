@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+import { formatCurrency } from "@/lib/currencyformatter";
 
 const WhoWeAre: React.FC = () => {
   // const [gram1, setGram1] = useState("0.00");
@@ -170,7 +171,7 @@ const WhoWeAre: React.FC = () => {
                 <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
-                    <p className="font-extrabold text-2xl">N10,000</p>
+                    <p className="font-extrabold text-2xl">{formatCurrency(10000)}</p>
                   </div>
 
                   <button className="px-4 py-2 text-white bg-dukiaBlue rounded-lg">
@@ -199,7 +200,7 @@ const WhoWeAre: React.FC = () => {
                 <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
-                    <p className="font-extrabold text-2xl">N15,000</p>
+                    <p className="font-extrabold text-2xl">{formatCurrency(15000)}</p>
                   </div>
 
                   <button className="px-4 py-2 text-white bg-dukiaBlue rounded-lg">
@@ -228,7 +229,7 @@ const WhoWeAre: React.FC = () => {
                 <div className="z-20 flex items-center justify-between w-full py-4 px-3 md:px-6 lg:px-12 font-semibold text-lg">
                   <div>
                     <p>Fractional Gold</p>
-                    <p className="font-extrabold text-2xl">N20,000</p>
+                    <p className="font-extrabold text-2xl">{formatCurrency(20000)}</p>
                   </div>
 
                   <button className="px-4 py-2 text-white bg-dukiaBlue rounded-lg">

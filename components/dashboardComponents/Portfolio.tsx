@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardContent } from "../ui/card";
 import useFetchUserData from "@/lib/fetchUserData";
 import { Skeleton } from "../ui/skeleton";
+import { formatCurrency } from "@/lib/currencyformatter";
 
 const Portfolio = () => {
   const user = useFetchUserData();
@@ -79,7 +80,7 @@ const Portfolio = () => {
           <CardContent className="py-4 px-4 space-y-4">
             <p className="font-medium">Naira (₦)</p>
             {user ? (
-              <p className="text-xl font-bold">₦ {user?.opening_balance_ng}</p>
+              <p className="text-xl font-bold">{formatCurrency(parseInt(user?.opening_balance_ng))}</p>
             ) : (
               <Skeleton className="w-20 md:w-40 h-8" />
             )}
@@ -106,14 +107,14 @@ const Portfolio = () => {
 
         <Card className="bg-[#C9E4DE]">
           <CardContent className="py-4 px-4 space-y-4">
-            <p className="font-medium">Fiat (Au)</p>
+            <p className="font-medium">Dollar ($)</p>
             <p className="text-xl font-bold">0.00</p>
           </CardContent>
         </Card>
 
         <Card className="bg-[#F7D9C4]">
           <CardContent className="py-4 px-4 space-y-4">
-            <p className="font-medium">Bitcoin (BTC)</p>
+            <p className="font-medium">Bitcoin (btc)</p>
             <p className="text-xl font-bold">0.00</p>
           </CardContent>
         </Card>

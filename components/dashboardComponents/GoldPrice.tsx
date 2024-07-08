@@ -1,4 +1,5 @@
 import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
+import { formatCurrency } from "@/lib/currencyformatter";
 import React, { useEffect, useState } from "react";
 
 const GoldPrice = () => {
@@ -34,21 +35,21 @@ const GoldPrice = () => {
   bg-dukiaGold text-sm text-dukiaBlue font-bold"
     >
       <p>
-        GOLD ASK: <span className={`text-xs ${askClass}`}>$ {ask.oz}/oz</span>
+        GOLD ASK: <span className={`text-xs ${askClass}`}>{formatCurrency(ask?.oz, "en-US", "USD")}/oz</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs ${askClass}`}>$ {ask.g}/g</span>
+        <span className={`text-xs ${askClass}`}>{formatCurrency(ask?.g, "en-US", "USD")}/g</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs ${askClass}`}>$ {ask.kg}/kg</span>
+        <span className={`text-xs ${askClass}`}>{formatCurrency(ask?.kg, "en-US", "USD")}/kg</span>
         <span className="text-xs"> -0.01%(-$0.12)</span>
       </p>
 
       <p>
         GOLD BID:
-        <span className={`text-xs ${bidClass}`}>$ {bid.oz}/oz</span>
+        <span className={`text-xs ${bidClass}`}>{formatCurrency(bid?.oz, "en-US", "USD")}/oz</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs ${bidClass}`}>$ {bid.g}/g</span>
+        <span className={`text-xs ${bidClass}`}>{formatCurrency(bid?.g, "en-US", "USD")}/g</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs ${bidClass}`}>$ {bid.kg}/kg</span>
+        <span className={`text-xs ${bidClass}`}>{formatCurrency(bid?.kg, "en-US", "USD")}/kg</span>
       </p>
     </div>
   );
