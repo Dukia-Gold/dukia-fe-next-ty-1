@@ -17,7 +17,7 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="py-12 px-4 sm:px-0 flex flex-col gap-6 items-center bg-[#F3F3F4]">
+    <section className="py-12 px-4 sm:px-0 flex flex-col gap-6 items-center bg-[#F3F3F4] dark:bg-dukiaDark">
       <div className="flex flex-col items-center gap-2">
         <Image
           src="https://res.cloudinary.com/dvcw253zw/image/upload/c_scale,w_134/v1718960746/mail-dynamic-premium_vghfe7.png"
@@ -26,7 +26,7 @@ const Newsletter = () => {
           height={64}
         />
 
-        <div className="text-dukiaBlue flex flex-col gap-2 text-center">
+        <div className="text-dukiaBlue dark:text-white flex flex-col gap-2 text-center">
           <p className="font-bold text-2xl">Sign Up For Our Newsletter</p>
           <p>
             Stay updated with the latest gold market trends, news, and insights
@@ -41,7 +41,7 @@ const Newsletter = () => {
           id="email"
           required
           placeholder="Your email address"
-          className="md:col-span-2 bg-white outline-none rounded-lg w-[15.75rem] md:w-[23.25rem] text-sm text-dukiaBlue placeholder:text-dukiaBlue/[50%] px-6 py-4"
+          className="md:col-span-2 bg-white dark:bg-black outline-none rounded-lg w-[15.75rem] md:w-[23.25rem] text-sm text-dukiaBlue dark:text-dukiaGrey placeholder:text-dukiaBlue/[50%] dark:placeholder:text-dukiaGrey/[50%] px-6 py-4"
         />
         <button
           type="submit"

@@ -113,7 +113,7 @@ const AsFeaturedIn = () => {
   ];
 
   return (
-    <section className="px-2 md:px-8 py-12 bg-dukiaGrey text-dukiaBlue flex flex-col gap-14 items-center">
+    <section className="px-2 md:px-8 py-12 bg-dukiaGrey dark:bg-dukiaDark text-dukiaBlue dark:text-white flex flex-col gap-14 items-center">
       <div className="flex flex-col gap-2 text-center">
         <p className="font-bold text-[1.75rem]">As Featured In</p>
         <p>
@@ -134,13 +134,13 @@ const AsFeaturedIn = () => {
               key={item.key}
               className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
             >
-              <Card className="max-h-96 rounded-2xl flex flex-col gap-2">
+              <Card className="max-h-96 dark:bg-dukiaBlue rounded-2xl flex flex-col gap-2">
                 {/* <CardHeader>
                   <Image src={item.logo} alt="platformLogo" width={30} height={30} />
                   <CardTitle>{item.title}</CardTitle>
                 </CardHeader> */}
-                <CardContent className="text-sm text-dukiaBlue flex flex-col justify-between gap-2 aspect-square p-4">
-                  <div className={`${item.key === 1 || item.key === 10 ? "bg-dukiaBlue" : "bg-dukiaGrey/[30%]"} px-2.5 rounded-lg w-full h-[176px] flex items-center justify-center`}>
+                <CardContent className="text-sm text-dukiaBlue dark:text-white flex flex-col justify-between gap-2 aspect-square p-4">
+                  <div className={`${item.key === 1 || item.key === 10 ? "bg-dukiaBlue" : "bg-dukiaGrey/[30%] dark:bg-white/[5%]"} px-2.5 rounded-lg w-full h-[176px] flex items-center justify-center`}>
                     <Image
                       src={item.logo}
                       alt="platformLogo"

@@ -3,11 +3,11 @@ import React, { FC } from "react";
 
 const WhyChooseDukia: FC = () => {
   return (
-    <section className="pt-12 pb-28 px-4 lg:px-20 flex flex-col gap-14 items-center">
+    <section className="pt-12 pb-28 px-4 lg:px-20 flex flex-col gap-14 items-center dark:bg-dukiaBlue dark:text-white">
       <p className="font-bold text-[1.75rem]">Why Choose Dukia</p>
 
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 grid-rows-subgrid">
-        <div className="bg-dukiaGrey rounded-2xl border border-dukiaBlue/[5%] p-6 flex flex-col gap-3 items-center">
+        <div className="bg-dukiaGrey dark:bg-white/[5%] rounded-2xl border border-dukiaBlue/[5%] dark:border-white/[5%] p-6 flex flex-col gap-3 items-center">
           <div className="flex flex-col items-center gap-4">
             <Image
               src="https://res.cloudinary.com/dvcw253zw/image/upload/c_scale,w_134/v1718960746/sheild-dynamic-premium_azgnhu.png"
@@ -26,7 +26,7 @@ const WhyChooseDukia: FC = () => {
           </p>
         </div>
 
-        <div className="bg-dukiaGrey rounded-2xl border border-dukiaBlue/[5%] p-6 flex flex-col gap-3 items-center">
+        <div className="bg-dukiaGrey dark:bg-white/[5%] rounded-2xl border border-dukiaBlue/[5%] dark:border-white/[5%] p-6 flex flex-col gap-3 items-center">
           <div className="flex flex-col items-center gap-4">
             <Image
               src="https://res.cloudinary.com/dvcw253zw/image/upload/c_scale,w_134/v1718960746/bookmark-fav-dynamic-premium.png"
@@ -46,7 +46,7 @@ const WhyChooseDukia: FC = () => {
           </p>
         </div>
 
-        <div className="bg-dukiaGrey rounded-2xl border border-dukiaBlue/[5%] p-6 flex flex-col gap-3 items-center">
+        <div className="bg-dukiaGrey dark:bg-white/[5%] rounded-2xl border border-dukiaBlue/[5%] dark:border-white/[5%] p-6 flex flex-col gap-3 items-center">
           <div className="flex flex-col items-center gap-4">
             <Image
               src="https://res.cloudinary.com/dvcw253zw/image/upload/c_scale,w_134/v1718960746/chart-dynamic-premium_bvifrx.png"
@@ -64,7 +64,7 @@ const WhyChooseDukia: FC = () => {
           </p>
         </div>
 
-        <div className="xl:col-start-1 xl:col-end-3 bg-dukiaGrey rounded-2xl border border-dukiaBlue/[5%] p-6 flex flex-col gap-3 items-center">
+        <div className="xl:col-start-1 xl:col-end-3 bg-dukiaGrey dark:bg-white/[5%] rounded-2xl border border-dukiaBlue/[5%] dark:border-white/[5%] p-6 flex flex-col gap-3 items-center">
           <div className="flex flex-col items-center gap-4">
             <Image
               src="https://res.cloudinary.com/dvcw253zw/image/upload/c_scale,w_134/v1718960746/locker-dynamic-premium_irfudo.png"
@@ -80,7 +80,7 @@ const WhyChooseDukia: FC = () => {
           </p>
         </div>
 
-        <div className="md:col-start-1 xl:col-start-3 md:col-end-3 xl:col-end-4 bg-dukiaGrey rounded-2xl border border-dukiaBlue/[5%] p-6 flex flex-col gap-3 items-center">
+        <div className="md:col-start-1 xl:col-start-3 md:col-end-3 xl:col-end-4 bg-dukiaGrey dark:bg-white/[5%] rounded-2xl border border-dukiaBlue/[5%] dark:border-white/[5%] p-6 flex flex-col gap-3 items-center">
           <div className="flex flex-col items-center gap-4">
             <Image
               src="https://res.cloudinary.com/dvcw253zw/image/upload/c_scale,w_134/v1718960746/calculator-dynamic-premium_aufxdv.png"

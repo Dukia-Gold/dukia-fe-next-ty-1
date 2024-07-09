@@ -3,12 +3,12 @@ import React from "react";
 
 const WhatWeOffer = () => {
   return (
-    <div className="bg-[#F3F3F4] flex flex-col gap-14 items-center px-4 lg:px-20 pt-12 pb-[4.65rem]">
+    <div className="bg-[#F3F3F4] dark:bg-dukiaDark dark:text-white flex flex-col gap-14 items-center px-4 lg:px-20 pt-12 pb-[4.65rem]">
       <p className="font-bold text-[1.75rem]">What We Offer</p>
 
       <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
         {/* Buy Gold */}
-        <div className="rounded-2xl bg-white flex flex-col gap-4 p-6 items-center">
+        <div className="rounded-2xl bg-white dark:bg-dukiaBlue flex flex-col gap-4 p-6 items-center">
           <Image
             src="https://res.cloudinary.com/dvcw253zw/image/upload/c_scale,w_134/v1718960746/dollar-dollar-premium_fzffoa.png"
             alt="Shield Dynamic Premium"
@@ -28,7 +28,7 @@ const WhatWeOffer = () => {
         </div>
 
         {/* Sell Gold */}
-        <div className="rounded-2xl bg-white flex flex-col gap-4 p-6 items-center">
+        <div className="rounded-2xl bg-white dark:bg-dukiaBlue flex flex-col gap-4 p-6 items-center">
           <Image
             src="https://res.cloudinary.com/dvcw253zw/image/upload/c_scale,w_134/v1718960746/money-dynamic-premium_lldvpk.png"
             alt="Shield Dynamic Premium"
@@ -46,7 +46,7 @@ const WhatWeOffer = () => {
         </div>
 
         {/* Control & Flexibility */}
-        <div className="rounded-2xl bg-white flex flex-col gap-4 p-6 items-center">
+        <div className="rounded-2xl bg-white dark:bg-dukiaBlue flex flex-col gap-4 p-6 items-center">
           <Image
             src="https://res.cloudinary.com/dvcw253zw/image/upload/c_scale,w_134/v1718960746/setting-dynamic-premium_ay5tcd.png"
             alt="Shield Dynamic Premium"
@@ -65,7 +65,7 @@ const WhatWeOffer = () => {
         </div>
 
         {/* Real Time Tracking */}
-        <div className="rounded-2xl bg-white flex flex-col gap-4 p-6 items-center">
+        <div className="rounded-2xl bg-white dark:bg-dukiaBlue flex flex-col gap-4 p-6 items-center">
           <Image
             src="https://res.cloudinary.com/dvcw253zw/image/upload/c_scale,w_134/v1718960746/chart-dynamic-premium_bvifrx.png"
             alt="Shield Dynamic Premium"

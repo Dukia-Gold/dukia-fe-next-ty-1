@@ -17,7 +17,7 @@ const PoolAllocatedCalculator = () => {
   const [tab, setTab] = useState(true);
   
   return (
-    <div className="z-20 text-black rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 bg-[#F3F3F4]">
+    <div className="z-20 text-black dark:text-white rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 bg-[#F3F3F4] dark:bg-dukiaDark/[80%]">
       <div className=" rounded-t-2xl py-4 flex justify-center bg-dukiaBlue text-white font-semibold">
         <p>Pool Allocated Calculator</p>
       </div>
@@ -40,7 +40,7 @@ const PoolAllocatedCalculator = () => {
                 id="currency"
                 value={price}
                 onChange={handlePriceInput}
-                className="text-dukiaBlue py-4 px-6 outline-none border border-dukiaBlue/[15%] rounded-lg placeholder:text-dukiaBlue/[50%]"
+                className="dark:bg-dukiaBlue text-dukiaBlue dark:text-dukiaGrey py-4 px-6 outline-none border border-dukiaBlue/[15%] dark:border-dukiaGold rounded-lg placeholder:text-dukiaBlue/[50%] dark:placeholder:text-dukiaGrey/[50%]"
                 placeholder="Enter Naira Value"
               />
             </div>
@@ -65,7 +65,7 @@ const PoolAllocatedCalculator = () => {
                 id="weight"
                 value={Gram}
                 onChange={handleGramInput}
-                className="text-dukiaBlue py-4 px-6 outline-none border border-dukiaBlue/[15%] rounded-lg placeholder:text-dukiaBlue/[50%]"
+                className="dark:bg-dukiaBlue text-dukiaBlue dark:text-dukiaGrey py-4 px-6 outline-none border border-dukiaBlue/[15%] dark:border-dukiaGold rounded-lg placeholder:text-dukiaBlue/[50%] dark:placeholder:text-dukiaGrey/[50%]"
                 placeholder="Weight(g)"
               />
             </div>
@@ -109,7 +109,7 @@ const PoolAllocatedCalculator = () => {
               <label htmlFor="weight" className="text-sm font-semibold">
                 Weight (Gram)
               </label>
-              <div className=" bg-white h-[3.125rem] text-dukiaBlue flex items-center px-6 border border-dukiaBlue/[15%] rounded-lg placeholder:text-dukiaBlue/[50%]">
+              <div className=" bg-white  dark:bg-dukiaBlue h-[3.125rem] text-dukiaBlue dark:text-dukiaGrey flex items-center px-6 border border-dukiaBlue/[15%] dark:border-dukiaGold rounded-lg placeholder:text-dukiaBlue/[50%] dark:placeholder:text-dukiaGrey/[50%]">
                 <p>{Gram}</p>
               </div>
             </div>
@@ -123,7 +123,7 @@ const PoolAllocatedCalculator = () => {
               <label htmlFor="currency" className="text-sm font-semibold">
                 Currency (Naira)
               </label>
-              <div className=" bg-white h-[3.125rem] text-dukiaBlue flex items-center px-6 border border-dukiaBlue/[15%] rounded-lg placeholder:text-dukiaBlue/[50%]">
+              <div className=" bg-white dark:bg-dukiaBlue h-[3.125rem] text-dukiaBlue dark:text-dukiaGrey flex items-center px-6 border border-dukiaBlue/[15%] dark:border-dukiaGold rounded-lg placeholder:text-dukiaBlue/[50%] dark:placeholder:text-dukiaGrey/[50%]">
                 <p>{price}</p>
               </div>
             </div>

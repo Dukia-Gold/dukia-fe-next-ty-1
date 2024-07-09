@@ -31,7 +31,7 @@ const FAQ = () => {
 
   const title = "Lorem ipsum dolor sit amet consectetur?";
   return (
-    <section id="FAQ" className="flex flex-col items-center gap-14 py-12 px-4 sm:px-auto">
+    <section id="FAQ" className="dark:bg-dukiaBlue dark:text-white flex flex-col items-center gap-14 py-12 px-4 sm:px-auto">
       <p className="font-bold text-2xl text-center">Frequently Asked Questions (FAQs)</p>
 
       <div className="grid gap-4">

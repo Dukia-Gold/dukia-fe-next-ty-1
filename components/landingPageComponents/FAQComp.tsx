@@ -21,7 +21,7 @@ const FAQComp: FC<FAQCompType> = ({ title, content }) => {
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="w-full md:w-[40rem] lg:w-[52.875rem] bg-dukiaGrey text-dukiaBlue rounded-lg p-4 md:px-12 space-y-2"
+      className="w-full md:w-[40rem] lg:w-[52.875rem] bg-dukiaGrey dark:bg-white/[5%] text-dukiaBlue dark:text-white rounded-lg p-4 md:px-12 space-y-2"
     >
       <div className="flex items-center justify-between">
         <h4 className="font-semibold text-lg/5">{title}</h4>
