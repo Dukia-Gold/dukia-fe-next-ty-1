@@ -41,7 +41,7 @@ const Newsletter = () => {
           id="email"
           required
           placeholder="Your email address"
-          className="md:col-span-2 bg-white dark:bg-black outline-none rounded-lg w-[15.75rem] md:w-[23.25rem] text-sm text-dukiaBlue dark:text-dukiaGrey placeholder:text-dukiaBlue/[50%] dark:placeholder:text-dukiaGrey/[50%] px-6 py-4"
+          className="md:col-span-2 bg-white dark:bg-dukiaBlue outline-none rounded-lg w-[15.75rem] md:w-[23.25rem] text-sm text-dukiaBlue dark:text-white placeholder:text-dukiaBlue/[50%] dark:placeholder:text-white/[50%] dark:border dark:border-dukiaGold px-6 py-4"
         />
         <button
           type="submit"
