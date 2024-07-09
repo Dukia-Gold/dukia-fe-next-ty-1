@@ -7,8 +7,9 @@ const TopBar = () => {
   const pathname = GetUrl();
 
   return (
-    <div className="py-2.5 bg-white border-b border-dukiaBlue/[10%] px-1.5 md:px-5 lg:px-10 font-extrabold text-3xl/10 flex items-center justify-between">
+    <div className="hidden py-2.5 bg-white border-b border-dukiaBlue/[10%] px-1.5 md:px-5 lg:px-10 font-extrabold text-3xl/10 sm:flex items-center justify-between">
       {pathname === "/dashboard" && <p>Dashboard</p>}
+      {pathname === "/dashboard/kyc" && <p>KYC Verification</p>}
       {pathname === "/dashboard/buy-gold" && <p>Buy Gold</p>}
       {pathname === "/dashboard/wallet" && <p>Wallet</p>}
       {pathname === "/dashboard/transactions" && <p>Transactions</p>}

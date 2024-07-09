@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer
       className={` ${
-        pathname === "/dashboard" ? "hidden" : "flex"
+        pathname.startsWith("/dashboard") ? "hidden" : "flex"
       } pt-7 pb-11 px-3 md:px-5 lg:px-10 xl:px-20 text-white bg-dukiaBlue flex-col items-center lg:items-start gap-10 lg:gap-0 lg:flex-row lg:justify-between`}
     >
       {/* LEFT */}
