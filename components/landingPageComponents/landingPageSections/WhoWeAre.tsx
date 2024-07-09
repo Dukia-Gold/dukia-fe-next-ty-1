@@ -27,7 +27,7 @@ const WhoWeAre: React.FC = () => {
   }, [askNaira1g]);
 
   return (
-    <section className="flex flex-col gap-8 px-4 lg:px-12 xl:px-28 bg-white text-dukiaBlue justify-between">
+    <section className="flex flex-col gap-8 px-4 lg:px-12 xl:px-28 bg-white dark:bg-dukiaBlue dark:text-white text-dukiaBlue justify-between">
       <section className="py-12 flex flex-col gap-14">
         {/* TEXTS */}
         <div className="flex flex-col md:items-center gap-2">
@@ -46,7 +46,7 @@ const WhoWeAre: React.FC = () => {
         {/* GOLD CARDS */}
         <div className="flex flex-col items-center lg:flex-row justify-center gap-6">
           {/* Gold Bars */}
-          <Card className="shadow-2xl py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
+          <Card className="dark:bg-white/[5%] shadow-2xl py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
             <CardHeader>
               <CardTitle>Gold Bars</CardTitle>
             </CardHeader>
@@ -60,7 +60,7 @@ const WhoWeAre: React.FC = () => {
             </CardContent>
             <CardFooter>
               <Link href="/buy-gold/bars">
-                <button className="py-[0.875rem] border-2 font-semibold rounded-lg border-dukiaBlue/[25%] hover:border-dukiaBlue px-[1.875rem]">
+                <button className="py-[0.875rem] border-2 font-semibold rounded-lg dark:border-[#D8DFEE] border-dukiaBlue/[25%] dark:hover:border-dukiaGold hover:border-dukiaBlue px-[1.875rem]">
                   Learn More
                 </button>
               </Link>
@@ -68,7 +68,7 @@ const WhoWeAre: React.FC = () => {
           </Card>
 
           {/* Gold Coins */}
-          <Card className="shadow-2xl py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
+          <Card className="dark:bg-white/[5%] shadow-2xl py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
             <CardHeader>
               <CardTitle>Gold Coins</CardTitle>
             </CardHeader>
