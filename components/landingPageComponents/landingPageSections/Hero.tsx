@@ -1,5 +1,6 @@
 import React from "react";
 import PoolAllocatedCalculator from "../PoolAllocatedCalculator";
+import { TypeAnimation } from "react-type-animation";
 import Link from "next/link";
 
 const Hero = () => {
@@ -25,7 +26,20 @@ const Hero = () => {
             BARS • COINS • POOL ALLOCATED
           </h1>
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-6xl font-bold mt-4">
-            Dukia Gold:<br/>Fortify Your Wealth
+            Dukia Gold:
+            <br />{" "}
+            <TypeAnimation
+              sequence={[
+                "Fortify Your Wealth",
+                10000,
+                "Secure Your Future",
+                10000,
+              ]}
+              wrapper="span"
+              speed={25}
+              deletionSpeed={50}
+              repeat={Infinity}
+            />{" "}
           </h2>
           <p className="font text-dukiaGrey text-base sm:text-lg md:text-xl lg:text-2xl mt-6 2xl:w-[70%]">
             Buy, sell, or invest in investment-grade gold and other precious

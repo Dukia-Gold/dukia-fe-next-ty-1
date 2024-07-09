@@ -53,7 +53,6 @@ export const useFetchGoldPriceNaira1g = () => {
 
         const interval = setInterval(() => {
             fetchGoldPrice();
-            console.log(askNaira1gRef.current); // Log the latest state
         }, 30000);
 
         return () => clearInterval(interval); // Cleanup interval on component unmount

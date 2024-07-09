@@ -6,7 +6,6 @@ import { FC, useEffect, useState } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import MobileNav from "./MobileNav";
-import { usePathname } from "next/navigation";
 // import AOS from "aos";
 // import "aos/dist/aos.css"; // You can also use <link> for styles
 import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
@@ -17,12 +16,15 @@ import {
 } from "../ui/hover-card";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { GetUrl } from "@/lib/getUrl";
+import useFetchUserData from "@/lib/fetchUserData";
 
 type header = {
   // name: string
 };
 
 const Header: FC<header> = () => {
+  const user = useFetchUserData();
+
   const { ask, bid, fetchGoldPrice } = useFetchGoldPriceDollars();
   const pathname = GetUrl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -44,14 +46,14 @@ const Header: FC<header> = () => {
   }, []);
 
   useEffect(() => {
-    setAskClass('flash');
-    const timeoutId = setTimeout(() => setAskClass(''), 1500);
+    setAskClass("flash");
+    const timeoutId = setTimeout(() => setAskClass(""), 1500);
     return () => clearTimeout(timeoutId);
   }, [ask]);
 
   useEffect(() => {
-    setBidClass('flash');
-    const timeoutId = setTimeout(() => setBidClass(''), 1500);
+    setBidClass("flash");
+    const timeoutId = setTimeout(() => setBidClass(""), 1500);
     return () => clearTimeout(timeoutId);
   }, [bid]);
 
@@ -189,11 +191,20 @@ const Header: FC<header> = () => {
           </nav>
 
           <div className="hidden sm:flex items-center gap-2 text-sm">
-            <Link href="/login">
-              <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
-                Login / Register
-              </button>
-            </Link>
+            {user ? (
+              <Link href="/dashboard">
+                <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
+                  Return to Dashboard
+                </button>
+              </Link>
+            ) : (
+              <Link href="/login">
+                <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
+                  Login / Register
+                </button>
+              </Link>
+            )}
+
             {/* <Link href="/login">
               <button className="text-white font-semibold py-3 px-5 rounded-lg border border-white">
                 Log In

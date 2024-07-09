@@ -11,11 +11,6 @@ import Link from "next/link";
 
 const DashboardPage = () => {
   const user = useFetchUserData();
-  console.log(user);
-
-  const tags = Array.from({ length: 50 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`
-  );
 
   return (
     <main className="w-full bg-dukiaGrey h-screen">

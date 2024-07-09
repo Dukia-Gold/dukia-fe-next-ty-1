@@ -14,10 +14,17 @@ import { formatDecimal } from "@/lib/decimalFormatter";
 
 const WhoWeAre: React.FC = () => {
   const { askNaira1g, fetchGoldPrice } = useFetchGoldPriceNaira1g();
+  const [askClass, setAskClass] = useState("");
 
   useEffect(() => {
     fetchGoldPrice(); // Ensure initial fetch is called
   }, [fetchGoldPrice]);
+
+  useEffect(() => {
+    setAskClass('flash');
+    const timeoutId = setTimeout(() => setAskClass(''), 1500);
+    return () => clearTimeout(timeoutId);
+  }, [askNaira1g]);
 
   return (
     <section className="flex flex-col gap-8 px-4 lg:px-12 xl:px-28 bg-white text-dukiaBlue justify-between">
@@ -93,7 +100,7 @@ const WhoWeAre: React.FC = () => {
         <div className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-6">
           <div className="shadow-2xl relative w-full md:w-[25.6875rem] h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
-              <p className="font-semibold text-white">{askNaira1g ? formatDecimal(10000/askNaira1g, 4) : 0.00} gram</p>
+              <p className={`${askClass} font-semibold text-white`}>{askNaira1g ? formatDecimal(10000/askNaira1g, 4) : 0.00} gram</p>
             </div>
 
             <Image
@@ -124,7 +131,7 @@ const WhoWeAre: React.FC = () => {
 
           <div className="shadow-2xl relative w-full md:w-[25.6875rem] h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
-              <p className="font-semibold text-white">{askNaira1g ? formatDecimal(15000/askNaira1g, 4) : 0.00} gram</p>
+              <p className={`${askClass} font-semibold text-white`}>{askNaira1g ? formatDecimal(15000/askNaira1g, 4) : 0.00} gram</p>
             </div>
 
             <Image
@@ -155,7 +162,7 @@ const WhoWeAre: React.FC = () => {
 
           <div className="lg:col-start-1 2xl:col-start-3 lg:col-end-3 shadow-2xl relative w-full md:w-auto h-[25.6875rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
-              <p className="font-semibold text-white">{askNaira1g ? formatDecimal(20000/askNaira1g, 4) : 0.00} gram</p>
+              <p className={`${askClass} font-semibold text-white`}>{askNaira1g ? formatDecimal(20000/askNaira1g, 4) : 0.00} gram</p>
             </div>
 
             <Image
