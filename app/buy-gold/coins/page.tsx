@@ -36,7 +36,7 @@ const CoinCard: React.FC<CoinCardProps> = ({
   return (
     <Card
       key={coin.key}
-      className="shadow-lg pt-5 border-none rounded-2xl flex flex-col items-center w-[100%] gap-5"
+      className="dark:bg-white/[5%] shadow-lg pt-5 border-none rounded-2xl flex flex-col items-center w-[100%] gap-5"
     >
       <CardHeader>
         <CardTitle className="text-center">{coin.title}</CardTitle>
@@ -54,7 +54,7 @@ const CoinCard: React.FC<CoinCardProps> = ({
         />
       </CardContent>
       <CardFooter className="relative w-full rounded-b-2xl">
-        <div className="absolute inset-0 bg-black/[6%] blur w-full h-full"></div>
+        <div className="absolute inset-0 bg-black/[6%] dark:bg-dukiaDark/[30%] blur w-full h-full"></div>
         <div className="pt-5 w-full h-full inset-0 text-dukiaGold text-center">
           <p className="text-sm">
             Please call{" "}

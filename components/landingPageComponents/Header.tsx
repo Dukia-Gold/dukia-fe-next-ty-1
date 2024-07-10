@@ -65,7 +65,7 @@ const Header: FC<header> = () => {
     <header
       className={`${
         pathname.startsWith("/dashboard") ? "hidden" : "fixed z-50"
-      } w-[100vw] flex flex-col`}
+      } w-[100vw] flex flex-col shadow-2xl`}
     >
       {/* GOLD PRICE */}
       <div
@@ -142,9 +142,7 @@ const Header: FC<header> = () => {
               {/* BUY GOLD */}
               <li
                 className={`${
-                  pathname === "/buy-gold" ||
-                  pathname === "/buy-gold/bars" ||
-                  pathname === "/buy-gold/coins"
+                  pathname.startsWith("/buy-gold")
                     ? "text-dukiaGold font-bold"
                     : ""
                 } hover:text-dukiaGold hover:font-semibold`}
@@ -156,7 +154,7 @@ const Header: FC<header> = () => {
                       <RiArrowDropDownLine size={30} />
                     </div>
                   </HoverCardTrigger>
-                  <HoverCardContent className="w-32 text-dukiaBlue flex flex-col gap-2">
+                  <HoverCardContent className="w-32 text-dukiaBlue dark:bg-dukiaBlue flex flex-col gap-2">
                     <Link
                       href="/buy-gold/bars"
                       className={`${

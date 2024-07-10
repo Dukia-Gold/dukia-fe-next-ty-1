@@ -17,7 +17,7 @@ const BuyGoldPage = () => {
       <p className="xl:hidden font-bold text-[2.5rem]">Buy Gold</p>
       <div className="flex flex-col items-center xl:flex-row justify-center gap-6">
         {/* Gold Bars */}
-        <Card className="shadow-2xl py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
+        <Card className="shadow-2xl dark:bg-white/[5%] py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
           <CardHeader>
             <CardTitle>Gold Bars</CardTitle>
           </CardHeader>
@@ -31,7 +31,7 @@ const BuyGoldPage = () => {
           </CardContent>
           <CardFooter>
             <Link href="/buy-gold/bars">
-              <button className="py-[0.875rem] border-2 font-semibold rounded-lg border-dukiaBlue/[25%] hover:border-dukiaBlue px-[1.875rem]">
+              <button className="py-[0.875rem] border-2 font-semibold rounded-lg border-dukiaBlue/[25%] dark:border-white dark:hover:border-dukiaGold hover:border-dukiaBlue px-[1.875rem]">
                 See Catalogue
               </button>
             </Link>
@@ -39,7 +39,7 @@ const BuyGoldPage = () => {
         </Card>
 
         {/* Gold Coins */}
-        <Card className="shadow-2xl py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
+        <Card className="dark:bg-white/[5%] shadow-2xl py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
           <CardHeader>
             <CardTitle>Gold Coins</CardTitle>
           </CardHeader>
@@ -53,7 +53,7 @@ const BuyGoldPage = () => {
           </CardContent>
           <CardFooter>
             <Link href="/buy-gold/coins">
-              <button className="py-[0.875rem] border-2 font-semibold rounded-lg border-dukiaBlue/[25%] hover:border-dukiaBlue px-[1.875rem]">
+              <button className="py-[0.875rem] border-2 font-semibold rounded-lg border-dukiaBlue/[25%] dark:border-white hover:border-dukiaBlue dark:hover:border-dukiaGold px-[1.875rem]">
                 See Catalogue
               </button>
             </Link>
