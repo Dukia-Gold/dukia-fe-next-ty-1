@@ -26,3 +26,12 @@
 .flash {
   animation: flash 0.5s ease-in-out;
 }
+
+.index-module_type__E-SaG::after {
+  color: #DAAA38; /* Change this to your desired color */
+  /* You might also need to set the content and other properties if required */
+}
+
+.ant-picker-suffix{
+  color: white !important;
+}

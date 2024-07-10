@@ -152,7 +152,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
               value={first_name}
               required
               placeholder="Dukia"
-              className="rounded-lg border border-dukiaBlue/[15%] py-4 px-6 placeholder:text-dukiaBlue/[50%] font-normal outline-none"
+              className="dark:bg-dukiaDark rounded-lg border border-dukiaBlue/[15%] dark:border-dukiaGold/[25%] py-4 px-6 placeholder:text-dukiaBlue/[50%] dark:placeholder:text-white/[50%] font-normal outline-none"
             />
           </div>
 
@@ -165,7 +165,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
               onChange={(e) => setMiddleName(e.target.value)}
               value={middleName}
               placeholder="Precious"
-              className="rounded-lg border border-dukiaBlue/[15%] py-4 px-6 placeholder:text-dukiaBlue/[50%] font-normal outline-none"
+              className="dark:bg-dukiaDark rounded-lg border border-dukiaBlue/[15%] dark:border-dukiaGold/[25%] py-4 px-6 placeholder:text-dukiaBlue/[50%] dark:placeholder:text-white/[50%] font-normal outline-none"
             />
           </div>
 
@@ -181,7 +181,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
               value={last_name}
               required
               placeholder="Metals"
-              className="rounded-lg border border-dukiaBlue/[15%] py-4 px-6 placeholder:text-dukiaBlue/[50%] font-normal outline-none"
+              className="dark:bg-dukiaDark rounded-lg border border-dukiaBlue/[15%] dark:border-dukiaGold/[25%] py-4 px-6 placeholder:text-dukiaBlue/[50%] dark:placeholder:text-white/[50%] font-normal outline-none"
             />
           </div>
 
@@ -197,7 +197,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
               value={email}
               required
               placeholder="****@****.com"
-              className="rounded-lg border border-dukiaBlue/[15%] py-4 px-6 placeholder:text-dukiaBlue/[50%] font-normal outline-none"
+              className="dark:bg-dukiaDark rounded-lg border border-dukiaBlue/[15%] dark:border-dukiaGold/[25%] py-4 px-6 placeholder:text-dukiaBlue/[50%] dark:placeholder:text-white/[50%] font-normal outline-none"
             />
           </div>
 
@@ -213,7 +213,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
               value={phone}
               required
               placeholder="+234**********"
-              className="rounded-lg border border-dukiaBlue/[15%] py-4 px-6 placeholder:text-dukiaBlue/[50%] font-normal outline-none"
+              className="dark:bg-dukiaDark rounded-lg border border-dukiaBlue/[15%] dark:border-dukiaGold/[25%] py-4 px-6 placeholder:text-dukiaBlue/[50%] dark:placeholder:text-white/[50%] font-normal outline-none"
             />
           </div>
 
@@ -239,7 +239,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
               value={nationality}
               required
               placeholder="Dukia"
-              className="rounded-lg border border-dukiaBlue/[15%] py-4 px-6 placeholder:text-dukiaBlue/[50%] font-normal outline-none"
+              className="dark:bg-dukiaDark rounded-lg border border-dukiaBlue/[15%] dark:border-dukiaGold/[25%] py-4 px-6 placeholder:text-dukiaBlue/[50%] dark:placeholder:text-white/[50%] font-normal outline-none"
             />
           </div>
 
@@ -249,10 +249,10 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
               Gender <span className="text-red-500">*</span>
             </label>
             <Select name="gender" onValueChange={(value) => setGender(value)}>
-              <SelectTrigger className="w-full focus:ring-transparent focus:ring-offset-0 border border-dukiaBlue/[15%] px-6 py-6 text-dukiaBlue/[50%] font-normal">
+              <SelectTrigger className="dark:bg-dukiaDark w-full focus:ring-0 focus:ring-offset-0 border border-dukiaBlue/[15%] dark:border-dukiaGold/[25%] px-6 py-6 text-dukiaBlue/[50%] dark:text-white font-normal">
                 <SelectValue placeholder="Select Gender" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-dukiaBlue">
                 <SelectItem value="male">Male</SelectItem>
                 <SelectItem value="female">Female</SelectItem>
               </SelectContent>
@@ -270,7 +270,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
               value={birthdayVal}
               onChange={handleDOBChange}
               maxDate={dayjs(adult, dateFormat)}
-              className="px-6 py-3.5 font-normal custom-ant-picker-focus"
+              className="px-6 py-3.5 font-normal custom-ant-picker-focus dark:bg-dukiaDark dark:border-dukiaGold/[25%] dark:text-white dark:placeholder:text-white"
             />
           </div>
 
@@ -279,9 +279,9 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
             <label>
               Password <span className="text-red-500">*</span>
             </label>
-            <div className="flex items-center pr-6 bg-white border border-dukiaBlue/[15%] rounded-lg">
+            <div className="flex items-center pr-6 bg-white dark:bg-dukiaDark border border-dukiaBlue/[15%] dark:border-dukiaGold/[25%] rounded-lg">
               <input
-                className="py-4 px-6 outline-none font-normal placeholder:text-dukiaBlue/[50%] rounded-lg w-full"
+                className="bg-transparent py-4 px-6 outline-none font-normal placeholder:text-dukiaBlue/[50%] dark:placeholder:text-white/[50%] rounded-lg w-full"
                 required
                 onChange={handleChange}
                 value={password}
@@ -299,7 +299,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
                 />
               ) : (
                 <Eye
-                  className="text-dukiaBlue/[50%] cursor-pointer"
+                  className="text-dukiaBlue/[50%] dark:text-white/[50%] cursor-pointer"
                   size={20}
                   onClick={() => setViewPassword(true)}
                 />
@@ -307,7 +307,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
             </div>
 
             {password && (
-              <div className="text-red-500 text-xs mt-2 space-y-1 pl-6">
+              <div className="text-red-500 dark:text-red-900 text-xs mt-2 space-y-1 pl-6">
                 {Object.values(validationMessages).map(
                   (msg, index) => msg && <p key={index}>{msg}</p>
                 )}
@@ -321,9 +321,9 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
               Confirm Password <span className="text-red-500">*</span>
             </label>
 
-            <div className="flex items-center pr-6 bg-white border border-dukiaBlue/[15%] rounded-lg">
+            <div className="flex items-center pr-6 bg-white dark:bg-dukiaDark border border-dukiaBlue/[15%] dark:border-dukiaGold/[25%] rounded-lg">
               <input
-                className="py-4 px-6 outline-none font-normal placeholder:text-dukiaBlue/[50%] rounded-lg w-full"
+                className="bg-transparent py-4 px-6 outline-none font-normal placeholder:text-dukiaBlue/[50%] dark:placeholder:text-white/[50%] rounded-lg w-full"
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 value={password_confirmation}
@@ -335,7 +335,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
 
               {!viewConfirmPassword && (
                 <Eye
-                  className="text-dukiaBlue/[50%] cursor-pointer"
+                  className="text-dukiaBlue/[50%] dark:text-white/[50%] cursor-pointer"
                   size={20}
                   onClick={() => {
                     setViewConfirmPassword(true);
@@ -357,7 +357,7 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
             {/* {password_confirmation && } */}
 
             {password_confirmation && password !== password_confirmation && (
-              <p className="text-red-600 mt-2">
+              <p className="text-red-600 dark:text-red-900 mt-2">
                 The passwords don&apos;t match
               </p>
             )}

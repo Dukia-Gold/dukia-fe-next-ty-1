@@ -30,9 +30,9 @@ const Hero = () => {
             <br />{" "}
             <TypeAnimation
               sequence={[
-                "Fortify Your Wealth",
+                "Fortify Your Wealth,",
                 10000,
-                "Secure Your Future",
+                "Secure Your Future,",
                 10000,
               ]}
               wrapper="span"

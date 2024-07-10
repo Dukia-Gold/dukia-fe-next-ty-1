@@ -30,14 +30,14 @@ const RegisterForm = () => {
         <div className="bg-dukiaBlue h-0.5 w-11"></div>
         <div
           className={`${
-            tab === 2 ? "bg-dukiaBlue text-white" : " text-dukiaBlue"
+            tab === 2 ? "bg-dukiaBlue text-white" : " text-dukiaBlue dark:text-white"
           } border-2 border-dukiaGold py-2.5 px-5 rounded-[50%]`}
         >
           2
         </div>
       </div>
 
-      <div className="text-dukiaBlue text-sm font-semibold">
+      <div className="text-dukiaBlue dark:text-white text-sm font-semibold">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <label htmlFor="">Account Type</label>
@@ -45,10 +45,10 @@ const RegisterForm = () => {
               onValueChange={(value) => setType(value)}
               disabled={tab === 2}
             >
-              <SelectTrigger className="w-full focus:ring-transparent focus:ring-offset-0 border border-dukiaBlue/[15%] p-6 text-dukiaBlue/[50%] font-normal">
+              <SelectTrigger className="w-full focus:ring-0 focus:ring-offset-0 border border-dukiaBlue/[15%] dark:border-dukiaGold/[25%] p-6 text-dukiaBlue/[50%] dark:text-white dark:bg-dukiaDark font-normal">
                 <SelectValue placeholder="Choose one" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-dukiaBlue">
                 <SelectItem value="individual">Individual Account</SelectItem>
                 <SelectItem value="joint">Joint Account</SelectItem>
                 <SelectItem value="corporate">Corporate Account</SelectItem>

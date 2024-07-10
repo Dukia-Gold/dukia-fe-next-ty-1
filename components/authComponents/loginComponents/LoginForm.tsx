@@ -16,13 +16,13 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleLogin} className="flex flex-col gap-6 w-full">
-      <div className="flex flex-col gap-4 text-dukiaBlue text-sm">
+      <div className="flex flex-col gap-4 text-dukiaBlue dark:text-white text-sm">
         <div className="flex flex-col gap-2">
           <label htmlFor="email" className="font-semibold">
             Email
           </label>
           <input
-            className="py-4 px-6 outline-none placeholder:text-dukiaBlue/[50%] border border-dukiaBlue/[15%] rounded-lg"
+            className="dark:bg-dukiaDark dark:border-dukiaGold/[25%] py-4 px-6 outline-none placeholder:text-dukiaBlue/[50%] dark:placeholder:text-white/[50%] border border-dukiaBlue/[15%] rounded-lg"
             required
             type="email"
             name="email"
@@ -35,9 +35,9 @@ const LoginForm = () => {
           <label htmlFor="password" className="font-semibold">
             Password
           </label>
-          <div className="flex items-center pr-6 bg-white border border-dukiaBlue/[15%] rounded-lg">
+          <div className="flex items-center pr-6 bg-white dark:bg-dukiaDark border border-dukiaBlue/[15%] dark:border-dukiaGold/[25%] rounded-lg">
             <input
-              className="py-4 px-6 outline-none placeholder:text-dukiaBlue/[50%] rounded-lg w-full"
+              className="py-4 px-6 bg-transparent outline-none placeholder:text-dukiaBlue/[50%] dark:placeholder:text-white/[50%] rounded-lg w-full"
               required
               type={viewPassword ? "text" : "password"}
               name="password"
