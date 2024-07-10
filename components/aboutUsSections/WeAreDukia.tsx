@@ -6,12 +6,12 @@ const WeAreDukia = ({ nextSectionRef }: WeAreDukiaProps) => {
   return (
     <section
       ref={nextSectionRef}
-      className="px-2.5 md:px-5 lg:px-10 xl:px-20 py-14 flex flex-col gap-10 text-dukiaBlue"
+      className="px-2.5 md:px-5 lg:px-10 xl:px-20 py-14 flex flex-col gap-10 text-dukiaBlue dark:bg-dukiaBlue dark:text-white"
     >
       <div className="grid xl:grid-cols-2 gap-5 xl:gap-10">
         {/* <div className="h-96 md:h-[37.5rem] lg:h-[40rem] xl:h-auto w-full bg-dukiaGrey rounded-2xl  bg-cover bg-center" style={{ backgroundImage: 'url(https://dukiagoldrefinery.co/images/sq_img_2.jpg)' }}></div> */}
 
-        <div className="bg-dukiaGrey rounded-2xl  bg-cover bg-center"></div>
+        <div className="bg-dukiaGrey dark:bg-white/[5%] rounded-2xl  bg-cover bg-center"></div>
 
         <div className="flex flex-col gap-2">
           <p className="font-bold text-3xl">We Are Dukia Gold</p>
@@ -111,14 +111,14 @@ const WeAreDukia = ({ nextSectionRef }: WeAreDukiaProps) => {
 
         {/* IMAGES */}
         <div className="grid grid-cols-2 gap-3 xl:gap-6">
-          <div className="bg-dukiaGrey rounded-2xl "></div>
+          <div className="bg-dukiaGrey dark:bg-white/[5%] rounded-2xl "></div>
 
-          <div className="bg-dukiaGrey rounded-2xl "></div>
+          <div className="bg-dukiaGrey dark:bg-white/[5%] rounded-2xl "></div>
         </div>
       </div>
 
       <div className="flex flex-col gap-8">
-        <div className="text-dukiaBlue text-center flex flex-col gap-2">
+        <div className="text-dukiaBlue dark:text-white text-center flex flex-col gap-2">
           <p className="font-bold text-3xl">Our Gallery</p>
           <p className="text-lg">
             Lorem ipsum dolor sit amet consectetur. In morbi hac aliquam lacus.
@@ -129,14 +129,14 @@ const WeAreDukia = ({ nextSectionRef }: WeAreDukiaProps) => {
         </div>
 
         <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-10">
-          <div className="h-72 bg-dukiaGrey rounded-2xl "></div>
-          <div className="h-72 bg-dukiaGrey rounded-2xl "></div>
-          <div className="h-72 bg-dukiaGrey rounded-2xl "></div>
-          <div className="h-72 bg-dukiaGrey rounded-2xl "></div>
-          <div className="h-72 bg-dukiaGrey rounded-2xl "></div>
-          <div className="h-72 bg-dukiaGrey rounded-2xl "></div>
-          <div className="h-72 bg-dukiaGrey rounded-2xl "></div>
-          <div className="h-72 bg-dukiaGrey rounded-2xl "></div>
+          <div className="h-72 bg-dukiaGrey dark:bg-white/[5%] rounded-2xl "></div>
+          <div className="h-72 bg-dukiaGrey dark:bg-white/[5%] rounded-2xl "></div>
+          <div className="h-72 bg-dukiaGrey dark:bg-white/[5%] rounded-2xl "></div>
+          <div className="h-72 bg-dukiaGrey dark:bg-white/[5%] rounded-2xl "></div>
+          <div className="h-72 bg-dukiaGrey dark:bg-white/[5%] rounded-2xl "></div>
+          <div className="h-72 bg-dukiaGrey dark:bg-white/[5%] rounded-2xl "></div>
+          <div className="h-72 bg-dukiaGrey dark:bg-white/[5%] rounded-2xl "></div>
+          <div className="h-72 bg-dukiaGrey dark:bg-white/[5%] rounded-2xl "></div>
         </div>
       </div>
     </section>
