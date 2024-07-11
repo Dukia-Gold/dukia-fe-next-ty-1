@@ -25,7 +25,7 @@ type header = {
 const Header: FC<header> = () => {
   const user = useFetchUserData();
 
-  const { ask, bid, fetchGoldPrice } = useFetchGoldPriceDollars();
+  const { ask, bid, fetchGoldPriceDollars } = useFetchGoldPriceDollars();
   const pathname = GetUrl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [askClass, setAskClass] = useState("");
@@ -36,10 +36,10 @@ const Header: FC<header> = () => {
   };
 
   useEffect(() => {
-    fetchGoldPrice();
+    fetchGoldPriceDollars();
 
     const interval = setInterval(() => {
-      fetchGoldPrice();
+      fetchGoldPriceDollars();
     }, 12000);
 
     return () => clearInterval(interval);

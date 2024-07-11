@@ -13,12 +13,12 @@ import { formatCurrency } from "@/lib/currencyformatter";
 import { formatDecimal } from "@/lib/decimalFormatter";
 
 const WhoWeAre: React.FC = () => {
-  const { askNaira1g, fetchGoldPrice } = useFetchGoldPriceNaira1g();
+  const { askNaira1g, fetchGoldPrice1g } = useFetchGoldPriceNaira1g();
   const [askClass, setAskClass] = useState("");
 
   useEffect(() => {
-    fetchGoldPrice(); // Ensure initial fetch is called
-  }, [fetchGoldPrice]);
+    fetchGoldPrice1g(); // Ensure initial fetch is called
+  }, [fetchGoldPrice1g]);
 
   useEffect(() => {
     setAskClass('flash');

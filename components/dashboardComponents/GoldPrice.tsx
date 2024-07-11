@@ -3,15 +3,15 @@ import { formatCurrency } from "@/lib/currencyformatter";
 import React, { useEffect, useState } from "react";
 
 const GoldPrice = () => {
-  const { ask, bid, fetchGoldPrice } = useFetchGoldPriceDollars();
+  const { ask, bid, fetchGoldPriceDollars } = useFetchGoldPriceDollars();
   const [askClass, setAskClass] = useState("");
   const [bidClass, setBidClass] = useState("");
 
   useEffect(() => {
-    fetchGoldPrice();
+    fetchGoldPriceDollars();
 
     const interval = setInterval(() => {
-      fetchGoldPrice();
+      fetchGoldPriceDollars();
     }, 12000);
 
     return () => clearInterval(interval);
