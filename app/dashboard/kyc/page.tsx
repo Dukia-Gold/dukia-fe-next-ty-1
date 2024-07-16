@@ -2,11 +2,11 @@
 
 import BVN from "@/components/dashboardComponents/kycComponents/BVN";
 import Others from "@/components/dashboardComponents/kycComponents/Others";
-import useFetchUserData from "@/lib/fetchUserData";
+import { userStore } from "@/store/user";
 import { Spin } from "antd";
 
 const KYCPage = () => {
-  const user = useFetchUserData();
+  const user = userStore((state: any) => state.user);
 
   return (
     <main className="w-full bg-dukiaGrey h-full pb-28">
