@@ -5,11 +5,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import useFetchUserData from "@/lib/fetchUserData";
+import { userStore } from "@/store/user";
 import { Spin } from "antd";
 
 const Others = () => {
-  const user = useFetchUserData();
+  const user = userStore((state: any) => state.user);
 
   return (
     <>
