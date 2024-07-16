@@ -3,14 +3,12 @@
 import Portfolio from "@/components/dashboardComponents/Portfolio";
 import Trade from "@/components/dashboardComponents/Trade";
 import Transactions from "@/components/dashboardComponents/Transactions";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import useFetchUserData from "@/lib/fetchUserData";
+import { userStore } from "@/store/user";
 import { Spin } from "antd";
 import Link from "next/link";
 
 const DashboardPage = () => {
-  const user = useFetchUserData();
+  const user = userStore((state: any) => state.user);
 
   return (
     <main className="w-full bg-dukiaGrey h-screen">

@@ -16,14 +16,14 @@ import {
 } from "../ui/hover-card";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { GetUrl } from "@/lib/getUrl";
-import useFetchUserData from "@/lib/fetchUserData";
+import { userStore } from "@/store/user";
 
 type header = {
   // name: string
 };
 
 const Header: FC<header> = () => {
-  const user = useFetchUserData();
+  const user = userStore((state: any) => state.user);
 
   const { ask, bid, fetchGoldPriceDollars } = useFetchGoldPriceDollars();
   const pathname = GetUrl();

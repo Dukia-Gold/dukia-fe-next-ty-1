@@ -5,11 +5,14 @@ import axios from "axios";
 import cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { userStore } from "@/store/user";
 
 const useAuth = () => {
   const { toast } = useToast();
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
+  const updateUser = userStore((state: any) => state.updateUser);
+  const clearUser = userStore((state: any) => state.clearUser);
   const router = useRouter();
 
   const login = async (email: string, password: string, deviceName: string) => {
@@ -24,7 +27,7 @@ const useAuth = () => {
         }
       );
       const { authorization, expires, user: userData } = response.data;
-      setUser(userData);
+      updateUser(userData);
 
       const expiresAt = expires;
       const expiryDate = new Date(expiresAt);
@@ -58,6 +61,7 @@ const useAuth = () => {
 
   const logout = async () => {
     cookie.remove("auth-token");
+    clearUser();
     router.push("/login");
     // try {
     //   await axios.post("https://api.dukiapreciousmetals.co/api/logout");
@@ -68,7 +72,7 @@ const useAuth = () => {
     // }
   };
 
-  return { user, loginLoading, login, logout };
+  return { loginLoading, login, logout };
 };
 
 export default useAuth;

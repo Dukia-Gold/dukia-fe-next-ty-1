@@ -30,7 +30,7 @@ export default function DashboardLayout({
         <MobileHeader />
         <TopBar />
 
-        <ScrollArea className="h-screen">{children}</ScrollArea>
+        <ScrollArea className="bg-dukiaGrey h-screen">{children}</ScrollArea>
       </div>
     </div>
   );
