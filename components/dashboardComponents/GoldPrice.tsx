@@ -1,33 +1,25 @@
 import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
 import { formatCurrency } from "@/lib/currencyformatter";
+import { goldStore } from "@/store/goldPrice";
 import React, { useEffect, useState } from "react";
 
 const GoldPrice = () => {
-  const { ask, bid, fetchGoldPriceDollars } = useFetchGoldPriceDollars();
+  const fetchGoldPriceDollars = useFetchGoldPriceDollars();
+  const goldDollars = goldStore((state: any) => state.goldDollars);
   const [askClass, setAskClass] = useState("");
   const [bidClass, setBidClass] = useState("");
-
-  useEffect(() => {
-    fetchGoldPriceDollars();
-
-    const interval = setInterval(() => {
-      fetchGoldPriceDollars();
-    }, 12000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     setAskClass('flash');
     const timeoutId = setTimeout(() => setAskClass(''), 1500);
     return () => clearTimeout(timeoutId);
-  }, [ask]);
+  }, [goldDollars]);
 
   useEffect(() => {
     setBidClass('flash');
     const timeoutId = setTimeout(() => setBidClass(''), 1500);
     return () => clearTimeout(timeoutId);
-  }, [bid]);
+  }, [goldDollars]);
 
   return (
     <div
@@ -35,21 +27,21 @@ const GoldPrice = () => {
   bg-dukiaGold text-sm text-dukiaBlue font-semibold"
     >
       <p>
-        GOLD ASK: <span className={`text-xs font-black ${askClass}`}>{formatCurrency(ask?.oz, "en-US", "USD")}/oz</span>
+        GOLD ASK: <span className={`text-xs font-black ${askClass}`}>{formatCurrency(goldDollars?.ask.oz, "en-US", "USD")}/oz</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs font-black ${askClass}`}>{formatCurrency(ask?.g, "en-US", "USD")}/g</span>
+        <span className={`text-xs font-black ${askClass}`}>{formatCurrency(goldDollars?.ask.g, "en-US", "USD")}/g</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs font-black ${askClass}`}>{formatCurrency(ask?.kg, "en-US", "USD")}/kg</span>
+        <span className={`text-xs font-black ${askClass}`}>{formatCurrency(goldDollars?.ask.kg, "en-US", "USD")}/kg</span>
         <span className="text-xs font-black"> -0.01%(-$0.12)</span>
       </p>
 
       <p>
         GOLD BID:
-        <span className={`text-xs font-black ${bidClass}`}>{formatCurrency(bid?.oz, "en-US", "USD")}/oz</span>
+        <span className={`text-xs font-black ${bidClass}`}>{formatCurrency(goldDollars?.bid.oz, "en-US", "USD")}/oz</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs font-black ${bidClass}`}>{formatCurrency(bid?.g, "en-US", "USD")}/g</span>
+        <span className={`text-xs font-black ${bidClass}`}>{formatCurrency(goldDollars?.bid.g, "en-US", "USD")}/g</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs font-black ${bidClass}`}>{formatCurrency(bid?.kg, "en-US", "USD")}/kg</span>
+        <span className={`text-xs font-black ${bidClass}`}>{formatCurrency(goldDollars?.bid.kg, "en-US", "USD")}/kg</span>
       </p>
     </div>
   );

@@ -2,6 +2,7 @@ import { toast } from "@/components/ui/use-toast";
 import { useCookies } from "react-cookie";
 import { GetUrl } from "./getUrl";
 import { userStore } from "@/store/user";
+import { useEffect } from "react";
 
 const useFetchUserData = () => {
   const updateUser = userStore((state: any) => state.updateUser);
@@ -10,7 +11,7 @@ const useFetchUserData = () => {
   const token = cookies["auth-token"];
   const url = GetUrl();
 
-  const fetchData = async () => {
+  const fetchUserData = async () => {
     try {
       const response = await fetch(
         "https://api.dukiapreciousmetals.co/api/v2/me",
@@ -28,6 +29,7 @@ const useFetchUserData = () => {
       }
 
       const data = await response.json();
+      console.log(data);
       updateUser(data); // Update the user in the user store
     } catch (error: any) {
       if (error instanceof TypeError && error.message === "Failed to fetch") {
@@ -49,7 +51,19 @@ const useFetchUserData = () => {
     }
   };
 
-  return; // Return the user data
+  useEffect(() => {
+    if (token) {
+      // Check if token exists before fetching data
+      fetchUserData();
+    }
+  }, [token]); // Fetch data when token changes
+
+  useEffect(() => {
+    const interval = setInterval(fetchUserData, 120000); // Fetch every 2 minutes (adjust as needed)
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, []);
+
+  return fetchUserData; // Return the user data (if needed)
 };
 
 export default useFetchUserData;

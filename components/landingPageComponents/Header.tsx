@@ -8,7 +8,6 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import MobileNav from "./MobileNav";
 // import AOS from "aos";
 // import "aos/dist/aos.css"; // You can also use <link> for styles
-import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
 import {
   HoverCard,
   HoverCardContent,
@@ -17,6 +16,7 @@ import {
 import { formatCurrency } from "@/lib/currencyformatter";
 import { GetUrl } from "@/lib/getUrl";
 import { userStore } from "@/store/user";
+import { goldStore } from "@/store/goldPrice";
 
 type header = {
   // name: string
@@ -24,8 +24,8 @@ type header = {
 
 const Header: FC<header> = () => {
   const user = userStore((state: any) => state.user);
+  const goldDollars = goldStore((state: any) => state.goldDollars);
 
-  const { ask, bid, fetchGoldPriceDollars } = useFetchGoldPriceDollars();
   const pathname = GetUrl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [askClass, setAskClass] = useState("");
@@ -36,26 +36,16 @@ const Header: FC<header> = () => {
   };
 
   useEffect(() => {
-    fetchGoldPriceDollars();
-
-    const interval = setInterval(() => {
-      fetchGoldPriceDollars();
-    }, 12000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
     setAskClass("flash");
     const timeoutId = setTimeout(() => setAskClass(""), 1500);
     return () => clearTimeout(timeoutId);
-  }, [ask]);
+  }, [goldDollars]);
 
   useEffect(() => {
     setBidClass("flash");
     const timeoutId = setTimeout(() => setBidClass(""), 1500);
     return () => clearTimeout(timeoutId);
-  }, [bid]);
+  }, [goldDollars]);
 
   // useEffect(() => {
   //   AOS.init();
@@ -75,15 +65,15 @@ const Header: FC<header> = () => {
         <p className="flex items-center gap-0.5 lg:gap-1">
           GOLD ASK:
           <span className={`text-xs font-black ${askClass}`}>
-            {formatCurrency(ask?.oz, "en-US", "USD")}/oz
+            {formatCurrency(goldDollars?.ask.oz, "en-US", "USD")}/oz
           </span>
           |
           <span className={`text-xs font-black ${askClass}`}>
-            {formatCurrency(ask?.g, "en-US", "USD")}/g
+            {formatCurrency(goldDollars?.ask.g, "en-US", "USD")}/g
           </span>
           |
           <span className={`text-xs font-black ${askClass}`}>
-            {formatCurrency(ask?.kg, "en-US", "USD")}/kg
+            {formatCurrency(goldDollars?.ask.kg, "en-US", "USD")}/kg
           </span>
           <span className="text-xs hidden sm:block">-0.01% (-$0.12)</span>
         </p>
@@ -91,15 +81,15 @@ const Header: FC<header> = () => {
         <p className="flex items-center gap-0.5 lg:gap-1">
           GOLD BID:
           <span className={`text-xs font-black ${bidClass}`}>
-            {formatCurrency(bid?.oz, "en-US", "USD")}/oz
+            {formatCurrency(goldDollars?.bid.oz, "en-US", "USD")}/oz
           </span>
           |
           <span className={`text-xs font-black ${bidClass}`}>
-            {formatCurrency(bid?.g, "en-US", "USD")}/g
+            {formatCurrency(goldDollars?.bid.g, "en-US", "USD")}/g
           </span>
           |
           <span className={`text-xs font-black ${bidClass}`}>
-            {formatCurrency(bid?.kg, "en-US", "USD")}/kg
+            {formatCurrency(goldDollars?.bid.kg, "en-US", "USD")}/kg
           </span>
         </p>
       </div>
