@@ -29,7 +29,6 @@ const useFetchUserData = () => {
       }
 
       const data = await response.json();
-      console.log(data);
       updateUser(data); // Update the user in the user store
     } catch (error: any) {
       if (error instanceof TypeError && error.message === "Failed to fetch") {

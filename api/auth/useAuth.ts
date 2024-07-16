@@ -6,8 +6,11 @@ import cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { userStore } from "@/store/user";
+import { useCookies } from "react-cookie";
 
 const useAuth = () => {
+  const [cookies] = useCookies(["auth-token"]);
+  const token = cookies["auth-token"];
   const { toast } = useToast();
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
   // const [user, setUser] = useState(null);
@@ -45,14 +48,16 @@ const useAuth = () => {
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",
-          description: error.response?.data?.message || "Wrong email or password!",
+          description:
+            error.response?.data?.message || "Wrong email or password!",
         });
         setLoginLoading(false);
       } else if (error.response.status === 404) {
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",
-          description: error.response?.data?.message || "This email is not registered!",
+          description:
+            error.response?.data?.message || "This email is not registered!",
         });
         setLoginLoading(false);
       }
@@ -60,16 +65,33 @@ const useAuth = () => {
   };
 
   const logout = async () => {
-    cookie.remove("auth-token");
-    clearUser();
-    router.push("/login");
-    // try {
-    //   await axios.post("https://api.dukiapreciousmetals.co/api/logout");
-    //   cookie.remove("auth-token");
-    //   setUser(null);
-    // } catch (error) {
-    //   setError(error instanceof Error ? error.message : "Unknown error");
-    // }
+    try {
+      await axios.post(
+        "https://api.dukiapreciousmetals.co/api/v2/logout",
+        null, // Assuming no data payload for logout
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Include the bearer token here
+          },
+        }
+      );
+
+      cookie.remove("auth-token");
+      clearUser();
+
+      router.push("/login");
+    } catch (error: any) {
+      // console.log(error.response.status);
+      if (token) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description:
+            "There was a problem connecting to the server. Please check your internet connection and try again.",
+        });
+      }
+    }
   };
 
   return { loginLoading, login, logout };

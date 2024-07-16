@@ -13,9 +13,11 @@ import AsFeaturedIn from "@/components/landingPageComponents/landingPageSections
 import CustomerReviews from "@/components/landingPageComponents/landingPageSections/CustomersReviews";
 import WhyChooseDukia from "@/components/landingPageComponents/landingPageSections/WhyChooseDukia";
 import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
+import useFetchUserData from "@/lib/fetchUserData";
 
 export default function Home() {
   const fetchGoldPriceDollars = useFetchGoldPriceDollars();
+  const fetchUserData = useFetchUserData();
   const [isOnline, setIsOnline] = useState(false);
   const [remainingTime, setRemainingTime] = useState<number | null>(null);
 
