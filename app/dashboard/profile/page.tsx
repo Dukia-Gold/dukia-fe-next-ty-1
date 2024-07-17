@@ -99,7 +99,7 @@ const ProfilePage = () => {
           {user.type === "corporate" && <CompanyInfo />}
         </div>
       ) : (
-        <div className="w-full h-full flex items-center justify-center">
+        <div className="w-full h-screen flex items-center justify-center">
           <Spin size="large" />
         </div>
       )}

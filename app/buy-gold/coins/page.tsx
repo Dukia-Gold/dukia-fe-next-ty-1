@@ -1,6 +1,5 @@
 "use client";
 
-import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
 import {
   Card,
   CardContent,
@@ -77,7 +76,6 @@ const CoinCard: React.FC<CoinCardProps> = ({
 };
 
 const CoinsPage = () => {
-  const fetchGoldPriceDollars = useFetchGoldPriceDollars();
   const [flippedState, setFlippedState] = useState<{ [key: number]: boolean }>(
     {}
   );

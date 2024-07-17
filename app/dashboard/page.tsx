@@ -11,9 +11,9 @@ const DashboardPage = () => {
   const user = userStore((state: any) => state.user);
 
   return (
-    <main className="w-full bg-dukiaGrey h-screen">
+    <main className="w-full bg-dukiaGrey h-full mb-48 md:mb-56  lg:mb-24">
       {user ? (
-        <div className="py-4 px-1.5 md:px-5 lg:px-10 space-y-6">
+        <div className="py-4 mb-40 px-1.5 md:px-5 lg:px-10 space-y-6">
           {/* Top */}
           <div className="flex items-center justify-between">
             <div className="text-dukiaBlue">
@@ -54,7 +54,7 @@ const DashboardPage = () => {
           </div>
         </div>
       ) : (
-        <div className="w-full h-full flex items-center justify-center">
+        <div className="w-full h-screen flex items-center justify-center">
           <Spin size="large" />
         </div>
       )}

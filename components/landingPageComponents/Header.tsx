@@ -17,6 +17,8 @@ import { formatCurrency } from "@/lib/currencyformatter";
 import { GetUrl } from "@/lib/getUrl";
 import { userStore } from "@/store/user";
 import { goldStore } from "@/store/goldPrice";
+import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
+import useFetchUserData from "@/lib/fetchUserData";
 
 type header = {
   // name: string
@@ -24,7 +26,10 @@ type header = {
 
 const Header: FC<header> = () => {
   const user = userStore((state: any) => state.user);
+  const fetchUserData = useFetchUserData();
+
   const goldDollars = goldStore((state: any) => state.goldDollars);
+  const fetchGoldPriceDollars = useFetchGoldPriceDollars();
 
   const pathname = GetUrl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
