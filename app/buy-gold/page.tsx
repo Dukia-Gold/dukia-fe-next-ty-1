@@ -1,6 +1,6 @@
 "use client";
 
-import Newsletter from "@/components/landingPageComponents/landingPageSections/Newsletter";
+import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
 import {
   Card,
   CardContent,
@@ -12,6 +12,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 const BuyGoldPage = () => {
+  const fetchGoldPriceDollars = useFetchGoldPriceDollars();
+
   return (
     <div className="flex flex-col items-center gap-2.5 md:gap-5">
       <p className="xl:hidden font-bold text-[2.5rem]">Buy Gold</p>

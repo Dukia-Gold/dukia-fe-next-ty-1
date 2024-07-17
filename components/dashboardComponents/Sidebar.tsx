@@ -218,20 +218,22 @@ const Sidebar = () => {
 
       {user ? (
         <div className="px-5 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Image
-              src={profile}
-              alt="Profile Image"
-              className="w-10 h-10 object-cover rounded-[50%]"
-            />
+          <Link href="/dashboard/profile">
+            <div className="flex items-center gap-2 hover:animate-pulse">
+              <Image
+                src={profile}
+                alt="Profile Image"
+                className="w-10 h-10 object-cover rounded-[50%]"
+              />
 
-            <div className="flex flex-col gap-1 font-semibold">
-              <p className="text-sm">
-                {user.first_name} {user.last_name}
-              </p>
-              <p className="text-xs text-dukiaGold">{user.account_number}</p>
+              <div className="flex flex-col gap-1 font-semibold">
+                <p className="text-sm">
+                  {user.first_name} {user.last_name}
+                </p>
+                <p className="text-xs text-dukiaGold">{user.account_number}</p>
+              </div>
             </div>
-          </div>
+          </Link>
 
           <svg
             className="cursor-pointer"

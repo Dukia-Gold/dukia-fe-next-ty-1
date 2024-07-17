@@ -13,7 +13,6 @@ const useAuth = () => {
   const token = cookies["auth-token"];
   const { toast } = useToast();
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
-  // const [user, setUser] = useState(null);
   const updateUser = userStore((state: any) => state.updateUser);
   const clearUser = userStore((state: any) => state.clearUser);
   const router = useRouter();
