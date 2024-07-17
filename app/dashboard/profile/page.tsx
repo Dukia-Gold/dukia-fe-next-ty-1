@@ -46,7 +46,7 @@ const ProfilePage = () => {
           <div className="bg-white p-3 md:p-6 rounded-lg space-y-8 md:space-y-2">
             <p className="font-bold text-lg">Account Details</p>
 
-            <div className="md:flex space-y-3 items-center justify-between">
+            <div className="md:flex space-y-3 md:space-y-0 items-center justify-between">
               {/* Profile */}
               <div className="flex items-center gap-2">
                 <Image
