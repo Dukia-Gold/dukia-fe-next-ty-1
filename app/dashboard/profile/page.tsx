@@ -1,6 +1,5 @@
 "use client";
 
-import useFetchUserData from "@/lib/fetchUserData";
 import { userStore } from "@/store/user";
 import { Spin } from "antd";
 import profile from "../../../assets/profile.jpg";
@@ -17,7 +16,6 @@ const ProfilePage = () => {
   const closeModal = () => setResetModal(false);
 
   const user = userStore((state: any) => state.user);
-  const fetchUserData = useFetchUserData();
 
   let formattedDate = "";
   if (user) {

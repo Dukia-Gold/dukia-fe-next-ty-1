@@ -1,15 +1,15 @@
 import { userStore } from "@/store/user";
 import { useEffect } from "react";
 
-interface ResetPasswordModalProps {
+interface StatementOfAccountModalProps {
   isOpen: boolean;
   closeModal: () => void;
 }
 
-const ResetPasswordModal = ({
+const StatementOfAccountModal = ({
   isOpen,
   closeModal,
-}: ResetPasswordModalProps) => {
+}: StatementOfAccountModalProps) => {
   const user = userStore((state: any) => state.user);
   useEffect(() => {
     if (isOpen) {
@@ -52,8 +52,11 @@ const ResetPasswordModal = ({
             </div>
 
             <div className="text-dukiaBlue text-center">
-                <p className="font-bold text-lg">Reset Password</p>
-                <p>Please, enter your email and we&apos;ll send you a link to reset your password</p>
+              <p className="font-bold text-lg">Reset Password</p>
+              <p>
+                Please, enter your email and we&apos;ll send you a link to reset
+                your password
+              </p>
             </div>
           </div>
 
@@ -77,4 +80,4 @@ const ResetPasswordModal = ({
   );
 };
 
-export default ResetPasswordModal;
+export default StatementOfAccountModal;

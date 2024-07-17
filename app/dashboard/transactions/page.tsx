@@ -1,9 +1,17 @@
-import React from 'react'
+"use client"
+
+import { userStore } from "@/store/user";
+import { useState } from "react";
+
+
 
 const TransactionPage = () => {
-  return (
-    <div>TransactionPage</div>
-  )
-}
+  const [accountStatementModal, setAccountStatementModal] = useState(false);
+  const closeModal = () => setAccountStatementModal(false);
 
-export default TransactionPage
+  const user = userStore((state: any) => state.user);
+
+  return <div>TransactionPage</div>;
+};
+
+export default TransactionPage;

@@ -3,17 +3,12 @@
 import Portfolio from "@/components/dashboardComponents/Portfolio";
 import Trade from "@/components/dashboardComponents/Trade";
 import Transactions from "@/components/dashboardComponents/Transactions";
-import useFetchUserData from "@/lib/fetchUserData";
-import { GetUrl } from "@/lib/getUrl";
 import { userStore } from "@/store/user";
 import { Spin } from "antd";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useCookies } from "react-cookie";
 
 const DashboardPage = () => {
   const user = userStore((state: any) => state.user);
-  const fetchUserData = useFetchUserData();
 
   return (
     <main className="w-full bg-dukiaGrey h-screen">

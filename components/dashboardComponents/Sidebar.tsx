@@ -6,10 +6,13 @@ import profile from "../../assets/profile.jpg";
 import { usePathname } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
 import { userStore } from "@/store/user";
+import useFetchUserData from "@/lib/fetchUserData";
 
 const Sidebar = () => {
   const pathname = usePathname();
+
   const user = userStore((state: any) => state.user);
+  const fetchUserData = useFetchUserData();
 
   return (
     <aside className="hidden h-screen lg:flex flex-col justify-between pt-6 pb-32 w-72 bg-dukiaBlue text-white">
