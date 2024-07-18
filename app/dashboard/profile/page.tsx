@@ -91,12 +91,12 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          {user.type === "individual" ||
+          {user.type === "Individual" ||
             (user.type === "personal" && <IndividualInfo />)}
 
-          {user.type === "joint" && <JointInfo />}
+          {user.type === "Joint" && <JointInfo />}
 
-          {user.type === "corporate" && <CompanyInfo />}
+          {user.type === "Corporate" && <CompanyInfo />}
         </div>
       ) : (
         <div className="w-full h-screen flex items-center justify-center">
