@@ -7,12 +7,14 @@ import { usePathname } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
 import { userStore } from "@/store/user";
 import useFetchUserData from "@/lib/fetchUserData";
+import useFetchTransactionHistory from "@/lib/fetchTransactionHistory";
 
 const Sidebar = () => {
   const pathname = usePathname();
 
   const user = userStore((state: any) => state.user);
   const fetchUserData = useFetchUserData();
+  const fetchTransactionHistory = useFetchTransactionHistory();
 
   return (
     <aside className="hidden h-screen lg:flex flex-col justify-between pt-6 pb-32 w-72 bg-dukiaBlue text-white">
@@ -33,7 +35,9 @@ const Sidebar = () => {
             {/* Dashboard */}
             <li
               className={`${
-                pathname === "/dashboard" ? "bg-white text-dukiaBlue" : "hover:bg-white/[10%]"
+                pathname === "/dashboard"
+                  ? "bg-white text-dukiaBlue"
+                  : "hover:bg-white/[10%]"
               } px-5 py-3 cursor-pointer`}
             >
               <Link href="/dashboard" className="flex gap-2.5 items-center">

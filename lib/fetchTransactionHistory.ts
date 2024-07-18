@@ -11,9 +11,9 @@ const useFetchTransactionHistory = () => {
   const token = cookies["auth-token"];
   const url = GetUrl();
 
-  const fetchTransactionHistory = async ( page: number ) => {
+  const fetchTransactionHistory = async ( per_page: number, page: number ) => {
     try {
-      const apiUrl = `https://api.dukiapreciousmetals.co/api/v2/transaction-history?${page}`;
+      const apiUrl = `https://api.dukiapreciousmetals.co/api/v2/transaction-history?per_page=${per_page}&page=${page}`;
 
       const response = await fetch(apiUrl, {
         method: "GET",
@@ -28,8 +28,7 @@ const useFetchTransactionHistory = () => {
       }
 
       const data = await response.json();
-      console.log(data.data);
-      updateTransactions(data.data); // Update the user in the user store
+      updateTransactions(data); // Update the user in the user store
     } catch (error: any) {
       if (error instanceof TypeError && error.message === "Failed to fetch") {
         toast({
@@ -38,24 +37,9 @@ const useFetchTransactionHistory = () => {
           description:
             "There was a problem connecting to the server. Please check your internet connection and try again.",
         });
-      } else {
-        if (token && url === "/dashboard") {
-          toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "An error occurred! Please refresh the dashboard.",
-          });
-        }
       }
     }
   };
-
-  useEffect(() => {
-    if (token) {
-      // Check if token exists before fetching data
-      fetchTransactionHistory(1);
-    }
-  }, [token]);
 
   return fetchTransactionHistory; // Return the user data (if needed)
 };
