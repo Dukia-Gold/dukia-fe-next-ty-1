@@ -35,7 +35,7 @@ const ProfilePage = () => {
               <p>Here are your account details</p>
             </div>
 
-            <button onClick={() => setResetModal(true)} className="bg-dukiaBlue text-white font-semibold text-sm py-4 px-6 rounded-lg">
+            <button onClick={() => setResetModal(true)} className="bg-dukiaBlue hover:bg-dukiaGold hover:text-black text-white font-semibold text-sm py-4 px-6 rounded-lg">
               Reset Password
             </button>
           </div>

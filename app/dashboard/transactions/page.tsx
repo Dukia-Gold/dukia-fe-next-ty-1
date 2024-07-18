@@ -1,5 +1,6 @@
 "use client";
 
+import StatementOfAccountModal from "@/components/transactionsComponents/StatementOfAccountModal";
 import { userStore } from "@/store/user";
 import { Spin } from "antd";
 import { useState } from "react";
@@ -26,7 +27,8 @@ const TransactionPage = () => {
           <Spin size="large" />
         </div>
       )}
-      TransactionPage
+      
+      <StatementOfAccountModal isOpen={accountStatementModal} closeModal={closeModal} />
     </main>
   );
 };

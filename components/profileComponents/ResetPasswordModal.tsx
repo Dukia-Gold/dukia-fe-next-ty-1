@@ -53,7 +53,7 @@ const ResetPasswordModal = ({
 
             <div className="text-dukiaBlue text-center">
                 <p className="font-bold text-lg">Reset Password</p>
-                <p>Please, enter your email and we&apos;ll send you a link to reset your password</p>
+                <p>We&apos;ll send you a link to reset your password</p>
             </div>
           </div>
 
@@ -66,7 +66,7 @@ const ResetPasswordModal = ({
             />
 
             <div>
-              <button className="bg-dukiaBlue text-white py-3.5 px-6 rounded-lg">
+              <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-black text-white py-3.5 px-6 rounded-lg">
                 Send Reset Link
               </button>
             </div>

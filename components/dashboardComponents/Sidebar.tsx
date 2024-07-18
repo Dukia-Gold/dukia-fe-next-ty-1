@@ -33,8 +33,8 @@ const Sidebar = () => {
             {/* Dashboard */}
             <li
               className={`${
-                pathname === "/dashboard" ? "bg-white text-dukiaBlue" : ""
-              } px-5 py-3`}
+                pathname === "/dashboard" ? "bg-white text-dukiaBlue" : "hover:bg-white/[10%]"
+              } px-5 py-3 cursor-pointer`}
             >
               <Link href="/dashboard" className="flex gap-2.5 items-center">
                 <svg
@@ -61,8 +61,8 @@ const Sidebar = () => {
               className={`${
                 pathname === "/dashboard/buy-gold"
                   ? "bg-white text-dukiaBlue"
-                  : ""
-              } px-5 py-3`}
+                  : "hover:bg-white/[10%]"
+              } px-5 py-3 cursor-pointer`}
             >
               <Link href="/buy-gold" className="flex gap-2.5 items-center">
                 <svg
@@ -89,7 +89,7 @@ const Sidebar = () => {
               className={`${
                 pathname === "/dashboard/wallet"
                   ? "bg-white text-dukiaBlue"
-                  : ""
+                  : "hover:bg-white/[10%]"
               } px-5 py-3`}
             >
               <Link
@@ -126,8 +126,8 @@ const Sidebar = () => {
               className={`${
                 pathname === "/dashboard/transactions"
                   ? "bg-white text-dukiaBlue"
-                  : ""
-              } px-5 py-3`}
+                  : "hover:bg-white/[10%]"
+              } px-5 py-3 cursor-pointer`}
             >
               <Link
                 href="/dashboard/transactions"
@@ -157,8 +157,8 @@ const Sidebar = () => {
               className={`${
                 pathname === "/dashboard/charts"
                   ? "bg-white text-dukiaBlue"
-                  : ""
-              } px-5 py-3`}
+                  : "hover:bg-white/[10%]"
+              } px-5 py-3 cursor-pointer`}
             >
               <Link
                 href="/dashboard/charts"
@@ -188,8 +188,8 @@ const Sidebar = () => {
               className={`${
                 pathname === "/dashboard/settings"
                   ? "bg-white text-dukiaBlue"
-                  : ""
-              } px-5 py-3`}
+                  : "hover:bg-white/[10%]"
+              } px-5 py-3 cursor-pointer`}
             >
               <Link
                 href="/dashboard/settings"
