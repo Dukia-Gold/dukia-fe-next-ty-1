@@ -56,7 +56,7 @@ const TransactionPage = () => {
     <main className="w-full bg-dukiaGrey text-dukiaBlue h-full mb-40 lg:mb-24">
       {transactions ? (
         <div className="pt-4 pb-14 px-1.5 md:px-5 lg:px-10">
-          {transactions ? (
+          {transactions && transactions.data && transactions.data.length !== 0 ? (
             <div className="space-y-6">
               <div className="flex justify-between">
                 <Select onValueChange={(value) => setFilter(value)}>
@@ -311,7 +311,7 @@ const TransactionPage = () => {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col pt-4 pb-14 px-1.5 md:px-5 lg:px-10">
+            <div className="flex flex-col">
               <div className="text-right text-xs space-x-2 font-semibold">
                 <button className="py-3.5 px-4 border border-dukiaBlue/[25%] hover:border-dukiaGold rounded-lg">
                   Fund Wallet

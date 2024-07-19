@@ -7,8 +7,10 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { userStore } from "@/store/user";
 import { useCookies } from "react-cookie";
+import useLoadingStore from "@/store/loadingStore";
 
 const useAuth = () => {
+  const updateLoading = useLoadingStore((state: any) => state.setLoading);
   const [cookies] = useCookies(["auth-token"]);
   const token = cookies["auth-token"];
   const { toast } = useToast();
@@ -20,6 +22,7 @@ const useAuth = () => {
   const login = async (email: string, password: string, deviceName: string) => {
     setLoginLoading(true);
     try {
+      updateLoading(true);
       const response = await axios.post(
         "https://api.dukiapreciousmetals.co/api/login",
         {
@@ -40,7 +43,7 @@ const useAuth = () => {
       });
 
       router.push("/dashboard");
-      setLoginLoading(false);
+      updateLoading(false);
     } catch (error: any) {
       // console.log(error.response.status);
       if (error.response.status === 401) {
@@ -50,7 +53,7 @@ const useAuth = () => {
           description:
             error.response?.data?.message || "Wrong email or password!",
         });
-        setLoginLoading(false);
+        updateLoading(false);
       } else if (error.response.status === 404) {
         toast({
           variant: "destructive",
@@ -58,13 +61,14 @@ const useAuth = () => {
           description:
             error.response?.data?.message || "This email is not registered!",
         });
-        setLoginLoading(false);
+        updateLoading(false);
       }
     }
   };
 
   const logout = async () => {
     try {
+      updateLoading(true);
       await axios.post(
         "https://api.dukiapreciousmetals.co/api/v2/logout",
         null, // Assuming no data payload for logout
@@ -80,6 +84,7 @@ const useAuth = () => {
       clearUser();
 
       router.push("/login");
+      updateLoading(false);
     } catch (error: any) {
       // console.log(error.response.status);
       if (token) {
@@ -90,6 +95,7 @@ const useAuth = () => {
             "There was a problem connecting to the server. Please check your internet connection and try again.",
         });
       }
+      updateLoading(false);
     }
   };
 

@@ -26,12 +26,18 @@ const useFetchTransactionHistory = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.status === 404) {
+          updateTransactions([]);
+          throw new Error('Transactions not found');
+        } else {
+          throw new Error('Failed to fetch transactions');
+        }
       }
 
       data = await response.json();
       updateTransactions(data); // Update the user in the user store
     } catch (error: any) {
+      
       if (error instanceof TypeError && error.message === "Failed to fetch") {
         toast({
           variant: "destructive",

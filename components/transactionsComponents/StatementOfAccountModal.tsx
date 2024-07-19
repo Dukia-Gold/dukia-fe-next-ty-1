@@ -2,6 +2,9 @@ import { userStore } from "@/store/user";
 import { DatePicker, DatePickerProps } from "antd";
 import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
+import useDownloadAccountStatement from "@/api/downloadAccountStatement";
+import useLoadingStore from "@/store/loadingStore";
+import LoadingModal from "../loadingModal";
 
 interface StatementOfAccountModalProps {
   isOpen: boolean;
@@ -12,15 +15,29 @@ const StatementOfAccountModal = ({
   isOpen,
   closeModal,
 }: StatementOfAccountModalProps) => {
-  const [birthday, setBirthday] = useState("");
-  const [birthdayVal, setBirthdayVal] = useState<Dayjs | null>(null);
+  const loading = useLoadingStore((state: any) => state.loading);
+  const [start_date, setStart_date] = useState("");
+  const [start_dateVal, setStart_dateVal] = useState<Dayjs | null>(null);
+  const [end_date, setEnd_date] = useState("");
+  const [end_dateVal, setEnd_dateVal] = useState<Dayjs | null>(null);
 
-  const handleDOBChange: DatePickerProps["onChange"] = (date, dateString) => {
-    setBirthdayVal(date);
-    setBirthday(dateString?.toString());
+  const handleStartDateChange: DatePickerProps["onChange"] = (
+    date,
+    dateString
+  ) => {
+    setStart_dateVal(date);
+    setStart_date(dateString?.toString());
   };
 
-  const adult = "2006-07-01";
+  const handleEndDateChange: DatePickerProps["onChange"] = (
+    date,
+    dateString
+  ) => {
+    setEnd_dateVal(date);
+    setEnd_date(dateString?.toString());
+  };
+
+  const valid = "2024-07-19";
   const dateFormat = "YYYY-MM-DD";
 
   const user = userStore((state: any) => state.user);
@@ -31,6 +48,8 @@ const StatementOfAccountModal = ({
       document.body.style.overflow = "unset";
     }
   });
+
+  const downloadAccountStatement = useDownloadAccountStatement();
 
   if (!isOpen) {
     return null;
@@ -56,35 +75,41 @@ const StatementOfAccountModal = ({
         <div className="space-y-10">
           <div className="grid md:grid-cols-2 gap-5 text-xs font-semibold">
             <div className="flex flex-col gap-2">
-              <label htmlFor="from">
-                From
-              </label>
+              <label htmlFor="from">From</label>
               <DatePicker
                 name="from"
                 format={dateFormat}
-                value={birthdayVal}
-                onChange={handleDOBChange}
-                maxDate={dayjs(adult, dateFormat)}
+                value={start_dateVal}
+                onChange={handleStartDateChange}
+                maxDate={dayjs(valid, dateFormat)}
                 className="px-6 py-3.5 font-normal custom-ant-picker-focus dark:bg-dukiaDark dark:border-dukiaGold/[25%] dark:text-white dark:placeholder:text-white"
               />
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="to">
-                To
-              </label>
+              <label htmlFor="to">To</label>
               <DatePicker
                 name="to"
                 format={dateFormat}
-                value={birthdayVal}
-                onChange={handleDOBChange}
-                maxDate={dayjs(adult, dateFormat)}
+                disabled={
+                  !start_dateVal || (start_dateVal && start_date === valid)
+                }
+                value={end_dateVal}
+                onChange={handleEndDateChange}
+                minDate={dayjs(start_date, dateFormat)}
+                maxDate={dayjs(valid, dateFormat)}
                 className="px-6 py-3.5 font-normal custom-ant-picker-focus dark:bg-dukiaDark dark:border-dukiaGold/[25%] dark:text-white dark:placeholder:text-white"
               />
             </div>
           </div>
 
-          <button className="bg-dukiaBlue hover:bg-dukiaGold text-white hover:text-dukiaBlue py-3.5 px-6 font-semibold rounded-lg">
+          <button
+            disabled={!start_date || !end_date}
+            onClick={() => {
+              downloadAccountStatement(start_date, end_date);
+            }}
+            className="bg-dukiaBlue hover:bg-dukiaGold text-white hover:text-dukiaBlue py-3.5 px-6 font-semibold rounded-lg disabled:bg-dukiaBlue/[25%] disabled:text-white disabled:cursor-not-allowed"
+          >
             Download
           </button>
         </div>
