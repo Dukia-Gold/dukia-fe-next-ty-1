@@ -203,8 +203,8 @@ const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
                 <SelectValue placeholder="Select Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="public">Public Listed</SelectItem>
-                <SelectItem value="private">Private</SelectItem>
+                <SelectItem value="public-listed-company">Public Listed</SelectItem>
+                <SelectItem value="private-company">Private</SelectItem>
                 <SelectItem value="partnership">Partnership</SelectItem>
                 <SelectItem value="individual">
                   Individual/Sole Proprietor
