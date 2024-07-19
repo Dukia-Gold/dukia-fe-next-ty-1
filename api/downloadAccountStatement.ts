@@ -18,7 +18,7 @@ const useDownloadAccountStatement = () => {
 
     try {
       updateLoading(true);
-      const apiUrl = `https://api.dukiapreciousmetals.co/api/v2/user/download-statement?start_date=${start_date}&page=${end_date}`;
+      const apiUrl = `https://api.dukiapreciousmetals.co/api/v2/user/download-statement?start_date=${start_date}&end_date=${end_date}`;
 
       const response = await fetch(apiUrl, {
         method: "GET",
