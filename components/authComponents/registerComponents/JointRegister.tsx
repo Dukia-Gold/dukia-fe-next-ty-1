@@ -39,7 +39,7 @@ const JointRegister = ({ tab, setTab }: JointRegisterProps) => {
   const [password, setPassword] = useState("");
   const [password_confirmation, setConfirmPassword] = useState("");
 
-  const { loading, registerJoint } = RegisterAuth();
+  const { registerJoint } = RegisterAuth();
 
   const [viewPassword, setViewPassword] = useState<boolean>(false);
   const [viewConfirmPassword, setViewConfirmPassword] =

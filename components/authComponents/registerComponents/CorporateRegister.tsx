@@ -40,7 +40,7 @@ const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
   const [phone, setPhone] = useState("");
   const [referral_code, setReferralCode] = useState("");
 
-  const { loading, registerCorporate } = RegisterAuth();
+  const { registerCorporate } = RegisterAuth();
 
   const [viewPassword, setViewPassword] = useState<boolean>(false);
   const [viewConfirmPassword, setViewConfirmPassword] =
