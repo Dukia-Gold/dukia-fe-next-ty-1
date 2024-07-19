@@ -50,6 +50,16 @@ const useDownloadAccountStatement = () => {
         }
       }
 
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "account_statement.pdf");
+      document.body.appendChild(link);
+      link.click();
+      window.URL.revokeObjectURL(url);
+
       data = await response.json();
       console.log(data); // Update the user in the user store
       updateLoading(false);
