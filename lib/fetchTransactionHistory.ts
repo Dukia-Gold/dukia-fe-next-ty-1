@@ -12,6 +12,8 @@ const useFetchTransactionHistory = () => {
   const url = GetUrl();
 
   const fetchTransactionHistory = async ( per_page: number, page: number ) => {
+    let data;
+
     try {
       const apiUrl = `https://api.dukiapreciousmetals.co/api/v2/transaction-history?per_page=${per_page}&page=${page}`;
 
@@ -27,7 +29,7 @@ const useFetchTransactionHistory = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
+      data = await response.json();
       updateTransactions(data); // Update the user in the user store
     } catch (error: any) {
       if (error instanceof TypeError && error.message === "Failed to fetch") {
@@ -39,6 +41,8 @@ const useFetchTransactionHistory = () => {
         });
       }
     }
+
+    return data;
   };
 
   return fetchTransactionHistory; // Return the user data (if needed)

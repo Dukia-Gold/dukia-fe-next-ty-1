@@ -1,32 +1,315 @@
 "use client";
 
 import StatementOfAccountModal from "@/components/transactionsComponents/StatementOfAccountModal";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import useFetchTransactionHistory from "@/lib/fetchTransactionHistory";
 import { transactionStore } from "@/store/transactions";
-import { userStore } from "@/store/user";
 import { Spin } from "antd";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TransactionPage = () => {
   const [accountStatementModal, setAccountStatementModal] = useState(false);
   const closeModal = () => setAccountStatementModal(false);
 
+  const [page, setPage] = useState(1);
+  const fetchTransactionHistory = useFetchTransactionHistory();
+  useEffect(() => {
+    fetchTransactionHistory(10, page);
+  }, []);
   const transactions = transactionStore((state: any) => state.transactions);
-  console.log(transactions);
+  const updateTransactions = transactionStore(
+    (state: any) => state.updateTransactions
+  );
+  const dateAndTimeFormatter = (date: string) => {
+    const formattedDate = date.split("T")[0];
+    const formattedTime = date.split("T")[1].split(".")[0];
 
-  const user = userStore((state: any) => state.user);
+    return (
+      <>
+        {formattedDate}
+        <br />
+        {formattedTime}
+      </>
+    );
+  };
+
+  const [filter, setFilter] = useState("all");
 
   return (
     <main className="w-full bg-dukiaGrey text-dukiaBlue h-full mb-40 lg:mb-24">
-      {user ? (
-        <div>
+      {transactions ? (
+        <div className="pt-4 pb-14 px-1.5 md:px-5 lg:px-10">
           {transactions ? (
-            <button
-              onClick={() => setAccountStatementModal(true)}
-              className="py-3.5 px-6 text-sm font-semibold bg-dukiaBlue text-white rounded-lg"
-            >
-              Download Statement of Account
-            </button>
+            <div className="space-y-6">
+              <div className="flex justify-between">
+                <Select onValueChange={(value) => setFilter(value)}>
+                  <SelectTrigger className="w-[180px] px-4 focus:ring-0 focus:ring-offset-0 h-12 rounded-lg border-2 border-dukiaBlue/[10%] bg-transparent">
+                    <SelectValue placeholder="All Transactions" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Transaction Type</SelectLabel>
+                      <SelectItem value="all">All Transactions</SelectItem>
+                      <SelectItem value="deposit">Deposit</SelectItem>
+                      <SelectItem value="withdraw">Withdraw</SelectItem>
+                      <SelectItem value="sell">Sell</SelectItem>
+                      <SelectItem value="buy">Buy</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+
+                <button
+                  onClick={() => setAccountStatementModal(true)}
+                  className="py-3.5 px-6 text-sm font-semibold bg-dukiaBlue text-white rounded-lg"
+                >
+                  Download Statement of Account
+                </button>
+              </div>
+
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-dukiaBlue text-white border-b border-dukiaBlue/[10%] hover:bg-dukiaBlue">
+                    <TableHead className="pl-6 py-4 text-white rounded-tl-lg">
+                      Trx ID
+                    </TableHead>
+                    <TableHead className="text-white">Date & Time</TableHead>
+                    <TableHead className="text-white">Type</TableHead>
+                    <TableHead className="text-white">Quantity</TableHead>
+                    <TableHead className="text-white rounded-tr-lg">
+                      Amount
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {transactions &&
+                    transactions.data &&
+                    transactions.data.map((transaction: any) => (
+                      <TableRow
+                        key={transaction.id}
+                        className="text-dukiaBlue bg-white hover:bg-dukiaBlue/[50%] hover:text-white"
+                      >
+                        <TableCell className="font-medium pl-6 py-4">
+                          {transaction.id}
+                        </TableCell>
+                        <TableCell>
+                          {dateAndTimeFormatter(transaction.date)}
+                        </TableCell>
+                        <TableCell>{transaction.transaction_type}</TableCell>
+                        <TableCell>
+                          {transaction.quantity ? transaction.quantity : "N/A"}
+                        </TableCell>
+                        <TableCell className="">{transaction.amount}</TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+
+              <div className="flex justify-between text-sm">
+                <div
+                  onClick={() => {
+                    if (page > 1) {
+                      const newPage = page - 1;
+                      setPage(newPage);
+                      updateTransactions(null);
+                      fetchTransactionHistory(10, newPage).then(
+                        (transactions) => {
+                          updateTransactions(transactions);
+                        }
+                      );
+                    }
+                  }}
+                  className={`${
+                    page === 1
+                      ? "cursor-not-allowed text-dukiaBlue/[40%]"
+                      : "cursor-pointer hover:text-dukiaGold"
+                  } flex items-center gap-1`}
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clipPath="url(#clip0_395_3186)">
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        className={`${page === 1 && "fill-dukiaBlue/[40%]"}`}
+                        d="M6.91169 9.41071C6.75546 9.56698 6.6677 9.77891 6.6677 9.99988C6.6677 10.2208 6.75546 10.4328 6.91169 10.589L11.6259 15.3032C11.7027 15.3828 11.7947 15.4463 11.8963 15.49C11.998 15.5336 12.1074 15.5566 12.218 15.5576C12.3287 15.5585 12.4384 15.5375 12.5408 15.4956C12.6432 15.4537 12.7363 15.3918 12.8145 15.3135C12.8928 15.2353 12.9546 15.1423 12.9965 15.0398C13.0384 14.9374 13.0595 14.8277 13.0586 14.717C13.0576 14.6064 13.0346 14.497 12.9909 14.3954C12.9473 14.2937 12.8838 14.2017 12.8042 14.1249L8.67919 9.99988L12.8042 5.87488C12.956 5.71771 13.04 5.50721 13.0381 5.28871C13.0362 5.07021 12.9485 4.8612 12.794 4.70669C12.6395 4.55219 12.4305 4.46455 12.212 4.46265C11.9935 4.46075 11.783 4.54474 11.6259 4.69654L6.91169 9.41071Z"
+                        fill="#111827"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_395_3186">
+                        <rect
+                          width="20"
+                          height="20"
+                          fill="white"
+                          transform="matrix(0 -1 -1 0 20 20)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <p>Previous</p>
+                </div>
+
+                <div className="flex items-center gap-2.5">
+                  <p
+                    onClick={() => {
+                      setPage(1);
+                      updateTransactions(null);
+                      fetchTransactionHistory(10, 1).then((transactions) => {
+                        updateTransactions(transactions);
+                      });
+                    }}
+                    className={`${
+                      page === 1
+                        ? "bg-dukiaBlue text-white"
+                        : "text-#555555 border border-dukiaBlue/[10%]"
+                    } rounded py-2 px-4 cursor-pointer`}
+                  >
+                    1
+                  </p>
+
+                  <p
+                    onClick={() => {
+                      setPage(2);
+                      updateTransactions(null);
+                      fetchTransactionHistory(10, 2).then((transactions) => {
+                        updateTransactions(transactions);
+                      });
+                    }}
+                    className={`${
+                      page === 2
+                        ? "bg-dukiaBlue text-white"
+                        : "text-#555555 border border-dukiaBlue/[10%]"
+                    } rounded py-2 px-4 cursor-pointer`}
+                  >
+                    2
+                  </p>
+
+                  {transactions?.pagination?.total_pages >= 3 && (
+                    <p
+                      onClick={() => {
+                        setPage(3);
+                        updateTransactions(null);
+                        fetchTransactionHistory(10, 3).then((transactions) => {
+                          updateTransactions(transactions);
+                        });
+                      }}
+                      className={`${
+                        page === 3
+                          ? "bg-dukiaBlue text-white"
+                          : "text-#555555 border border-dukiaBlue/[10%]"
+                      } rounded py-2 px-4 cursor-pointer`}
+                    >
+                      3
+                    </p>
+                  )}
+
+                  {transactions?.pagination?.total_pages >= 4 && (
+                    <p
+                      onClick={() => {
+                        setPage(4);
+                        updateTransactions(null);
+                        fetchTransactionHistory(10, 4).then((transactions) => {
+                          updateTransactions(transactions);
+                        });
+                      }}
+                      className={`${
+                        page === 4
+                          ? "bg-dukiaBlue text-white"
+                          : "text-#555555 border border-dukiaBlue/[10%]"
+                      } rounded py-2 px-4 cursor-pointer`}
+                    >
+                      3
+                    </p>
+                  )}
+
+                  {transactions?.pagination?.total_pages > 4 && page >= 4 && (
+                    <p
+                      className={`${
+                        transactions?.pagination?.total_pages > 4
+                          ? "bg-dukiaBlue text-white"
+                          : "text-#555555 border border-dukiaBlue/[10%]"
+                      } rounded py-2 px-4 cursor-pointer`}
+                    >
+                      {transactions?.pagination?.total_pages > 4}
+                    </p>
+                  )}
+                </div>
+
+                <div
+                  onClick={() => {
+                    if (page < transactions?.pagination?.total_pages) {
+                      const newPage = page + 1;
+                      setPage(newPage);
+                      updateTransactions(null);
+                      fetchTransactionHistory(10, newPage).then(
+                        (transactions) => {
+                          updateTransactions(transactions);
+                        }
+                      );
+                    }
+                  }}
+                  className={`${
+                    page === transactions?.pagination?.total_pages
+                      ? "cursor-not-allowed text-dukiaBlue/[40%]"
+                      : "cursor-pointer hover:text-dukiaGold"
+                  } flex items-center gap-1`}
+                >
+                  <p>Next</p>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clipPath="url(#clip0_395_3189)">
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        className={`${
+                          page === transactions?.pagination?.total_pages &&
+                          "fill-dukiaBlue/[40%]"
+                        }`}
+                        d="M13.0883 9.41071C13.2445 9.56698 13.3323 9.77891 13.3323 9.99988C13.3323 10.2208 13.2445 10.4328 13.0883 10.589L8.37415 15.3032C8.29727 15.3828 8.20532 15.4463 8.10365 15.49C8.00198 15.5336 7.89263 15.5566 7.78198 15.5576C7.67133 15.5585 7.5616 15.5375 7.45919 15.4956C7.35677 15.4537 7.26373 15.3918 7.18548 15.3135C7.10724 15.2353 7.04536 15.1423 7.00346 15.0398C6.96156 14.9374 6.94048 14.8277 6.94144 14.717C6.9424 14.6064 6.96539 14.497 7.00906 14.3954C7.05274 14.2937 7.11622 14.2017 7.19581 14.1249L11.3208 9.99988L7.19581 5.87488C7.04401 5.71771 6.96002 5.50721 6.96192 5.28871C6.96382 5.07021 7.05146 4.8612 7.20596 4.70669C7.36047 4.55219 7.56948 4.46455 7.78798 4.46265C8.00648 4.46075 8.21698 4.54474 8.37415 4.69654L13.0883 9.41071Z"
+                        fill="#111827"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_395_3189">
+                        <rect
+                          width="20"
+                          height="20"
+                          fill="white"
+                          transform="matrix(0 -1 1 0 0 20)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="flex flex-col pt-4 pb-14 px-1.5 md:px-5 lg:px-10">
               <div className="text-right text-xs space-x-2 font-semibold">

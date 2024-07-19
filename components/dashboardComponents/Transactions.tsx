@@ -18,14 +18,22 @@ const Transactions = () => {
 
   useEffect(() => {
     fetchTransactionHistory(5, 1);
-  }, [fetchTransactionHistory]);
+  }, []);
 
   const transactions = transactionStore((state: any) => state.transactions);
 
-  const dateFormatter = (date: string) => {
+  const dateAndTimeFormatter = (date: string) => {
     const formattedDate = date.split("T")[0];
-    return formattedDate;
-  }
+    const formattedTime = date.split("T")[1].split(".")[0];
+  
+    return (
+      <>
+        {formattedDate}
+        <br />
+        {formattedTime}
+      </>
+    );
+  };
 
   return (
     <div className="space-y-3">
@@ -34,7 +42,9 @@ const Transactions = () => {
       <Table>
         <TableHeader>
           <TableRow className="bg-dukiaBlue text-white border-b border-dukiaBlue/[10%] hover:bg-dukiaBlue">
-            <TableHead className="pl-6 py-4 text-white rounded-tl-lg">Trx ID</TableHead>
+            <TableHead className="pl-6 py-4 text-white rounded-tl-lg">
+              Trx ID
+            </TableHead>
             <TableHead className="text-white">Date & Time</TableHead>
             <TableHead className="text-white">Type</TableHead>
             <TableHead className="text-white">Quantity</TableHead>
@@ -45,13 +55,18 @@ const Transactions = () => {
           {transactions &&
             transactions.data &&
             transactions.data.map((transaction: any) => (
-              <TableRow key={transaction.id} className="text-dukiaBlue bg-white">
+              <TableRow
+                key={transaction.id}
+                className="text-dukiaBlue bg-white"
+              >
                 <TableCell className="font-medium pl-6 py-4">
                   {transaction.id}
                 </TableCell>
-                <TableCell>{dateFormatter(transaction.date)}</TableCell>
+                <TableCell>{dateAndTimeFormatter(transaction.date)}</TableCell>
                 <TableCell>{transaction.transaction_type}</TableCell>
-                <TableCell>{transaction.quantity? transaction.quantity : "N/A"}</TableCell>
+                <TableCell>
+                  {transaction.quantity ? transaction.quantity : "N/A"}
+                </TableCell>
                 <TableCell className="">{transaction.amount}</TableCell>
               </TableRow>
             ))}
