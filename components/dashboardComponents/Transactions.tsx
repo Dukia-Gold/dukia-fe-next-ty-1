@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -25,7 +23,7 @@ const Transactions = () => {
   const dateAndTimeFormatter = (date: string) => {
     const formattedDate = date.split("T")[0];
     const formattedTime = date.split("T")[1].split(".")[0];
-  
+
     return (
       <>
         {formattedDate}
@@ -41,7 +39,7 @@ const Transactions = () => {
 
       <Table>
         <TableHeader>
-          <TableRow className="bg-dukiaBlue text-white border-b border-dukiaBlue/[10%] hover:bg-dukiaBlue">
+          <TableRow className="hidden md:table-row bg-dukiaBlue text-white border-b border-dukiaBlue/[10%] hover:bg-dukiaBlue">
             <TableHead className="pl-6 py-4 text-white rounded-tl-lg">
               Trx ID
             </TableHead>
@@ -57,17 +55,41 @@ const Transactions = () => {
             transactions.data.map((transaction: any) => (
               <TableRow
                 key={transaction.id}
-                className="text-dukiaBlue bg-white"
+                className="grid md:table-row text-dukiaBlue bg-white hover:bg-dukiaBlue/[50%] hover:text-white"
               >
-                <TableCell className="font-medium pl-6 py-4">
-                  {transaction.id}
+                {/* Trx ID */}
+                <TableCell className="grid grid-cols-3 md:table-cell bg-dukiaBlue/[20%] font-medium pl-6 py-4">
+                  <p className="md:hidden">Trx ID:</p>
+                  <p className="col-span-2">{transaction.id}</p>
                 </TableCell>
-                <TableCell>{dateAndTimeFormatter(transaction.date)}</TableCell>
-                <TableCell>{transaction.transaction_type}</TableCell>
-                <TableCell>
-                  {transaction.quantity ? transaction.quantity : "N/A"}
+
+                {/* Date */}
+                <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                  <p className="md:hidden">Date & Time:</p>
+                  <p className="col-span-2">
+                    {dateAndTimeFormatter(transaction.date)}
+                  </p>
                 </TableCell>
-                <TableCell className="">{transaction.amount}</TableCell>
+
+                {/* Type */}
+                <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                  <p className="md:hidden">Type:</p>
+                  <p className="col-span-2">{transaction.transaction_type}</p>
+                </TableCell>
+
+                {/* Quantity */}
+                <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                  <p className="md:hidden">Quantity:</p>
+                  <p className="col-span-2">
+                    {transaction.quantity ? transaction.quantity : "N/A"}
+                  </p>
+                </TableCell>
+
+                {/* Amount */}
+                <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                  <p className="md:hidden">Amount:</p>
+                  <p className="col-span-2">{transaction.amount}</p>
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>

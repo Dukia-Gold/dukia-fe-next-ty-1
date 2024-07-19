@@ -56,9 +56,11 @@ const TransactionPage = () => {
     <main className="w-full bg-dukiaGrey text-dukiaBlue h-full mb-40 lg:mb-24">
       {transactions ? (
         <div className="pt-4 pb-14 px-1.5 md:px-5 lg:px-10">
-          {transactions && transactions.data && transactions.data.length !== 0 ? (
+          {transactions &&
+          transactions.data &&
+          transactions.data.length !== 0 ? (
             <div className="space-y-6">
-              <div className="flex justify-between">
+              <div className="flex flex-col md:flex-row space-y-4 md:space justify-between">
                 <Select onValueChange={(value) => setFilter(value)}>
                   <SelectTrigger className="w-[180px] px-4 focus:ring-0 focus:ring-offset-0 h-12 rounded-lg border-2 border-dukiaBlue/[10%] bg-transparent">
                     <SelectValue placeholder="All Transactions" />
@@ -85,7 +87,7 @@ const TransactionPage = () => {
 
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-dukiaBlue text-white border-b border-dukiaBlue/[10%] hover:bg-dukiaBlue">
+                  <TableRow className="hidden md:table-row bg-dukiaBlue text-white border-b border-dukiaBlue/[10%] hover:bg-dukiaBlue">
                     <TableHead className="pl-6 py-4 text-white rounded-tl-lg">
                       Trx ID
                     </TableHead>
@@ -103,19 +105,36 @@ const TransactionPage = () => {
                     transactions.data.map((transaction: any) => (
                       <TableRow
                         key={transaction.id}
-                        className="text-dukiaBlue bg-white hover:bg-dukiaBlue/[50%] hover:text-white"
+                        className="grid md:table-row text-dukiaBlue bg-white hover:bg-dukiaBlue/[50%] hover:text-white"
                       >
-                        <TableCell className="font-medium pl-6 py-4">
-                          {transaction.id}
+                        <TableCell className="grid grid-cols-3 md:table-cell bg-dukiaBlue/[20%] font-medium pl-6 py-4">
+                          <p className="md:hidden">Trx ID:</p>
+                          <p className="col-span-2">{transaction.id}</p>
                         </TableCell>
-                        <TableCell>
-                          {dateAndTimeFormatter(transaction.date)}
+                        <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                          <p className="md:hidden">Date & Time:</p>
+                          <p className="col-span-2">
+                            {dateAndTimeFormatter(transaction.date)}
+                          </p>
                         </TableCell>
-                        <TableCell>{transaction.transaction_type}</TableCell>
-                        <TableCell>
-                          {transaction.quantity ? transaction.quantity : "N/A"}
+                        <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                          <p className="md:hidden">Type:</p>
+                          <p className="col-span-2">
+                            {transaction.transaction_type}
+                          </p>
                         </TableCell>
-                        <TableCell className="">{transaction.amount}</TableCell>
+                        <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                          <p className="md:hidden">Quantity:</p>
+                          <p className="col-span-2">
+                            {transaction.quantity
+                              ? transaction.quantity
+                              : "N/A"}
+                          </p>
+                        </TableCell>
+                        <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                          <p className="md:hidden">Amount:</p>
+                          <p className="col-span-2">{transaction.amount}</p>
+                        </TableCell>
                       </TableRow>
                     ))}
                 </TableBody>

@@ -12,7 +12,7 @@ const LoadingModal = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
-      <div className="bg-white text-dukiaBlue rounded-lg p-7 pr-10 text-center w-[95%] lg:w-auto">
+      <div className="bg-white text-dukiaBlue rounded-lg p-7 pr-10 text-center w-auto">
         <Spin size="large" />
       </div>
     </div>
