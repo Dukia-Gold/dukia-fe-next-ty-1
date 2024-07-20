@@ -59,13 +59,13 @@ const Transactions = () => {
               >
                 {/* Trx ID */}
                 <TableCell className="grid grid-cols-3 md:table-cell bg-dukiaBlue/[20%] font-medium pl-6 py-4">
-                  <p className="md:hidden">Trx ID:</p>
+                  <p className="md:hidden font-bold">Trx ID:</p>
                   <p className="col-span-2">{transaction.id}</p>
                 </TableCell>
 
                 {/* Date */}
                 <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
-                  <p className="md:hidden">Date & Time:</p>
+                  <p className="md:hidden font-bold">Date & Time:</p>
                   <p className="col-span-2">
                     {dateAndTimeFormatter(transaction.date)}
                   </p>
@@ -73,13 +73,13 @@ const Transactions = () => {
 
                 {/* Type */}
                 <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
-                  <p className="md:hidden">Type:</p>
+                  <p className="md:hidden font-bold">Type:</p>
                   <p className="col-span-2">{transaction.transaction_type}</p>
                 </TableCell>
 
                 {/* Quantity */}
                 <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
-                  <p className="md:hidden">Quantity:</p>
+                  <p className="md:hidden font-bold">Quantity:</p>
                   <p className="col-span-2">
                     {transaction.quantity ? transaction.quantity : "N/A"}
                   </p>
@@ -87,7 +87,7 @@ const Transactions = () => {
 
                 {/* Amount */}
                 <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
-                  <p className="md:hidden">Amount:</p>
+                  <p className="md:hidden font-bold">Amount:</p>
                   <p className="col-span-2">{transaction.amount}</p>
                 </TableCell>
               </TableRow>

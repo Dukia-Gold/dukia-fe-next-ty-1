@@ -108,23 +108,23 @@ const TransactionPage = () => {
                         className="grid md:table-row text-dukiaBlue bg-white hover:bg-dukiaBlue/[50%] hover:text-white"
                       >
                         <TableCell className="grid grid-cols-3 md:table-cell bg-dukiaBlue/[20%] font-medium pl-6 py-4">
-                          <p className="md:hidden">Trx ID:</p>
+                          <p className="md:hidden font-bold">Trx ID:</p>
                           <p className="col-span-2">{transaction.id}</p>
                         </TableCell>
                         <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
-                          <p className="md:hidden">Date & Time:</p>
+                          <p className="md:hidden font-bold">Date & Time:</p>
                           <p className="col-span-2">
                             {dateAndTimeFormatter(transaction.date)}
                           </p>
                         </TableCell>
                         <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
-                          <p className="md:hidden">Type:</p>
+                          <p className="md:hidden font-bold">Type:</p>
                           <p className="col-span-2">
                             {transaction.transaction_type}
                           </p>
                         </TableCell>
                         <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
-                          <p className="md:hidden">Quantity:</p>
+                          <p className="md:hidden font-bold">Quantity:</p>
                           <p className="col-span-2">
                             {transaction.quantity
                               ? transaction.quantity
@@ -132,7 +132,7 @@ const TransactionPage = () => {
                           </p>
                         </TableCell>
                         <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
-                          <p className="md:hidden">Amount:</p>
+                          <p className="md:hidden font-bold">Amount:</p>
                           <p className="col-span-2">{transaction.amount}</p>
                         </TableCell>
                       </TableRow>
@@ -208,22 +208,24 @@ const TransactionPage = () => {
                     1
                   </p>
 
-                  <p
-                    onClick={() => {
-                      setPage(2);
-                      updateTransactions(null);
-                      fetchTransactionHistory(10, 2).then((transactions) => {
-                        updateTransactions(transactions);
-                      });
-                    }}
-                    className={`${
-                      page === 2
-                        ? "bg-dukiaBlue text-white"
-                        : "text-#555555 border border-dukiaBlue/[10%]"
-                    } rounded py-2 px-4 cursor-pointer`}
-                  >
-                    2
-                  </p>
+                  {transactions?.pagination?.total_pages >= 2 && (
+                    <p
+                      onClick={() => {
+                        setPage(2);
+                        updateTransactions(null);
+                        fetchTransactionHistory(10, 2).then((transactions) => {
+                          updateTransactions(transactions);
+                        });
+                      }}
+                      className={`${
+                        page === 2
+                          ? "bg-dukiaBlue text-white"
+                          : "text-#555555 border border-dukiaBlue/[10%]"
+                      } rounded py-2 px-4 cursor-pointer`}
+                    >
+                      2
+                    </p>
+                  )}
 
                   {transactions?.pagination?.total_pages >= 3 && (
                     <p
@@ -244,34 +246,20 @@ const TransactionPage = () => {
                     </p>
                   )}
 
-                  {transactions?.pagination?.total_pages >= 4 && (
-                    <p
-                      onClick={() => {
-                        setPage(4);
-                        updateTransactions(null);
-                        fetchTransactionHistory(10, 4).then((transactions) => {
-                          updateTransactions(transactions);
-                        });
-                      }}
-                      className={`${
-                        page === 4
-                          ? "bg-dukiaBlue text-white"
-                          : "text-#555555 border border-dukiaBlue/[10%]"
-                      } rounded py-2 px-4 cursor-pointer`}
-                    >
-                      3
-                    </p>
+                  {transactions?.pagination?.total_pages > 3 && page > 3 && (
+                    <p className="py-2">...</p>
                   )}
 
-                  {transactions?.pagination?.total_pages > 4 && page >= 4 && (
+                  {transactions?.pagination?.total_pages > 3 && page > 3 && (
                     <p
                       className={`${
-                        transactions?.pagination?.total_pages > 4
+                        transactions?.pagination?.total_pages > 3
                           ? "bg-dukiaBlue text-white"
                           : "text-#555555 border border-dukiaBlue/[10%]"
                       } rounded py-2 px-4 cursor-pointer`}
                     >
-                      {transactions?.pagination?.total_pages > 4}
+                      {transactions?.pagination?.total_pages > 3}
+                      {page}
                     </p>
                   )}
                 </div>

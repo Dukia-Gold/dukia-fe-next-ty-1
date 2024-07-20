@@ -53,7 +53,7 @@ const CorporateRegister = ({ tab, setTab }: JointRegisterProps) => {
     special: "Password must contain at least one special character.",
   });
 
-  const valid = "2024-07-01";
+  const valid = "2024-07-20";
   const dateFormat = "YYYY-MM-DD";
 
   const handleTaxIDInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

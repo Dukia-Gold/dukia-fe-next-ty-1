@@ -35,16 +35,19 @@ const ProfilePage = () => {
               <p>Here are your account details</p>
             </div>
 
-            <button onClick={() => setResetModal(true)} className="bg-dukiaBlue hover:bg-dukiaGold hover:text-black text-white font-semibold text-sm py-4 px-6 rounded-lg">
+            <button
+              onClick={() => setResetModal(true)}
+              className="bg-dukiaBlue hover:bg-dukiaGold hover:text-black text-white font-semibold text-sm py-4 px-6 rounded-lg"
+            >
               Reset Password
             </button>
           </div>
 
           {/* Basic Details */}
-          <div className="bg-white p-3 md:p-6 rounded-lg space-y-8 md:space-y-2">
+          <div className="bg-white p-3 md:p-6 rounded-lg space-y-8 xl:space-y-2">
             <p className="font-bold text-lg">Account Details</p>
 
-            <div className="md:flex space-y-3 md:space-y-0 items-center justify-between">
+            <div className="xl:flex space-y-3 xl:space-y-0 items-center justify-between">
               {/* Profile */}
               <div className="flex items-center gap-2">
                 <Image
@@ -57,8 +60,16 @@ const ProfilePage = () => {
                 <div className="flex flex-col">
                   {/* Name */}
                   <p className="font-semibold">
-                    {capitalizeFirstLetter(user.first_name)}{" "}
-                    {capitalizeFirstLetter(user.last_name)}
+                    {user.type === "corporate" &&
+                      capitalizeFirstLetter(user.first_name)}
+                    {user.type === "Joint" &&
+                      `${capitalizeFirstLetter(
+                        user.first_name 
+                      )} & ${capitalizeFirstLetter(user.first_name2)}`}
+                    {(user.type === "Individual" || user.type === "personal") &&
+                      `${capitalizeFirstLetter(
+                        user.first_name
+                      )} ${capitalizeFirstLetter(user.last_name)}`}
                   </p>
 
                   {/* Joined */}
@@ -69,7 +80,7 @@ const ProfilePage = () => {
               </div>
 
               {/* Account Details */}
-              <div className="py-1.5 md:py-3 text-sm border rounded-md border-dukiaBlue/[10%] flex items-center">
+              <div className="py-1.5 md:py-3 text-sm border rounded-md border-dukiaBlue/[10%] flex justify-evenly items-center">
                 {/* Account Number */}
                 <div className="flex flex-col items-center font-semibold px-1.5 md:px-6 border-r">
                   <p>User ID</p>
@@ -79,7 +90,7 @@ const ProfilePage = () => {
                 {/* Account Tier */}
                 <div className="flex flex-col items-center px-1.5 md:px-6 border-r">
                   <p className="font-semibold">Account Tier</p>
-                  <p>{user.account_number}</p>
+                  <p>Tier {user.tier}</p>
                 </div>
 
                 {/* Account Type */}
@@ -91,12 +102,13 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          {user.type === "Individual" ||
-            (user.type === "personal" && <IndividualInfo />)}
+          {(user.type === "Individual" || user.type === "personal") && (
+            <IndividualInfo />
+          )}
 
           {user.type === "Joint" && <JointInfo />}
 
-          {user.type === "Corporate" && <CompanyInfo />}
+          {user.type === "corporate" && <CompanyInfo />}
         </div>
       ) : (
         <div className="w-full h-screen flex items-center justify-center">

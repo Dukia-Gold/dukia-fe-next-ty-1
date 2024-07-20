@@ -52,7 +52,7 @@ const JointRegister = ({ tab, setTab }: JointRegisterProps) => {
     special: "Password must contain at least one special character.",
   });
 
-  const adult = "2006-07-01";
+  const adult = "2006-07-20";
   const dateFormat = "YYYY-MM-DD";
 
   const handleDOBChange: DatePickerProps["onChange"] = (date, dateString) => {

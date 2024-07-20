@@ -8,6 +8,7 @@ import { Skeleton } from "../ui/skeleton";
 import { userStore } from "@/store/user";
 import useFetchUserData from "@/lib/fetchUserData";
 import useFetchTransactionHistory from "@/lib/fetchTransactionHistory";
+import { capitalizeFirstLetter } from "@/lib/formatText";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -235,7 +236,16 @@ const Sidebar = () => {
 
               <div className="flex flex-col gap-1 font-semibold">
                 <p className="text-sm">
-                  {user.first_name} {user.last_name}
+                  {user.type === "corporate" &&
+                    capitalizeFirstLetter(user.first_name)}
+                  {user.type === "Joint" &&
+                    `${capitalizeFirstLetter(
+                      user.first_name
+                    )} ${capitalizeFirstLetter(user.first_name2)}`}
+                  {(user.type === "Individual" || user.type === "personal") &&
+                    `${capitalizeFirstLetter(
+                      user.first_name
+                    )} ${capitalizeFirstLetter(user.last_name)}`}
                 </p>
                 <p className="text-xs text-dukiaGold">{user.account_number}</p>
               </div>

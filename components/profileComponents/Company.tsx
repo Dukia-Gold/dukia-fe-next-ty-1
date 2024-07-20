@@ -222,7 +222,7 @@ const CompanyInfo = () => {
             <p className="font-bold text-lg/6">Bank Information</p>
 
             {/* Bank Information */}
-            <div className="grid grid-cols-3 gap-4 text-sm">
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
               {/* Bank Name */}
               <div className="flex flex-col gap-2">
                 <label htmlFor="bank_name" className="font-semibold">

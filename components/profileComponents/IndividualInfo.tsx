@@ -134,11 +134,11 @@ const IndividualInfo = () => {
           </div>
 
           {/* Bank Information */}
-          <div className="space-y-6">
+          <div className="space-y-6 ">
             <p className="font-bold text-lg/6">Bank Information</p>
 
             {/* Bank Information */}
-            <div className="grid grid-cols-3 gap-4 text-sm">
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
               {/* Bank Name */}
               <div className="flex flex-col gap-2">
                 <label htmlFor="bank_name" className="font-semibold">
