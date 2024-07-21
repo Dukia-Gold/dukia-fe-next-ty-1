@@ -11,12 +11,15 @@ const SuccessfulDepositModal = () => {
   const depositResponse = useModalsStore((state: any) => state.depositResponse);
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
+  const url = depositResponse?.data?.authorization_url || "/dashboard";
+  const buttonText = depositResponse?.data?.authorization_url ? "Proceed" : "Okay"
+
   if (successfulDeposit === false || successfulDeposit === undefined) {
     return null;
   }
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
-      <div className="bg-white text-dukiaBlue rounded-lg pt-5 pb-7 w-[95%] md:w-[38.3125rem] px-4 md:px-6 flex flex-col items-center">
+      <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out text-dukiaBlue rounded-lg pt-5 pb-7 w-[95%] h-[85%] md:h-auto md:w-[38.3125rem] px-4 md:px-6 flex flex-col items-center">
         <div className="flex items-center justify-between w-full">
           <p className="font-semibold">Success!</p>
 
@@ -58,20 +61,18 @@ const SuccessfulDepositModal = () => {
                 </defs>
               </svg>
             </div>
-            <p className="text-center text-sm">{depositResponse && depositResponse.message ? "You will be redirected to Paystack where you would complete your payment." : depositResponse}</p>
+            <p className="text-center text-sm">
+              {depositResponse && depositResponse.message
+                ? "You will be redirected to Paystack where you would complete your payment."
+                : depositResponse}
+            </p>
           </div>
-          <Link
-            href={
-              depositResponse.data.authorization_url
-                ? depositResponse.data.authorization_url
-                : "/dashboard"
-            }
-          >
+          <Link href={ url }>
             <button
               onClick={() => updateModals({ successfulDeposit: false })}
               className="text-white text-sm font-semibold bg-dukiaBlue py-4 px-14 rounded-lg"
             >
-              {depositResponse.data.authorization_url ? "Proceed" : "Okay"}
+              { buttonText }
             </button>
           </Link>
         </div>

@@ -57,7 +57,7 @@ const StatementOfAccountModal = ({
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
-      <div className="bg-white text-dukiaBlue rounded-lg py-3 md:py-6 px-5 md:px-10 w-[95%] lg:w-[50rem] space-y-6">
+      <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out text-dukiaBlue rounded-lg py-3 md:py-6 px-5 md:px-10 w-[95%] lg:w-[50rem] space-y-6">
         <div className="flex justify-between gap-2">
           <div>
             <p className="text-lg font-bold">Statement of Account Request</p>

@@ -25,7 +25,7 @@ const ResetPasswordModal = ({
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
-      <div className="bg-white rounded-lg py-3 md:py-6 px-5 md:px-10 w-[95%] md:w-[37.5rem]">
+      <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out rounded-lg py-3 md:py-6 px-5 md:px-10 w-[95%] md:w-[37.5rem]">
         <div className="text-right">
           <button onClick={closeModal} className="text-3xl">
             &times;

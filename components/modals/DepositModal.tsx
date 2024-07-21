@@ -6,23 +6,40 @@ import useModalsStore from "@/store/modalsStore";
 import { Copy, X } from "lucide-react";
 import { ChangeEvent, useState } from "react";
 import { ScrollArea } from "../ui/scroll-area";
+import { useToast } from "../ui/use-toast";
 
 const DepositModal = () => {
   const [amount, setAmount] = useState<string>("");
   const [receipt, uploadReceipt] = useState<File | null>(null);
   const deposit = useModalsStore((state: any) => state.deposit);
   const updateModals = useModalsStore((state: any) => state.updateModals);
+  const { toast } = useToast();
 
   const { depositWithBankTransfer, depositWithPayStack } = useDeposit();
+
+  const sortCode = "33153788";
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        toast({
+          description: "Copied to clipboard",
+        });
+      })
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+      });
+  };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
     setAmount(value);
   };
-
   const formatDecimal = (numStr: string) => {
     return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
+  const isDisabled = !amount || Number(amount) < 5000;
 
   if (deposit === false || deposit === undefined) {
     return null;
@@ -30,7 +47,7 @@ const DepositModal = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
-      <ScrollArea className="bg-white text-dukiaBlue rounded-lg pt-5 pb-7 w-[95%] h-[85%] md:h-auto md:w-[38.3125rem] px-4 md:px-6 flex flex-col items-center">
+      <ScrollArea className="bg-white animate-in fade-in-5 duration-500 ease-in-out text-dukiaBlue rounded-lg pt-5 pb-7 w-[95%] h-[75%] md:h-auto md:w-[38.3125rem] px-4 md:px-6 flex flex-col items-center">
         <div className="flex items-center justify-between w-full">
           <div className="space-y-1">
             <p className="text-sm font-semibold">Top-up</p>
@@ -47,41 +64,14 @@ const DepositModal = () => {
           </button>
         </div>
 
-        <div className="mt-3 flex flex-col-reverse md:flex-row items-center justify-center gap-4 md:gap-5">
+        {/* <div className="mt-3 flex flex-col-reverse md:flex-row items-center justify-center gap-4 md:gap-5">
           <div className="flex gap-2.5 items-center py-2 md:py-4 px-10 md:px-7 border-b-2 border-dukiaBlue">
             <p className="text-sm font-semibold">Pay with bank transfer</p>
           </div>
-
-          <button
-            disabled={!amount || Number(amount) < 5000}
-            onClick={() => {
-                depositWithPayStack(Number(amount))
-                setAmount("");
-                uploadReceipt(null);
-              }}
-            className="flex gap-2.5 items-center py-2 md:py-4 px-10 md:px-7 cursor-pointer disabled:cursor-not-allowed"
-          >
-            <svg
-              width="19"
-              height="18"
-              viewBox="0 0 19 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M16.642 0H1.40831C0.896727 0 0.460938 0.435791 0.460938 0.966317V2.69053C0.460938 3.22105 0.896727 3.65684 1.40831 3.65684H16.642C17.1725 3.65684 17.5894 3.22105 17.6083 2.69053V0.985262C17.6083 0.435789 17.1725 0 16.642 0ZM16.642 9.56842H1.40831C1.16199 9.56842 0.915674 9.66316 0.745148 9.85263C0.555674 10.0421 0.460938 10.2695 0.460938 10.5347V12.2589C0.460938 12.7895 0.896727 13.2253 1.40831 13.2253H16.642C17.1725 13.2253 17.5894 12.8084 17.6083 12.2589V10.5347C17.5894 9.98526 17.1725 9.56842 16.642 9.56842ZM9.99146 14.3432H1.40831C1.16199 14.3432 0.915674 14.4379 0.745148 14.6274C0.574622 14.8168 0.460938 15.0442 0.460938 15.3095V17.0337C0.460938 17.5642 0.896727 18 1.40831 18H9.97251C10.503 18 10.9199 17.5642 10.9199 17.0526V15.3284C10.9388 14.76 10.522 14.3242 9.99146 14.3432ZM17.6083 4.77474H1.40831C1.16199 4.77474 0.915674 4.86947 0.745148 5.05895C0.574622 5.24842 0.460938 5.47579 0.460938 5.74105V7.46526C0.460938 7.99579 0.896727 8.43158 1.40831 8.43158H17.5894C18.1199 8.43158 18.5367 7.99579 18.5367 7.46526V5.74105C18.5557 5.21053 18.1199 4.79368 17.6083 4.77474Z"
-                fill="#00C3F7"
-              />
-            </svg>
-
-            <p className="text-sm font-semibold text-dukiaBlue/[50%]">
-              Pay with Paystack
-            </p>
-          </button>
-        </div>
+        </div> */}
 
         {/* Bank Transfer */}
-        <div className="border border-[#E7E8E9] rounded-[0.625rem] py-2 px-2.5 w-full space-y-2">
+        <div className="mt-3 border border-[#E7E8E9] rounded-[0.625rem] py-2 px-2.5 w-full space-y-2">
           {/* Header */}
           <div className="px-2 py-2.5 space-y-2 bg-[#4A8F510D] border border-[#4A8F510D]/[50%] rounded-lg">
             <div className="flex items-center gap-2">
@@ -170,10 +160,10 @@ const DepositModal = () => {
                 </p>
                 <div className="flex items-center justify-between">
                   <p className="font-semibold">1024263390</p>
-                  <div className="flex items-center gap-1 rounded border border-[#00853D80]/[50%] bg-[#4A8F510D] py-0.5 px-1 text-[0.5rem] text-[#00853D]">
+                  <button onClick={() => handleCopy("1024263390")} className="flex items-center gap-1 rounded border border-[#00853D80]/[50%] bg-[#4A8F510D] py-0.5 px-1 text-[0.5rem] text-[#00853D]">
                     <Copy width={8} height={8} />
                     <p>Copy</p>
-                  </div>
+                  </button>
                 </div>
               </div>
 
@@ -182,10 +172,13 @@ const DepositModal = () => {
                 <p className="text-dukiaBlue/[75%] font-medium">Sort Code</p>
                 <div className="flex items-center justify-between">
                   <p className="font-semibold">33153788</p>
-                  <div className="flex items-center gap-1 rounded border border-[#00853D80]/[50%] bg-[#4A8F510D] py-0.5 px-1 text-[0.5rem] text-[#00853D]">
+                  <button
+                    onClick={() => handleCopy("33153788")}
+                    className="flex items-center gap-1 rounded border border-[#00853D80]/[50%] bg-[#4A8F510D] py-0.5 px-1 text-[0.5rem] text-[#00853D]"
+                  >
                     <Copy width={8} height={8} />
                     <p>Copy</p>
-                  </div>
+                  </button>
                 </div>
               </div>
 
@@ -284,8 +277,8 @@ const DepositModal = () => {
             )}
 
             {receipt && (
-              <div className="bg-[#FFFBF1] py-[0.9rem] px-5 flex items-center justify-between rounded-lg">
-                <p className="font-semibold text-[0.625rem] text-dukiaBlue/[75%]">
+              <div className="bg-[#FFFBF1] py-[0.9rem] max-h-[3.5rem] px-5 flex items-center justify-between rounded-lg">
+                <p className="font-semibold text-[0.625rem] text-dukiaBlue/[75%] max-w-[50%]">
                   {receipt.name}
                 </p>
 
@@ -327,20 +320,50 @@ const DepositModal = () => {
         </div>
 
         {/* Button */}
-        <div className="flex mt-3 items-center gap-4 w-full font-semibold">
+        <div className="flex flex-col md:flex-row mt-3 gap-2 md:justify-between w-full font-semibold">
+          <div className="flex items-center gap-4">
+            <button
+              disabled={isDisabled}
+              onClick={() => {
+                depositWithBankTransfer(Number(amount), receipt);
+                setAmount("");
+                uploadReceipt(null);
+              }}
+              className="py-4 px-6 text-sm bg-dukiaBlue text-white rounded-lg disabled:cursor-not-allowed disabled:bg-dukiaBlue/[50%]"
+            >
+              Paid with Bank Transfer
+            </button>
+
+            <p className="text-[0.625rem] text-dukiaGold">Want to sell?</p>
+          </div>
+
           <button
-            disabled={!amount || Number(amount) < 5000}
+            disabled={isDisabled}
             onClick={() => {
-              depositWithBankTransfer(Number(amount), receipt);
+              depositWithPayStack(Number(amount));
               setAmount("");
               uploadReceipt(null);
             }}
-            className="py-4 px-6 text-sm bg-dukiaBlue text-white rounded-lg disabled:cursor-not-allowed disabled:bg-dukiaBlue/[50%]"
+            className="py-4 px-6 flex gap-2.5 items-center justify-center bg-[#00C3F7] disabled:bg-[#00C3F7]/[50%] rounded-lg cursor-pointer disabled:cursor-not-allowed"
           >
-            I have made the payment
-          </button>
+            <svg
+              width="19"
+              height="18"
+              viewBox="0 0 19 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16.642 0H1.40831C0.896727 0 0.460938 0.435791 0.460938 0.966317V2.69053C0.460938 3.22105 0.896727 3.65684 1.40831 3.65684H16.642C17.1725 3.65684 17.5894 3.22105 17.6083 2.69053V0.985262C17.6083 0.435789 17.1725 0 16.642 0ZM16.642 9.56842H1.40831C1.16199 9.56842 0.915674 9.66316 0.745148 9.85263C0.555674 10.0421 0.460938 10.2695 0.460938 10.5347V12.2589C0.460938 12.7895 0.896727 13.2253 1.40831 13.2253H16.642C17.1725 13.2253 17.5894 12.8084 17.6083 12.2589V10.5347C17.5894 9.98526 17.1725 9.56842 16.642 9.56842ZM9.99146 14.3432H1.40831C1.16199 14.3432 0.915674 14.4379 0.745148 14.6274C0.574622 14.8168 0.460938 15.0442 0.460938 15.3095V17.0337C0.460938 17.5642 0.896727 18 1.40831 18H9.97251C10.503 18 10.9199 17.5642 10.9199 17.0526V15.3284C10.9388 14.76 10.522 14.3242 9.99146 14.3432ZM17.6083 4.77474H1.40831C1.16199 4.77474 0.915674 4.86947 0.745148 5.05895C0.574622 5.24842 0.460938 5.47579 0.460938 5.74105V7.46526C0.460938 7.99579 0.896727 8.43158 1.40831 8.43158H17.5894C18.1199 8.43158 18.5367 7.99579 18.5367 7.46526V5.74105C18.5557 5.21053 18.1199 4.79368 17.6083 4.77474Z"
+                className={isDisabled ? "fill-[#00C3F7]" : "fill-[#fff]"}
+                fill="currentColor"
+              />
+            </svg>
 
-          <p className="text-[0.625rem] text-dukiaGold">Want to sell?</p>
+            <p className="text-sm font-semibold text-white">
+              Pay with Paystack
+            </p>
+          </button>
         </div>
       </ScrollArea>
     </div>
