@@ -5,6 +5,8 @@ import Header from "@/components/landingPageComponents/Header";
 import Footer from "@/components/landingPageComponents/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import LoadingModal from "@/components/loadingModal";
+import DepositModal from "@/components/modals/DepositModal";
+import SuccessfulDepositModal from "@/components/modals/SuccessfulDepositModal";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -43,6 +45,12 @@ export default function RootLayout({
 
           <Toaster />
           <LoadingModal />
+
+          <>
+            <DepositModal />
+            <SuccessfulDepositModal />
+          </>
+
           <Footer />
         </main>
       </body>

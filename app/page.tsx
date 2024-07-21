@@ -51,41 +51,41 @@ export default function Home() {
   }, []);
 
   // SESSION ACTIVITY
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js")
-        .then((registration) => {
-          console.log(
-            "Service Worker registered with scope:",
-            registration.scope
-          );
+  // useEffect(() => {
+  //   if ("serviceWorker" in navigator) {
+  //     navigator.serviceWorker
+  //       .register("/sw.js")
+  //       .then((registration) => {
+  //         console.log(
+  //           "Service Worker registered with scope:",
+  //           registration.scope
+  //         );
 
-          const resetServiceWorkerTimeout = () => {
-            if (navigator.serviceWorker.controller) {
-              navigator.serviceWorker.controller.postMessage("resetTimeout");
-            }
-          };
+  //         const resetServiceWorkerTimeout = () => {
+  //           if (navigator.serviceWorker.controller) {
+  //             navigator.serviceWorker.controller.postMessage("resetTimeout");
+  //           }
+  //         };
 
-          document.addEventListener("mousemove", resetServiceWorkerTimeout);
-          document.addEventListener("keydown", resetServiceWorkerTimeout);
+  //         document.addEventListener("mousemove", resetServiceWorkerTimeout);
+  //         document.addEventListener("keydown", resetServiceWorkerTimeout);
 
-          // Initialize the timer on page load
-          resetServiceWorkerTimeout();
-        })
-        .catch((error) => {
-          console.error("Service Worker registration failed:", error);
-        });
+  //         // Initialize the timer on page load
+  //         resetServiceWorkerTimeout();
+  //       })
+  //       .catch((error) => {
+  //         console.error("Service Worker registration failed:", error);
+  //       });
 
-      navigator.serviceWorker.addEventListener("message", (event) => {
-        if (event.data === "logout") {
-          handleLogout();
-        } else if (event.data.type === "timer") {
-          setRemainingTime(event.data.remainingTime);
-        }
-      });
-    }
-  }, []);
+  //     navigator.serviceWorker.addEventListener("message", (event) => {
+  //       if (event.data === "logout") {
+  //         handleLogout();
+  //       } else if (event.data.type === "timer") {
+  //         setRemainingTime(event.data.remainingTime);
+  //       }
+  //     });
+  //   }
+  // }, []);
 
   const handleLogout = () => {
     // Perform any necessary logout operations, such as clearing tokens, etc.
