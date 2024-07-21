@@ -58,7 +58,44 @@ const useDeposit = () => {
     return data;
   };
 
-  return depositWithBankTransfer;
+  const depositWithPayStack = async (amount: number) => {
+    let data;
+    updateModals({ deposit: false });
+
+    try {
+      updateLoading(true);
+      const apiUrl = `https://api.dukiapreciousmetals.co/api/v2/paystack-payment?amount=${amount}&currency=NGN`;
+
+      const response = await axios({
+        url: apiUrl,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include the token in the request headers
+        },
+      });
+
+      data = response;
+      updateModals({ depositResponse: response.data });
+      console.log(response); // Update the user in the user store
+      updateLoading(false);
+      updateModals({ successfulDeposit: true });
+    } catch (error: any) {
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
+        toast({
+          variant: "destructive",
+          title: "Network Error",
+          description:
+            "There was a problem connecting to the server. Please check your internet connection and try again.",
+        });
+      }
+      updateLoading(false);
+    }
+
+    return data;
+  };
+
+  return { depositWithBankTransfer, depositWithPayStack };
 };
 
 export default useDeposit;

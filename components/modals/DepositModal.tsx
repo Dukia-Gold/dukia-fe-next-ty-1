@@ -13,7 +13,7 @@ const DepositModal = () => {
   const deposit = useModalsStore((state: any) => state.deposit);
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
-  const depositWithBankTransfer = useDeposit();
+  const { depositWithBankTransfer, depositWithPayStack } = useDeposit();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
@@ -47,12 +47,20 @@ const DepositModal = () => {
           </button>
         </div>
 
-        <div className="mt-3 flex flex-col-reverse md:flex-row items-center gap-4 md:gap-5">
+        <div className="mt-3 flex flex-col-reverse md:flex-row items-center justify-center gap-4 md:gap-5">
           <div className="flex gap-2.5 items-center py-2 md:py-4 px-10 md:px-7 border-b-2 border-dukiaBlue">
             <p className="text-sm font-semibold">Pay with bank transfer</p>
           </div>
 
-          <div className="flex gap-2.5 items-center py-2 md:py-4 px-10 md:px-7 cursor-pointer">
+          <button
+            disabled={!amount || Number(amount) < 5000}
+            onClick={() => {
+                depositWithPayStack(Number(amount))
+                setAmount("");
+                uploadReceipt(null);
+              }}
+            className="flex gap-2.5 items-center py-2 md:py-4 px-10 md:px-7 cursor-pointer disabled:cursor-not-allowed"
+          >
             <svg
               width="19"
               height="18"
@@ -69,7 +77,7 @@ const DepositModal = () => {
             <p className="text-sm font-semibold text-dukiaBlue/[50%]">
               Pay with Paystack
             </p>
-          </div>
+          </button>
         </div>
 
         {/* Bank Transfer */}

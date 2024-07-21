@@ -2,6 +2,7 @@
 
 import useModalsStore from "@/store/modalsStore";
 import { X } from "lucide-react";
+import Link from "next/link";
 
 const SuccessfulDepositModal = () => {
   const successfulDeposit = useModalsStore(
@@ -57,14 +58,22 @@ const SuccessfulDepositModal = () => {
                 </defs>
               </svg>
             </div>
-            <p className="text-center text-sm">{depositResponse}</p>
+            <p className="text-center text-sm">{depositResponse && depositResponse.message ? "You will be redirected to Paystack where you would complete your payment." : depositResponse}</p>
           </div>
-          <button
-            onClick={() => updateModals({ successfulDeposit: false })}
-            className="text-white text-sm font-semibold bg-dukiaBlue py-4 px-14 rounded-lg"
+          <Link
+            href={
+              depositResponse.data.authorization_url
+                ? depositResponse.data.authorization_url
+                : "/dashboard"
+            }
           >
-            Okay
-          </button>
+            <button
+              onClick={() => updateModals({ successfulDeposit: false })}
+              className="text-white text-sm font-semibold bg-dukiaBlue py-4 px-14 rounded-lg"
+            >
+              {depositResponse.data.authorization_url ? "Proceed" : "Okay"}
+            </button>
+          </Link>
         </div>
       </div>
     </div>
