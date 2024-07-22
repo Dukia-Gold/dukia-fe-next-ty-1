@@ -42,6 +42,7 @@ const MobileSidebar: FC<MobileSidebarProps> = ({ isOpen, toggle }) => {
             <ul>
               {/* Dashboard */}
               <li
+                onClick={toggle}
                 className={`${
                   pathname === "/dashboard" ? "bg-white text-dukiaBlue" : ""
                 } px-5 py-3`}
@@ -68,6 +69,7 @@ const MobileSidebar: FC<MobileSidebarProps> = ({ isOpen, toggle }) => {
 
               {/* Buy Gold */}
               <li
+                onClick={toggle}
                 className={`${
                   pathname === "/dashboard/buy-gold"
                     ? "bg-white text-dukiaBlue"
@@ -96,6 +98,7 @@ const MobileSidebar: FC<MobileSidebarProps> = ({ isOpen, toggle }) => {
 
               {/* Wallet */}
               <li
+                onClick={toggle}
                 className={`${
                   pathname === "/dashboard/wallet"
                     ? "bg-white text-dukiaBlue"
@@ -133,6 +136,7 @@ const MobileSidebar: FC<MobileSidebarProps> = ({ isOpen, toggle }) => {
 
               {/* Transactions */}
               <li
+                onClick={toggle}
                 className={`${
                   pathname === "/dashboard/transactions"
                     ? "bg-white text-dukiaBlue"
@@ -165,6 +169,7 @@ const MobileSidebar: FC<MobileSidebarProps> = ({ isOpen, toggle }) => {
 
               {/* Charts */}
               <li
+                onClick={toggle}
                 className={`${
                   pathname === "/dashboard/charts"
                     ? "bg-white text-dukiaBlue"
@@ -196,6 +201,7 @@ const MobileSidebar: FC<MobileSidebarProps> = ({ isOpen, toggle }) => {
 
               {/* Settings */}
               <li
+                onClick={toggle}
                 className={`${
                   pathname === "/dashboard/settings"
                     ? "bg-white text-dukiaBlue"

@@ -14,7 +14,7 @@ const TopBar = () => {
       {pathname === "/dashboard/card" && <p>Debit Card</p>}
       {pathname === "/dashboard/kyc" && <p>KYC Verification</p>}
       {pathname === "/dashboard/buy-gold" && <p>Buy Gold</p>}
-      {pathname === "/dashboard/wallet" && <p>Wallet</p>}
+      {pathname === "/dashboard/assets" && <p>Assets</p>}
       {pathname === "/dashboard/transactions" && <p>Transactions</p>}
       {pathname === "/dashboard/charts" && <p>Charts</p>}
       {pathname === "/dashboard/settings" && <p>Settings</p>}

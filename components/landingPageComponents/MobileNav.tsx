@@ -9,6 +9,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "../ui/collapsible";
+import { userStore } from "@/store/user";
 
 type MobileNavProps = {
   isOpen: boolean;
@@ -16,7 +17,9 @@ type MobileNavProps = {
 };
 
 const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
+  const user = userStore((state: any) => state.user);
   const pathname = usePathname();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -138,22 +141,19 @@ const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
         </nav>
 
         <div className="flex flex-col gap-2 text-sm">
-          <Link onClick={toggle} href="/login">
-            <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
-              Login / Register
-            </button>
-          </Link>
-          {/* <Link href="/login">
-            <button className="text-white font-semibold py-3 px-5 rounded-lg border border-white">
-              Log In
-            </button>
-          </Link>
-
-          <Link href="/register">
-            <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
-              Register
-            </button>
-          </Link> */}
+          {user ? (
+            <Link href="/dashboard" onClick={toggle}>
+              <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-2.5 rounded-lg">
+                Return to Dashboard
+              </button>
+            </Link>
+          ) : (
+            <Link href="/login" onClick={toggle}>
+              <button className="bg-dukiaGold text-dukiaBlue font-semibold py-3 px-5 rounded-lg">
+                Login / Register
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>
