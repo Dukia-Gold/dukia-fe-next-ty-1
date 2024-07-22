@@ -1,8 +1,10 @@
-"use client"
+"use client";
 
 import { capitalizeFirstLetter } from "@/lib/formatText";
 import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
+import { Search } from "lucide-react";
+import Link from "next/link";
 
 const AssetsPage = () => {
   const user = userStore((state: any) => state.user);
@@ -16,7 +18,9 @@ const AssetsPage = () => {
           <div className="flex items-center justify-between">
             {/* Text */}
             <div className="text-dukiaBlue">
-              <p className="font-bold text-xl">Hi {capitalizeFirstLetter(user.first_name)},</p>
+              <p className="font-bold text-xl">
+                Hi {capitalizeFirstLetter(user.first_name)},
+              </p>
               <p>Welcome back to your dashboard!</p>
             </div>
 
@@ -59,16 +63,145 @@ const AssetsPage = () => {
                     fill="#10152D"
                   />
                 </svg>
-
                 Fund account
               </button>
             </div>
           </div>
 
-          <div></div>
-        </div>) : (<></>)}
-    </main>
-  )
-}
+          <div className="bg-white border border-dukiaBlue/[5%] rounded-lg px-6 pb-12 pt-8 space-y-6">
+            <div className="flex justify-between items-center text-sm font-semibold">
+              <p>Gold (Au) holding in storage</p>
+              <Link
+                href="/dashboard/transactions"
+                className="text-dukiaGold underline"
+              >
+                Transaction History
+              </Link>
+            </div>
+            <div className="space-y-4">
+              {/* Search Bar and Gold Holdings */}
+              <div className="flex flex-col md:flex-row items-center justify-between">
+                {/* Search Bar */}
+                <div className="flex items-center rounded-lg border-2 border-dukiaBlue/[10%] w-96">
+                  {/* Search Icon */}
+                  <div className="py-3.5 px-2 border-r-2 border-dukiaBlue/[10%]">
+                    <Search width={20} height={20} />
+                  </div>
 
-export default AssetsPage
+                  {/* Input */}
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="w-full px-2 font-medium text-xs outline-none"
+                  />
+
+                  {/* Sort */}
+                  <div className="py-3.5 px-2 border-l-2 border-dukiaBlue/[10%]">
+                    <svg
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8.5 20V10M8.5 20L5.5 17M8.5 20L11.5 17M16.5 4V14M16.5 4L19.5 7M16.5 4L13.5 7"
+                        stroke="#111827"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Gold Holdings */}
+                <div className="flex gap-2">
+                  {/* Discrete Bars */}
+                  <div className="p-2 rounded-lg shadow-md border border-[#9999994D]/[30%] flex gap-2 w-44">
+                    <div className="p-1.5 bg-[#F3F3F4] rounded-[50%]">
+                      <svg
+                        width="21"
+                        height="20"
+                        viewBox="0 0 21 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1.33203 18.3333L2.58203 14.1667H8.41536L9.66537 18.3333H1.33203ZM11.332 18.3333L12.582 14.1667H18.4154L19.6654 18.3333H11.332ZM5.4987 12.5L6.7487 8.33333H12.582L13.832 12.5H5.4987ZM19.6654 5.04166L16.4487 5.95L15.5404 9.16666L14.632 5.95L11.4154 5.04166L14.632 4.13333L15.5404 0.916664L16.4487 4.13333L19.6654 5.04166Z"
+                          fill="#111827"
+                        />
+                      </svg>
+                    </div>
+
+                    <div className="text-[0.625rem]">
+                      <p className="text-dukiaBlue/[75%] font-medium">
+                        Total discrete bars
+                      </p>
+                      <p className="font-bold">100g</p>
+                    </div>
+                  </div>
+
+                  {/* Pool Allocated */}
+                  <div className="p-2 rounded-lg shadow-md border border-[#9999994D]/[30%] flex gap-2 w-44">
+                    <div className="p-1.5 bg-[#F3F3F4] rounded-[50%]">
+                      <svg
+                        width="21"
+                        height="20"
+                        viewBox="0 0 21 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1.33203 18.3333L2.58203 14.1667H8.41536L9.66537 18.3333H1.33203ZM11.332 18.3333L12.582 14.1667H18.4154L19.6654 18.3333H11.332ZM5.4987 12.5L6.7487 8.33333H12.582L13.832 12.5H5.4987ZM19.6654 5.04166L16.4487 5.95L15.5404 9.16666L14.632 5.95L11.4154 5.04166L14.632 4.13333L15.5404 0.916664L16.4487 4.13333L19.6654 5.04166Z"
+                          fill="#111827"
+                        />
+                      </svg>
+                    </div>
+
+                    <div className="text-[0.625rem]">
+                      <p className="text-dukiaBlue/[75%] font-medium">
+                        Total pool allocated
+                      </p>
+                      <p className="font-bold">100g</p>
+                    </div>
+                  </div>
+
+                  {/* Total Gold Holdings */}
+                  <div className="p-2 rounded-lg shadow-md border border-[#9999994D]/[30%] flex gap-2 w-44">
+                    <div className="p-1.5 bg-[#F3F3F4] rounded-[50%]">
+                      <svg
+                        width="21"
+                        height="20"
+                        viewBox="0 0 21 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1.33203 18.3333L2.58203 14.1667H8.41536L9.66537 18.3333H1.33203ZM11.332 18.3333L12.582 14.1667H18.4154L19.6654 18.3333H11.332ZM5.4987 12.5L6.7487 8.33333H12.582L13.832 12.5H5.4987ZM19.6654 5.04166L16.4487 5.95L15.5404 9.16666L14.632 5.95L11.4154 5.04166L14.632 4.13333L15.5404 0.916664L16.4487 4.13333L19.6654 5.04166Z"
+                          fill="#111827"
+                        />
+                      </svg>
+                    </div>
+
+                    <div className="text-[0.625rem]">
+                      <p className="text-dukiaBlue/[75%] font-medium">
+                        Total gold holdings
+                      </p>
+                      <p className="font-bold">100g</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            WalletPage
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+    </main>
+  );
+};
+
+export default AssetsPage;
