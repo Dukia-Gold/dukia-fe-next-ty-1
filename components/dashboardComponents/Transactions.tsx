@@ -50,6 +50,17 @@ const Transactions = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
+          {/* No Transactions */}
+          {transactions &&
+            !transactions.data && (
+            <TableRow className="bg-white hover:bg-white">
+              <TableCell className="text-center font-bold py-6" colSpan={6}>
+                No transaction found.
+              </TableCell>
+            </TableRow>
+          )}
+
+          {/* Transactions */}
           {transactions &&
             transactions.data &&
             transactions.data.map((transaction: any) => (

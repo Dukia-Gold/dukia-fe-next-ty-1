@@ -160,7 +160,10 @@ const DepositModal = () => {
                 </p>
                 <div className="flex items-center justify-between">
                   <p className="font-semibold">1024263390</p>
-                  <button onClick={() => handleCopy("1024263390")} className="flex items-center gap-1 rounded border border-[#00853D80]/[50%] bg-[#4A8F510D] py-0.5 px-1 text-[0.5rem] text-[#00853D]">
+                  <button
+                    onClick={() => handleCopy("1024263390")}
+                    className="flex items-center gap-1 rounded border border-[#00853D80]/[50%] bg-[#4A8F510D] py-0.5 px-1 text-[0.5rem] text-[#00853D]"
+                  >
                     <Copy width={8} height={8} />
                     <p>Copy</p>
                   </button>
@@ -221,7 +224,7 @@ const DepositModal = () => {
               />
             </div>
 
-            <p className="text-red-600 text-xs font-semibold">
+            <p className="text-orange-500 text-xs font-semibold">
               Minimum: ₦5,000
             </p>
           </div>
@@ -321,21 +324,17 @@ const DepositModal = () => {
 
         {/* Button */}
         <div className="flex flex-col md:flex-row mt-3 gap-2 md:justify-between w-full font-semibold">
-          <div className="flex items-center gap-4">
-            <button
-              disabled={isDisabled}
-              onClick={() => {
-                depositWithBankTransfer(Number(amount), receipt);
-                setAmount("");
-                uploadReceipt(null);
-              }}
-              className="py-4 px-6 text-sm bg-dukiaBlue text-white rounded-lg disabled:cursor-not-allowed disabled:bg-dukiaBlue/[50%]"
-            >
-              Paid with Bank Transfer
-            </button>
-
-            <p className="text-[0.625rem] text-dukiaGold">Want to sell?</p>
-          </div>
+          <button
+            disabled={isDisabled}
+            onClick={() => {
+              depositWithBankTransfer(Number(amount), receipt);
+              setAmount("");
+              uploadReceipt(null);
+            }}
+            className="py-4 px-6 text-sm bg-dukiaBlue text-white rounded-lg disabled:cursor-not-allowed disabled:bg-dukiaBlue/[50%]"
+          >
+            Paid with Bank Transfer
+          </button>
 
           <button
             disabled={isDisabled}

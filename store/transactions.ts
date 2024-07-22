@@ -6,4 +6,5 @@ export const transactionStore = create((set) => ({
     set((state: any) => ({
       transactions: { ...state.transactions, ...newTransactions },
     })),
+  clearTransactions: () => set({ transactions: null }), // Implement clearUser method
 }));

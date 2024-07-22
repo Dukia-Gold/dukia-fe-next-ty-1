@@ -8,9 +8,11 @@ import { useToast } from "@/components/ui/use-toast";
 import { userStore } from "@/store/user";
 import { useCookies } from "react-cookie";
 import useLoadingStore from "@/store/loadingStore";
+import { transactionStore } from "@/store/transactions";
 
 const useAuth = () => {
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
+  const clearTransactions = transactionStore((state: any) => state.clearTransactions);
   const [cookies] = useCookies(["auth-token"]);
   const token = cookies["auth-token"];
   const { toast } = useToast();
@@ -81,6 +83,7 @@ const useAuth = () => {
       );
 
       cookie.remove("auth-token");
+      clearTransactions();
       clearUser();
 
       router.push("/login");
