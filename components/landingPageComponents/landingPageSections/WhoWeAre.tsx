@@ -28,7 +28,7 @@ const WhoWeAre: React.FC = () => {
 
   return (
     <section className="flex flex-col gap-8 px-4 lg:px-12 xl:px-28 bg-white dark:bg-dukiaBlue dark:text-white text-dukiaBlue justify-between">
-      <section className="py-12 flex flex-col gap-14">
+      <section className="md:container py-12 flex flex-col gap-14">
         {/* TEXTS */}
         <div className="flex flex-col md:items-center gap-2">
           <p className="text-[1.75rem] font-bold">Who We Are</p>
@@ -92,7 +92,7 @@ const WhoWeAre: React.FC = () => {
       </section>
 
       {/* Pool Allocated Buys */}
-      <section className="py-12 overflow-auto flex flex-col md:items-center gap-14">
+      <section className="md:container py-12 overflow-auto flex flex-col md:items-center gap-14">
         <p className="font-bold text-[1.75rem] text-left md:text-center">
           Pool Allocated Buys
         </p>

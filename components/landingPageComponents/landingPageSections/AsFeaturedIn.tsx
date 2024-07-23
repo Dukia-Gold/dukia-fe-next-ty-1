@@ -113,73 +113,81 @@ const AsFeaturedIn = () => {
   ];
 
   return (
-    <section className="px-2 md:px-8 py-12 bg-dukiaGrey dark:bg-dukiaDark text-dukiaBlue dark:text-white flex flex-col gap-14 items-center">
-      <div className="flex flex-col gap-2 text-center">
-        <p className="font-bold text-[1.75rem]">As Featured In</p>
-        <p>
-          Look at what various respectable publications have to say about Dukia
-          Gold!
-        </p>
-      </div>
+    <section className="px-2 md:px-8 py-12 bg-dukiaGrey dark:bg-dukiaDark text-dukiaBlue dark:text-white">
+      <div className="md:container flex flex-col items-center space-y-14">
+        <div className="flex flex-col gap-2 text-center">
+          <p className="font-bold text-[1.75rem]">As Featured In</p>
+          <p>
+            Look at what various respectable publications have to say about
+            Dukia Gold!
+          </p>
+        </div>
 
-      <Carousel
-        opts={{
-          align: "start",
-        }}
-        className="w-full px-11"
-      >
-        <CarouselContent>
-          {asFeaturedInArray.map((item) => (
-            <CarouselItem
-              key={item.key}
-              className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-            >
-              <Card className="max-h-96 dark:bg-dukiaBlue rounded-2xl flex flex-col gap-2">
-                {/* <CardHeader>
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          className="w-full px-11"
+        >
+          <CarouselContent>
+            {asFeaturedInArray.map((item) => (
+              <CarouselItem
+                key={item.key}
+                className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+              >
+                <Card className="max-h-96 dark:bg-dukiaBlue rounded-2xl flex flex-col gap-2">
+                  {/* <CardHeader>
                   <Image src={item.logo} alt="platformLogo" width={30} height={30} />
                   <CardTitle>{item.title}</CardTitle>
                 </CardHeader> */}
-                <CardContent className="text-sm text-dukiaBlue dark:text-white flex flex-col justify-between gap-2 aspect-square p-4">
-                  <div className={`${item.key === 1 || item.key === 10 ? "bg-dukiaBlue" : "bg-dukiaGrey/[30%] dark:bg-white/[5%]"} px-2.5 rounded-lg w-full h-[176px] flex items-center justify-center`}>
-                    <Image
-                      src={item.logo}
-                      alt="platformLogo"
-                      width={270}
-                      height={176}
-                      className="rounded-lg -full h-full object-contain"
-                    />
-                  </div>
+                  <CardContent className="text-sm text-dukiaBlue dark:text-white flex flex-col justify-between gap-2 aspect-square p-4">
+                    <div
+                      className={`${
+                        item.key === 1 || item.key === 10
+                          ? "bg-dukiaBlue"
+                          : "bg-dukiaGrey/[30%] dark:bg-white/[5%]"
+                      } px-2.5 rounded-lg w-full h-[176px] flex items-center justify-center`}
+                    >
+                      <Image
+                        src={item.logo}
+                        alt="platformLogo"
+                        width={270}
+                        height={176}
+                        className="rounded-lg -full h-full object-contain"
+                      />
+                    </div>
 
-                  <div className="flex flex-col gap-2">
-                    <p className="w-[100%] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
-                      {item.title}
-                    </p>
+                    <div className="flex flex-col gap-2">
+                      <p className="w-[100%] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
+                        {item.title}
+                      </p>
 
-                    <p className="line-clamp-5">{item.content}</p>
-                  </div>
+                      <p className="line-clamp-5">{item.content}</p>
+                    </div>
 
-                  <Link
-                    href={item.link}
-                    target="_blank"
-                    className="flex items-center gap-2 hover:text-dukiaGold"
-                  >
-                    <p className="font-semibold">Read More</p>
-                    <ArrowRight size={17} />
-                  </Link>
-                </CardContent>
-                {/* <CardFooter>
+                    <Link
+                      href={item.link}
+                      target="_blank"
+                      className="flex items-center gap-2 hover:text-dukiaGold"
+                    >
+                      <p className="font-semibold">Read More</p>
+                      <ArrowRight size={17} />
+                    </Link>
+                  </CardContent>
+                  {/* <CardFooter>
                   <p className="font-bold text-[0.875rem] text-white">
                     Read More
                   </p>
                   <ArrowRight />
                 </CardFooter> */}
-              </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="absolute text-white bg-dukiaBlue rounded-r-[50%] w-11 h-14 top-1/2 left-0" />
-        <CarouselNext className="absolute text-white bg-dukiaBlue rounded-l-[50%] w-11 h-14 top-1/2 right-0" />
-      </Carousel>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="absolute text-white bg-dukiaBlue rounded-r-[50%] w-11 h-14 top-1/2 left-0" />
+          <CarouselNext className="absolute text-white bg-dukiaBlue rounded-l-[50%] w-11 h-14 top-1/2 right-0" />
+        </Carousel>
+      </div>
     </section>
   );
 };

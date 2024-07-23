@@ -8,7 +8,7 @@ import LoadingModal from "@/components/loadingModal";
 import DepositModal from "@/components/modals/DepositModal";
 import SuccessfulDepositModal from "@/components/modals/SuccessfulDepositModal";
 import WithdrawalModal from "@/components/modals/WithdrawalModal";
-import ConfirmWithdrawalModal from "@/components/modals/confirmWithdrawalModal";
+import ConfirmWithdrawalModal from "@/components/modals/ConfirmWithdrawalModal";
 
 const manrope = Manrope({ subsets: ["latin"] });
 

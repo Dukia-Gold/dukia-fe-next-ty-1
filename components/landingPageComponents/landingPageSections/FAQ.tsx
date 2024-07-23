@@ -31,13 +31,20 @@ const FAQ = () => {
 
   const title = "Lorem ipsum dolor sit amet consectetur?";
   return (
-    <section id="FAQ" className="dark:bg-dukiaBlue dark:text-white flex flex-col items-center gap-14 py-12 px-4 sm:px-auto">
-      <p className="font-bold text-2xl text-center">Frequently Asked Questions (FAQs)</p>
+    <section
+      id="FAQ"
+      className="dark:bg-dukiaBlue dark:text-white py-12 px-4 sm:px-auto"
+    >
+      <div className="md:container space-y-14 flex flex-col items-center">
+        <p className="font-bold text-2xl text-center">
+          Frequently Asked Questions (FAQs)
+        </p>
 
-      <div className="grid gap-4">
-        {FAQArray.map((faq) => (
-          <FAQComp key={faq.id} title={faq.title} content={faq.content} />
-        ))}
+        <div className="grid gap-4">
+          {FAQArray.map((faq) => (
+            <FAQComp key={faq.id} title={faq.title} content={faq.content} />
+          ))}
+        </div>
       </div>
     </section>
   );
