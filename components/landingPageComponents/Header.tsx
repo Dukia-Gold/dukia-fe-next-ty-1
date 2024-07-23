@@ -60,7 +60,7 @@ const Header: FC<header> = () => {
     <header
       className={`${
         pathname.startsWith("/dashboard") ? "hidden" : "fixed z-50"
-      } w-[100vw] flex flex-col shadow-2xl`}
+      } w-[100%] flex flex-col shadow-2xl`}
     >
       {/* GOLD PRICE */}
       <div className="bg-dukiaGold">

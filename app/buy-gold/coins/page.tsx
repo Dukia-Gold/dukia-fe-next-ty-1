@@ -131,7 +131,7 @@ const CoinsPage = () => {
     <div className="flex flex-col items-center gap-2.5 md:gap-5">
       <p className="xl:hidden font-bold text-[2.5rem]">Gold Coins</p>
 
-      <div className="w-full grid md:px-20 lg:px-0 lg:grid-cols-2 2xl:grid-cols-4 gap-6">
+      <div className="w-full grid md:px-20 lg:px-0 lg:grid-cols-2 gap-6">
         {CoinsArray.map((coin) => (
           <CoinCard
             key={coin.key}
