@@ -18,10 +18,10 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        'hero-pattern': "url('https://res.cloudinary.com/dvcw253zw/image/upload/v1718960746/hero-bg_tywy4z.jpg')",
+        'hero-pattern': "url('https://res.cloudinary.com/dvcw253zw/image/upload/v1721823383/hero-bg-new_kppcol.jpg')",
       },
       colors: { 
-        dukiaBlue: "#111827",
+        dukiaBlue: "#1C254E",
         dukiaGold: "#DAAA38",
         dukiaGrey: "#F3F3F4",
         dukiaDark: "#2A303C",

@@ -98,7 +98,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="">
+    <main className="xl:max-w-[1280px] xl:mx-auto">
       <Hero />
 
       <WhoWeAre />

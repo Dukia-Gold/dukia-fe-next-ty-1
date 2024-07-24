@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.className} min-h-screen`}>
+      <body className={`${manrope.className} min-h-screen bg-white`}>
         <Header />
         <main className="min-h-screen flex flex-col justify-between">
           {children}
