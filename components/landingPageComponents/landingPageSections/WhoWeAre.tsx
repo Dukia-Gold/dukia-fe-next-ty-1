@@ -21,18 +21,21 @@ const WhoWeAre: React.FC = () => {
   }, [fetchGoldPrice1g]);
 
   useEffect(() => {
-    setAskClass('flash');
-    const timeoutId = setTimeout(() => setAskClass(''), 1500);
+    setAskClass("flash");
+    const timeoutId = setTimeout(() => setAskClass(""), 1500);
     return () => clearTimeout(timeoutId);
   }, [askNaira1g]);
 
   return (
-    <section className="flex flex-col gap-8 px-4 lg:px-12 xl:px-28 bg-white dark:bg-dukiaBlue dark:text-white text-dukiaBlue justify-between">
+    <section className="xl:max-w-[1061px] mx-auto flex flex-col gap-8 px-4 lg:px-12 xl:px-28 bg-white dark:bg-dukiaBlue dark:text-white text-dukiaBlue justify-between">
       <section className="md:container py-12 flex flex-col gap-14">
         {/* TEXTS */}
-        <div className="flex flex-col md:items-center gap-2">
-          <p className="text-[1.75rem] font-bold">Who We Are</p>
-          <p className="text-lg md:text-center">
+        <div className="flex flex-col md:items-center gap-4 font-extrabold">
+          <p className="text-[2.5rem]">Who We Are</p>
+
+          <p className="text-[#676D88] text-xl">From Mine to Market</p>
+
+          <p className="text-base font-normal md:text-center">
             Dukia Gold is the Foremost & Largest Full-Service Bullion Dealer in
             Nigeria, West Africa creating ease of access to investment grade
             gold & other precious metals in Nigeria via a safe and secure
@@ -43,9 +46,16 @@ const WhoWeAre: React.FC = () => {
           </p>
         </div>
 
+        {/* <Image
+          src="https://s3-alpha-sig.figma.com/img/5cf5/0396/d054e8c09680060f7b79a47e90192b9a?Expires=1722816000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=gp65q0nwX7jktcfW52D8ACV9sTIjZXRx9Z6I5ue8J6PgxB0Pi9q142OLC-cmXjKWIYl~VhVneDT9f6GKvs9HRXb0Y7LMfkjFIDqno8PsHqL3TDaRW2tajiABH46kY1~eQbhMJ-Gux6iLngoNBC7xRYZl9wUua7sskb6e7Jk1m8BTNAY3GvI~Cl8iNeCWGG0bM5TdcKklJ55UdjnNTFQIWy557Y81ynLf9bD8awOwwRdEEe5aO1Ynp7T-p6xJtXibgseJ74cqzGDadIxRv7rlRlc6ZGBGyssKtoHnOamC3jA87AyXri3u7T5rAa6TJu92m8MibTr6NSQP0KV0VeUOwA__"
+          alt="Dukia Gold: Who We Are"
+          width={500}
+          height={500}
+        /> */}
+
         {/* GOLD CARDS */}
-        <div className="flex flex-col items-center lg:flex-row justify-center gap-6">
-          {/* Gold Bars */}
+        {/* <div className="flex flex-col items-center lg:flex-row justify-center gap-6">
+          
           <Card className="dark:bg-white/[5%] shadow-2xl py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
             <CardHeader>
               <CardTitle>Gold Bars</CardTitle>
@@ -67,7 +77,7 @@ const WhoWeAre: React.FC = () => {
             </CardFooter>
           </Card>
 
-          {/* Gold Coins */}
+          
           <Card className="dark:bg-white/[5%] shadow-2xl py-5 border-none rounded-2xl flex flex-col items-center w-[100%] md:w-[32.375rem] gap-5">
             <CardHeader>
               <CardTitle>Gold Coins</CardTitle>
@@ -88,11 +98,11 @@ const WhoWeAre: React.FC = () => {
               </Link>
             </CardFooter>
           </Card>
-        </div>
+        </div> */}
       </section>
 
       {/* Pool Allocated Buys */}
-      <section className="md:container py-12 overflow-auto flex flex-col md:items-center gap-14">
+      {/* <section className="md:container py-12 overflow-auto flex flex-col md:items-center gap-14">
         <p className="font-bold text-[1.75rem] text-left md:text-center">
           Pool Allocated Buys
         </p>
@@ -100,7 +110,9 @@ const WhoWeAre: React.FC = () => {
         <div className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-6">
           <div className="dark:bg-white/[5%] shadow-2xl relative w-full md:w-[25rem] h-[25rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
-              <p className={`${askClass} font-semibold text-white`}>{askNaira1g ? formatDecimal(10000/askNaira1g, 4) : 0.00} gram</p>
+              <p className={`${askClass} font-semibold text-white`}>
+                {askNaira1g ? formatDecimal(10000 / askNaira1g, 4) : 0.0} gram
+              </p>
             </div>
 
             <Image
@@ -131,7 +143,9 @@ const WhoWeAre: React.FC = () => {
 
           <div className="dark:bg-white/[5%] shadow-2xl relative w-full md:w-[25rem] h-[25rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
-              <p className={`${askClass} font-semibold text-white`}>{askNaira1g ? formatDecimal(15000/askNaira1g, 4) : 0.00} gram</p>
+              <p className={`${askClass} font-semibold text-white`}>
+                {askNaira1g ? formatDecimal(15000 / askNaira1g, 4) : 0.0} gram
+              </p>
             </div>
 
             <Image
@@ -162,7 +176,9 @@ const WhoWeAre: React.FC = () => {
 
           <div className="dark:bg-white/[5%] lg:col-start-1 2xl:col-start-3 lg:col-end-3 shadow-2xl relative w-full md:w-auto h-[25rem] rounded-2xl flex flex-col items-center justify-center">
             <div className="absolute top-20 right-0 bg-dukiaBlue py-4 px-7 rounded-bl-lg rounded-tl-lg">
-              <p className={`${askClass} font-semibold text-white`}>{askNaira1g ? formatDecimal(20000/askNaira1g, 4) : 0.00} gram</p>
+              <p className={`${askClass} font-semibold text-white`}>
+                {askNaira1g ? formatDecimal(20000 / askNaira1g, 4) : 0.0} gram
+              </p>
             </div>
 
             <Image
@@ -191,7 +207,7 @@ const WhoWeAre: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </section>
   );
 };

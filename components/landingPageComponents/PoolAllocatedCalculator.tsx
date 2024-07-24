@@ -17,8 +17,8 @@ const PoolAllocatedCalculator = () => {
   const [tab, setTab] = useState(true);
   
   return (
-    <div className="z-20 text-black dark:text-white rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 bg-[#F3F3F4] dark:bg-dukiaDark/[80%]">
-      <div className=" rounded-t-2xl py-4 flex justify-center bg-dukiaBlue text-white font-semibold">
+    <div className="z-20 text-black dark:text-white rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 shadow-2xl bg-white dark:bg-dukiaDark/[80%]">
+      <div className=" rounded-t-2xl py-4 flex justify-center bg-dukiaGrey text-dukiaBlue font-semibold">
         <p>Pool Allocated Calculator</p>
       </div>
 
@@ -30,7 +30,7 @@ const PoolAllocatedCalculator = () => {
           >
             <div className="flex flex-col gap-2">
               <label htmlFor="currency" className="text-sm font-semibold">
-                Currency (Naira)
+                Amount (Naira)
               </label>
               <input
                 type="text"
@@ -44,7 +44,7 @@ const PoolAllocatedCalculator = () => {
                 placeholder="Enter Naira Value"
               />
             </div>
-            <p className="text-sm">Starting from N5,000</p>
+            <p className="text-sm text-dukiaGold font-semibold">Starting from N5,000</p>
           </div>
 
           {/* WEIGHT INPUT - G to NAIRA */}
@@ -69,7 +69,7 @@ const PoolAllocatedCalculator = () => {
                 placeholder="Weight(g)"
               />
             </div>
-            <p className="text-sm">Minimum of 0.0301 grams</p>
+            <p className="text-sm text-dukiaGold font-semibold">Minimum of 0.0301 grams</p>
           </div>
 
           <div className="flex justify-center">

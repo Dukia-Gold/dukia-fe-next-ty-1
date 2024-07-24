@@ -23,7 +23,7 @@ const config = {
       colors: { 
         dukiaBlue: "#1C254E",
         dukiaGold: "#DAAA38",
-        dukiaGrey: "#F3F3F4",
+        dukiaGrey: "#E8E9ED",
         dukiaDark: "#2A303C",
       },
       keyframes: {
