@@ -57,7 +57,11 @@ const Header: FC<header> = () => {
   // }, []);
 
   return (
-    <header className="fixed z-50 w-full space-y-4">
+    <header
+      className={`${
+        pathname.startsWith("/dashboard") ? "hidden" : "fixed z-50"
+      } w-full space-y-4`}
+    >
       {/* GOLD PRICE */}
       <div className="mt-4 bg-dukiaGold flex flex-col md:items-center  md:flex-row justify-between gap-1 font-semibold text-dukiaBlue py-3 px-6 md:px-4 lg:px-9 rounded-2xl xl:max-w-[1280px] mx-auto">
         {/* Ask */}

@@ -10,10 +10,10 @@ import IndividualInfo from "@/components/profileComponents/IndividualInfo";
 import JointInfo from "@/components/profileComponents/JointInfo";
 import CompanyInfo from "@/components/profileComponents/Company";
 import ResetPasswordModal from "@/components/profileComponents/ResetPasswordModal";
+import useModalsStore from "@/store/modalsStore";
 
 const ProfilePage = () => {
-  const [resetModal, setResetModal] = useState(false);
-  const closeModal = () => setResetModal(false);
+  const updateModals = useModalsStore((state: any) => state.updateModals);
 
   const user = userStore((state: any) => state.user);
 
@@ -36,7 +36,7 @@ const ProfilePage = () => {
             </div>
 
             <button
-              onClick={() => setResetModal(true)}
+              onClick={() => updateModals({ resetPassword: true })}
               className="bg-dukiaBlue hover:bg-dukiaGold hover:text-black text-white font-semibold text-sm py-4 px-6 rounded-lg"
             >
               Reset Password
@@ -116,7 +116,7 @@ const ProfilePage = () => {
         </div>
       )}
 
-      <ResetPasswordModal isOpen={resetModal} closeModal={closeModal} />
+      <ResetPasswordModal />
     </main>
   );
 };

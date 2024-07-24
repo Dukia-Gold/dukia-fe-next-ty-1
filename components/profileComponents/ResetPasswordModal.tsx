@@ -1,25 +1,22 @@
+import ResetPassword from "@/api/auth/resetPassword";
+import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
 import { useEffect } from "react";
 
-interface ResetPasswordModalProps {
-  isOpen: boolean;
-  closeModal: () => void;
-}
-
-const ResetPasswordModal = ({
-  isOpen,
-  closeModal,
-}: ResetPasswordModalProps) => {
+const ResetPasswordModal = () => {
+  const resetPassword = useModalsStore((state: any) => state.resetPassword);
+  const updateModals = useModalsStore((state: any) => state.updateModals);
+  const resetUserPassword = ResetPassword();
   const user = userStore((state: any) => state.user);
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
+    if (resetPassword === false || resetPassword === undefined) {
       document.body.style.overflow = "unset";
+    } else {
+      document.body.style.overflow = "hidden";
     }
   });
 
-  if (!isOpen) {
+  if (resetPassword === false || resetPassword === undefined) {
     return null;
   }
 
@@ -27,7 +24,10 @@ const ResetPasswordModal = ({
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
       <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out rounded-lg py-3 md:py-6 px-5 md:px-10 w-[95%] md:w-[37.5rem]">
         <div className="text-right">
-          <button onClick={closeModal} className="text-3xl">
+          <button
+            onClick={() => updateModals({ resetPassword: false })}
+            className="text-3xl"
+          >
             &times;
           </button>
         </div>
@@ -52,8 +52,8 @@ const ResetPasswordModal = ({
             </div>
 
             <div className="text-dukiaBlue text-center">
-                <p className="font-bold text-lg">Reset Password</p>
-                <p>We&apos;ll send you a link to reset your password</p>
+              <p className="font-bold text-lg">Reset Password</p>
+              <p>We&apos;ll send you a link to reset your password</p>
             </div>
           </div>
 
@@ -66,7 +66,10 @@ const ResetPasswordModal = ({
             />
 
             <div>
-              <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-black text-white py-3.5 px-6 rounded-lg">
+              <button
+                onClick={resetUserPassword}
+                className="bg-dukiaBlue hover:bg-dukiaGold hover:text-black text-white py-3.5 px-6 rounded-lg"
+              >
                 Send Reset Link
               </button>
             </div>
