@@ -25,6 +25,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const TransactionPage = () => {
+  const [filter, setFilter] = useState("all");
   const [accountStatementModal, setAccountStatementModal] = useState(false);
   const closeModal = () => setAccountStatementModal(false);
 
@@ -37,6 +38,11 @@ const TransactionPage = () => {
   const updateTransactions = transactionStore(
     (state: any) => state.updateTransactions
   );
+
+  const filteredTransactions = transactions?.data.filter(
+    (transaction: any) => filter === "all" || transaction.transaction_type === filter
+  );
+
   const dateAndTimeFormatter = (date: string) => {
     const formattedDate = date.split("T")[0];
     const formattedTime = date.split("T")[1].split(".")[0];
@@ -50,8 +56,6 @@ const TransactionPage = () => {
     );
   };
 
-  const [filter, setFilter] = useState("all");
-
   return (
     <main className="w-full bg-dukiaGrey text-dukiaBlue h-full mb-40 lg:mb-24">
       {transactions ? (
@@ -61,7 +65,10 @@ const TransactionPage = () => {
           transactions.data.length !== 0 ? (
             <div className="space-y-6">
               <div className="flex flex-col md:flex-row space-y-4 md:space justify-between">
-                <Select onValueChange={(value) => setFilter(value)}>
+                <Select
+                  value={filter}
+                  onValueChange={(value) => setFilter(value)}
+                >
                   <SelectTrigger className="w-[180px] px-4 focus:ring-0 focus:ring-offset-0 h-12 rounded-lg border-2 border-dukiaBlue/[10%] bg-transparent">
                     <SelectValue placeholder="All Transactions" />
                   </SelectTrigger>
@@ -69,10 +76,10 @@ const TransactionPage = () => {
                     <SelectGroup>
                       <SelectLabel>Transaction Type</SelectLabel>
                       <SelectItem value="all">All Transactions</SelectItem>
-                      <SelectItem value="deposit">Deposit</SelectItem>
-                      <SelectItem value="withdraw">Withdraw</SelectItem>
-                      <SelectItem value="sell">Sell</SelectItem>
-                      <SelectItem value="buy">Buy</SelectItem>
+                      <SelectItem value="Deposit">Deposit</SelectItem>
+                      <SelectItem value="Withdraw">Withdraw</SelectItem>
+                      <SelectItem value="Sell Order">Sell</SelectItem>
+                      <SelectItem value="Buy Order">Buy</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -102,7 +109,7 @@ const TransactionPage = () => {
                 <TableBody>
                   {transactions &&
                     transactions.data &&
-                    transactions.data.map((transaction: any) => (
+                    filteredTransactions.map((transaction: any) => (
                       <TableRow
                         key={transaction.id}
                         className="grid md:table-row text-dukiaBlue bg-white hover:bg-dukiaBlue/[50%] hover:text-white"
