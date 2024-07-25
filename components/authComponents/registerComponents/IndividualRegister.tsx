@@ -11,6 +11,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import RegisterAuth from "@/api/auth/registerAuth";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { validatePassword } from "@/lib/passwordValidator";
 
 type RegisterProps = {
   tab: number;
@@ -53,32 +54,12 @@ const IndividualRegister = ({ tab, setTab }: RegisterProps) => {
     setBirthday(dateString?.toString());
   };
 
-  const validatePassword = (password: string) => {
-    const messages = {
-      length:
-        password.length >= 8
-          ? ""
-          : "Password must be at least 8 characters long.",
-      uppercase: /[A-Z]/.test(password)
-        ? ""
-        : "Password must contain at least one uppercase letter.",
-      lowercase: /[a-z]/.test(password)
-        ? ""
-        : "Password must contain at least one lowercase letter.",
-      number: /[0-9]/.test(password)
-        ? ""
-        : "Password must contain at least one number.",
-      special: /[!@#$%^&*]/.test(password)
-        ? ""
-        : "Password must contain at least one special character.",
-    };
-    setValidationMessages(messages);
-  };
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
-    validatePassword(newPassword);
+    setValidationMessages(validatePassword(newPassword));
   };
 
   const isTabOneValid = () => {
