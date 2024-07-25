@@ -17,7 +17,7 @@ const ResetPassword = () => {
     try {
       updateLoading(true);
       const response = await axios({
-        url: "https://api.dukiapreciousmetals.co/api/auth/password-reset",
+        url: "https://api.dukiapreciousmetals.co/api/v2/auth/password-reset",
         method: "POST",
         data: {
           email: user.email,
