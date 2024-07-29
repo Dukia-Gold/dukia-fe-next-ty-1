@@ -19,7 +19,7 @@ const Sidebar = () => {
 
   return (
     <aside className="hidden h-screen lg:flex flex-col justify-between pt-6 pb-32 w-72 text-[#676D88] font-semibold">
-      <div className="flex flex-col items-center gap-10">
+      <div className="flex flex-col items-center gap-14">
         <Link href="/">
           {" "}
           <Image
