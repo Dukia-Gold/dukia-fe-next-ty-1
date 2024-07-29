@@ -19,12 +19,15 @@ import { userStore } from "@/store/user";
 import { goldStore } from "@/store/goldPrice";
 import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
 import useFetchUserData from "@/lib/fetchUserData";
+import useModalsStore from "@/store/modalsStore";
 
 type header = {
   // name: string
 };
 
 const Header: FC<header> = () => {
+  const updateModals = useModalsStore((state: any) => state.updateModals);
+
   const user = userStore((state: any) => state.user);
   const fetchUserData = useFetchUserData();
 
@@ -59,7 +62,7 @@ const Header: FC<header> = () => {
   return (
     <header
       className={`${
-        pathname.startsWith("/dashboard") ? "hidden" : "fixed z-50"
+        pathname.startsWith("/dashboard") ? "hidden" : "fixed z-10"
       } w-full space-y-4`}
     >
       {/* GOLD PRICE */}
@@ -181,7 +184,7 @@ const Header: FC<header> = () => {
             </ul>
           </nav>
 
-          <div className="hidden sm:flex items-center gap-2 text-sm">
+          <div className="hidden sm:flex">
             {user ? (
               <Link href="/dashboard">
                 <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-5 rounded-lg">
@@ -189,11 +192,14 @@ const Header: FC<header> = () => {
                 </button>
               </Link>
             ) : (
-              <Link href="/login">
-                <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-5 rounded-lg">
-                  Login / Register
-                </button>
-              </Link>
+              <div className="flex items-center gap-7">
+                <p onClick={() => updateModals({ login: true })} className="font-semibold text-dukiaGold hover:underline hover:cursor-pointer">Login</p>
+                <Link href="/login">
+                  <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-4 rounded-lg">
+                    Register
+                  </button>
+                </Link>
+              </div>
             )}
 
             {/* <Link href="/login">

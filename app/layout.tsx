@@ -8,6 +8,7 @@ import LoadingModal from "@/components/loadingModal";
 import DepositModal from "@/components/modals/DepositModal";
 import SuccessfulDepositModal from "@/components/modals/SuccessfulDepositModal";
 import WithdrawalModal from "@/components/modals/WithdrawalModal";
+import LoginModal from "@/components/modals/authModals/LoginModal";
 // import ConfirmWithdrawalModal from "@/components/modals/ConfirmWithdrawalModal";
 // import ConfirmWithdrawalModal from "@/components/modals/ConfirmWithdrawalModal";
 
@@ -48,6 +49,8 @@ export default function RootLayout({
 
           <Toaster />
           <LoadingModal />
+
+          <LoginModal />
 
           <>
             <DepositModal />

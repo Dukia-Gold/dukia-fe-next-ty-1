@@ -17,7 +17,7 @@ const PoolAllocatedCalculator = () => {
   const [tab, setTab] = useState(true);
   
   return (
-    <div className="z-20 text-black dark:text-white rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 shadow-2xl bg-white dark:bg-dukiaDark/[80%]">
+    <div className="text-black dark:text-white rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 shadow-2xl bg-white dark:bg-dukiaDark/[80%]">
       <div className=" rounded-t-2xl py-4 flex justify-center bg-dukiaGrey text-dukiaBlue font-semibold">
         <p>Pool Allocated Calculator</p>
       </div>

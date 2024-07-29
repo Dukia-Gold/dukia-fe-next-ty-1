@@ -1,6 +1,8 @@
 import { create } from "zustand";
 
 const useModalsStore = create((set) => ({
+  login: false,
+  
   withdrawal: false,
   confirmWithdrawal: false,
   successfulWithdrawal: false,

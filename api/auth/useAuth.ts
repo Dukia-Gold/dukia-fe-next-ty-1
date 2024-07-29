@@ -9,10 +9,14 @@ import { userStore } from "@/store/user";
 import { useCookies } from "react-cookie";
 import useLoadingStore from "@/store/loadingStore";
 import { transactionStore } from "@/store/transactions";
+import useModalsStore from "@/store/modalsStore";
 
 const useAuth = () => {
+  const updateModals = useModalsStore((state: any) => state.updateModals);
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
-  const clearTransactions = transactionStore((state: any) => state.clearTransactions);
+  const clearTransactions = transactionStore(
+    (state: any) => state.clearTransactions
+  );
   const [cookies] = useCookies(["auth-token"]);
   const token = cookies["auth-token"];
   const { toast } = useToast();
@@ -21,10 +25,15 @@ const useAuth = () => {
   const clearUser = userStore((state: any) => state.clearUser);
   const router = useRouter();
 
-  const login = async (email: string, password: string, deviceName: string) => {
+  const loginUser = async (
+    email: string,
+    password: string,
+    deviceName: string
+  ) => {
     setLoginLoading(true);
     try {
       updateLoading(true);
+
       const response = await axios.post(
         "https://api.dukiapreciousmetals.co/api/login",
         {
@@ -33,19 +42,29 @@ const useAuth = () => {
           device_name: deviceName,
         }
       );
+
       const { authorization, expires, user: userData } = response.data;
       updateUser(userData);
 
       const expiresAt = expires;
       const expiryDate = new Date(expiresAt);
-      cookie.set("auth-token", authorization, {
-        expires: expiryDate,
-        secure: true,
-        sameSite: "none",
+
+      // Ensure the cookie is set before redirecting
+      await new Promise((resolve, reject) => {
+        // Correct the argument count by omitting the callback if `cookie.set` only accepts 2 or 3 arguments
+        cookie.set("auth-token", authorization, {
+          expires: expiryDate,
+          secure: true,
+          sameSite: "none",
+        });
+        resolve(true); // Resolve the promise directly after setting the cookie
       });
 
-      router.push("/dashboard");
+      updateModals({ login: false });
       updateLoading(false);
+
+      // Redirect after cookie is set
+      // router.push("/dashboard");
     } catch (error: any) {
       // console.log(error.response.status);
       if (error.response.status === 401) {
@@ -55,7 +74,6 @@ const useAuth = () => {
           description:
             error.response?.data?.message || "Wrong email or password!",
         });
-        updateLoading(false);
       } else if (error.response.status === 404) {
         toast({
           variant: "destructive",
@@ -63,8 +81,8 @@ const useAuth = () => {
           description:
             error.response?.data?.message || "This email is not registered!",
         });
-        updateLoading(false);
       }
+      updateLoading(false);
     }
   };
 
@@ -102,7 +120,7 @@ const useAuth = () => {
     }
   };
 
-  return { loginLoading, login, logout };
+  return { loginLoading, loginUser, logout };
 };
 
 export default useAuth;

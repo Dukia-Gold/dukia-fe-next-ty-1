@@ -23,25 +23,25 @@ const GoldPrice = () => {
 
   return (
     <div
-      className="flex flex-col md:items-center  md:flex-row justify-between gap-1 py-3 px-1.5 md:px-5 lg:px-10
-  bg-dukiaGold text-sm text-dukiaBlue font-semibold"
+      className="flex flex-col md:items-center  md:flex-row justify-between gap-1 py-3 px-1.5 md:px-4
+  bg-[#F4E5C1] rounded-2xl text-dukiaBlue font-bold"
     >
       <p>
-        GOLD ASK: <span className={`text-xs font-black ${askClass}`}>{formatCurrency(goldDollars?.ask.oz, "en-US", "USD")}/oz</span>
+        GOLD ASK: <span className={`font-black ${askClass}`}>{formatCurrency(goldDollars?.ask.oz, "en-US", "USD")}/oz</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs font-black ${askClass}`}>{formatCurrency(goldDollars?.ask.g, "en-US", "USD")}/g</span>
+        <span className={`font-black ${askClass}`}>{formatCurrency(goldDollars?.ask.g, "en-US", "USD")}/g</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs font-black ${askClass}`}>{formatCurrency(goldDollars?.ask.kg, "en-US", "USD")}/kg</span>
-        <span className="text-xs font-black"> -0.01%(-$0.12)</span>
+        <span className={`font-black ${askClass}`}>{formatCurrency(goldDollars?.ask.kg, "en-US", "USD")}/kg</span>
+        <span className="font-black"> -0.01%(-$0.12)</span>
       </p>
 
       <p>
         GOLD BID:
-        <span className={`text-xs font-black ${bidClass}`}>{formatCurrency(goldDollars?.bid.oz, "en-US", "USD")}/oz</span>
+        <span className={`font-black ${bidClass}`}>{formatCurrency(goldDollars?.bid.oz, "en-US", "USD")}/oz</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs font-black ${bidClass}`}>{formatCurrency(goldDollars?.bid.g, "en-US", "USD")}/g</span>
+        <span className={`font-black ${bidClass}`}>{formatCurrency(goldDollars?.bid.g, "en-US", "USD")}/g</span>
         <span className="mx-0.5">|</span>
-        <span className={`text-xs font-black ${bidClass}`}>{formatCurrency(goldDollars?.bid.kg, "en-US", "USD")}/kg</span>
+        <span className={`font-black ${bidClass}`}>{formatCurrency(goldDollars?.bid.kg, "en-US", "USD")}/kg</span>
       </p>
     </div>
   );

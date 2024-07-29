@@ -8,7 +8,7 @@ const Hero = () => {
     <section className="mt-24 md:mt-[4.1875rem] relative min-h-[calc(100vh-67px)] rounded-2xl bg-hero-pattern bg-cover bg-no-repeat bg-center bg-fixed pt-48 xl:pt-36 py-4 flex items-center border-2 border-[#E8E9ED]">
       {/* <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-60 rounded-2xl"></div> */}
       <div className="px-9 flex flex-col xl:flex-row justify-center xl:justify-between items-center gap-10">
-        <div className="z-20 flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2 text-dukiaBlue">
 
             <h1 className="text-base sm:text-lg md:text-xl  font-semibold">

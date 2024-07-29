@@ -3,7 +3,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
 const LoginForm = () => {
-  const { login, loginLoading } = useAuth();
+  const { loginUser, loginLoading } = useAuth();
   const [viewPassword, setViewPassword] = useState<boolean>(false);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -11,7 +11,7 @@ const LoginForm = () => {
     const email = event.currentTarget.email.value;
     const password = event.currentTarget.password.value;
     const deviceName = "device-name"; // Assume a default device name for now
-    await login(email, password, deviceName);
+    await loginUser(email, password, deviceName);
   };
 
   return (
