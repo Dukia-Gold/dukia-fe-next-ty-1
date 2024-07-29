@@ -14,23 +14,9 @@ const DashboardPage = () => {
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
   return (
-    <main className="w-full bg-dukiaGrey h-full mb-48 md:mb-56  lg:mb-24">
+    <main className="w-full bg-dukiaGrey h-full">
       {user ? (
-        <div className="py-4 mb-40 px-1.5 md:px-5 lg:px-10 space-y-6">
-
-          {/* KYC (if not verified) */}
-          {user.is_bvn === 0 && (
-            <div className="bg-[#D20000]/[10%] text-[#D20000] py-4 rounded-lg text-sm flex justify-center text-center">
-              <p>
-                <span className="font-bold">KYC Verification!</span> Please 
-                <Link href="/dashboard/kyc" className="underline">
-                  click here
-                </Link>
-                 to complete your KYC verification.
-              </p>
-            </div>
-          )}
-
+        <div className="space-y-6">
           <div className="grid gap-6">
             <div className="grid xl:grid-cols-3 gap-y-6 gap-x-5">
               <Portfolio />

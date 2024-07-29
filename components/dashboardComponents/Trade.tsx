@@ -93,6 +93,13 @@ const Trade = () => {
         </div>
       </div>
 
+      <div>
+        <p className="font-semibold text-dukiaBlue/[60%]">Gold Type</p>
+        <div className="grid grid-cols-3">
+          <div></div>
+        </div>
+      </div>
+
       <form action="" className="flex flex-col gap-6">
         <div className="space-y-4 text-sm text-dukiaBlue font-semibold">
           <div className="space-y-1">
