@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -14,6 +14,7 @@ import {
 } from "@/api/fetchGoldPrice";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { formatDecimal } from "@/lib/decimalFormatter";
+import useBuy from "@/api/trading/buy";
 
 const Trade = () => {
   const [tradeType, setTradeType] = useState<string>("buy");
@@ -21,12 +22,30 @@ const Trade = () => {
 
   const [buyValue, setBuyValue] = useState<string>("");
   const [buyWorth, setBuyWorth] = useState<string | undefined>(undefined);
-  const { askNaira1g, bidNaira1g, fetchGoldPrice1g } =
-    useFetchGoldPriceNaira1g();
-  const { askNaira10g, bidNaira10g, fetchGoldPrice10g } =
-    useFetchGoldPriceNaira10g();
-  const { askNaira1oz, bidNaira1oz, fetchGoldPrice1oz } =
-    useFetchGoldPriceNaira1oz();
+
+  const { askNaira1g, fetchGoldPrice1g } = useFetchGoldPriceNaira1g();
+  const { askNaira10g, fetchGoldPrice10g } = useFetchGoldPriceNaira10g();
+  const { askNaira1oz, fetchGoldPrice1oz } = useFetchGoldPriceNaira1oz();
+
+  const buyPoolAllocated = useBuy();
+
+  useEffect(() => {
+    fetchGoldPrice1g();
+    fetchGoldPrice10g();
+    fetchGoldPrice1oz();
+  }, [fetchGoldPrice1g, fetchGoldPrice10g, fetchGoldPrice1oz]);
+
+  const buyValueParsed = parseFloat(buyValue.replace(/,/g, ""));
+  const buyWorthParsed =
+    buyWorth !== undefined ? parseFloat(buyWorth.replace(/,/g, "")) : 0;
+
+  const buyPoolAllocatedFunc = async () => {
+    if (!isNaN(buyValueParsed) && !isNaN(buyWorthParsed) && askNaira1g) {
+      await buyPoolAllocated(buyValueParsed, buyWorthParsed, askNaira1g);
+      setBuyValue("");
+      setBuyWorth("");
+    }
+  };
 
   const handleFigureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -37,7 +56,6 @@ const Trade = () => {
     if (decimalRegex.test(inputValue)) {
       const numericValue = parseFloat(inputValue);
 
-      // Setting the value regardless of the conditions
       setBuyValue(inputValue);
 
       if (!isNaN(numericValue) && numericValue > 0) {
@@ -157,7 +175,11 @@ const Trade = () => {
 
         {/* Button */}
         <div className="flex justify-end">
-          <button className="text-white rounded-lg bg-dukiaBlue text-sm font-semibold py-4 px-11">
+          <button
+            type="button"
+            className="text-white rounded-lg bg-dukiaBlue text-sm font-semibold py-4 px-11"
+            onClick={buyPoolAllocatedFunc}
+          >
             {tradeType === "buy" ? "Buy" : "Sell"} Gold
           </button>
         </div>
