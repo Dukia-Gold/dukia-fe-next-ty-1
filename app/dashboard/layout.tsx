@@ -25,7 +25,7 @@ export default function DashboardLayout({
     >
       <Sidebar />
 
-      <div className="w-full px-5 pt-4 h-screen">
+      <div className="w-full px-5 bg-dukiaGrey pt-4 h-screen">
         <GoldPrice />
         <MobileHeader />
         <TopBar />
