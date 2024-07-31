@@ -34,14 +34,14 @@ const Sidebar = () => {
         <nav className="w-full">
           <ul>
             {/* Dashboard */}
-            <li
-              className={`${
-                pathname === "/dashboard"
-                  ? "bg-dukiaBlue text-white"
-                  : "hover:bg-dukiaBlue/[10%]"
-              } px-5 py-3 cursor-pointer`}
-            >
-              <Link href="/dashboard" className="flex gap-2.5 items-center">
+            <Link href="/dashboard">
+              <li
+                className={`${
+                  pathname === "/dashboard"
+                    ? "bg-dukiaBlue text-white"
+                    : "hover:bg-dukiaBlue/[10%]"
+                } px-5 py-3 cursor-pointer flex gap-2.5 items-center`}
+              >
                 <svg
                   width="20"
                   height="21"
@@ -60,20 +60,17 @@ const Sidebar = () => {
                   />
                 </svg>
                 Dashboard
-              </Link>
-            </li>
+              </li>
+            </Link>
 
             {/* Buy Gold */}
-            <li
-              className={`${
-                pathname.startsWith("/dashboard/buy-gold")
-                  ? "bg-dukiaBlue text-white"
-                  : "hover:bg-dukiaBlue/[10%]"
-              } px-5 py-3 cursor-pointer`}
-            >
-              <Link
-                href="/dashboard/buy-gold"
-                className="flex gap-2.5 items-center"
+            <Link href="/dashboard/buy-gold">
+              <li
+                className={`${
+                  pathname.startsWith("/dashboard/buy-gold")
+                    ? "bg-dukiaBlue text-white"
+                    : "hover:bg-dukiaBlue/[10%]"
+                } px-5 py-3 cursor-pointer flex gap-2.5 items-center`}
               >
                 <svg
                   width="20"
@@ -93,20 +90,17 @@ const Sidebar = () => {
                   />
                 </svg>
                 Buy Gold
-              </Link>
-            </li>
+              </li>
+            </Link>
 
             {/* Assets */}
-            <li
-              className={`${
-                pathname === "/dashboard/assets"
-                  ? "bg-dukiaBlue text-white"
-                  : "hover:bg-dukiaBlue/[10%]"
-              } px-5 py-3 cursor-pointer`}
-            >
-              <Link
-                href="/dashboard/assets"
-                className="flex gap-2.5 items-center"
+            <Link href="/dashboard/assets">
+              <li
+                className={`${
+                  pathname === "/dashboard/assets"
+                    ? "bg-dukiaBlue text-white"
+                    : "hover:bg-dukiaBlue/[10%]"
+                } px-5 py-3 cursor-pointer flex gap-2.5 items-center`}
               >
                 <svg
                   width="20"
@@ -137,11 +131,11 @@ const Sidebar = () => {
                   />
                 </svg>
                 Assets
-              </Link>
-            </li>
+              </li>
+            </Link>
 
             {/* Transactions */}
-            <Link href="/dashboard/transactions" className="">
+            <Link href="/dashboard/transactions">
               <li
                 className={`${
                   pathname === "/dashboard/transactions"
@@ -171,16 +165,13 @@ const Sidebar = () => {
             </Link>
 
             {/* Charts */}
-            <li
-              className={`${
-                pathname === "/dashboard/charts"
-                  ? "bg-dukiaBlue text-white"
-                  : "hover:bg-dukiaBlue/[10%]"
-              } px-5 py-3 cursor-pointer`}
-            >
-              <Link
-                href="/dashboard/charts"
-                className="flex gap-2.5 items-center"
+            <Link href="/dashboard/charts">
+              <li
+                className={`${
+                  pathname === "/dashboard/charts"
+                    ? "bg-dukiaBlue text-white"
+                    : "hover:bg-dukiaBlue/[10%]"
+                } px-5 py-3 cursor-pointer flex gap-2.5 items-center`}
               >
                 <svg
                   width="20"
@@ -200,20 +191,17 @@ const Sidebar = () => {
                   />
                 </svg>
                 Charts
-              </Link>
-            </li>
+              </li>
+            </Link>
 
             {/* Settings */}
-            <li
-              className={`${
-                pathname === "/dashboard/settings"
-                  ? "bg-dukiaBlue text-white"
-                  : "hover:bg-dukiaBlue/[10%]"
-              } px-5 py-3 cursor-pointer`}
-            >
-              <Link
-                href="/dashboard/settings"
-                className="flex gap-2.5 items-center"
+            <Link href="/dashboard/settings">
+              <li
+                className={`${
+                  pathname === "/dashboard/settings"
+                    ? "bg-dukiaBlue text-white"
+                    : "hover:bg-dukiaBlue/[10%]"
+                } px-5 py-3 cursor-pointer flex gap-2.5 items-center`}
               >
                 <svg
                   width="20"
@@ -235,8 +223,8 @@ const Sidebar = () => {
                   />
                 </svg>
                 Settings
-              </Link>
-            </li>
+              </li>
+            </Link>
           </ul>
         </nav>
       </div>

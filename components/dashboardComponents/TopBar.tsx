@@ -57,8 +57,11 @@ const TopBar = () => {
               </svg>
             </div>
 
-            <div className="p-2.5 rounded-[50%] bg-white cursor-pointer">
-              <Power onClick={logout} width={20} height={20} />
+            <div
+              onClick={logout}
+              className="p-2.5 rounded-[50%] bg-white cursor-pointer"
+            >
+              <Power width={20} height={20} />
             </div>
           </div>
         </div>
