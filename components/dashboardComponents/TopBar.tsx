@@ -1,5 +1,4 @@
 import useAuth from "@/api/auth/useAuth";
-import { formatCurrency } from "@/lib/currencyformatter";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import { capitalizeFirstLetter } from "@/lib/formatText";
 import { GetUrl } from "@/lib/getUrl";
@@ -70,7 +69,15 @@ const TopBar = () => {
             {pathname === "/dashboard/profile" && <p>Account Info</p>}
             {pathname === "/dashboard/card" && <p>Debit Card</p>}
             {pathname === "/dashboard/kyc" && <p>KYC Verification</p>}
+
             {pathname === "/dashboard/buy-gold" && <p>Buy Gold</p>}
+            {pathname === "/dashboard/buy-gold/buy-dukia-gold-bars" && (
+              <p className="text-[#676D88]">
+                Buy Gold /{" "}
+                <span className="text-dukiaBlue font-extrabold">Gold Bars</span>
+              </p>
+            )}
+
             {pathname === "/dashboard/assets" && <p>Assets</p>}
             {pathname === "/dashboard/transactions" && <p>Transactions</p>}
             {pathname === "/dashboard/charts" && <p>Charts</p>}

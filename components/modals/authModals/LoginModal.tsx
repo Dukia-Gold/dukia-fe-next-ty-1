@@ -32,7 +32,7 @@ const LoginModal = () => {
 
   return (
     <div className="fixed z-20 top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
-      <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out text-dukiaBlue rounded-lg w-[95%] h-[75%] md:h-[40rem] xl:h-auto md:w-[38.3125rem] xl:w-[1280px] flex justify-center relative">
+      <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out text-dukiaBlue rounded-lg w-[95%] h-[75%] md:h-[40rem] max-h-[95vh] xl:h-auto md:w-[38.3125rem] xl:w-[1280px] flex justify-center relative">
         <div
           onClick={() => updateModals({ login: false })}
           className="cursor-pointer xl:hidden absolute top-5 md:top-11 right-5 md:right-10 bg-[#E8E9ED] rounded-[50%] p-2.5"
@@ -40,7 +40,7 @@ const LoginModal = () => {
           <X width={24} height={24} />
         </div>
 
-        <div className="bg-[url(https://res.cloudinary.com/dvcw253zw/image/upload/v1722004916/login-img_adgx9u.png)] bg-no-repeat bg-cover bg-center bg-[#FFFBF1] w-[37.9375rem] h-[51.1875rem] hidden xl:flex rounded-l-lg text pt-[5.375rem] justify-center">
+        <div className="bg-[url(https://res.cloudinary.com/dvcw253zw/image/upload/v1722004916/login-img_adgx9u.png)] bg-no-repeat bg-cover bg-center bg-[#FFFBF1] w-[37.9375rem] h-[51.1875rem] max-h-[90vh] hidden xl:flex rounded-l-lg text pt-[5.375rem] justify-center">
           <div className="space-y-3 font-extrabold">
             <p className="text-[2rem]">Begin Your Journey To</p>
             <p className="text-dukiaGold text-5xl">Financial Freedom</p>
