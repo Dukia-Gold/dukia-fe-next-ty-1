@@ -28,7 +28,7 @@ export default function DashboardLayout({
     >
       <Sidebar />
 
-      <div className="w-full px-10 bg-dukiaGrey pt-4 h-screen">
+      <main className="w-full px-10 bg-dukiaGrey pt-4 h-screen">
         <GoldPrice />
         <MobileHeader />
         <TopBar />
@@ -40,7 +40,7 @@ export default function DashboardLayout({
         >
           {children}
         </ScrollArea>
-      </div>
+      </main>
     </div>
   );
 }

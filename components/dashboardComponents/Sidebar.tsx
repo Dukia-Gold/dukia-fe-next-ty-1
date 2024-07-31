@@ -71,7 +71,7 @@ const Sidebar = () => {
                   : "hover:bg-dukiaBlue/[10%]"
               } px-5 py-3 cursor-pointer`}
             >
-              <Link href="/buy-gold" className="flex gap-2.5 items-center">
+              <Link href="/dashboard/buy-gold" className="flex gap-2.5 items-center">
                 <svg
                   width="20"
                   height="21"
