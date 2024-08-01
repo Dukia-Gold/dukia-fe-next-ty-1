@@ -16,7 +16,7 @@ const normalizeQuery = (query: string) => {
     : query.toLowerCase();
 };
 
-async function SearchPage({ searchParams: { q } }: Props) {
+export default async function DukiaCataloguePage({ searchParams: { q } }: Props) {
   const normalizedQuery = normalizeQuery(q);
   const products = await fetchProductSearch(normalizedQuery);
   if (!products) return notFound();
@@ -47,5 +47,3 @@ async function SearchPage({ searchParams: { q } }: Props) {
     </div>
   );
 }
-
-export default SearchPage;

@@ -13,7 +13,7 @@ const GridOption = ({ title, description, className, image }: Props) => {
   return (
     <Link
       href={{
-        pathname: "/dashboard/buy-gold/search",
+        pathname: "/dashboard/buy-gold/dukia-gold-catalogue",
         query: { q: title },
       }}
       className="grid"
