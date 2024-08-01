@@ -19,10 +19,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useFetchTransactionHistory from "@/lib/fetchTransactionHistory";
+import formatNairaAmount from "@/lib/formatNairaAmount";
 import { transactionStore } from "@/store/transactions";
 import { Spin } from "antd";
 import { DownloadIcon } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const TransactionPage = () => {
@@ -53,7 +53,7 @@ const TransactionPage = () => {
       <>
         {formattedDate}
         <br />
-        {formattedTime}
+        {formattedTime} <span className="text-xs font-bold">(UTC)</span>
       </>
     );
   };
@@ -95,7 +95,11 @@ const TransactionPage = () => {
                     onClick={() => setAccountStatementModal(true)}
                     className="font-semibold text-dukiaGold flex items-center gap-2"
                   >
-                    <DownloadIcon width={16} height={16} className="stroke-dukiaGold" />
+                    <DownloadIcon
+                      width={16}
+                      height={16}
+                      className="stroke-dukiaGold"
+                    />
                     Download
                   </button>
                 </div>
@@ -155,7 +159,9 @@ const TransactionPage = () => {
                         </TableCell>
                         <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
                           <p className="md:hidden font-bold">Amount:</p>
-                          <p className="col-span-2">{transaction.amount}</p>
+                          <p className="col-span-2">
+                            {formatNairaAmount(transaction.amount)}
+                          </p>
                         </TableCell>
                       </TableRow>
                     ))}

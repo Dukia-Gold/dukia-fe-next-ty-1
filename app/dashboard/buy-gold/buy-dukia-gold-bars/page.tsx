@@ -1,3 +1,4 @@
+import ProductOption from "@/components/dashboardComponents/buyGoldComponents/ProductOption";
 import { ArrowLeft } from "lucide-react";
 import { ArrowDown } from "lucide-react";
 
@@ -16,34 +17,12 @@ const GoldBarsPage = async () => {
           </p>
         </Link>
         <div className="gap-14 grid md:grid-cols-2 lg:grid-cols-3 pt-10 pb-[2.625rem]">
-          <div className="bg-white rounded-xl px-3 py-3  flex flex-col">
-            <div className="bg-[#FBF7EB] py-3 px-[2.8125rem] flex items-center justify-center">
-              <Image
-                src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722503559/1g_akhzgs.png"
-                alt="1gram Gold Bar"
-                width={200}
-                height={343.48}
-              />
-            </div>
-            <div className="">
-              <p className="font-manrope text-base font-semibold leading-5 text-left text-dukiaBlue pt-4 pl-3">
-                {" "}
-                Philoro 1g Fine Gold
-              </p>
-              <p className="font-manrope inline-flex  text-base font-semibold leading-5 text-left text-dukiaBlue py-3 pl-3">
-                ₦180,321.78
-                <span className="text-[#FF5757] inline-flex font-manrope text-xs font-semibold leading-4 text-left pt-1">
-                  {" "}
-                  <ArrowDown className="ml-3" size={15} /> 0.99%
-                </span>
-              </p>
-            </div>
-            <div>
-              <button className="w-full bg-dukiaBlue text-white py-3 px-4 rounded-xl font-manrope text-base font-semibold leading-5">
-                Add to Cart
-              </button>
-            </div>
-          </div>
+          <ProductOption
+            title="Philoro 1g Gold Bar"
+            price="180321.78"
+            priceChange="0.99%"
+            image="https://res.cloudinary.com/dvcw253zw/image/upload/v1722503559/1g_akhzgs.png"
+          />
 
           <div className="bg-white rounded-xl "></div>
 

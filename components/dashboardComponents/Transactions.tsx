@@ -9,6 +9,7 @@ import {
 } from "../ui/table";
 import { transactionStore } from "@/store/transactions";
 import useFetchTransactionHistory from "@/lib/fetchTransactionHistory";
+import formatNairaAmount from "@/lib/formatNairaAmount";
 
 const Transactions = () => {
   const [page, setPage] = useState(1);
@@ -28,7 +29,7 @@ const Transactions = () => {
       <>
         {formattedDate}
         <br />
-        {formattedTime}
+        {formattedTime} <span className="text-xs font-bold">(UTC)</span>
       </>
     );
   };
@@ -51,8 +52,7 @@ const Transactions = () => {
         </TableHeader>
         <TableBody>
           {/* No Transactions */}
-          {transactions &&
-            !transactions.data && (
+          {transactions && !transactions.data && (
             <TableRow className="bg-white hover:bg-white">
               <TableCell className="text-center font-bold py-6" colSpan={6}>
                 No transaction found.
@@ -99,7 +99,9 @@ const Transactions = () => {
                 {/* Amount */}
                 <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
                   <p className="md:hidden font-bold">Amount:</p>
-                  <p className="col-span-2">{transaction.amount}</p>
+                  <p className="col-span-2">
+                    {formatNairaAmount(transaction.amount)}
+                  </p>
                 </TableCell>
               </TableRow>
             ))}
