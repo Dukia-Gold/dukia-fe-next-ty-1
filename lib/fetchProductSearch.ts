@@ -15,6 +15,6 @@ export const fetchProductSearch = async (query: string) => {
           return filteredProducts;
     }catch(error){
         console.error("Error fetching products:", error);
-        return [];
+        return null;
     }
 };

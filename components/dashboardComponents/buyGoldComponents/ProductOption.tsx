@@ -9,43 +9,74 @@ type Props = {
   price: string;
   priceChange: string;
   className?: string;
-  image?: string;
+  image1?: string;
+  image2?: string;
 };
 
-const ProductOption = ({ title, price, priceChange, className, image }: Props) => {
+const ProductOption = ({
+  title,
+  price,
+  priceChange,
+  className,
+  image1,
+  image2,
+}: Props) => {
   return (
-    <Link
-      href={{
-        pathname: "/dashboard/buy-gold/product",
-        query: { q: title },
-      }}
-    >
-      <div className="bg-white rounded-xl px-3 py-3  flex flex-col">
-        <div className="bg-[#FBF7EB] py-3 px-[2.8125rem] flex items-center justify-center">
-          {image && (
-            <Image src={image} alt={title} width={200} height={343.48} />
-          )}
-        </div>
-        <div className="">
-          <p className="font-manrope text-base font-semibold leading-5 text-left text-dukiaBlue pt-4 pl-3">
-            {" "}
-            {title}
-          </p>
-          <p className="font-manrope inline-flex  text-base font-semibold leading-5 text-left text-dukiaBlue py-3 pl-3">
-            {formatCurrency(Number(price))}
-            <span className="text-[#FF5757] inline-flex font-manrope text-xs font-semibold leading-4 text-left pt-1">
-              {" "}
-              <ArrowDown className="ml-3" size={15} /> {priceChange}
-            </span>
-          </p>
-        </div>
-        <div>
-          <button className="w-full bg-dukiaBlue text-white py-3 px-4 rounded-xl font-manrope text-base font-semibold leading-5">
-            Add to Cart
-          </button>
-        </div>
+    <div className="bg-white rounded-xl px-3 py-3  flex flex-col">
+      <div className="bg-[#FBF7EB] py-3 px-[2.8125rem] flex items-center justify-center group cursor-pointer relative">
+        {image1 && image2 && (
+          <>
+            <Image
+              src={image1}
+              alt={title}
+              width={200}
+              height={343.48}
+              className="block group-hover:opacity-0 transition-opacity duration-1000"
+            />
+            <Image
+              src={image2}
+              alt={title}
+              width={200}
+              height={343.48}
+              className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-1000"
+            />
+          </>
+        )}
       </div>
-    </Link>
+
+      <div className="">
+        <p className="text-base font-semibold leading-5 text-left text-dukiaBlue pt-4 pl-3">
+          {" "}
+          {title}
+        </p>
+        <p className="inline-flex  text-base font-semibold leading-5 text-left text-dukiaBlue py-3 pl-3">
+          {formatCurrency(Number(price))}
+          <span className="text-[#FF5757] inline-flex text-xs font-semibold leading-4 text-left pt-1">
+            {" "}
+            <ArrowDown className="ml-3" size={15} /> {priceChange}
+          </span>
+        </p>
+      </div>
+
+      {price !== "0" ? (
+        <div>
+          <Link
+            href={{
+              pathname: "/dashboard/buy-gold/product",
+              query: { q: title },
+            }}
+          >
+            <button className="w-full bg-dukiaBlue text-white py-3 px-4 rounded-xl text-base font-semibold leading-5">
+              Add to Cart
+            </button>
+          </Link>
+        </div>
+      ) : (
+        <div className="w-full bg-gray-200 text-black py-3 px-4 rounded-xl text-base font-semibold leading-5 text-center cursor-not-allowed">
+          Contact support to buy
+        </div>
+      )}
+    </div>
   );
 };
 
