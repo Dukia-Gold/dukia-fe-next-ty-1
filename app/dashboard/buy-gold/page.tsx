@@ -8,16 +8,17 @@ const BuyGoldPage = () => {
         <p className="font-manrope text-[1.28rem] font-extrabold leading-[1.875rem] tracking-[-0.03em] text-center text-[#676D88]">
           Select Gold Type to Continue
         </p>
-        <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 px-4 pt-[2.5625rem] pb-[2.625rem]">
+        <div className="gap-4 grid xl:grid-cols-2 2xl:grid-cols-3 px-4 pt-[2.5625rem] pb-[2.625rem]">
           {/* BARS */}
           <Link href="/dashboard/buy-gold/buy-dukia-gold-bars">
             <div className="bg-white rounded-xl group border hover:border-4 hover:border-dukiaBlue focus-within:border-dukiaBlue flex flex-col">
-              <div className="flex items-center justify-center">
+              <div className="flex h-[27.4375rem] items-center justify-center">
                 <Image
                   src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722464611/Property_1_Frame_1171278153_bbi0fg.png"
                   alt="Buy Gold Bar"
                   width={341}
                   height={439}
+                  className="h-[27.4375rem] w-auto"
                 />
               </div>
               <div className="py-[1.21875rem] px-4">
@@ -106,6 +107,7 @@ const BuyGoldPage = () => {
                 alt="Buy Gold Coin"
                 width={341}
                 height={439}
+                className="h-[27.4375rem] w-auto"
               />
             </div>
             <div className="py-[1.21875rem] px-4">
@@ -185,13 +187,14 @@ const BuyGoldPage = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl group border hover:border-4 hover:border-dukiaBlue focus-within:border-dukiaBlue flex flex-col">
+          <div className="bg-white xl:col-span-2 2xl:col-span-1 rounded-xl group border hover:border-4 hover:border-dukiaBlue focus-within:border-dukiaBlue flex flex-col">
             <div className=" flex items-center justify-center">
               <Image
                 src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722433452/Component_51_mkl5aj.png"
                 alt="Buy Gold Dust"
                 width={341}
                 height={439}
+                className="h-[27.4375rem] w-auto"
               />
             </div>
             <div className="py-[1.21875rem] px-4">
