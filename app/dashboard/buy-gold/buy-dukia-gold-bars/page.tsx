@@ -32,10 +32,10 @@ const GoldBarsPage = async () => {
               </p>
               <p className="font-manrope inline-flex  text-base font-semibold leading-5 text-left text-dukiaBlue py-3 pl-3">
                 ₦180,321.78
-                <p className="text-[#FF5757] inline-flex font-manrope text-xs font-semibold leading-4 text-left pt-1">
+                <span className="text-[#FF5757] inline-flex font-manrope text-xs font-semibold leading-4 text-left pt-1">
                   {" "}
                   <ArrowDown className="ml-3" size={15} /> 0.99%
-                </p>
+                </span>
               </p>
             </div>
             <div>
@@ -45,9 +45,9 @@ const GoldBarsPage = async () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl group border  hover:border-4 hover:border-dukiaBlue focus-within:border-dukiaBlue flex flex-col"></div>
+          <div className="bg-white rounded-xl "></div>
 
-          <div className="bg-white rounded-xl group border hover:border-4 hover:border-dukiaBlue focus-within:border-dukiaBlue flex flex-col"></div>
+          <div className="bg-white rounded-xl "></div>
         </div>
       </div>
     </div>
