@@ -10,7 +10,7 @@ const BuyGoldPage = () => {
         </p>
         <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 px-4 pt-[2.5625rem] pb-[2.625rem]">
           {/* BARS */}
-          <Link href="/dashboard/buy-gold/bars">
+          <Link href="/dashboard/buy-gold/buy-dukia-gold-bars">
             <div className="bg-white rounded-xl group border hover:border-4 hover:border-dukiaBlue focus-within:border-dukiaBlue flex flex-col">
               <div className="flex items-center justify-center">
                 <Image
