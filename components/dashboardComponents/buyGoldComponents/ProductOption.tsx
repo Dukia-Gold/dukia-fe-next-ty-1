@@ -29,6 +29,7 @@ const ProductOption = ({
             <Image
               src={image1}
               alt={title}
+              priority
               width={200}
               height={343.48}
               className="block group-hover:opacity-0 transition-opacity duration-1000"
@@ -36,6 +37,7 @@ const ProductOption = ({
             <Image
               src={image2}
               alt={title}
+              priority
               width={200}
               height={343.48}
               className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-1000"
