@@ -11,6 +11,8 @@ const useModalsStore = create((set) => ({
   successfulDeposit: false,
   depositResponse: "",
 
+  statementOfAccount: false,
+
   resetPassword: false,
   updateModals: (updates: any) => set((state: any) => ({
     ...state,

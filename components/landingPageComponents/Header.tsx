@@ -193,6 +193,7 @@ const Header: FC<header> = () => {
               </Link>
             ) : (
               <div className="flex items-center gap-7">
+                <Link href="/login">Open modal</Link>
                 <p onClick={() => updateModals({ login: true })} className="font-semibold text-dukiaGold hover:underline hover:cursor-pointer">Login</p>
                 <Link href="/login">
                   <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-4 rounded-lg">

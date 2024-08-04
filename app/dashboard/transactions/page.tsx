@@ -1,6 +1,5 @@
 "use client";
 
-import StatementOfAccountModal from "@/components/transactionsComponents/StatementOfAccountModal";
 import {
   Select,
   SelectContent,
@@ -20,15 +19,15 @@ import {
 } from "@/components/ui/table";
 import useFetchTransactionHistory from "@/lib/fetchTransactionHistory";
 import formatNairaAmount from "@/lib/formatNairaAmount";
+import useModalsStore from "@/store/modalsStore";
 import { transactionStore } from "@/store/transactions";
 import { Spin } from "antd";
-import { DownloadIcon } from "lucide-react";
+import { DownloadIcon, Filter } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const TransactionPage = () => {
   const [filter, setFilter] = useState("all");
-  const [accountStatementModal, setAccountStatementModal] = useState(false);
-  const closeModal = () => setAccountStatementModal(false);
+  const updateModals = useModalsStore((state: any) => state.updateModals);
 
   const [page, setPage] = useState(1);
   const fetchTransactionHistory = useFetchTransactionHistory();
@@ -70,12 +69,16 @@ const TransactionPage = () => {
                 <p className="font-semibold">Transaction History</p>
 
                 <div className="flex items-center gap-6">
-                  <div>
+                  <div className="flex items-center gap-2">
+                    <div className="font-semibold flex items-center gap-2">
+                      <Filter width={24} height={24} fill="#1C254E" />
+                      <p>Filter by:</p>
+                    </div>
                     <Select
                       value={filter}
                       onValueChange={(value) => setFilter(value)}
                     >
-                      <SelectTrigger className="w-[180px] px-4 focus:ring-0 focus:ring-offset-0 h-12 rounded-lg border-2 border-dukiaBlue/[10%] bg-transparent">
+                      <SelectTrigger className="w-[180px] px-4 focus:ring-0 focus:ring-offset-0 h-12 rounded-lg border border-[#B9BBC8] bg-transparent font-semibold">
                         <SelectValue placeholder="All Transactions" />
                       </SelectTrigger>
                       <SelectContent>
@@ -92,7 +95,7 @@ const TransactionPage = () => {
                   </div>
 
                   <button
-                    onClick={() => setAccountStatementModal(true)}
+                    onClick={() => updateModals({ statementOfAccount: true })}
                     className="font-semibold text-dukiaGold flex items-center gap-2"
                   >
                     <DownloadIcon
@@ -108,19 +111,22 @@ const TransactionPage = () => {
               <Table>
                 <TableHeader>
                   <TableRow className="hidden md:table-row bg-dukiaGrey border-b border-dukiaBlue/[10%] hover:bg-dukiaGrey">
-                    <TableHead className="pl-6 py-4 text-dukiaBlue rounded-tl-xl font-bold">
+                    <TableHead className="p-2.5 text-dukiaBlue rounded-tl-xl font-bold">
                       Trx ID
                     </TableHead>
-                    <TableHead className="text-dukiaBlue font-bold">
+                    <TableHead className="p-2.5 text-dukiaBlue font-bold">
                       Date & Time
                     </TableHead>
-                    <TableHead className="text-dukiaBlue font-bold">
+                    <TableHead className="p-2.5 text-dukiaBlue font-bold">
                       Type
                     </TableHead>
-                    <TableHead className="text-dukiaBlue font-bold">
+                    <TableHead className="p-2.5 text-dukiaBlue font-bold">
                       Quantity
                     </TableHead>
-                    <TableHead className="text-dukiaBlue font-bold rounded-tr-xl">
+                    <TableHead className="p-2.5 text-dukiaBlue font-bold">
+                      Status
+                    </TableHead>
+                    <TableHead className="p-2.5 text-dukiaBlue font-bold rounded-tr-xl">
                       Price
                     </TableHead>
                   </TableRow>
@@ -131,25 +137,25 @@ const TransactionPage = () => {
                     filteredTransactions.map((transaction: any) => (
                       <TableRow
                         key={transaction.id}
-                        className="grid md:table-row text-dukiaBlue bg-white hover:bg-[#FBF7EB] hover:border hover:border-[#E8E9ED]"
+                        className="grid md:table-row bg-white hover:bg-[#FBF7EB] hover:border hover:border-[#E8E9ED]"
                       >
-                        <TableCell className="grid grid-cols-3 md:table-cell bg-dukiaBlue/[20%] md:bg-transparent font-medium pl-6 py-4">
+                        <TableCell className="grid grid-cols-3 md:table-cell bg-dukiaBlue/[20%] md:bg-transparent text-[#676D88]  font-semibold p-2.5">
                           <p className="md:hidden font-bold">Trx ID:</p>
                           <p className="col-span-2">{transaction.id}</p>
                         </TableCell>
-                        <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                        <TableCell className="grid grid-cols-3 md:table-cell text-[#676D88]  font-semibold p-2.5">
                           <p className="md:hidden font-bold">Date & Time:</p>
                           <p className="col-span-2">
                             {dateAndTimeFormatter(transaction.date)}
                           </p>
                         </TableCell>
-                        <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                        <TableCell className="grid grid-cols-3 md:table-cell text-[#676D88]  font-semibold p-2.5">
                           <p className="md:hidden font-bold">Type:</p>
                           <p className="col-span-2">
                             {transaction.transaction_type}
                           </p>
                         </TableCell>
-                        <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                        <TableCell className="grid grid-cols-3 md:table-cell text-[#676D88]  font-semibold p-2.5">
                           <p className="md:hidden font-bold">Quantity:</p>
                           <p className="col-span-2">
                             {transaction.quantity
@@ -157,7 +163,40 @@ const TransactionPage = () => {
                               : "N/A"}
                           </p>
                         </TableCell>
-                        <TableCell className="grid grid-cols-3 md:table-cell font-medium pl-6 py-4">
+                        <TableCell className="grid grid-cols-3 md:table-cell p-2.5">
+                          <p className="md:hidden font-bold">Status:</p>
+                          {transaction.status &&
+                            transaction.status === "processed" && (
+                              <div className="w-auto">
+                                {" "}
+                                {/* Set this to a fixed width if needed */}
+                                <p className="border-[0.5px] border-[#43BA64] text-[#43BA64] px-3 rounded-lg inline-block">
+                                  Successful
+                                </p>
+                              </div>
+                            )}
+                          {transaction.status &&
+                            transaction.status === "initiated" && (
+                              <div className="w-auto">
+                                {" "}
+                                {/* Set this to a fixed width if needed */}
+                                <p className="border-[0.5px] border-dukiaGold text-dukiaGold px-3 rounded-lg inline-block">
+                                  Initiated
+                                </p>
+                              </div>
+                            )}
+                          {!transaction.status && (
+                            <div className="w-auto">
+                              {" "}
+                              {/* Set this to a fixed width if needed */}
+                              <p className="border-[0.5px] border-[#FF5757] text-[#FF5757] px-3 rounded-lg inline-block">
+                                Failed
+                              </p>
+                            </div>
+                          )}
+                        </TableCell>
+
+                        <TableCell className="grid grid-cols-3 md:table-cell text-[#676D88]  font-semibold p-2.5">
                           <p className="md:hidden font-bold">Amount:</p>
                           <p className="col-span-2">
                             {formatNairaAmount(transaction.amount)}
@@ -425,11 +464,6 @@ const TransactionPage = () => {
           <Spin size="large" />
         </div>
       )}
-
-      <StatementOfAccountModal
-        isOpen={accountStatementModal}
-        closeModal={closeModal}
-      />
     </main>
   );
 };

@@ -64,8 +64,8 @@ const ProductOption = ({
         <div>
           <Link
             href={{
-              pathname: "/dashboard/buy-gold/product",
-              query: { q: title },
+              pathname: "/dashboard/buy-gold/dukia-gold-catalogue/product",
+              // query: { q: title },
             }}
           >
             <button className="w-full bg-dukiaBlue text-white py-3 px-4 rounded-xl text-base font-semibold leading-5">

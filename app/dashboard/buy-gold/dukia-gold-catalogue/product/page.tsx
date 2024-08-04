@@ -13,7 +13,7 @@ async function ProductPage ({ searchParams: { url } }: Props) {
 
     return (
         <div>
-            
+            cnjdnccdndcndj
         </div>
     )
 }

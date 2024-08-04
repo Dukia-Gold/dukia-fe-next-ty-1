@@ -4,6 +4,7 @@ import GoldPrice from "@/components/dashboardComponents/GoldPrice";
 import MobileHeader from "@/components/dashboardComponents/MobileHeader";
 import Sidebar from "@/components/dashboardComponents/Sidebar";
 import TopBar from "@/components/dashboardComponents/TopBar";
+import StatementOfAccountModal from "@/components/transactionsComponents/StatementOfAccountModal";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { userStore } from "@/store/user";
 import type { Metadata } from "next";
@@ -35,11 +36,15 @@ export default function DashboardLayout({
 
         <ScrollArea
           className={`${
-            user && user.is_bvn === 0 ? "mt-2 h-[calc(100vh-315px)]" : "mt-4 h-[calc(100vh-222px)]"
+            user && user.is_bvn === 0
+              ? "mt-2 h-[calc(100vh-315px)]"
+              : "mt-4 h-[calc(100vh-222px)]"
           } bg-dukiaGrey`}
         >
           {children}
         </ScrollArea>
+
+        <StatementOfAccountModal />
       </main>
     </div>
   );
