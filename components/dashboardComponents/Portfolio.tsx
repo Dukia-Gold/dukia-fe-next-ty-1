@@ -14,7 +14,7 @@ const Portfolio = () => {
     <div className="xl:col-span-2 p-4 border border-dukiaBlue/[5%] rounded-lg bg-white space-y-3 text-dukiaBlue">
       <p className="font-semibold">Portfolio</p>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-2 gap-y-6 gap-x-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Card className="bg-[#E8E9ED] border-0 rounded-xl h-28 flex justify-end items-center relative">
           <Image
             src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722757027/black_wallet_with_money_l8x1m5.png"
