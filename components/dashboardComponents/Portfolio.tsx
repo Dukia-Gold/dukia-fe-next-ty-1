@@ -3,128 +3,135 @@ import { Card, CardContent } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { userStore } from "@/store/user";
+import Image from "next/image";
+import Link from "next/link";
+import { formatDecimal } from "@/lib/decimalFormatter";
 
 const Portfolio = () => {
   const user = userStore((state: any) => state.user);
 
   return (
-    <div className="xl:col-span-2 px-3 md:px-6 py-4 border border-dukiaBlue/[5%] rounded-lg bg-white space-y-3 text-dukiaBlue">
-      <div className="flex items-center justify-between">
-        <p className="font-semibold">My Portfolio</p>
+    <div className="xl:col-span-2 p-4 border border-dukiaBlue/[5%] rounded-lg bg-white space-y-3 text-dukiaBlue">
+      <p className="font-semibold">Portfolio</p>
 
-        <div className="flex gap-2">
-          {/* Left */}
-          <div className="p-2.5 md:p-5 bg-dukiaGrey rounded-[50%] cursor-pointer">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g clipPath="url(#clip0_395_3186)">
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M6.91169 9.41071C6.75546 9.56698 6.6677 9.77891 6.6677 9.99988C6.6677 10.2208 6.75546 10.4328 6.91169 10.589L11.6259 15.3032C11.7027 15.3828 11.7947 15.4463 11.8963 15.49C11.998 15.5336 12.1074 15.5566 12.218 15.5576C12.3287 15.5585 12.4384 15.5375 12.5408 15.4956C12.6432 15.4537 12.7363 15.3918 12.8145 15.3135C12.8928 15.2353 12.9546 15.1423 12.9965 15.0398C13.0384 14.9374 13.0595 14.8277 13.0586 14.717C13.0576 14.6064 13.0346 14.497 12.9909 14.3954C12.9473 14.2937 12.8838 14.2017 12.8042 14.1249L8.67919 9.99988L12.8042 5.87488C12.956 5.71771 13.04 5.50721 13.0381 5.28871C13.0362 5.07021 12.9485 4.8612 12.794 4.70669C12.6395 4.55219 12.4305 4.46455 12.212 4.46265C11.9935 4.46075 11.783 4.54474 11.6259 4.69654L6.91169 9.41071Z"
-                  fill="#111827"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_395_3186">
-                  <rect
-                    width="20"
-                    height="20"
-                    fill="white"
-                    transform="matrix(0 -1 -1 0 20 20)"
-                  />
-                </clipPath>
-              </defs>
-            </svg>
-          </div>
-
-          {/* Right */}
-          <div className="p-2.5 md:p-5 bg-dukiaGrey rounded-[50%] cursor-pointer">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g clipPath="url(#clip0_395_3189)">
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M13.0883 9.41071C13.2445 9.56698 13.3323 9.77891 13.3323 9.99988C13.3323 10.2208 13.2445 10.4328 13.0883 10.589L8.37415 15.3032C8.29727 15.3828 8.20532 15.4463 8.10365 15.49C8.00198 15.5336 7.89263 15.5566 7.78198 15.5576C7.67133 15.5585 7.5616 15.5375 7.45919 15.4956C7.35677 15.4537 7.26373 15.3918 7.18548 15.3135C7.10724 15.2353 7.04536 15.1423 7.00346 15.0398C6.96156 14.9374 6.94048 14.8277 6.94144 14.717C6.9424 14.6064 6.96539 14.497 7.00906 14.3954C7.05274 14.2937 7.11622 14.2017 7.19581 14.1249L11.3208 9.99988L7.19581 5.87488C7.04401 5.71771 6.96002 5.50721 6.96192 5.28871C6.96382 5.07021 7.05146 4.8612 7.20596 4.70669C7.36047 4.55219 7.56948 4.46455 7.78798 4.46265C8.00648 4.46075 8.21698 4.54474 8.37415 4.69654L13.0883 9.41071Z"
-                  fill="#111827"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_395_3189">
-                  <rect
-                    width="20"
-                    height="20"
-                    fill="white"
-                    transform="matrix(0 -1 1 0 0 20)"
-                  />
-                </clipPath>
-              </defs>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-3 gap-y-6 gap-x-4">
-        <Card className="bg-[#C6DEF1] p-0">
-          <CardContent className="py-4 px-4 space-y-4">
-            <p className="font-medium">Naira (₦)</p>
+      <div className="grid grid-cols-2 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-2 gap-y-6 gap-x-4">
+        <Card className="bg-[#E8E9ED] border-0 rounded-xl h-28 flex justify-end items-center relative">
+          <Image
+            src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722757027/black_wallet_with_money_l8x1m5.png"
+            alt="Silver"
+            width={77.26}
+            height={90}
+            className="absolute left-0 bottom-0 w-auto h-auto"
+          />
+          <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
+            <p className="font-extrabold text-xl text-[#979BAE]">
+              Assets Worth
+            </p>
             {user?.opening_balance_ng ? (
-              <p className="text-xl font-bold">{formatCurrency(parseInt(user?.opening_balance_ng))}</p>
+              <>
+                <p className="text-sm font-semibold">
+                  {formatDecimal(parseInt(user?.opening_balance_ng))}
+                </p>
+              </>
             ) : (
               <Skeleton className="w-20 md:w-40 h-8" />
             )}
           </CardContent>
         </Card>
 
-        <Card className="bg-[#DBCDF0]">
-          <CardContent className="py-4 px-4 space-y-4">
-            <p className="font-medium">Gold (g)</p>
+        <Card className="bg-[#FBF7EB] border-0 rounded-xl h-28 flex justify-end items-center relative">
+          <Image
+            src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722757083/dukia-Gold-Bar1-1g_philoro_1_xdxpbu.png"
+            alt="Silver"
+            width={87.8}
+            height={149.44}
+            className="absolute left-0 bottom-0 w-auto h-auto"
+          />
+          <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
+            <p className="font-extrabold text-xl text-[#979BAE]">Gold (Au)</p>
             {user?.opening_balance_au ? (
-              <p className="text-xl font-bold">{user?.opening_balance_au} Grams</p>
+              <>
+                <p className="text-sm font-semibold">
+                  {user?.opening_balance_au}g
+                </p>
+                <p className="text-[#979BAE] font-semibold">~ ₦ 283,904.84</p>
+              </>
             ) : (
-              <Skeleton className="w-20 md:w-40 h-8" />
+              <>
+                <Skeleton className="w-20 md:w-40 h-8" />
+                <Skeleton className="w-10 md:w-20 h-8" />
+              </>
             )}
           </CardContent>
         </Card>
 
-        <Card className="bg-[#F2C6DE]">
-          <CardContent className="py-4 px-4 space-y-4">
-            <p className="font-medium">Silver (Ag)</p>
-            <p className="text-xl font-bold">0.00</p>
+        {/* Silver */}
+        <Card className="bg-[#F5F5F5] border-0 rounded-xl h-28 flex justify-end items-center relative">
+          <Image
+            src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722757057/silver_shield_qbbmnv.png"
+            alt="Silver"
+            width={72.16}
+            height={90}
+            className="absolute left-0 bottom-0 w-auto h-auto"
+          />
+          <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
+            <p className="font-extrabold text-xl text-[#979BAE]">Silver (Ag)</p>
+            <p className="text-sm font-semibold">1.3g</p>
+            <p className="text-[#979BAE] font-semibold">~ ₦ 23,904.84</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-[#C9E4DE]">
-          <CardContent className="py-4 px-4 space-y-4">
-            <p className="font-medium">Dollar ($)</p>
-            <p className="text-xl font-bold">0.00</p>
+        {/* Platinum */}
+        <Card className="bg-[#F5F5FF] border-0 rounded-xl h-28 flex justify-end items-center relative">
+          <Image
+            src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722757024/images_1_ljs3c7.png"
+            alt="Platinum"
+            width={107.92}
+            height={90}
+            className="absolute left-0 bottom-0 w-auto h-auto"
+          />
+          <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
+            <p className="font-extrabold text-xl text-[#979BAE]">
+              Platinum (Pt)
+            </p>
+            <p className="text-sm font-semibold">3.0g</p>
+            <p className="text-[#979BAE] font-semibold">~ ₦ 283,904.84</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-[#F7D9C4]">
-          <CardContent className="py-4 px-4 space-y-4">
-            <p className="font-medium">Bitcoin (btc)</p>
-            <p className="text-xl font-bold">0.00</p>
+        {/* Lithium */}
+        <Card className="bg-[#FFF4EE] border-0 rounded-xl h-28 flex justify-end items-center relative">
+          <Image
+            src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722757024/natural-stones-isolated_23-2151436337_1_t3ystf.png"
+            alt="Lithium"
+            width={62.26}
+            height={90}
+            className="absolute left-0 bottom-0 w-auto h-auto"
+          />
+          <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
+            <p className="font-extrabold text-xl text-[#979BAE]">
+              Lithium (Li)
+            </p>
+            <p className="text-sm font-semibold">1.3g</p>
+            <p className="text-[#979BAE] font-semibold">~ ₦ 283,904.84</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-[#FAEDCB]">
-          <CardContent className="py-4 px-4 space-y-4">
-            <p className="font-medium">Gold (oz)</p>
-            <p className="text-xl font-bold">0.00 oz</p>
-          </CardContent>
-        </Card>
+        {/* See All */}
+        <Link href={"/dashboard/assets"}>
+          <Card className="bg-[#F6F6F6] border-0 rounded-xl h-28 flex justify-end items-center relative">
+            <Image
+              src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722757027/triple_pointer_arrow_atbmty.png"
+              alt="see all"
+              width={110}
+              height={85}
+              className="absolute left-0 bottom-0 w-auto h-auto"
+            />
+            <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
+              <p className="font-extrabold text-xl text-[#979BAE]">See All</p>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
     </div>
   );
