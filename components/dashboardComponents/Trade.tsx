@@ -193,6 +193,7 @@ const Trade = () => {
       {/* Discrete Buy */}
       {(goldType === "bars" || goldType === "coins") && (
         <div className="mt-6 space-y-5">
+          {/* Select and Price */}
           <div className="space-y-3.5">
             {/* Select Product */}
             <div className="font-semibold space-y-1.5">
@@ -360,6 +361,7 @@ const Trade = () => {
             </div>
           </div>
 
+          {/* Delivery and Buy Button */}
           <div className="flex items-center justify-between">
             {/* Delivery */}
             <div className="flex items-center gap-2">
@@ -382,7 +384,11 @@ const Trade = () => {
             {/* Button to Buy */}
             <button
               type="button"
-              className="text-white rounded-lg bg-dukiaBlue font-semibold py-3 px-4"
+              disabled={
+                (goldType === "bars" && !barProduct) ||
+                (goldType === "coins" && !coinProduct)
+              }
+              className="text-white rounded-lg bg-dukiaBlue font-semibold py-3 px-4 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
               //   onClick={buyPoolAllocatedFunc}
             >
               Buy Gold

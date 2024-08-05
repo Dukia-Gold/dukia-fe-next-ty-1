@@ -1,13 +1,12 @@
 "use client";
 
+import MarketPrices from "@/components/dashboardComponents/MarketPrices";
 import Portfolio from "@/components/dashboardComponents/Portfolio";
 import Trade from "@/components/dashboardComponents/Trade";
 import Transactions from "@/components/dashboardComponents/Transactions";
-import { capitalizeFirstLetter } from "@/lib/formatText";
 import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
 import { Spin } from "antd";
-import Link from "next/link";
 
 const DashboardPage = () => {
   const user = userStore((state: any) => state.user);
@@ -22,6 +21,8 @@ const DashboardPage = () => {
               <Portfolio />
               <Trade />
             </div>
+
+            <MarketPrices />
 
             <Transactions />
           </div>
