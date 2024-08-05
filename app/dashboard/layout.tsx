@@ -37,8 +37,8 @@ export default function DashboardLayout({
         <ScrollArea
           className={`${
             user && user.is_bvn === 0
-              ? "mt-2 h-[calc(100vh-315px)] pb-36"
-              : "mt-4 h-[calc(100vh-222px)] pb-36"
+              ? "mt-2 h-[calc(100vh-315px)]"
+              : "mt-4 h-[calc(100vh-222px)]"
           } bg-dukiaGrey`}
         >
           {children}

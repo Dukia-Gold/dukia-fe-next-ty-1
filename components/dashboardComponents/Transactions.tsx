@@ -37,7 +37,7 @@ const Transactions = () => {
   };
 
   return (
-    <div className="space-y-7 bg-white pt-5 py-2 px-4 rounded-2xl">
+    <div className="space-y-7 bg-white pt-5 py-2 px-4 rounded-2xl mb-36">
       <div className="flex items-center justify-between">
         <p className="font-semibold text-dukiaBlue">Recent Transactions</p>
 

@@ -11,7 +11,7 @@ const Portfolio = () => {
   const user = userStore((state: any) => state.user);
 
   return (
-    <div className="xl:col-span-2 p-4 border border-dukiaBlue/[5%] rounded-lg bg-white space-y-3 text-dukiaBlue">
+    <div className="xl:col-span-2 p-4 border border-dukiaBlue/[5%] rounded-2xl bg-white space-y-3 text-dukiaBlue">
       <p className="font-semibold">Portfolio</p>
 
       <div className="grid md:grid-cols-2 gap-4">
@@ -21,7 +21,7 @@ const Portfolio = () => {
             alt="Silver"
             width={77.26}
             height={90}
-            className="absolute left-0 bottom-0 w-auto h-auto"
+            className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">
@@ -45,7 +45,7 @@ const Portfolio = () => {
             alt="Silver"
             width={87.8}
             height={149.44}
-            className="absolute left-0 bottom-0 w-auto h-auto"
+            className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">Gold (Au)</p>
@@ -72,7 +72,7 @@ const Portfolio = () => {
             alt="Silver"
             width={72.16}
             height={90}
-            className="absolute left-0 bottom-0 w-auto h-auto"
+            className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">Silver (Ag)</p>
@@ -88,7 +88,7 @@ const Portfolio = () => {
             alt="Platinum"
             width={107.92}
             height={90}
-            className="absolute left-0 bottom-0 w-auto h-auto"
+            className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">
@@ -106,7 +106,7 @@ const Portfolio = () => {
             alt="Lithium"
             width={62.26}
             height={90}
-            className="absolute left-0 bottom-0 w-auto h-auto"
+            className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">
@@ -125,7 +125,7 @@ const Portfolio = () => {
               alt="see all"
               width={110}
               height={85}
-              className="absolute left-0 bottom-0 w-auto h-auto"
+              className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
             />
             <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
               <p className="font-extrabold text-xl text-[#979BAE]">See All</p>
