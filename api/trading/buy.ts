@@ -2,8 +2,12 @@ import useLoadingStore from "@/store/loadingStore";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import useFetchUserData from "@/lib/fetchUserData";
+import useFetchTransactionHistory from "@/lib/fetchTransactionHistory";
 
 const useBuy = () => {
+  const fetchUserData = useFetchUserData();
+  const fetchTransactionHistory = useFetchTransactionHistory();
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
   const [cookies] = useCookies(["auth-token"]);
 
@@ -29,7 +33,8 @@ const useBuy = () => {
         },
       });
 
-      console.log(response); // Update the user in the user store
+      fetchUserData();
+      fetchTransactionHistory(5, 1);
       updateLoading(false);
     } catch (error: any) {
       console.log(error);
