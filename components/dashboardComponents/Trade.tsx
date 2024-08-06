@@ -17,6 +17,7 @@ import {
 } from "@/api/fetchGoldPrice";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import useBuy from "@/api/trading/buy";
+import useSell from "@/api/trading/sell";
 
 const Trade = () => {
   const [tradeType, setTradeType] = useState<string>("buy");
@@ -48,14 +49,12 @@ const Trade = () => {
   }, [fetchGoldPrice1g, fetchGoldPrice10g, fetchGoldPrice1oz]);
 
   const buyPoolAllocated = useBuy();
+  const sellPoolAllocated = useSell();
   const buyValueParsed = parseFloat(buyValue.replace(/,/g, ""));
   const buyWorthParsed =
     buyWorth !== undefined ? parseFloat(buyWorth.replace(/,/g, "")) : 0;
 
-  const buyPoolAllocatedFunc = async () => {
-    const buyValueParsed = parseFloat(buyValue);
-    const buyWorthParsed = parseFloat(buyWorth);
-
+  const poolAllocatedTradingFunc = async () => {
     if (!isNaN(buyValueParsed) && !isNaN(buyWorthParsed)) {
       let price;
       if (tradeType === "buy") {
@@ -85,9 +84,15 @@ const Trade = () => {
       }
 
       if (price !== undefined) {
-        await buyPoolAllocated(buyValueParsed, buyWorthParsed, price);
-        setBuyValue("");
-        setBuyWorth("");
+        if (tradeType === "buy") {
+          await buyPoolAllocated(buyValueParsed, buyWorthParsed, price);
+          setBuyValue("");
+          setBuyWorth("");
+        } else if (tradeType === "sell") {
+          await sellPoolAllocated(buyValueParsed, buyWorthParsed, price);
+          setBuyValue("");
+          setBuyWorth("");
+        }
       }
     }
   };
@@ -317,9 +322,7 @@ const Trade = () => {
               disabled={buyValue === "" || buyWorth === "" || !buyWorth}
               className="text-white rounded-lg bg-dukiaBlue font-semibold py-3 px-4 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
               onClick={() => {
-                if (tradeType === "buy") {
-                  buyPoolAllocatedFunc();
-                }
+                poolAllocatedTradingFunc();
               }}
             >
               {tradeType === "buy" ? "Buy" : "Sell"} Gold
