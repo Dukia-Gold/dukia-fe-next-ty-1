@@ -28,7 +28,7 @@ const DashboardPage = () => {
           </div>
         </div>
       ) : (
-        <div className="w-full h-screen flex items-center justify-center">
+        <div className="w-full h-[calc(100vh-315px)] flex items-center justify-center">
           <Spin size="large" />
         </div>
       )}

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,12 +10,138 @@ import {
   SelectValue,
 } from "../ui/select";
 import framePool from "../../assets/frame-pool.png";
+import {
+  useFetchGoldPriceNaira10g,
+  useFetchGoldPriceNaira1g,
+  useFetchGoldPriceNaira1oz,
+} from "@/api/fetchGoldPrice";
+import { formatDecimal } from "@/lib/decimalFormatter";
+import useBuy from "@/api/trading/buy";
 
 const Trade = () => {
   const [tradeType, setTradeType] = useState<string>("buy");
   const [goldType, setGoldType] = useState<string>("pool");
   const [barProduct, setBarProduct] = useState<string>("");
   const [coinProduct, setCoinProduct] = useState<string>("");
+
+  const [buyValue, setBuyValue] = useState<string>("");
+  const [buyWorth, setBuyWorth] = useState<string>("");
+
+  const { askNaira1g, bidNaira1g, fetchGoldPrice1g } =
+    useFetchGoldPriceNaira1g();
+  const { askNaira10g, bidNaira10g, fetchGoldPrice10g } =
+    useFetchGoldPriceNaira10g();
+  const { askNaira1oz, bidNaira1oz, fetchGoldPrice1oz } =
+    useFetchGoldPriceNaira1oz();
+  useEffect(() => {
+    fetchGoldPrice1g();
+    fetchGoldPrice10g();
+    fetchGoldPrice1oz();
+
+    const interval = setInterval(() => {
+      fetchGoldPrice1g();
+      fetchGoldPrice10g();
+      fetchGoldPrice1oz();
+    }, 12000);
+
+    return () => clearInterval(interval);
+  }, [fetchGoldPrice1g, fetchGoldPrice10g, fetchGoldPrice1oz]);
+
+  const buyPoolAllocated = useBuy();
+  const buyValueParsed = parseFloat(buyValue.replace(/,/g, ""));
+  const buyWorthParsed =
+    buyWorth !== undefined ? parseFloat(buyWorth.replace(/,/g, "")) : 0;
+
+  const buyPoolAllocatedFunc = async () => {
+    const buyValueParsed = parseFloat(buyValue);
+    const buyWorthParsed = parseFloat(buyWorth);
+
+    if (!isNaN(buyValueParsed) && !isNaN(buyWorthParsed)) {
+      let price;
+      if (tradeType === "buy") {
+        if (buyValueParsed <= 1 && askNaira1g) {
+          price = askNaira1g;
+        } else if (buyValueParsed > 1 && buyValueParsed <= 10 && askNaira10g) {
+          price = askNaira10g;
+        } else if (
+          buyValueParsed > 10 &&
+          buyValueParsed <= 31.1035 &&
+          askNaira1oz
+        ) {
+          price = askNaira1oz;
+        }
+      } else if (tradeType === "sell") {
+        if (buyValueParsed <= 1 && bidNaira1g) {
+          price = bidNaira1g;
+        } else if (buyValueParsed > 1 && buyValueParsed <= 10 && bidNaira10g) {
+          price = bidNaira10g;
+        } else if (
+          buyValueParsed > 10 &&
+          buyValueParsed <= 31.1035 &&
+          bidNaira1oz
+        ) {
+          price = bidNaira1oz;
+        }
+      }
+
+      if (price !== undefined) {
+        await buyPoolAllocated(buyValueParsed, buyWorthParsed, price);
+        setBuyValue("");
+        setBuyWorth("");
+      }
+    }
+  };
+
+  const handleFigureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+
+    // Regex to match numbers with up to 4 decimal places
+    const decimalRegex = /^\d*\.?\d{0,4}$/;
+
+    if (decimalRegex.test(inputValue)) {
+      const numericValue = parseFloat(inputValue);
+
+      setBuyValue(inputValue);
+
+      if (!isNaN(numericValue) && numericValue > 0) {
+        let price;
+        if (tradeType === "buy") {
+          if (numericValue <= 1 && askNaira1g) {
+            price = numericValue * askNaira1g;
+          } else if (numericValue > 1 && numericValue <= 10 && askNaira10g) {
+            price = (numericValue / 10) * askNaira10g;
+          } else if (
+            numericValue > 10 &&
+            numericValue <= 31.1035 &&
+            askNaira1oz
+          ) {
+            price = (numericValue / 31.1035) * askNaira1oz;
+          }
+        } else if (tradeType === "sell") {
+          if (numericValue <= 1 && bidNaira1g) {
+            price = numericValue * bidNaira1g;
+          } else if (numericValue > 1 && numericValue <= 10 && bidNaira10g) {
+            price = (numericValue / 10) * bidNaira10g;
+          } else if (
+            numericValue > 10 &&
+            numericValue <= 31.1035 &&
+            bidNaira1oz
+          ) {
+            price = (numericValue / 31.1035) * bidNaira1oz;
+          }
+        }
+
+        if (price !== undefined) {
+          const formattedPrice = formatDecimal(price, 2, true);
+          setBuyWorth(formattedPrice);
+        } else {
+          setBuyWorth(""); // Optionally reset the buy worth if conditions aren't met
+        }
+      } else {
+        setBuyWorth(""); // Optionally reset the buy worth if conditions aren't met
+      }
+    }
+  };
 
   return (
     <section className="px-4 pb-4 bg-white border-[0.5px] border-dukiaBlue/[5%] rounded-2xl">
@@ -24,8 +150,11 @@ const Trade = () => {
         {/* Buy */}
         <div
           onClick={() => {
-            setGoldType("pool");
-            setTradeType("buy");
+            if (tradeType !== "buy") {
+              setBuyValue("");
+              setBuyWorth("");
+              setTradeType("buy");
+            }
           }}
           className={`${
             tradeType === "buy"
@@ -39,8 +168,12 @@ const Trade = () => {
         {/* Sell */}
         <div
           onClick={() => {
-            setGoldType("pool");
-            setTradeType("sell");
+            if (tradeType !== "sell") {
+              setGoldType("pool");
+              setBuyValue("");
+              setBuyWorth("");
+              setTradeType("sell");
+            }
           }}
           className={`${
             tradeType === "sell"
@@ -144,8 +277,8 @@ const Trade = () => {
                 <input
                   type="text"
                   placeholder="Enter Gold Value"
-                  //   value={buyValue}
-                  //   onChange={handleFigureChange}
+                  value={buyValue}
+                  onChange={handleFigureChange}
                   className="outline-none px-6 placeholder:text-dukiaBlue/[50%] placeholder:font-normal w-[70%]"
                 />
               </div>
@@ -170,7 +303,7 @@ const Trade = () => {
                   type="text"
                   disabled
                   placeholder="Enter Gold Value"
-                  //   value={buyWorth}
+                  value={buyWorth}
                   className="outline-none px-6 placeholder:text-dukiaBlue/[50%] placeholder:font-normal w-[70%]"
                 />
               </div>
@@ -181,8 +314,13 @@ const Trade = () => {
           <div className="flex justify-end">
             <button
               type="button"
-              className="text-white rounded-lg bg-dukiaBlue font-semibold py-3 px-4"
-              //   onClick={buyPoolAllocatedFunc}
+              disabled={buyValue === "" || buyWorth === "" || !buyWorth}
+              className="text-white rounded-lg bg-dukiaBlue font-semibold py-3 px-4 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
+              onClick={() => {
+                if (tradeType === "buy") {
+                  buyPoolAllocatedFunc();
+                }
+              }}
             >
               {tradeType === "buy" ? "Buy" : "Sell"} Gold
             </button>
