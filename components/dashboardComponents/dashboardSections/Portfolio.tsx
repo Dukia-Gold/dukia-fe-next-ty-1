@@ -1,11 +1,10 @@
 import React from "react";
-import { Card, CardContent } from "../ui/card";
-import { Skeleton } from "../ui/skeleton";
-import { formatCurrency } from "@/lib/currencyformatter";
 import { userStore } from "@/store/user";
 import Image from "next/image";
 import Link from "next/link";
 import { formatDecimal } from "@/lib/decimalFormatter";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Portfolio = () => {
   const user = userStore((state: any) => state.user);

@@ -6,13 +6,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
+} from "../../ui/table";
 import dukiaToken from "../../assets/dukia-token.png";
 import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import { fetchProductSearch } from "@/lib/fetchProductSearch";
 import { Product } from "@/typings/product";
-import { formatDecimal } from "@/lib/decimalFormatter";
 
 const MarketPrices = () => {
   const [tab, setTab] = useState("bars");
@@ -32,6 +31,13 @@ const MarketPrices = () => {
 
     fetchBarsData();
     fetchCoinsData();
+
+    const interval = setInterval(() => {
+      fetchBarsData();
+      fetchCoinsData();
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -244,10 +250,10 @@ const MarketPrices = () => {
                 </TableCell>
 
                 <TableCell className="p-2.5">
-                  ₦ {formatDecimal(bar.bid * 1604)}
+                  {bar.bid_formattedPrice}
                 </TableCell>
                 <TableCell className="p-2.5">
-                  ₦ {formatDecimal(bar.ask * 1604)}
+                  {bar.ask_formattedPrice}
                 </TableCell>
                 <TableCell className="p-2.5">{bar.margin_ask}</TableCell>
                 <TableCell className="p-2.5">{bar.margin_bid}</TableCell>
@@ -313,10 +319,10 @@ const MarketPrices = () => {
                 </TableCell>
 
                 <TableCell className="p-2.5">
-                  ₦ {formatDecimal(coin.bid * 1604)}
+                  {coin.bid_formattedPrice}
                 </TableCell>
                 <TableCell className="p-2.5">
-                  ₦ {formatDecimal(coin.ask * 1604)}
+                  {coin.ask_formattedPrice}
                 </TableCell>
                 <TableCell className="p-2.5">{coin.margin_ask}</TableCell>
                 <TableCell className="p-2.5">{coin.margin_bid}</TableCell>

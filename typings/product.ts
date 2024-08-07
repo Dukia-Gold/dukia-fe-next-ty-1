@@ -35,4 +35,11 @@ export interface Product {
   delivery_information: null;
   storage_information: null;
   certificates: string;
+  ask_price: number;
+  ask_formattedPrice: string;
+  bid_price_usd: number;
+  ask_price_usd: number;
+  bid_price: number;
+  bid_formattedPrice: string;
+  xru: number;
 }

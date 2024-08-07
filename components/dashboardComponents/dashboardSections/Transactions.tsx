@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
+} from "../../ui/table";
 import { transactionStore } from "@/store/transactions";
 import useFetchTransactionHistory from "@/lib/fetchTransactionHistory";
 import formatNairaAmount from "@/lib/formatNairaAmount";

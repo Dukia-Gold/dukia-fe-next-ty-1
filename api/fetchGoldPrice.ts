@@ -28,9 +28,8 @@ export const useFetchGoldPriceDollars = () => {
       updateGold({
         goldDollars: data,
       });
-
     } catch (error) {
-      console.error('Error fetching gold price:', error);
+      console.error("Error fetching gold price:", error);
     }
   };
 
@@ -39,14 +38,13 @@ export const useFetchGoldPriceDollars = () => {
 
     const interval = setInterval(() => {
       fetchGoldPriceDollars(); // Fetch every 12 seconds
-    }, 12000);
+    }, 5000);
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);
 
   return fetchGoldPriceDollars;
 };
-
 
 // Hook for fetching gold prices in NGN
 export const useFetchGoldPriceNaira1g = () => {
@@ -72,7 +70,7 @@ export const useFetchGoldPriceNaira1g = () => {
 
     const interval = setInterval(() => {
       fetchGoldPrice1g();
-    }, 30000);
+    }, 5000);
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);
@@ -132,3 +130,74 @@ export const useFetchGoldPriceNaira1oz = () => {
   return { askNaira1oz, bidNaira1oz, fetchGoldPrice1oz };
 };
 
+export const useFetchGoldPriceNaira50g = () => {
+  const [askNaira50g, setAskNaira50g] = useState<number>(0);
+  const [bidNaira50g, setBidNaira50g] = useState<number>(0);
+
+  const fetchGoldPrice50g = async () => {
+    try {
+      const response = await fetch(
+        "https://api.dukiapreciousmetals.co/api/products/philoro-50g/withPrice"
+      );
+      const data = await response.json();
+      setAskNaira50g(data.ask_price);
+      setBidNaira50g(data.bid_price);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchGoldPrice50g();
+  }, []);
+
+  return { askNaira50g, bidNaira50g, fetchGoldPrice50g };
+};
+
+export const useFetchGoldPriceNaira100g = () => {
+  const [askNaira100g, setAskNaira100g] = useState<number>(0);
+  const [bidNaira100g, setBidNaira100g] = useState<number>(0);
+
+  const fetchGoldPrice100g = async () => {
+    try {
+      const response = await fetch(
+        "https://api.dukiapreciousmetals.co/api/products/philoro-100g/withPrice"
+      );
+      const data = await response.json();
+      setAskNaira100g(data.ask_price);
+      setBidNaira100g(data.bid_price);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchGoldPrice100g();
+  }, []);
+
+  return { askNaira100g, bidNaira100g, fetchGoldPrice100g };
+};
+
+export const useFetchGoldPriceNaira1kg = () => {
+  const [askNaira1kg, setAskNaira1kg] = useState<number>(0);
+  const [bidNaira1kg, setBidNaira1kg] = useState<number>(0);
+
+  const fetchGoldPrice1kg = async () => {
+    try {
+      const response = await fetch(
+        "https://api.dukiapreciousmetals.co/api/products/philoro-1kg/withPrice"
+      );
+      const data = await response.json();
+      setAskNaira1kg(data.ask_price);
+      setBidNaira1kg(data.bid_price);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchGoldPrice1kg();
+  }, []);
+
+  return { askNaira1kg, bidNaira1kg, fetchGoldPrice1kg };
+};

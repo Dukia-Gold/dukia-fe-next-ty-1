@@ -1,7 +1,7 @@
 export const fetchProductSearch = async (query: string) => {
     try{
         const response = await fetch(
-            "https://api.dukiapreciousmetals.co/api/products"
+            "https://api.dukiapreciousmetals.co/api/price/products"
           );
           const products = await response.json();
           console.log("All products:", products);

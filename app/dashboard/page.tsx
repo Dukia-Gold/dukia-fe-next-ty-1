@@ -1,9 +1,9 @@
 "use client";
 
-import MarketPrices from "@/components/dashboardComponents/MarketPrices";
-import Portfolio from "@/components/dashboardComponents/Portfolio";
-import Trade from "@/components/dashboardComponents/Trade";
-import Transactions from "@/components/dashboardComponents/Transactions";
+import MarketPrices from "@/components/dashboardComponents/dashboardSections/MarketPrices";
+import Portfolio from "@/components/dashboardComponents/dashboardSections/Portfolio";
+import Trade from "@/components/dashboardComponents/dashboardSections/Trade";
+import Transactions from "@/components/dashboardComponents/dashboardSections/Transactions";
 import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
 import { Spin } from "antd";
