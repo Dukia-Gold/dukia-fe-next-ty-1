@@ -3,17 +3,57 @@ import PoolAllocatedCalculator from "../PoolAllocatedCalculator";
 import { TypeAnimation } from "react-type-animation";
 import Link from "next/link";
 import Image from "next/image";
+import TrustedPartners from "./TrustedPartners";
 
 const Hero = () => {
   return (
-    <section className="mt-24 md:mt-[4.1875rem] relative min-h-[calc(100vh-67px)] rounded-2xl bg-hero-pattern bg-cover bg-no-repeat bg-center bg-fixed pt-48 xl:pt-36 py-4 flex items-center border-2 border-[#E8E9ED]">
+    <section className="mt-24 md:mt-[4.1875rem] relative min-h-[calc(100vh-67px)] rounded-2xl bg-hero-pattern bg-cover bg-no-repeat bg-center bg-fixed pt-48 xl:pt-24 grid grid-rows-3">
       {/* <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-60 rounded-2xl"></div> */}
-      <div className="px-9 flex flex-col xl:flex-row justify-center xl:justify-between items-center gap-10 xl:gap-5">
+      <div className="px-9 row-span-3 flex flex-col xl:flex-row justify-center xl:justify-between items-center gap-10 xl:gap-5">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2 text-dukiaBlue">
-            <h1 className="text-base sm:text-lg md:text-xl  font-semibold">
-              BARS • COINS • POOL ALLOCATED
-            </h1>
+            <div className="font-semibold text-sm flex items-center gap-2">
+              {/* BARS */}
+              <div className="border border-[#F4E5C1] py-1 px-2.5 bg-white rounded-lg flex items-center gap-1">
+                <Image
+                  src={
+                    "https://res.cloudinary.com/dvcw253zw/image/upload/v1718367921/Gold_Bar_ly3nbk.png"
+                  }
+                  alt={"Philoro Gold Bar - 1g"}
+                  width={15}
+                  height={22}
+                  className="rotate-45"
+                />
+                <p>BARS</p>
+              </div>
+
+              {/* COINS */}
+              <div className="border border-[#F4E5C1] py-1 px-2.5 bg-white rounded-lg flex items-center gap-1">
+                <Image
+                  src={
+                    "https://res.cloudinary.com/dvcw253zw/image/upload/v1718368347/Gold_Coin_yzjtdx.png"
+                  }
+                  alt={"Coin - 1oz Canadian Maple Leaf"}
+                  width={17}
+                  height={17}
+                />
+                <p>COINS</p>
+              </div>
+
+              {/* POOL ALLOCATED */}
+              <div className="border border-[#F4E5C1] py-1 px-2.5 bg-white rounded-lg flex items-center gap-1">
+                <Image
+                  src={
+                    "https://res.cloudinary.com/dvcw253zw/image/upload/v1723049722/Dust_oraimc.png"
+                  }
+                  alt={"Pool Allocated Dust"}
+                  width={17}
+                  height={17}
+                  className="w-auto h-auto"
+                />
+                <p>POOL ALLOCATED</p>
+              </div>
+            </div>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-6xl font-extrabold mt-4">
               Secure
               <br />
@@ -61,6 +101,8 @@ const Hero = () => {
           height={304.97}
         />
       </div>
+
+      <TrustedPartners />
     </section>
   );
 };

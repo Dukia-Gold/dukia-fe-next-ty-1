@@ -103,8 +103,6 @@ export default function Home() {
     <main className="xl:max-w-[1280px] xl:mx-auto">
       <Hero />
 
-      <TrustedPartners />
-
       <WhoWeAre />
 
       <PoolAllocated />

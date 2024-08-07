@@ -66,36 +66,36 @@ const Header: FC<header> = () => {
       } w-full space-y-4`}
     >
       {/* GOLD PRICE */}
-      <div className="mt-4 bg-dukiaGold flex flex-col md:items-center  md:flex-row justify-between gap-1 font-semibold text-dukiaBlue py-3 px-6 md:px-4 lg:px-9 rounded-2xl xl:max-w-[1280px] mx-auto">
+      <div className="mt-4 bg-[#F4E5C1] flex flex-col md:items-center  md:flex-row justify-between gap-1 font-semibold text-dukiaBlue py-3 px-6 md:px-4 lg:px-9 rounded-2xl xl:max-w-[1280px] mx-auto">
         {/* Ask */}
         <p className="flex items-center gap-0.5 lg:gap-1">
           GOLD ASK:
-          <span className={`text-xs font-black ${askClass}`}>
+          <span className={`font-black ${askClass}`}>
             {formatCurrency(goldDollars?.ask.oz, "en-US", "USD")}/oz
           </span>
           |
-          <span className={`text-xs font-black ${askClass}`}>
+          <span className={`font-black ${askClass}`}>
             {formatCurrency(goldDollars?.ask.g, "en-US", "USD")}/g
           </span>
           |
-          <span className={`text-xs font-black ${askClass}`}>
+          <span className={`font-black ${askClass}`}>
             {formatCurrency(goldDollars?.ask.kg, "en-US", "USD")}/kg
           </span>
-          <span className="text-xs hidden sm:block">-0.01% (-$0.12)</span>
+          <span className="hidden sm:block">-0.01% (-$0.12)</span>
         </p>
 
         {/* Bid */}
         <p className="flex items-center gap-0.5 lg:gap-1">
           GOLD BID:
-          <span className={`text-xs font-black ${bidClass}`}>
+          <span className={`font-black ${bidClass}`}>
             {formatCurrency(goldDollars?.bid.oz, "en-US", "USD")}/oz
           </span>
           |
-          <span className={`text-xs font-black ${bidClass}`}>
+          <span className={`font-black ${bidClass}`}>
             {formatCurrency(goldDollars?.bid.g, "en-US", "USD")}/g
           </span>
           |
-          <span className={`text-xs font-black ${bidClass}`}>
+          <span className={`font-black ${bidClass}`}>
             {formatCurrency(goldDollars?.bid.kg, "en-US", "USD")}/kg
           </span>
         </p>
@@ -193,7 +193,7 @@ const Header: FC<header> = () => {
               </Link>
             ) : (
               <div className="flex items-center gap-7">
-                <Link href="/login">Open modal</Link>
+                {/* <Link href="/login">Open modal</Link> */}
                 <p onClick={() => updateModals({ login: true })} className="font-semibold text-dukiaGold hover:underline hover:cursor-pointer">Login</p>
                 <Link href="/login">
                   <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-4 rounded-lg">
