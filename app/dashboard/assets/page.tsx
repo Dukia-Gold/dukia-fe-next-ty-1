@@ -1,7 +1,7 @@
 "use client";
 
 import Trade from "@/components/dashboardComponents/dashboardSections/Trade";
-import Transactions from "@/components/dashboardComponents/Transactions";
+import Transactions from "@/components/dashboardComponents/dashboardSections/Transactions";
 import { capitalizeFirstLetter } from "@/lib/formatText";
 import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";

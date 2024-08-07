@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import framePool from "../../assets/frame-pool.png";
+import framePool from "../../../assets/frame-pool.png";
 import {
   useFetchGoldPriceNaira100g,
   useFetchGoldPriceNaira10g,
@@ -24,6 +24,7 @@ import useSell from "@/api/trading/sell";
 import { formatCurrency } from "@/lib/currencyformatter";
 import TradeTab from "./TradeComponents/TradeTab";
 import GoldTypeCard from "./TradeComponents/GoldTypeCard";
+import GoldItem from "./TradeComponents/GoldItem";
 
 // Type definitions for the trade type and rates
 type TradeType = "buy" | "sell";
@@ -50,8 +51,7 @@ interface Range {
 const Trade = () => {
   const [tradeType, setTradeType] = useState<TradeType>("buy");
   const [goldType, setGoldType] = useState<string>("pool");
-  const [barProduct, setBarProduct] = useState<string>("");
-  const [coinProduct, setCoinProduct] = useState<string>("");
+  const [discreteProduct, setDiscreteProduct] = useState<string>("");
 
   const [buyValue, setBuyValue] = useState<string>("");
   const [buyWorth, setBuyWorth] = useState<string>("");
@@ -69,24 +69,13 @@ const Trade = () => {
     useFetchGoldPriceNaira100g();
   const { askNaira1kg, bidNaira1kg, fetchGoldPrice1kg } =
     useFetchGoldPriceNaira1kg();
-  useEffect(() => {
+  const fetchAllGoldPrices = useCallback(() => {
     fetchGoldPrice1g();
     fetchGoldPrice10g();
     fetchGoldPrice1oz();
     fetchGoldPrice50g();
     fetchGoldPrice100g();
     fetchGoldPrice1kg();
-
-    const interval = setInterval(() => {
-      fetchGoldPrice1g();
-      fetchGoldPrice10g();
-      fetchGoldPrice1oz();
-      fetchGoldPrice50g();
-      fetchGoldPrice100g();
-      fetchGoldPrice1kg();
-    }, 12000);
-
-    return () => clearInterval(interval);
   }, [
     fetchGoldPrice1g,
     fetchGoldPrice10g,
@@ -96,80 +85,93 @@ const Trade = () => {
     fetchGoldPrice1kg,
   ]);
 
-  const buyPoolAllocated = useBuy();
+  useEffect(() => {
+    // Fetch all gold prices initially
+    fetchAllGoldPrices();
+
+    // Set interval to fetch all gold prices every 12 seconds
+    const interval = setInterval(fetchAllGoldPrices, 5000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, [fetchAllGoldPrices]);
+
+  const { buyPoolAllocated, buyDiscrete } = useBuy();
   const sellPoolAllocated = useSell();
   const buyValueParsed = parseFloat(buyValue.replace(/,/g, ""));
   const buyWorthParsed =
     buyWorth !== undefined ? parseFloat(buyWorth.replace(/,/g, "")) : 0;
 
-  // Buy and sell in pool allocated mode
+  // Define the ranges and corresponding rate keys
+  const ranges: Range[] = [
+    { max: 1, rateKey: "1g" },
+    { max: 10, rateKey: "10g" },
+    { max: 31.1035, rateKey: "1oz" },
+    { max: 50, rateKey: "50g" },
+    { max: 100, rateKey: "100g" },
+    { max: Infinity, rateKey: "1kg" },
+  ];
+
+  // Define the buy and sell rates for different quantities
+  const rates: Rates = {
+    buy: {
+      "1g": askNaira1g,
+      "10g": askNaira10g,
+      "1oz": askNaira1oz,
+      "50g": askNaira50g,
+      "100g": askNaira100g,
+      "1kg": askNaira1kg,
+    },
+    sell: {
+      "1g": bidNaira1g,
+      "10g": bidNaira10g,
+      "1oz": bidNaira1oz,
+      "50g": bidNaira50g,
+      "100g": bidNaira100g,
+      "1kg": bidNaira1kg,
+    },
+  };
+
+  // Function to get the appropriate rate based on the numeric value and trade type
+  const getRate = (value: number, tradeType: TradeType): number | undefined => {
+    for (const range of ranges) {
+      if (value <= range.max) {
+        return rates[tradeType][range.rateKey];
+      }
+    }
+    return undefined; // Return undefined if no rate is found
+  };
+
+  const executeTrade = async (
+    value: number,
+    worth: number,
+    price: number,
+    tradeType: "buy" | "sell"
+  ) => {
+    if (tradeType === "buy") {
+      await buyPoolAllocated(value, worth, price);
+    } else {
+      await sellPoolAllocated(value, worth, price);
+    }
+    setBuyValue("");
+    setBuyWorth("");
+  };
+
+  const discreteTradingFunc = async () => {
+    if (!isNaN(buyValueParsed) && !isNaN(discreteBuyWorth)) {
+      const price = getRate(discreteBuyWorth, tradeType);
+      if (price !== undefined) {
+        await executeTrade(discreteBuyWorth, buyWorthParsed, price, tradeType);
+      }
+    }
+  };
+
   const poolAllocatedTradingFunc = async () => {
     if (!isNaN(buyValueParsed) && !isNaN(buyWorthParsed)) {
-      let price;
-      if (tradeType === "buy") {
-        if (buyValueParsed <= 1 && askNaira1g) {
-          price = askNaira1g;
-        } else if (buyValueParsed > 1 && buyValueParsed <= 10 && askNaira10g) {
-          price = askNaira10g;
-        } else if (
-          buyValueParsed > 10 &&
-          buyValueParsed <= 31.1035 &&
-          askNaira1oz
-        ) {
-          price = askNaira1oz;
-        } else if (
-          buyValueParsed > 31.1035 &&
-          buyValueParsed <= 50 &&
-          askNaira50g
-        ) {
-          price = askNaira50g;
-        } else if (
-          buyValueParsed > 50 &&
-          buyValueParsed <= 100 &&
-          askNaira100g
-        ) {
-          price = askNaira100g;
-        } else if (buyValueParsed > 100 && askNaira1kg) {
-          price = askNaira1kg;
-        }
-      } else if (tradeType === "sell") {
-        if (buyValueParsed <= 1 && bidNaira1g) {
-          price = bidNaira1g;
-        } else if (buyValueParsed > 1 && buyValueParsed <= 10 && bidNaira10g) {
-          price = bidNaira10g;
-        } else if (
-          buyValueParsed > 10 &&
-          buyValueParsed <= 31.1035 &&
-          bidNaira1oz
-        ) {
-          price = bidNaira1oz;
-        } else if (
-          buyValueParsed > 31.1035 &&
-          buyValueParsed <= 50 &&
-          bidNaira50g
-        ) {
-          price = bidNaira50g;
-        } else if (
-          buyValueParsed > 50 &&
-          buyValueParsed <= 100 &&
-          bidNaira100g
-        ) {
-          price = bidNaira100g;
-        } else if (buyValueParsed > 100 && bidNaira1kg) {
-          price = bidNaira1kg;
-        }
-      }
+      const price = getRate(buyValueParsed, tradeType);
 
       if (price !== undefined) {
-        if (tradeType === "buy") {
-          await buyPoolAllocated(buyValueParsed, buyWorthParsed, price);
-          setBuyValue("");
-          setBuyWorth("");
-        } else if (tradeType === "sell") {
-          await sellPoolAllocated(buyValueParsed, buyWorthParsed, price);
-          setBuyValue("");
-          setBuyWorth("");
-        }
+        await executeTrade(buyValueParsed, buyWorthParsed, price, tradeType);
       }
     }
   };
@@ -187,49 +189,6 @@ const Trade = () => {
       setBuyValue(inputValue);
 
       if (!isNaN(numericValue) && numericValue > 0) {
-        // Define the ranges and corresponding rate keys
-        const ranges: Range[] = [
-          { max: 1, rateKey: "1g" },
-          { max: 10, rateKey: "10g" },
-          { max: 31.1035, rateKey: "1oz" },
-          { max: 50, rateKey: "50g" },
-          { max: 100, rateKey: "100g" },
-          { max: Infinity, rateKey: "1kg" },
-        ];
-
-        // Define the buy and sell rates for different quantities
-        const rates: Rates = {
-          buy: {
-            "1g": askNaira1g,
-            "10g": askNaira10g,
-            "1oz": askNaira1oz,
-            "50g": askNaira50g,
-            "100g": askNaira100g,
-            "1kg": askNaira1kg,
-          },
-          sell: {
-            "1g": bidNaira1g,
-            "10g": bidNaira10g,
-            "1oz": bidNaira1oz,
-            "50g": bidNaira50g,
-            "100g": bidNaira100g,
-            "1kg": bidNaira1kg,
-          },
-        };
-
-        // Function to get the appropriate rate based on the numeric value and trade type
-        const getRate = (
-          value: number,
-          tradeType: TradeType
-        ): number | undefined => {
-          for (const range of ranges) {
-            if (value <= range.max) {
-              return rates[tradeType][range.rateKey];
-            }
-          }
-          return undefined; // Return undefined if no rate is found
-        };
-
         // Function to calculate the price based on the value, rate, and rate key
         const calculatePrice = (
           value: number,
@@ -285,8 +244,7 @@ const Trade = () => {
       if (type === "sell") {
         setGoldType("pool");
         setDiscreteBuyWorth(0.0);
-        setCoinProduct("");
-        setBarProduct("");
+        setDiscreteProduct("");
       }
     }
   };
@@ -294,6 +252,23 @@ const Trade = () => {
   const handleGoldTypeClick = (type: string) => {
     // setGoldTypeState(type);
     setGoldType(type);
+  };
+
+  const goldPrices = {
+    bars: [
+      { label: "1g", price: askNaira1g },
+      { label: "10g", price: askNaira10g },
+      { label: "1oz", price: askNaira1oz },
+      { label: "50g", price: askNaira50g },
+      { label: "100g", price: askNaira100g },
+      { label: "1kg", price: askNaira1kg },
+    ],
+    coins: [
+      { label: "1oz CMLGC", price: askNaira1kg },
+      { label: "10oz SAKGC", price: askNaira1kg },
+      { label: "1oz APGC", price: askNaira1kg },
+      { label: "1oz AEGC", price: askNaira1kg },
+    ],
   };
 
   return (
@@ -432,160 +407,40 @@ const Trade = () => {
             {/* Select Product */}
             <div className="font-semibold space-y-1.5">
               <p className="text-dukiaBlue/[60%]">Select</p>
+              <div className="flex items-center font-semibold gap-3">
+                {goldType === "bars" &&
+                  goldPrices.bars.map((item) => (
+                    <GoldItem
+                      key={item.label}
+                      label={item.label}
+                      isSelected={discreteProduct === item.label}
+                      onClick={() => {
+                        setDiscreteProduct(item.label);
+                        setDiscreteBuyWorth(item.price);
+                      }}
+                      padding="py-2 px-4"
+                    />
+                  ))}
 
-              {/* Select Gold Bars */}
-              {goldType === "bars" && (
-                <div className="flex items-center font-semibold gap-3">
-                  {/* 1g */}
-                  <div
-                    onClick={() => {
-                      setBarProduct("1g");
-                      setDiscreteBuyWorth(askNaira1g);
-                    }}
-                    className={`${
-                      barProduct === "1g"
-                        ? "text-white bg-dukiaBlue"
-                        : "border-[1.5px] border-[#E8E9ED]"
-                    } py-2 px-4 rounded-lg cursor-pointer hover:bg-dukiaBlue hover:text-white`}
-                  >
-                    1g
-                  </div>
-
-                  {/* 10g */}
-                  <div
-                    onClick={() => {
-                      setBarProduct("10g");
-                      setDiscreteBuyWorth(askNaira10g);
-                    }}
-                    className={`${
-                      barProduct === "10g"
-                        ? "text-white bg-dukiaBlue"
-                        : "border-[1.5px] border-[#E8E9ED]"
-                    } py-2 px-4 rounded-lg cursor-pointer hover:bg-dukiaBlue hover:text-white`}
-                  >
-                    10g
-                  </div>
-
-                  {/* 1oz */}
-                  <div
-                    onClick={() => {
-                      setBarProduct("1oz");
-                      setDiscreteBuyWorth(askNaira1oz);
-                    }}
-                    className={`${
-                      barProduct === "1oz"
-                        ? "text-white bg-dukiaBlue"
-                        : "border-[1.5px] border-[#E8E9ED]"
-                    } py-2 px-4 rounded-lg cursor-pointer hover:bg-dukiaBlue hover:text-white`}
-                  >
-                    1oz
-                  </div>
-
-                  {/* 50g */}
-                  <div
-                    onClick={() => {
-                      setBarProduct("50g");
-                      setDiscreteBuyWorth(askNaira50g);
-                    }}
-                    className={`${
-                      barProduct === "50g"
-                        ? "text-white bg-dukiaBlue"
-                        : "border-[1.5px] border-[#E8E9ED]"
-                    } py-2 px-4 rounded-lg cursor-pointer hover:bg-dukiaBlue hover:text-white`}
-                  >
-                    50g
-                  </div>
-
-                  {/* 100g */}
-                  <div
-                    onClick={() => {
-                      setBarProduct("100g");
-                      setDiscreteBuyWorth(askNaira100g);
-                    }}
-                    className={`${
-                      barProduct === "100g"
-                        ? "text-white bg-dukiaBlue"
-                        : "border-[1.5px] border-[#E8E9ED]"
-                    } py-2 px-4 rounded-lg cursor-pointer hover:bg-dukiaBlue hover:text-white`}
-                  >
-                    100g
-                  </div>
-
-                  {/* 1kg */}
-                  <div
-                    onClick={() => {
-                      setBarProduct("1kg");
-                      setDiscreteBuyWorth(askNaira1kg);
-                    }}
-                    className={`${
-                      barProduct === "1kg"
-                        ? "text-white bg-dukiaBlue"
-                        : "border-[1.5px] border-[#E8E9ED]"
-                    } py-2 px-4 rounded-lg cursor-pointer hover:bg-dukiaBlue hover:text-white`}
-                  >
-                    1kg
-                  </div>
-                </div>
-              )}
-
-              {goldType === "coins" && (
-                <div className="flex items-center font-semibold gap-3">
-                  {/* 1oz CMLGC */}
-                  <div
-                    onClick={() => setCoinProduct("1oz CMLGC")}
-                    className={`${
-                      coinProduct === "1oz CMLGC"
-                        ? "text-white bg-dukiaBlue"
-                        : "border-[1.5px] border-[#E8E9ED]"
-                    } py-2 px-3 rounded-lg cursor-pointer hover:bg-dukiaBlue hover:text-white`}
-                  >
-                    1oz CMLGC
-                  </div>
-
-                  {/* 10oz SAKGC */}
-                  <div
-                    onClick={() => setCoinProduct("10oz SAKGC")}
-                    className={`${
-                      coinProduct === "10oz SAKGC"
-                        ? "text-white bg-dukiaBlue"
-                        : "border-[1.5px] border-[#E8E9ED]"
-                    } py-2 px-3 rounded-lg cursor-pointer hover:bg-dukiaBlue hover:text-white`}
-                  >
-                    10oz SAKGC
-                  </div>
-
-                  {/* 1oz APGC */}
-                  <div
-                    onClick={() => setCoinProduct("1oz APGC")}
-                    className={`${
-                      coinProduct === "1oz APGC"
-                        ? "text-white bg-dukiaBlue"
-                        : "border-[1.5px] border-[#E8E9ED]"
-                    } py-2 px-3 rounded-lg cursor-pointer hover:bg-dukiaBlue hover:text-white`}
-                  >
-                    1oz APGC
-                  </div>
-
-                  {/* 1oz AEGC */}
-                  <div
-                    onClick={() => setCoinProduct("1oz AEGC")}
-                    className={`${
-                      coinProduct === "1oz AEGC"
-                        ? "text-white bg-dukiaBlue"
-                        : "border-[1.5px] border-[#E8E9ED]"
-                    } py-2 px-3 rounded-lg cursor-pointer hover:bg-dukiaBlue hover:text-white`}
-                  >
-                    1oz AEGC
-                  </div>
-                </div>
-              )}
+                {goldType === "coins" &&
+                  goldPrices.coins.map((item) => (
+                    <GoldItem
+                      key={item.label}
+                      label={item.label}
+                      isSelected={discreteProduct === item.label}
+                      onClick={() => {
+                        setDiscreteProduct(item.label);
+                        setDiscreteBuyWorth(item.price);
+                      }}
+                      padding="py-2 px-3" // Different padding for coins
+                    />
+                  ))}
+              </div>
             </div>
 
             {/* Price and Timer */}
             <div className="font-semibold space-y-1.5">
               <p className="text-dukiaBlue/[60%]">Price In Naira</p>
-
-              {/* Price and Timer */}
               <div className="flex items-center justify-between">
                 {/* Price */}
                 <div className="py-2 px-3 bg-[#E8E9ED] rounded-lg">
@@ -624,8 +479,6 @@ const Trade = () => {
                 <div className="flex items-center gap-1">
                   <input
                     type="checkbox"
-                    name=""
-                    id=""
                     className="m-1 cursor-pointer appearance-auto w-4 h-4 border border-dukiaBlue rounded-sm"
                   />
                   <p>Check the box for delivery</p>
@@ -637,8 +490,8 @@ const Trade = () => {
             <button
               type="button"
               disabled={
-                (goldType === "bars" && !barProduct) ||
-                (goldType === "coins" && !coinProduct)
+                (goldType === "bars" && !discreteProduct) ||
+                (goldType === "coins" && !discreteProduct)
               }
               className="text-white rounded-lg bg-dukiaBlue font-semibold py-3 px-4 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
               //   onClick={buyPoolAllocatedFunc}

@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../ui/table";
-import dukiaToken from "../../assets/dukia-token.png";
+import dukiaToken from "../../../assets/dukia-token.png";
 import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import { fetchProductSearch } from "@/lib/fetchProductSearch";
