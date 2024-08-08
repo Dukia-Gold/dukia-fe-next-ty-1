@@ -34,6 +34,13 @@ const useBuy = () => {
         },
       });
 
+      Swal.fire({
+        title: "Success!",
+        text: `${response.data.message}`,
+        icon: "success",
+        confirmButtonText: "Okay",
+      });
+
       fetchUserData();
       fetchTransactionHistory(5, 1);
       updateLoading(false);
