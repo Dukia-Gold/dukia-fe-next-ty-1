@@ -60,7 +60,7 @@ const useSell = () => {
         } else {
           Swal.fire({
             title: "Error!",
-            text: "An error occurred while processing your request. Please try again later.",
+            text: `${error.response.data.message}`,
             icon: "error",
             confirmButtonText: "Okay",
           });

@@ -92,13 +92,18 @@ const useBuy = () => {
       const response = await axios({
         url: "https://api.dukiapreciousmetals.co/api/v2/buyOrderDiscrete",
         method: "POST",
-        data: {
-          cart: cart,
-        },
+        data: cart,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Include the token in the request headers
         },
+      });
+
+      Swal.fire({
+        title: "Success!",
+        text: `${response.data.message}`,
+        icon: "success",
+        confirmButtonText: "Okay",
       });
 
       fetchUserData();
@@ -129,7 +134,7 @@ const useBuy = () => {
         } else {
           Swal.fire({
             title: "Error!",
-            text: "An error occurred while processing your request. Please try again later.",
+            text: `${error.data.message}`,
             icon: "error",
             confirmButtonText: "Okay",
           });

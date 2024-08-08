@@ -35,7 +35,7 @@ const MarketPrices = () => {
     const interval = setInterval(() => {
       fetchBarsData();
       fetchCoinsData();
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);

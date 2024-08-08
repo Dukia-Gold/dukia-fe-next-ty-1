@@ -25,6 +25,7 @@ import { formatCurrency } from "@/lib/currencyformatter";
 import TradeTab from "./TradeComponents/TradeTab";
 import GoldTypeCard from "./TradeComponents/GoldTypeCard";
 import GoldItem from "./TradeComponents/GoldItem";
+import { Cart } from "@/typings/cart";
 
 // Type definitions for the trade type and rates
 type TradeType = "buy" | "sell";
@@ -56,6 +57,7 @@ const Trade = () => {
   const [buyValue, setBuyValue] = useState<string>("");
   const [buyWorth, setBuyWorth] = useState<string>("");
   const [discreteBuyWorth, setDiscreteBuyWorth] = useState<number>(0.0);
+  const [delivery, setDelivery] = useState<boolean>(false);
 
   const { askNaira1g, bidNaira1g, fetchGoldPrice1g } =
     useFetchGoldPriceNaira1g();
@@ -158,12 +160,20 @@ const Trade = () => {
   };
 
   const discreteTradingFunc = async () => {
-    if (!isNaN(buyValueParsed) && !isNaN(discreteBuyWorth)) {
-      const price = getRate(discreteBuyWorth, tradeType);
-      if (price !== undefined) {
-        await executeTrade(discreteBuyWorth, buyWorthParsed, price, tradeType);
-      }
-    }
+    let cart: Cart = {
+      cart: [
+        {
+          sn: 1,
+          id: discreteProduct,
+          price: discreteBuyWorth,
+          usd_price: 0,
+          quantity: 1,
+          line_price: discreteBuyWorth,
+        },
+      ],
+      delivery_option: delivery ? "delivery" : "storage",
+    };
+    await buyDiscrete(cart);
   };
 
   const poolAllocatedTradingFunc = async () => {
@@ -251,23 +261,47 @@ const Trade = () => {
 
   const handleGoldTypeClick = (type: string) => {
     // setGoldTypeState(type);
+    if (type === "pool") {
+      setDiscreteProduct("");
+      setDiscreteBuyWorth(0.0);
+    } else if (
+      (type === "bars" && goldType !== "bars") ||
+      (type === "coins" && goldType !== "coins")
+    ) {
+      setBuyValue("");
+      setBuyWorth("");
+      setDiscreteProduct("");
+      setDiscreteBuyWorth(0.0);
+    }
     setGoldType(type);
   };
 
   const goldPrices = {
     bars: [
-      { label: "1g", price: askNaira1g },
-      { label: "10g", price: askNaira10g },
-      { label: "1oz", price: askNaira1oz },
-      { label: "50g", price: askNaira50g },
-      { label: "100g", price: askNaira100g },
-      { label: "1kg", price: askNaira1kg },
+      { label: "1g", id: "philoro-1g", price: askNaira1g },
+      { label: "10g", id: "philoro-10g", price: askNaira10g },
+      { label: "1oz", id: "philoro-1oz", price: askNaira1oz },
+      { label: "50g", id: "philoro-50g", price: askNaira50g },
+      { label: "100g", id: "philoro-100g", price: askNaira100g },
+      { label: "1kg", id: "philoro-1kg", price: askNaira1kg },
     ],
     coins: [
-      { label: "1oz CMLGC", price: askNaira1kg },
-      { label: "10oz SAKGC", price: askNaira1kg },
-      { label: "1oz APGC", price: askNaira1kg },
-      { label: "1oz AEGC", price: askNaira1kg },
+      {
+        label: "1oz CMLGC",
+        id: "canadian-maple-leaf-1oz",
+        price: 0.0,
+      },
+      {
+        label: "10oz SAKGC",
+        id: "south-african-krugerrand-1oz",
+        price: 0.0,
+      },
+      {
+        label: "1oz APGC",
+        id: "austrian-philharmonic-1oz",
+        price: 0.0,
+      },
+      { label: "1oz AEGC", id: "american-eagle-1oz", price: 0.0 },
     ],
   };
 
@@ -413,9 +447,9 @@ const Trade = () => {
                     <GoldItem
                       key={item.label}
                       label={item.label}
-                      isSelected={discreteProduct === item.label}
+                      isSelected={discreteProduct === item.id}
                       onClick={() => {
-                        setDiscreteProduct(item.label);
+                        setDiscreteProduct(item.id);
                         setDiscreteBuyWorth(item.price);
                       }}
                       padding="py-2 px-4"
@@ -427,9 +461,9 @@ const Trade = () => {
                     <GoldItem
                       key={item.label}
                       label={item.label}
-                      isSelected={discreteProduct === item.label}
+                      isSelected={discreteProduct === item.id}
                       onClick={() => {
-                        setDiscreteProduct(item.label);
+                        setDiscreteProduct(item.id);
                         setDiscreteBuyWorth(item.price);
                       }}
                       padding="py-2 px-3" // Different padding for coins
@@ -479,6 +513,7 @@ const Trade = () => {
                 <div className="flex items-center gap-1">
                   <input
                     type="checkbox"
+                    onChange={(e) => setDelivery(e.target.checked)}
                     className="m-1 cursor-pointer appearance-auto w-4 h-4 border border-dukiaBlue rounded-sm"
                   />
                   <p>Check the box for delivery</p>
@@ -490,9 +525,10 @@ const Trade = () => {
             <button
               type="button"
               disabled={
-                (goldType === "bars" && !discreteProduct) ||
-                (goldType === "coins" && !discreteProduct)
+                (goldType === "bars" && !discreteBuyWorth) ||
+                (goldType === "coins" && discreteBuyWorth < 1)
               }
+              onClick={discreteTradingFunc}
               className="text-white rounded-lg bg-dukiaBlue font-semibold py-3 px-4 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
               //   onClick={buyPoolAllocatedFunc}
             >
