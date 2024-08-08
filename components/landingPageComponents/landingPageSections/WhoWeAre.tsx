@@ -47,7 +47,7 @@ const WhoWeAre: React.FC = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clip-path="url(#clip0_4592_2234)">
+              <g clipPath="url(#clip0_4592_2234)">
                 <mask
                   id="mask0_4592_2234"
                   maskUnits="userSpaceOnUse"
@@ -60,8 +60,8 @@ const WhoWeAre: React.FC = () => {
                 </mask>
                 <g mask="url(#mask0_4592_2234)">
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M26.323 18.287C29.2368 16.6035 29.2368 12.3965 26.323 10.7113L11.4393 2.10653C8.52375 0.421279 4.875 2.52653 4.875 5.89528V23.1048C4.875 26.4735 8.52375 28.5788 11.4393 26.8918L26.323 18.287Z"
                     fill="white"
                   />

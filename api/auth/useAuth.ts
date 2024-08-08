@@ -62,9 +62,6 @@ const useAuth = () => {
 
       updateModals({ login: false });
       updateLoading(false);
-
-      // Redirect after cookie is set
-      // router.push("/dashboard");
     } catch (error: any) {
       // console.log(error.response.status);
       if (error.response.status === 401) {
@@ -104,7 +101,7 @@ const useAuth = () => {
       clearTransactions();
       clearUser();
 
-      router.push("/login");
+      window.location.assign("/");
       updateLoading(false);
     } catch (error: any) {
       // console.log(error.response.status);

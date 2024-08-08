@@ -1,9 +1,8 @@
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Product } from "@/typings/product";
 import { ArrowUp } from "lucide-react";
 import Image from "next/image";
 
-const ProductRow = (product: Product) => (
+const ProductRow = (product: any) => (
   <TableRow className="font-semibold text-[#676D88]">
     <TableCell className="p-2.5">
       <span className="flex items-center gap-3">

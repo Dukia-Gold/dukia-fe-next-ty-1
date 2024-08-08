@@ -70,7 +70,7 @@ export const useFetchGoldPriceDollars = () => {
 
     const interval = setInterval(() => {
       fetchGoldPriceDollars(); // Fetch every 12 seconds
-    }, 5000);
+    }, 15000);
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);
