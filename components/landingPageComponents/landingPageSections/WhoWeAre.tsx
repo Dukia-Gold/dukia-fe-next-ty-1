@@ -1,30 +1,18 @@
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { useFetchGoldPriceNaira1g } from "@/api/fetchGoldPrice";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Link from "next/link";
-import { formatCurrency } from "@/lib/currencyformatter";
-import { formatDecimal } from "@/lib/decimalFormatter";
+// import { useFetchGoldPriceNaira1g } from "@/api/fetchGoldPrice";
 
 const WhoWeAre: React.FC = () => {
-  const { askNaira1g, fetchGoldPrice1g } = useFetchGoldPriceNaira1g();
-  const [askClass, setAskClass] = useState("");
+  // const { askNaira1g, fetchGoldPrice1g } = useFetchGoldPriceNaira1g();
+  // const [askClass, setAskClass] = useState("");
 
-  useEffect(() => {
-    fetchGoldPrice1g(); // Ensure initial fetch is called
-  }, [fetchGoldPrice1g]);
+  // useEffect(() => {
+  //   fetchGoldPrice1g(); // Ensure initial fetch is called
+  // }, [fetchGoldPrice1g]);
 
-  useEffect(() => {
-    setAskClass("flash");
-    const timeoutId = setTimeout(() => setAskClass(""), 1500);
-    return () => clearTimeout(timeoutId);
-  }, [askNaira1g]);
+  // useEffect(() => {
+  //   setAskClass("flash");
+  //   const timeoutId = setTimeout(() => setAskClass(""), 1500);
+  //   return () => clearTimeout(timeoutId);
+  // }, [askNaira1g]);
 
   return (
     <section className="xl:max-w-[1061px] mx-auto flex flex-col gap-8 bg-white dark:bg-dukiaBlue dark:text-white text-dukiaBlue justify-between">

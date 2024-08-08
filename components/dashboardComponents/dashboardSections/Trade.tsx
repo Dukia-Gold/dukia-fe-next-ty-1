@@ -10,14 +10,6 @@ import {
   SelectValue,
 } from "../../ui/select";
 import framePool from "../../../assets/frame-pool.png";
-import {
-  useFetchGoldPriceNaira100g,
-  useFetchGoldPriceNaira10g,
-  useFetchGoldPriceNaira1g,
-  useFetchGoldPriceNaira1kg,
-  useFetchGoldPriceNaira1oz,
-  useFetchGoldPriceNaira50g,
-} from "@/api/fetchGoldPrice";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import useBuy from "@/api/trading/buy";
 import useSell from "@/api/trading/sell";
@@ -26,6 +18,7 @@ import TradeTab from "./TradeComponents/TradeTab";
 import GoldTypeCard from "./TradeComponents/GoldTypeCard";
 import GoldItem from "./TradeComponents/GoldItem";
 import { Cart } from "@/typings/cart";
+import { useProductStore } from "@/store/product";
 
 // Type definitions for the trade type and rates
 type TradeType = "buy" | "sell";
@@ -50,6 +43,8 @@ interface Range {
 }
 
 const Trade = () => {
+  const getProductById = useProductStore((state) => state.getProductById);
+
   const [tradeType, setTradeType] = useState<TradeType>("buy");
   const [goldType, setGoldType] = useState<string>("pool");
   const [discreteProduct, setDiscreteProduct] = useState<string>("");
@@ -58,45 +53,6 @@ const Trade = () => {
   const [buyWorth, setBuyWorth] = useState<string>("");
   const [discreteBuyWorth, setDiscreteBuyWorth] = useState<number>(0.0);
   const [delivery, setDelivery] = useState<boolean>(false);
-
-  const { askNaira1g, bidNaira1g, fetchGoldPrice1g } =
-    useFetchGoldPriceNaira1g();
-  const { askNaira10g, bidNaira10g, fetchGoldPrice10g } =
-    useFetchGoldPriceNaira10g();
-  const { askNaira1oz, bidNaira1oz, fetchGoldPrice1oz } =
-    useFetchGoldPriceNaira1oz();
-  const { askNaira50g, bidNaira50g, fetchGoldPrice50g } =
-    useFetchGoldPriceNaira50g();
-  const { askNaira100g, bidNaira100g, fetchGoldPrice100g } =
-    useFetchGoldPriceNaira100g();
-  const { askNaira1kg, bidNaira1kg, fetchGoldPrice1kg } =
-    useFetchGoldPriceNaira1kg();
-  const fetchAllGoldPrices = useCallback(() => {
-    fetchGoldPrice1g();
-    fetchGoldPrice10g();
-    fetchGoldPrice1oz();
-    fetchGoldPrice50g();
-    fetchGoldPrice100g();
-    fetchGoldPrice1kg();
-  }, [
-    fetchGoldPrice1g,
-    fetchGoldPrice10g,
-    fetchGoldPrice1oz,
-    fetchGoldPrice50g,
-    fetchGoldPrice100g,
-    fetchGoldPrice1kg,
-  ]);
-
-  useEffect(() => {
-    // Fetch all gold prices initially
-    fetchAllGoldPrices();
-
-    // Set interval to fetch all gold prices every 12 seconds
-    const interval = setInterval(fetchAllGoldPrices, 5000);
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, [fetchAllGoldPrices]);
 
   const { buyPoolAllocated, buyDiscrete } = useBuy();
   const sellPoolAllocated = useSell();
@@ -117,20 +73,20 @@ const Trade = () => {
   // Define the buy and sell rates for different quantities
   const rates: Rates = {
     buy: {
-      "1g": askNaira1g,
-      "10g": askNaira10g,
-      "1oz": askNaira1oz,
-      "50g": askNaira50g,
-      "100g": askNaira100g,
-      "1kg": askNaira1kg,
+      "1g": getProductById("philoro-1g")?.ask_price,
+      "10g": getProductById("philoro-10g")?.ask_price,
+      "1oz": getProductById("philoro-1oz")?.ask_price,
+      "50g": getProductById("philoro-50g")?.ask_price,
+      "100g": getProductById("philoro-100g")?.ask_price,
+      "1kg": getProductById("philoro-1kg")?.ask_price,
     },
     sell: {
-      "1g": bidNaira1g,
-      "10g": bidNaira10g,
-      "1oz": bidNaira1oz,
-      "50g": bidNaira50g,
-      "100g": bidNaira100g,
-      "1kg": bidNaira1kg,
+      "1g": getProductById("philoro-1g")?.bid_price,
+      "10g": getProductById("philoro-10g")?.bid_price,
+      "1oz": getProductById("philoro-1oz")?.bid_price,
+      "50g": getProductById("philoro-50g")?.bid_price,
+      "100g": getProductById("philoro-100g")?.bid_price,
+      "1kg": getProductById("philoro-1kg")?.bid_price,
     },
   };
 
@@ -278,30 +234,58 @@ const Trade = () => {
 
   const goldPrices = {
     bars: [
-      { label: "1g", id: "philoro-1g", price: askNaira1g },
-      { label: "10g", id: "philoro-10g", price: askNaira10g },
-      { label: "1oz", id: "philoro-1oz", price: askNaira1oz },
-      { label: "50g", id: "philoro-50g", price: askNaira50g },
-      { label: "100g", id: "philoro-100g", price: askNaira100g },
-      { label: "1kg", id: "philoro-1kg", price: askNaira1kg },
+      {
+        label: "1g",
+        id: "philoro-1g",
+        price: getProductById("philoro-1g")?.ask_price,
+      },
+      {
+        label: "10g",
+        id: "philoro-10g",
+        price: getProductById("philoro-10g")?.ask_price,
+      },
+      {
+        label: "1oz",
+        id: "philoro-1oz",
+        price: getProductById("philoro-1oz")?.ask_price,
+      },
+      {
+        label: "50g",
+        id: "philoro-50g",
+        price: getProductById("philoro-50g")?.ask_price,
+      },
+      {
+        label: "100g",
+        id: "philoro-100g",
+        price: getProductById("philoro-100g")?.ask_price,
+      },
+      {
+        label: "1kg",
+        id: "philoro-1kg",
+        price: getProductById("philoro-1kg")?.ask_price,
+      },
     ],
     coins: [
       {
         label: "1oz CMLGC",
         id: "canadian-maple-leaf-1oz",
-        price: 0.0,
+        price: getProductById("canadian-maple-leaf-1oz")?.ask_price,
       },
       {
         label: "10oz SAKGC",
         id: "south-african-krugerrand-1oz",
-        price: 0.0,
+        price: getProductById("south-african-krugerrand-1oz")?.ask_price,
       },
       {
         label: "1oz APGC",
         id: "austrian-philharmonic-1oz",
-        price: 0.0,
+        price: getProductById("austrian-philharmonic-1oz")?.ask_price,
       },
-      { label: "1oz AEGC", id: "american-eagle-1oz", price: 0.0 },
+      {
+        label: "1oz AEGC",
+        id: "american-eagle-1oz",
+        price: getProductById("american-eagle-1oz")?.ask_price,
+      },
     ],
   };
 
@@ -450,7 +434,7 @@ const Trade = () => {
                       isSelected={discreteProduct === item.id}
                       onClick={() => {
                         setDiscreteProduct(item.id);
-                        setDiscreteBuyWorth(item.price);
+                        setDiscreteBuyWorth(item.price ? item.price : 0.0);
                       }}
                       padding="py-2 px-4"
                     />
@@ -464,7 +448,7 @@ const Trade = () => {
                       isSelected={discreteProduct === item.id}
                       onClick={() => {
                         setDiscreteProduct(item.id);
-                        setDiscreteBuyWorth(item.price);
+                        setDiscreteBuyWorth(item.price ? item.price : 0.0);
                       }}
                       padding="py-2 px-3" // Different padding for coins
                     />

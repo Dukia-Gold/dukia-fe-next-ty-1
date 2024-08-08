@@ -1,3 +1,17 @@
+// Define the product interface
+export interface ProductPrice {
+  id: string;
+  ask_price: number;
+  bid_price: number;
+}
+
+// Define the Zustand store
+export interface ProductStore {
+  products: ProductPrice[];
+  setProducts: (products: ProductPrice[]) => void;
+  getProductById: (id: string) => ProductPrice | undefined;
+}
+
 export interface Product {
   id: string;
   type: string;
