@@ -69,7 +69,7 @@ const useBuy = () => {
         } else {
           Swal.fire({
             title: "Error!",
-            text: "An error occurred while processing your request. Please try again later.",
+            text: `${error.response.data.message}`,
             icon: "error",
             confirmButtonText: "Okay",
           });
@@ -134,7 +134,7 @@ const useBuy = () => {
         } else {
           Swal.fire({
             title: "Error!",
-            text: `${error.data.message}`,
+            text: `${error.response.data.message}`,
             icon: "error",
             confirmButtonText: "Okay",
           });
