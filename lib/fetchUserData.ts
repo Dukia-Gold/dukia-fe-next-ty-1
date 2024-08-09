@@ -1,11 +1,14 @@
 import { toast } from "@/components/ui/use-toast";
 import { useCookies } from "react-cookie";
 import { GetUrl } from "./getUrl";
-import { userStore } from "@/store/user";
+import { userAssetsStore, userStore } from "@/store/user";
 import { useEffect } from "react";
 
 const useFetchUserData = () => {
   const updateUser = userStore((state: any) => state.updateUser);
+  const updateUserAssets = userAssetsStore(
+    (state: any) => state.updateUserAssets
+  );
   const [cookies] = useCookies(["auth-token"]);
 
   const token = cookies["auth-token"];
@@ -27,8 +30,26 @@ const useFetchUserData = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       const data = await response.json();
+
+      let assetUrl = `https://api.dukiapreciousmetals.co/api/product-weights/${data.id}`;
+
+      const assetResponse = await fetch(assetUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include the token in the request headers
+        },
+      });
+
+      if (!assetResponse.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const assetData = await assetResponse.json();
+      console.log(assetData.total_weight_of_all_products);
+      updateUserAssets(assetData[0]); // Update the user in the user store
+
       updateUser(data); // Update the user in the user store
     } catch (error: any) {
       if (error instanceof TypeError && error.message === "Failed to fetch") {

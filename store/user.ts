@@ -6,5 +6,14 @@ export const userStore = create((set) => ({
     set((state: any) => ({
       user: { ...state.user, ...newUser },
     })),
-  clearUser: () => set({ user: null }), // Implement clearUser method
+  clearUser: () => set({ user: null }),
+}));
+
+export const userAssetsStore = create((set) => ({
+  userAssets: null,
+  updateUserAssets: (newUserAssets: any) =>
+    set((state: any) => ({
+      userAssets: { ...state.userAssets, ...newUserAssets },
+    })),
+  clearUserAssets: () => set({ user: null }),
 }));

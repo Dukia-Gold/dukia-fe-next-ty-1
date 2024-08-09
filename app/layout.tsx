@@ -47,9 +47,9 @@ export default function RootLayout({
       <body className={`${manrope.className} min-h-screen bg-white`}>
         <Header />
         <main className="min-h-screen flex flex-col justify-between">
-          {children}
-
           {auth}
+          
+          {children}
 
           <Toaster />
           <LoadingModal />

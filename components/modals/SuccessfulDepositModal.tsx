@@ -12,7 +12,9 @@ const SuccessfulDepositModal = () => {
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
   const url = depositResponse?.data?.authorization_url || "/dashboard";
-  const buttonText = depositResponse?.data?.authorization_url ? "Proceed" : "Okay"
+  const buttonText = depositResponse?.data?.authorization_url
+    ? "Proceed"
+    : "Okay";
 
   if (successfulDeposit === false || successfulDeposit === undefined) {
     return null;
@@ -67,12 +69,12 @@ const SuccessfulDepositModal = () => {
                 : depositResponse}
             </p>
           </div>
-          <Link href={ url }>
+          <Link href={url}>
             <button
               onClick={() => updateModals({ successfulDeposit: false })}
               className="text-white text-sm font-semibold bg-dukiaBlue py-4 px-14 rounded-lg"
             >
-              { buttonText }
+              {buttonText}
             </button>
           </Link>
         </div>

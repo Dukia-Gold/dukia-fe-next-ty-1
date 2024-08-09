@@ -1,13 +1,18 @@
 import React from "react";
-import { userStore } from "@/store/user";
+import { userAssetsStore, userStore } from "@/store/user";
 import Image from "next/image";
 import Link from "next/link";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { formatCurrency } from "@/lib/currencyformatter";
 
 const Portfolio = () => {
   const user = userStore((state: any) => state.user);
+  const userAssets = userAssetsStore((state: any) => state.userAssets);
+  const poolAllocated = userAssets?.products.find(
+    (product: any) => product.product_id === "pool-allocated-1g"
+  );
 
   return (
     <div className="xl:col-span-2 p-4 border border-dukiaBlue/[5%] rounded-2xl bg-white space-y-3 text-dukiaBlue">
@@ -26,10 +31,10 @@ const Portfolio = () => {
             <p className="font-extrabold text-xl text-[#979BAE]">
               Assets Worth
             </p>
-            {user?.opening_balance_ng ? (
+            {userAssets?.total_ask_price_naira ? (
               <>
-                <p className="text-sm font-semibold">
-                  {formatDecimal(parseInt(user?.opening_balance_ng))}
+                <p className="font-bold">
+                  {formatCurrency(userAssets?.total_ask_price_naira)}
                 </p>
               </>
             ) : (
@@ -48,12 +53,19 @@ const Portfolio = () => {
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">Gold (Au)</p>
-            {user?.opening_balance_au ? (
+            {userAssets?.total_weight_of_all_products ? (
               <>
-                <p className="text-sm font-semibold">
-                  {user?.opening_balance_au}g
+                <p className="font-bold">
+                  {formatDecimal(userAssets?.total_weight_of_all_products, 4)}g
                 </p>
-                <p className="text-[#979BAE] font-semibold">~ ₦ 283,904.84</p>
+                <p className="text-[#979BAE] text-xs font-semibold">
+                  ~{" "}
+                  {formatCurrency(
+                    poolAllocated.total_ask_price_usd,
+                    "en-US",
+                    "USD"
+                  )}
+                </p>
               </>
             ) : (
               <>
@@ -75,8 +87,10 @@ const Portfolio = () => {
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">Silver (Ag)</p>
-            <p className="text-sm font-semibold">1.3g</p>
-            <p className="text-[#979BAE] font-semibold">~ ₦ 23,904.84</p>
+            <p className="font-bold">0.0000g</p>
+            <p className="text-[#979BAE] text-xs font-semibold">
+              ~ ₦ 0.00
+            </p>
           </CardContent>
         </Card>
 
@@ -93,8 +107,10 @@ const Portfolio = () => {
             <p className="font-extrabold text-xl text-[#979BAE]">
               Platinum (Pt)
             </p>
-            <p className="text-sm font-semibold">3.0g</p>
-            <p className="text-[#979BAE] font-semibold">~ ₦ 283,904.84</p>
+            <p className="font-bold">0.0000g</p>
+            <p className="text-[#979BAE] text-xs font-semibold">
+              ~ ₦ 0.00
+            </p>
           </CardContent>
         </Card>
 
@@ -111,8 +127,10 @@ const Portfolio = () => {
             <p className="font-extrabold text-xl text-[#979BAE]">
               Lithium (Li)
             </p>
-            <p className="text-sm font-semibold">1.3g</p>
-            <p className="text-[#979BAE] font-semibold">~ ₦ 283,904.84</p>
+            <p className="font-bold">0.0000g</p>
+            <p className="text-[#979BAE] text-xs font-semibold">
+              ~ ₦ 0.00
+            </p>
           </CardContent>
         </Card>
 
