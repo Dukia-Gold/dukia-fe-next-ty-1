@@ -34,11 +34,11 @@ const ProductModal = ({ searchParams: { id } }: Props) => {
 
   const cartProduct: CartItem = {
     sn: 1,
-    id: product?.id,
-    price: product?.ask_price,
-    usd_price: product?.ask_price_usd,
+    id: product?.id || "", // Empty string if product.id is null
+    price: product?.ask_price || 0, // 0 if product.ask_price is null
+    usd_price: product?.ask_price_usd || 0,
     quantity: count,
-    line_price: 100,
+    line_price: 0,
   };
 
   const updateCount = (type: "increment" | "decrement") => {
@@ -62,6 +62,26 @@ const ProductModal = ({ searchParams: { id } }: Props) => {
     }
   };
 
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     try {
+  //       const result = await fetchProductDetails(id);
+  //       setProduct(result);
+  //     } catch (error) {
+  //       console.error("Failed to fetch product details:", error);
+  //     }
+  //   };
+
+  //   // Fetch immediately when the component mounts
+  //   fetchProduct();
+
+  //   // Set up an interval to fetch the product details every 5 seconds
+  //   const intervalId = setInterval(fetchProduct, 5000);
+
+  //   // Cleanup the interval when the component unmounts or id changes
+  //   return () => clearInterval(intervalId);
+  // }, [id]); // Dependency array includes 'id' to refetch if 'id' changes
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -72,28 +92,29 @@ const ProductModal = ({ searchParams: { id } }: Props) => {
       }
     };
 
-    // Fetch immediately when the component mounts
-    fetchProduct();
-
-    // Set up an interval to fetch the product details every 5 seconds
-    const intervalId = setInterval(fetchProduct, 5000);
-
-    // Cleanup the interval when the component unmounts or id changes
-    return () => clearInterval(intervalId);
-  }, [id]); // Dependency array includes 'id' to refetch if 'id' changes
-
-  useEffect(() => {
     const updateCartPrices = async () => {
-      const products = await fetchProductsPrices();
-      updatePrices(products);
+      try {
+        const products = await fetchProductsPrices();
+        updatePrices(products);
+      } catch (error) {
+        console.error("Failed to update cart prices:", error);
+      }
     };
 
-    updateCartPrices(); // Initial price update
+    // Fetch product details immediately and set up the interval
+    fetchProduct();
+    const productIntervalId = setInterval(fetchProduct, 5000);
 
-    const interval = setInterval(updateCartPrices, 10000); // Update prices every 12 seconds
+    // Update cart prices immediately and set up the interval
+    updateCartPrices();
+    const priceIntervalId = setInterval(updateCartPrices, 10000);
 
-    return () => clearInterval(interval); // Cleanup on component unmount
-  }, [fetchProductsPrices, updatePrices]);
+    // Cleanup intervals on component unmount or when dependencies change
+    return () => {
+      clearInterval(productIntervalId);
+      clearInterval(priceIntervalId);
+    };
+  }, [id, fetchProductsPrices, updatePrices]); // Dependency array
 
   return (
     <div className="fixed z-20 top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">

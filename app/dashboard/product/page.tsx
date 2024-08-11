@@ -30,11 +30,11 @@ const ProductPage = ({ searchParams: { id } }: Props) => {
 
   const cartProduct: CartItem = {
     sn: 1,
-    id: product?.id,
-    price: product?.ask_price,
-    usd_price: product?.ask_price_usd,
+    id: product?.id || "", // Empty string if product.id is null
+    price: product?.ask_price || 0, // 0 if product.ask_price is null
+    usd_price: product?.ask_price_usd || 0,
     quantity: count,
-    line_price: 100,
+    line_price: 0,
   };
 
   const updateCount = (type: "increment" | "decrement") => {
