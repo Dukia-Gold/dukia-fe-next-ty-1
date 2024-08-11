@@ -26,22 +26,7 @@ const ProductModal = ({ searchParams: { id } }: Props) => {
   const [thumbnail, setThmbnail] = useState("front");
   const [count, setCount] = useState(1);
   const router = useRouter();
-
   const fetchProductsPrices = useFetchProductPrices();
-
-  useEffect(() => {
-    const updateCartPrices = async () => {
-      const products = await fetchProductsPrices();
-      updatePrices(products);
-    };
-
-    updateCartPrices(); // Initial price update
-
-    const interval = setInterval(updateCartPrices, 10000); // Update prices every 12 seconds
-
-    return () => clearInterval(interval); // Cleanup on component unmount
-  }, [fetchProductsPrices, updatePrices]);
-
 
   const handleBack = () => {
     router.back();
@@ -96,6 +81,19 @@ const ProductModal = ({ searchParams: { id } }: Props) => {
     // Cleanup the interval when the component unmounts or id changes
     return () => clearInterval(intervalId);
   }, [id]); // Dependency array includes 'id' to refetch if 'id' changes
+
+  useEffect(() => {
+    const updateCartPrices = async () => {
+      const products = await fetchProductsPrices();
+      updatePrices(products);
+    };
+
+    updateCartPrices(); // Initial price update
+
+    const interval = setInterval(updateCartPrices, 10000); // Update prices every 12 seconds
+
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, [fetchProductsPrices, updatePrices]);
 
   return (
     <div className="fixed z-20 top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
