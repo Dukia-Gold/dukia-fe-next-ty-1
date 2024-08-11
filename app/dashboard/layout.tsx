@@ -8,6 +8,7 @@ import StatementOfAccountModal from "@/components/transactionsComponents/Stateme
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { userStore } from "@/store/user";
 import type { Metadata } from "next";
+import React from "react";
 
 // export const metadata: Metadata = {
 //   title: "Dukia Gold",
@@ -16,8 +17,10 @@ import type { Metadata } from "next";
 // };
 
 export default function DashboardLayout({
+  catalogue,
   children,
 }: Readonly<{
+  catalogue: React.ReactNode;
   children: React.ReactNode;
 }>) {
   const user = userStore((state: any) => state.user);
@@ -27,6 +30,7 @@ export default function DashboardLayout({
       id="dashboardLayout"
       className="flex flex-col lg:flex-row pt-0 overflow-hidden"
     >
+      {catalogue}
       <Sidebar />
 
       <main className="w-full lg:px-5 2xl:px-10 bg-dukiaGrey pt-4 h-screen">

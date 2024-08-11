@@ -35,6 +35,7 @@ export default async function DukiaCataloguePage({ searchParams: { q } }: Props)
           {products?.map((product: any) => (
             <ProductOption
               key={product.id}
+              id={product.id}
               title={product.name}
               price={product.ask_formattedPrice}
               priceChange="0.99%"

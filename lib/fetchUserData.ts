@@ -47,7 +47,6 @@ const useFetchUserData = () => {
       }
 
       const assetData = await assetResponse.json();
-      console.log(assetData.total_weight_of_all_products);
       updateUserAssets(assetData[0]); // Update the user in the user store
 
       updateUser(data); // Update the user in the user store

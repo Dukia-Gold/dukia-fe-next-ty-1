@@ -1,4 +1,3 @@
-import LoginPage from '@/app/login/page'
 import AuthBox from '@/components/authComponents/AuthBox'
  
 export default function Page() {

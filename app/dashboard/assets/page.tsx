@@ -1,14 +1,15 @@
-"use client";
-
 import Trade from "@/components/dashboardComponents/dashboardSections/Trade";
 import Transactions from "@/components/dashboardComponents/dashboardSections/Transactions";
-import { capitalizeFirstLetter } from "@/lib/formatText";
 import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
-import { Search } from "lucide-react";
-import Link from "next/link";
 
-const AssetsPage = () => {
+type Props = {
+  assetParams: {
+    q: string;
+  };
+};
+
+export default async function AssetsPage({ assetParams: { q } }: Props) {
   const user = userStore((state: any) => state.user);
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
@@ -40,5 +41,3 @@ const AssetsPage = () => {
     </main>
   );
 };
-
-export default AssetsPage;

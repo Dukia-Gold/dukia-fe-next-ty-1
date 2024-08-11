@@ -2,13 +2,24 @@ import useAuth from "@/api/auth/useAuth";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import { capitalizeFirstLetter } from "@/lib/formatText";
 import { GetUrl } from "@/lib/getUrl";
+import { useCartStore } from "@/store/cart";
 import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
-import { ArrowRight, Eye, EyeOff, Info, Power } from "lucide-react";
+import {
+  ArrowRight,
+  Eye,
+  EyeOff,
+  Info,
+  Power,
+  ShoppingCart,
+} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 const TopBar = () => {
+  const cart = useCartStore((state) => state.cart);
+  const itemCount = cart.length;
+
   const { logout } = useAuth();
   const user = userStore((state: any) => state.user);
   const updateModals = useModalsStore((state: any) => state.updateModals);
@@ -27,19 +38,13 @@ const TopBar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-2">
-            <div className="p-2.5 rounded-[50%] bg-white">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2.99609 3.49609C2.99609 3.36349 3.04877 3.23631 3.14254 3.14254C3.23631 3.04877 3.36349 2.99609 3.49609 2.99609H3.93409C4.66109 2.99609 5.07909 3.46909 5.32109 3.94109C5.48609 4.26409 5.60509 4.65809 5.70409 5.00009H15.9991C16.1536 5.00014 16.306 5.03599 16.4443 5.10484C16.5827 5.17368 16.7032 5.27365 16.7964 5.39689C16.8896 5.52013 16.953 5.66329 16.9815 5.81514C17.0101 5.96699 17.0031 6.1234 16.9611 6.27209L15.4651 11.5471C15.3461 11.9656 15.0939 12.3339 14.7467 12.5961C14.3994 12.8583 13.9762 13.0001 13.5411 13.0001H8.46209C8.02337 13.0002 7.59677 12.8561 7.24801 12.59C6.89926 12.3238 6.6477 11.9503 6.53209 11.5271L5.89009 9.17209L5.88009 9.14009L4.85009 5.64209L4.75009 5.30509C4.65009 4.95909 4.56209 4.65309 4.43009 4.39609C4.27109 4.08609 4.12509 3.99609 3.93409 3.99609H3.49609C3.36349 3.99609 3.23631 3.94342 3.14254 3.84965C3.04877 3.75588 2.99609 3.6287 2.99609 3.49609ZM8.49909 17.0001C8.89692 17.0001 9.27845 16.8421 9.55975 16.5608C9.84106 16.2794 9.99909 15.8979 9.99909 15.5001C9.99909 15.1023 9.84106 14.7207 9.55975 14.4394C9.27845 14.1581 8.89692 14.0001 8.49909 14.0001C8.10127 14.0001 7.71974 14.1581 7.43843 14.4394C7.15713 14.7207 6.99909 15.1023 6.99909 15.5001C6.99909 15.8979 7.15713 16.2794 7.43843 16.5608C7.71974 16.8421 8.10127 17.0001 8.49909 17.0001ZM13.4991 17.0001C13.8969 17.0001 14.2785 16.8421 14.5598 16.5608C14.8411 16.2794 14.9991 15.8979 14.9991 15.5001C14.9991 15.1023 14.8411 14.7207 14.5598 14.4394C14.2785 14.1581 13.8969 14.0001 13.4991 14.0001C13.1013 14.0001 12.7197 14.1581 12.4384 14.4394C12.1571 14.7207 11.9991 15.1023 11.9991 15.5001C11.9991 15.8979 12.1571 16.2794 12.4384 16.5608C12.7197 16.8421 13.1013 17.0001 13.4991 17.0001Z"
-                  fill="#111827"
-                />
-              </svg>
+            <div className="p-2.5 rounded-[50%] bg-white relative">
+              {itemCount > 0 && (
+                <span className="absolute top-1 right-1.5 transform translate-x-1/2 -translate-y-1/2 bg-dukiaGold font-semibold text-white rounded-full text-sm px-2 py-1">
+                  {itemCount}
+                </span>
+              )}
+              <ShoppingCart className="text-xl" />
             </div>
 
             <div className="p-2.5 rounded-[50%] bg-white">

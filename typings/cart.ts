@@ -1,10 +1,10 @@
 export interface CartItem {
   sn: number;
-  id: string;
-  price: number;
-  usd_price: number;
-  quantity: number;
-  line_price: number;
+  id: string | undefined;
+  price: number | undefined;
+  usd_price: number | undefined;
+  quantity: number | undefined;
+  line_price: number | undefined;
 }
 
 export interface Cart {

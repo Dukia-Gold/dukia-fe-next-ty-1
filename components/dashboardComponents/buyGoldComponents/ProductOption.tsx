@@ -1,10 +1,9 @@
-import { formatCurrency } from "@/lib/currencyformatter";
-import { cn } from "@/lib/utils";
 import { ArrowDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
+  id: string;
   title: string;
   price: string;
   priceChange: string;
@@ -14,6 +13,7 @@ type Props = {
 };
 
 const ProductOption = ({
+  id,
   title,
   price,
   priceChange,
@@ -60,24 +60,16 @@ const ProductOption = ({
         </p>
       </div>
 
-      {price !== "0" ? (
-        <div>
-          <Link
-            href={{
-              pathname: "/dashboard/buy-gold/dukia-gold-catalogue/product",
-              // query: { q: title },
-            }}
-          >
-            <button className="w-full bg-dukiaBlue text-white py-3 px-4 rounded-xl text-base font-semibold leading-5">
-              Add to Cart
-            </button>
-          </Link>
-        </div>
-      ) : (
-        <div className="w-full bg-gray-200 text-black py-3 px-4 rounded-xl text-base font-semibold leading-5 text-center cursor-not-allowed">
-          Contact support to buy
-        </div>
-      )}
+      <Link
+        href={{
+          pathname: "/dashboard/product",
+          query: { id: id },
+        }}
+      >
+        <button className="w-full bg-dukiaBlue text-white py-3 px-4 rounded-xl text-base font-semibold leading-5">
+          See details
+        </button>
+      </Link>
     </div>
   );
 };
