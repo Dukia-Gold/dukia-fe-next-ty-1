@@ -4,12 +4,12 @@ import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
 
 type Props = {
-  assetParams: {
+  searchParams: {
     q: string;
   };
 };
 
-export default async function AssetsPage({ assetParams: { q } }: Props) {
+export default async function AssetsPage({ searchParams: { q } }: Props) {
   const user = userStore((state: any) => state.user);
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
