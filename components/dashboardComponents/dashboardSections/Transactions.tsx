@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+"use client"
+
+import { useEffect } from "react";
 import {
   Table,
   TableBody,

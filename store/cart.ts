@@ -1,10 +1,12 @@
 import { CartItem } from "@/typings/cart";
+import { Product } from "@/typings/product";
 import { create, StateCreator } from "zustand";
 import { persist } from "zustand/middleware";
 
 type CartState = {
   cart: CartItem[];
-  addToCart: (item: Omit<CartItem, "sn">) => void;
+  updatePrices: (products: any) => void;
+  addToCart: (item: Omit<CartItem, "sn" | "line_price">) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
 };
@@ -19,25 +21,41 @@ export const useCartStore = create(
   persist<CartState>(
     (set, get) => ({
       cart: [],
-      addToCart: (item: Omit<CartItem, "sn" | "line_price">) => {
-        if (!item || !item.id) {
-          console.error("Invalid item passed to addToCart:", item);
+      updatePrices: (products) => {
+        if (!Array.isArray(products)) {
+          console.error("Products is not an array or is undefined:", products);
           return;
         }
 
+        set((state) => ({
+          cart: state.cart.map((item) => {
+            const product = products.find((p: Product) => p.id === item.id);
+            if (product) {
+              return {
+                ...item,
+                price: product.ask_price,
+                line_price: product.ask_price * (item.quantity ?? 1),
+              };
+            }
+            return item;
+          }),
+        }));
+      },
+      addToCart: (item: Partial<CartItem>) => {
+        const quantity = item.quantity ?? 1; // Default quantity to 1 if undefined
+        const price = item.price ?? 0; // Default price to 0 if undefined
+
         set((state: CartState) => {
-          const existingItem = state.cart.find(
-            (i: CartItem) => i.id === item.id
-          );
+          const existingItem = state.cart.find((i) => i.id === item.id);
 
           if (existingItem) {
             return {
-              cart: state.cart.map((i: CartItem) =>
+              cart: state.cart.map((i) =>
                 i.id === item.id
                   ? {
                       ...i,
-                      quantity: i.quantity + item.quantity,
-                      line_price: i.line_price + item.price * item.quantity,
+                      quantity: (i.quantity ?? 0) + quantity,
+                      line_price: (i.line_price ?? 0) + price * quantity,
                     }
                   : i
               ),
@@ -45,9 +63,12 @@ export const useCartStore = create(
           } else {
             const sn = state.cart.length + 1;
             const newItem: CartItem = {
-              ...item,
               sn,
-              line_price: item.price * item.quantity,
+              id: item.id ?? "",
+              price,
+              usd_price: item.usd_price ?? 0,
+              quantity,
+              line_price: price * quantity,
             };
             return { cart: [...state.cart, newItem] };
           }
@@ -55,7 +76,7 @@ export const useCartStore = create(
       },
       removeFromCart: (id: string) =>
         set((state: CartState) => ({
-          cart: state.cart.filter((item: CartItem) => item.id !== id),
+          cart: state.cart.filter((item) => item.id !== id),
         })),
       clearCart: () => set({ cart: [] }),
     }),

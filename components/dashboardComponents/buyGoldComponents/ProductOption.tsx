@@ -1,3 +1,4 @@
+import { formatCurrency } from "@/lib/currencyformatter";
 import { ArrowDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,7 +6,7 @@ import Link from "next/link";
 type Props = {
   id: string;
   title: string;
-  price: string;
+  price: number;
   priceChange: string;
   className?: string;
   image1?: string;
@@ -52,7 +53,7 @@ const ProductOption = ({
           {title}
         </p>
         <p className="inline-flex  text-base font-semibold leading-5 text-left text-dukiaBlue py-3 pl-3">
-          {price}
+          {formatCurrency(price)}
           <span className="text-[#FF5757] inline-flex text-xs font-semibold leading-4 text-left pt-1">
             {" "}
             <ArrowDown className="ml-3" size={15} /> {priceChange}

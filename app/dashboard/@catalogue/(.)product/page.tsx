@@ -1,5 +1,6 @@
 "use client";
 
+import { useFetchProductPrices } from "@/api/fetchGoldPrice";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/currencyformatter";
@@ -20,11 +21,27 @@ type Props = {
 };
 
 const ProductModal = ({ searchParams: { id } }: Props) => {
-  const { addToCart } = useCartStore();
+  const { addToCart, updatePrices } = useCartStore();
   const [product, setProduct] = useState<Product | null>(null);
   const [thumbnail, setThmbnail] = useState("front");
   const [count, setCount] = useState(1);
   const router = useRouter();
+
+  const fetchProductsPrices = useFetchProductPrices();
+
+  useEffect(() => {
+    const updateCartPrices = async () => {
+      const products = await fetchProductsPrices();
+      updatePrices(products);
+    };
+
+    updateCartPrices(); // Initial price update
+
+    const interval = setInterval(updateCartPrices, 10000); // Update prices every 12 seconds
+
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, [fetchProductsPrices, updatePrices]);
+
 
   const handleBack = () => {
     router.back();

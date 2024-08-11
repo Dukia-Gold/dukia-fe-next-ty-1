@@ -24,6 +24,7 @@ export const useFetchProductPrices = () => {
       }));
 
       useProductStore.getState().setProducts(products);
+      return products;
     } catch (error) {
       console.error("Failed to fetch products:", error);
     }

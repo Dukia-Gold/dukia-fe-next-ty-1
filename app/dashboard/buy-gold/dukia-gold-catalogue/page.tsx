@@ -37,7 +37,7 @@ export default async function DukiaCataloguePage({ searchParams: { q } }: Props)
               key={product.id}
               id={product.id}
               title={product.name}
-              price={product.ask_formattedPrice}
+              price={product.ask_price}
               priceChange="0.99%"
               image1={product.thumbnail_url}
               image2={product.thumbnail_url2}

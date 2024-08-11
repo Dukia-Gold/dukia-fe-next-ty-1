@@ -9,6 +9,7 @@ export const fetchProductSearch = async (query: string) => {
       (product: any) => product.type === query
     );
 
+    console.log(filteredProducts)
     return filteredProducts;
   } catch (error) {
     console.error("Error fetching products:", error);
