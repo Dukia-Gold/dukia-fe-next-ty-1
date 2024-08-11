@@ -32,15 +32,6 @@ const ProductModal = ({ searchParams: { id } }: Props) => {
     router.back();
   };
 
-  const cartProduct: CartItem = {
-    sn: 1,
-    id: product?.id || "", // Empty string if product.id is null
-    price: product?.ask_price || 0, // 0 if product.ask_price is null
-    usd_price: product?.ask_price_usd || 0,
-    quantity: count,
-    line_price: 0,
-  };
-
   const updateCount = (type: "increment" | "decrement") => {
     setCount((prevCount) =>
       type === "increment" ? prevCount + 1 : prevCount - 1
@@ -115,6 +106,15 @@ const ProductModal = ({ searchParams: { id } }: Props) => {
       clearInterval(priceIntervalId);
     };
   }, [id, fetchProductsPrices, updatePrices]); // Dependency array
+
+  const cartProduct: CartItem = {
+    sn: 1,
+    id: product?.id || "", // Empty string if product.id is null
+    price: product?.ask_price || 0, // 0 if product.ask_price is null
+    usd_price: product?.ask_price_usd || 0,
+    quantity: count,
+    line_price: 0,
+  };
 
   return (
     <div className="fixed z-20 top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">

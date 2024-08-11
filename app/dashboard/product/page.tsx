@@ -28,15 +28,6 @@ const ProductPage = ({ searchParams: { id } }: Props) => {
     router.back();
   };
 
-  const cartProduct: CartItem = {
-    sn: 1,
-    id: product?.id || "", // Empty string if product.id is null
-    price: product?.ask_price || 0, // 0 if product.ask_price is null
-    usd_price: product?.ask_price_usd || 0,
-    quantity: count,
-    line_price: 0,
-  };
-
   const updateCount = (type: "increment" | "decrement") => {
     setCount((prevCount) =>
       type === "increment" ? prevCount + 1 : prevCount - 1
@@ -77,6 +68,15 @@ const ProductPage = ({ searchParams: { id } }: Props) => {
     // Cleanup the interval when the component unmounts or id changes
     return () => clearInterval(intervalId);
   }, [id]); // Dependency array includes 'id' to refetch if 'id' changes
+
+  const cartProduct: CartItem = {
+    sn: 1,
+    id: product?.id || "", // Empty string if product.id is null
+    price: product?.ask_price || 0, // 0 if product.ask_price is null
+    usd_price: product?.ask_price_usd || 0,
+    quantity: count,
+    line_price: 0,
+  };
 
   return (
     <>
