@@ -38,14 +38,16 @@ const TopBar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-2">
-            <div className="p-2.5 rounded-[50%] bg-white relative">
-              {itemCount > 0 && (
-                <span className="absolute top-1 right-1.5 transform translate-x-1/2 -translate-y-1/2 bg-dukiaGold font-semibold text-white rounded-full text-sm px-2 py-1">
-                  {itemCount}
-                </span>
-              )}
-              <ShoppingCart className="text-xl" />
-            </div>
+            <Link href={"/dashboard/cart"}>
+              <div className="p-2.5 rounded-[50%] bg-white relative">
+                {itemCount > 0 && (
+                  <span className="absolute top-1 right-1.5 transform translate-x-1/2 -translate-y-1/2 bg-dukiaGold font-semibold text-white rounded-full text-sm px-2 py-1">
+                    {itemCount}
+                  </span>
+                )}
+                <ShoppingCart className="text-xl" />
+              </div>
+            </Link>
 
             <div className="p-2.5 rounded-[50%] bg-white">
               <svg

@@ -53,26 +53,6 @@ const ProductModal = ({ searchParams: { id } }: Props) => {
     }
   };
 
-  // useEffect(() => {
-  //   const fetchProduct = async () => {
-  //     try {
-  //       const result = await fetchProductDetails(id);
-  //       setProduct(result);
-  //     } catch (error) {
-  //       console.error("Failed to fetch product details:", error);
-  //     }
-  //   };
-
-  //   // Fetch immediately when the component mounts
-  //   fetchProduct();
-
-  //   // Set up an interval to fetch the product details every 5 seconds
-  //   const intervalId = setInterval(fetchProduct, 5000);
-
-  //   // Cleanup the interval when the component unmounts or id changes
-  //   return () => clearInterval(intervalId);
-  // }, [id]); // Dependency array includes 'id' to refetch if 'id' changes
-
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -83,29 +63,15 @@ const ProductModal = ({ searchParams: { id } }: Props) => {
       }
     };
 
-    const updateCartPrices = async () => {
-      try {
-        const products = await fetchProductsPrices();
-        updatePrices(products);
-      } catch (error) {
-        console.error("Failed to update cart prices:", error);
-      }
-    };
-
-    // Fetch product details immediately and set up the interval
+    // Fetch immediately when the component mounts
     fetchProduct();
-    const productIntervalId = setInterval(fetchProduct, 5000);
 
-    // Update cart prices immediately and set up the interval
-    updateCartPrices();
-    const priceIntervalId = setInterval(updateCartPrices, 10000);
+    // Set up an interval to fetch the product details every 5 seconds
+    const intervalId = setInterval(fetchProduct, 5000);
 
-    // Cleanup intervals on component unmount or when dependencies change
-    return () => {
-      clearInterval(productIntervalId);
-      clearInterval(priceIntervalId);
-    };
-  }, [id, fetchProductsPrices, updatePrices]); // Dependency array
+    // Cleanup the interval when the component unmounts or id changes
+    return () => clearInterval(intervalId);
+  }, [id]); // Dependency array includes 'id' to refetch if 'id' changes
 
   const cartProduct: CartItem = {
     sn: 1,
