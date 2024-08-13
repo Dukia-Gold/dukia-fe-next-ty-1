@@ -10,7 +10,7 @@ type MobileSidebarProps = {
 };
 
 const MobileSidebar: FC<MobileSidebarProps> = ({ isOpen, toggle }) => {
-  const pathname = GetUrl();
+  const { pathname } = GetUrl();
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
