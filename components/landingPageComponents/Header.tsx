@@ -14,12 +14,12 @@ import {
   HoverCardTrigger,
 } from "../ui/hover-card";
 import { formatCurrency } from "@/lib/currencyformatter";
-import { GetUrl } from "@/lib/getUrl";
 import { userStore } from "@/store/user";
 import { goldStore } from "@/store/goldPrice";
 import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
 import useFetchUserData from "@/lib/fetchUserData";
 import useModalsStore from "@/store/modalsStore";
+import { usePathname } from "next/navigation";
 
 type header = {
   // name: string
@@ -34,7 +34,7 @@ const Header: FC<header> = () => {
   const goldDollars = goldStore((state: any) => state.goldDollars);
   const fetchGoldPriceDollars = useFetchGoldPriceDollars();
 
-  const { pathname } = GetUrl();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [askClass, setAskClass] = useState("");
   const [bidClass, setBidClass] = useState("");

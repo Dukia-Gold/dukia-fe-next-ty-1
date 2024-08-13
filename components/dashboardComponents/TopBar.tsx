@@ -14,6 +14,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import Link from "next/link";
+import { useParams, usePathname } from "next/navigation";
 import { useState } from "react";
 
 const TopBar = () => {
@@ -24,7 +25,11 @@ const TopBar = () => {
   const user = userStore((state: any) => state.user);
   const updateModals = useModalsStore((state: any) => state.updateModals);
   const [seeBalance, setSeeBalance] = useState(false);
-  const { pathname, queryParam, idParam } = GetUrl();
+  const pathname = usePathname();
+  const params = useParams();
+  const { id } = params;
+  console.log(id);
+  const { queryParam, idParam } = GetUrl();
 
   return (
     <div className="text-dukiaBlue mt-7 space-y-7">

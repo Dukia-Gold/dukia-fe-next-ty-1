@@ -11,7 +11,7 @@ import { Product } from "@/typings/product";
 import { Spin } from "antd";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -20,13 +20,15 @@ type Props = {
   };
 };
 
-const ProductModal = ({ searchParams: { id } }: Props) => {
-  const { addToCart, updatePrices } = useCartStore();
+const ProductModal = () => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  
+  const { addToCart } = useCartStore();
   const [product, setProduct] = useState<Product | null>(null);
   const [thumbnail, setThmbnail] = useState("front");
   const [count, setCount] = useState(1);
   const router = useRouter();
-  const fetchProductsPrices = useFetchProductPrices();
 
   const handleBack = () => {
     router.back();
@@ -56,7 +58,7 @@ const ProductModal = ({ searchParams: { id } }: Props) => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const result = await fetchProductDetails(id);
+        const result = await fetchProductDetails(id ?? "");
         setProduct(result);
       } catch (error) {
         console.error("Failed to fetch product details:", error);
