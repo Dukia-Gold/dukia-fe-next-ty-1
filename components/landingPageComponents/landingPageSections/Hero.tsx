@@ -7,9 +7,9 @@ import TrustedPartners from "./TrustedPartners";
 
 const Hero = () => {
   return (
-    <section className="mt-24 md:mt-[4.1875rem] relative min-h-[calc(100vh-67px)] rounded-2xl bg-hero-pattern bg-cover bg-no-repeat bg-center bg-fixed pt-48 xl:pt-24 grid grid-rows-3">
-      {/* <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-60 rounded-2xl"></div> */}
-      <div className="px-9 row-span-3 flex flex-col xl:flex-row justify-center xl:justify-between items-center gap-10 xl:gap-5">
+    <section className="md:pt-[4.1875rem] relative min-h-screen bg-hero-pattern bg-cover bg-no-repeat bg-center bg-fixed pt-48 xl:pt-24 grid grid-rows-3 items-center justify-center">
+      {/* <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-30 rounded-2xl"></div> */}
+      <div className="xl:max-w-[1280px] xl:mx-auto px-9 row-span-3 flex flex-col xl:flex-row justify-center xl:justify-between items-center gap-10 xl:gap-5">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2 text-dukiaBlue">
             <div className="font-semibold text-sm flex items-center gap-2">
@@ -22,7 +22,7 @@ const Hero = () => {
                   alt={"Philoro Gold Bar - 1g"}
                   width={15}
                   height={22}
-                  className="rotate-45"
+                  // className="rotate-45"
                 />
                 <p>BARS</p>
               </div>

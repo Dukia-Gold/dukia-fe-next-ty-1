@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const TrustedPartners = () => {
   return (
-    <section className="py-5 flex flex-col items-center space-y-4 bg-white/[60%] rounded-b-2xl">
+    <section className="xl:max-w-[1280px] py-5 flex flex-col items-center space-y-4 bg-white/[60%]">
       <h3 className="text-dukiaBlue text-xl font-extrabold text-center">
         TRUSTED PARTNERS
       </h3>
