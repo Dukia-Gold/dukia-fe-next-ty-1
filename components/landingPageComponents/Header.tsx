@@ -103,7 +103,7 @@ const Header: FC<header> = () => {
 
       {/* Main Header */}
       <div className="xl:max-w-[1280px] mx-auto px-9">
-        <div className="py-2 bg-white px-4 rounded-xl border-2 border-[#EFEFEFCC]/[80%] shadow-lg flex items-center justify-between">
+        <div className="py-2 bg-white px-4 rounded-xl shadow-lg flex items-center justify-between">
           <Image
             src={
               "https://res.cloudinary.com/dvcw253zw/image/upload/v1721822926/dukia-new-logo_gg5cde.png"
