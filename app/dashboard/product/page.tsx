@@ -11,10 +11,10 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
-const ProductPage = () => {
+const ProductComp = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  
+
   const [product, setProduct] = useState<Product | null>(null);
   const [thumbnail, setThmbnail] = useState("front");
   const [count, setCount] = useState(1);
@@ -76,7 +76,7 @@ const ProductPage = () => {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <>
       {product ? (
         <div className="p-6 bg-white mb-16 rounded-2xl mx-auto flex justify-center text-dukiaBlue">
           <div className="space-y-14">
@@ -291,6 +291,15 @@ const ProductPage = () => {
           <Spin size="large" />
         </div>
       )}
+    </>
+  );
+};
+
+const ProductPage = () => {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProductComp />
     </Suspense>
   );
 };
