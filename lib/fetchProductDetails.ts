@@ -4,7 +4,7 @@ export const fetchProductDetails = async (id: string) => {
     const response = await fetch(apiUrl);
     const productDetails = await response.json();
     
-    return productDetails;
+    return productDetails || {};
   } catch (error) {
     console.error("Error fetching products:", error);
   }

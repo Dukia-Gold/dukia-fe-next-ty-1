@@ -163,7 +163,7 @@ const ProductComp = () => {
                               Manufacturer
                             </TableCell>
                             <TableCell className="py-3 px-0 text-right">
-                              {product.manufacturer}
+                              {product.manufacturer || "N/A"}
                             </TableCell>
                           </TableRow>
 
@@ -173,9 +173,7 @@ const ProductComp = () => {
                               Gross Weight
                             </TableCell>
                             <TableCell className="py-3 px-0 text-right">
-                              {product.gross_weight
-                                ? product.gross_weight
-                                : "N/A"}
+                              {product.gross_weight || "N/A"}
                             </TableCell>
                           </TableRow>
 
@@ -185,9 +183,7 @@ const ProductComp = () => {
                               Fine Weight
                             </TableCell>
                             <TableCell className="py-3 px-0 text-right">
-                              {product.fine_weight
-                                ? product.fine_weight
-                                : "N/A"}
+                              {product.fine_weight || "N/A"}
                             </TableCell>
                           </TableRow>
 
@@ -197,7 +193,7 @@ const ProductComp = () => {
                               Fineness
                             </TableCell>
                             <TableCell className="py-3 px-0 text-right">
-                              {product.fineness ? product.fineness : "N/A"}
+                              {product.fineness || "N/A"}
                             </TableCell>
                           </TableRow>
 
@@ -207,7 +203,7 @@ const ProductComp = () => {
                               Thickness
                             </TableCell>
                             <TableCell className="py-3 px-0 text-right">
-                              {product.thickness ? product.thickness : "N/A"}
+                              {product.thickness || "N/A"}
                             </TableCell>
                           </TableRow>
 
@@ -282,7 +278,9 @@ const ProductComp = () => {
                 <p>Description</p>
               </div>
 
-              <div className="p-4">{product.description}</div>
+              <div className="p-4">
+                {product.description || "No description available"}
+              </div>
             </div>
           </div>
         </div>
