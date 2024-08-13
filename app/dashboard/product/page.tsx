@@ -3,6 +3,7 @@
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { fetchProductDetails } from "@/lib/fetchProductDetails";
+import { GetUrl } from "@/lib/getUrl";
 import { useCartStore } from "@/store/cart";
 import { CartItem } from "@/typings/cart";
 import { Product } from "@/typings/product";
@@ -12,9 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const ProductPage = () => {
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
-
+  const { idParam } = GetUrl();
   const { addToCart } = useCartStore();
   const [product, setProduct] = useState<Product | null>(null);
   const [thumbnail, setThmbnail] = useState("front");
@@ -49,7 +48,7 @@ const ProductPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const result = await fetchProductDetails(id ?? "");
+        const result = await fetchProductDetails(idParam ?? "");
         setProduct(result);
       } catch (error) {
         console.error("Failed to fetch product details:", error);
@@ -64,7 +63,7 @@ const ProductPage = () => {
 
     // Cleanup the interval when the component unmounts or id changes
     return () => clearInterval(intervalId);
-  }, [id]); // Dependency array includes 'id' to refetch if 'id' changes
+  }, [idParam]); // Dependency array includes 'id' to refetch if 'id' changes
 
   const cartProduct: CartItem = {
     sn: 1,

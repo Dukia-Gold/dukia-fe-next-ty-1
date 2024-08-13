@@ -1,23 +1,16 @@
 "use client";
 
+import { usePathname, useSearchParams } from "next/navigation";
+
 export const GetUrl = () => {
-  if (typeof window !== "undefined") {
-    const { pathname, search } = window.location;
-    const params = new URLSearchParams(search);
-
-    const queryParam = params.get("q");
-    const idParam = params.get("id");
-
-    return {
-      pathname,
-      queryParam,
-      idParam,
-    };
-  }
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const idParam = searchParams.get("id");
+  const queryParam = searchParams.get("q");
 
   return {
-    pathname: "",
-    queryParam: null,
-    idParam: null,
+    pathname,
+    queryParam,
+    idParam,
   };
 };
