@@ -1,5 +1,7 @@
 "use client";
 
+import { useFetchProductPrices } from "@/api/fetchGoldPrice";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { fetchProductDetails } from "@/lib/fetchProductDetails";
@@ -7,6 +9,7 @@ import { useCartStore } from "@/store/cart";
 import { CartItem } from "@/typings/cart";
 import { Product } from "@/typings/product";
 import { Spin } from "antd";
+import { X } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -15,11 +18,11 @@ const ProductComp = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
+  const { addToCart } = useCartStore();
   const [product, setProduct] = useState<Product | null>(null);
   const [thumbnail, setThmbnail] = useState("front");
   const [count, setCount] = useState(1);
   const router = useRouter();
-  const { addToCart } = useCartStore();
 
   const handleBack = () => {
     router.back();
@@ -76,25 +79,40 @@ const ProductComp = () => {
   };
 
   return (
-    <>
+    <div className="fixed z-20 top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
       {product ? (
-        <div className="p-6 bg-white mb-16 rounded-2xl mx-auto flex justify-center text-dukiaBlue">
+        <ScrollArea className="text-dukiaBlue p-6 bg-white xl:w-[1111px] rounded-2xl h-[90vh] relative">
+          <div
+            onClick={handleBack}
+            className="absolute top-5 right-5 rounded-[50%] bg-[#E8E9ED] p-2.5 cursor-pointer"
+          >
+            <X width={18} height={18} />
+          </div>
           <div className="space-y-14">
             <div className="flex gap-28">
               {/* Image and Thumbnails */}
               <div className="space-y-3">
                 {/* Image */}
-                <div className="bg-[#FBF7EB] rounded-xl py-20 px-28">
+                <div className="py-20 px-28 bg-[#FBF7EB] rounded-xl">
+                  {/* <div
+                    className={`${
+                      product.type === "coin" ? "px-11 py-24" : "py-20 px-28"
+                    } bg-[#FBF7EB] rounded-xl`}
+                  > */}
                   <Image
-                    width={250}
-                    height={424.67}
+                    width={product.type === "bar" ? 250 : 384}
+                    height={product.type === "bar" ? 424.67 : 384}
                     src={
                       thumbnail === "front"
                         ? product.thumbnail_url
                         : product.thumbnail_url2
                     }
                     alt={product.name}
-                    className="w-96 h-[26.6rem]"
+                    className={
+                      product.type === "bar"
+                        ? "w-96 h-[26.6rem]"
+                        : "w-[24rem] h-[24rem]"
+                    }
                   />
                 </div>
 
@@ -135,7 +153,7 @@ const ProductComp = () => {
               </div>
 
               {/* Details and Count container (buttons included) */}
-              <div className="pt-16 px-16 space-y-16">
+              <div className="pt-16 space-y-16">
                 {/* Details and Count */}
                 <div className="space-y-6">
                   <div className="space-y-11">
@@ -146,7 +164,9 @@ const ProductComp = () => {
                       <div>
                         <p className="font-semibold text-[#979BAE]">Price:</p>
                         <p className="text-[2rem]/9 font-extrabold">
-                          {formatCurrency(product.ask_price)}
+                          {product.ask_price > 0
+                            ? formatCurrency(product.ask_price)
+                            : "N/A"}
                         </p>
                       </div>
                     </div>
@@ -227,50 +247,59 @@ const ProductComp = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 text-sm font-semibold">
-                    <p>Quantity</p>
+                  {product.ask_price > 0 && (
+                    <div className="flex items-center gap-2 text-sm font-semibold">
+                      <p>Quantity</p>
 
-                    <div className="flex items-center">
-                      <button
-                        onClick={() => updateCount("decrement")}
-                        disabled={count === 1}
-                        className="bg-[#B9BBC8] p-1 text-center text-white rounded-l disabled:bg-[#B9BBC8]/[50%] disabled:text-dukiaBlue disabled:cursor-not-allowed w-7"
-                      >
-                        -
-                      </button>
+                      <div className="flex items-center">
+                        <button
+                          onClick={() => updateCount("decrement")}
+                          disabled={count === 1}
+                          className="bg-[#B9BBC8] p-1 text-center text-white rounded-l disabled:bg-[#B9BBC8]/[50%] disabled:text-dukiaBlue disabled:cursor-not-allowed w-7"
+                        >
+                          -
+                        </button>
 
-                      <input
-                        type="text"
-                        className="w-12 p-1 text-center outline-none"
-                        value={count}
-                        onChange={handleInputChange}
-                        onBlur={handleBlur}
-                      />
+                        <input
+                          type="text"
+                          className="w-12 p-1 text-center outline-none"
+                          value={count}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                        />
 
-                      <button
-                        onClick={() => updateCount("increment")}
-                        className="bg-dukiaBlue p-1 text-center text-white rounded-r  w-7"
-                      >
-                        +
-                      </button>
+                        <button
+                          onClick={() => updateCount("increment")}
+                          className="bg-dukiaBlue p-1 text-center text-white rounded-r  w-7"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Add to cart and checkout buttons */}
                 <div className="space-y-3">
-                  <button
-                    onClick={() => {
-                      addToCart(cartProduct);
-                      handleBack();
-                    }}
-                    className="bg-dukiaBlue py-3 text-white w-full font-semibold rounded-lg"
-                  >
-                    Add to Cart and Continue Shopping
-                  </button>
+                  {product.ask_price > 0 && (
+                    <button
+                      onClick={() => {
+                        addToCart(cartProduct);
+                        handleBack();
+                      }}
+                      className="bg-dukiaBlue py-3 text-white w-full font-semibold rounded-lg"
+                    >
+                      Add to Cart and Continue Shopping
+                    </button>
+                  )}
 
-                  <button className="bg-[#E8E9ED] py-3 w-full font-semibold rounded-lg">
-                    Add to Cart and Checkout
+                  <button
+                    disabled={product.ask_price === 0}
+                    className="bg-[#E8E9ED] py-3 w-full font-semibold rounded-lg disabled:cursor-not-allowed"
+                  >
+                    {product.ask_price > 0
+                      ? "Add to Cart and Checkout"
+                      : "Contact support to order"}
                   </button>
                 </div>
               </div>
@@ -285,13 +314,19 @@ const ProductComp = () => {
               <div className="p-4">{product.description}</div>
             </div>
           </div>
-        </div>
+        </ScrollArea>
       ) : (
-        <div className="w-full h-full flex items-center justify-center">
+        <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out p-7 pr-10 text-center xl:w-[1111px] flex items-center justify-center rounded-2xl h-[90vh] relative">
+          <div
+            onClick={handleBack}
+            className="absolute top-5 right-5 rounded-[50%] bg-[#E8E9ED] p-2.5 cursor-pointer"
+          >
+            <X width={18} height={18} />
+          </div>
           <Spin size="large" />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
