@@ -12,7 +12,7 @@ const useFetchUserData = () => {
   const [cookies] = useCookies(["auth-token"]);
 
   const token = cookies["auth-token"];
-  const url = GetUrl();
+  const { pathname } = GetUrl();
 
   const fetchUserData = async () => {
     try {
@@ -61,7 +61,7 @@ const useFetchUserData = () => {
             "There was a problem connecting to the server. Please check your internet connection and try again.",
         });
       } else {
-        if (token && url === "/dashboard") {
+        if (token && pathname.startsWith("/dashboard")) {
           toast({
             variant: "destructive",
             title: "Uh oh! Something went wrong.",
@@ -80,7 +80,7 @@ const useFetchUserData = () => {
   }, [token]); // Fetch data when token changes
 
   useEffect(() => {
-    const interval = setInterval(fetchUserData, 120000); // Fetch every 2 minutes (adjust as needed)
+    const interval = setInterval(fetchUserData, 10000); // Fetch every 2 minutes (adjust as needed)
     return () => clearInterval(interval); // Cleanup on component unmount
   }, []);
 

@@ -38,14 +38,14 @@ const useFetchTransactionHistory = () => {
       updateTransactions(data); // Update the user in the user store
     } catch (error: any) {
       
-      if (error instanceof TypeError && error.message === "Failed to fetch") {
-        toast({
-          variant: "destructive",
-          title: "Network Error",
-          description:
-            "There was a problem connecting to the server. Please check your internet connection and try again.",
-        });
-      }
+      // if (error instanceof TypeError && error.message === "Failed to fetch") {
+      //   toast({
+      //     variant: "destructive",
+      //     title: "Network Error",
+      //     description:
+      //       "There was a problem connecting to the server. Please check your internet connection and try again.",
+      //   });
+      // }
     }
 
     return data;
