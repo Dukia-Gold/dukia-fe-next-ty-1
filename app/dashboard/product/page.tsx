@@ -12,19 +12,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
 const ProductPage = () => {
-  const [isClient, setIsClient] = useState(false);
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  
   const [product, setProduct] = useState<Product | null>(null);
   const [thumbnail, setThmbnail] = useState("front");
   const [count, setCount] = useState(1);
   const router = useRouter();
   const { addToCart } = useCartStore();
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const searchParams = isClient ? useSearchParams() : null;
-  const id = searchParams ? searchParams.get("id") : null;
 
   const handleBack = () => {
     router.back();
