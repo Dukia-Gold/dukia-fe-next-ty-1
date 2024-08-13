@@ -9,7 +9,7 @@ import { Product } from "@/typings/product";
 import { Spin } from "antd";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 const ProductPage = () => {
   const [isClient, setIsClient] = useState(false);
@@ -81,7 +81,7 @@ const ProductPage = () => {
   };
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       {product ? (
         <div className="p-6 bg-white mb-16 rounded-2xl mx-auto flex justify-center text-dukiaBlue">
           <div className="space-y-14">
@@ -296,7 +296,7 @@ const ProductPage = () => {
           <Spin size="large" />
         </div>
       )}
-    </>
+    </Suspense>
   );
 };
 
