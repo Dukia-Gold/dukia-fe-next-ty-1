@@ -3,6 +3,7 @@
 import useAuth from "@/api/auth/useAuth";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import { capitalizeFirstLetter } from "@/lib/formatText";
+import { GetUrl } from "@/lib/getUrl";
 import { useCartStore } from "@/store/cart";
 import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
@@ -15,8 +16,8 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const TopBar = () => {
   const cart = useCartStore((state) => state.cart);
@@ -27,9 +28,14 @@ const TopBar = () => {
   const updateModals = useModalsStore((state: any) => state.updateModals);
   const [seeBalance, setSeeBalance] = useState(false);
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const idParam = searchParams.get("id");
-  const queryParam = searchParams.get("q");
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // Set the client-side flag to true after the component mounts
+    setIsClient(true);
+  }, []);
+
+  const { queryParam, idParam } = GetUrl();
 
   return (
     <div className="text-dukiaBlue mt-7 space-y-7">
@@ -97,9 +103,11 @@ const TopBar = () => {
             {pathname === "/dashboard/buy-gold/dukia-gold-catalogue" && (
               <p className="text-[#676D88]">
                 Buy Gold /{" "}
-                <span className="text-dukiaBlue font-extrabold">
-                  Gold {queryParam === "Bars" ? "Bars" : "Coins"}
-                </span>
+                {isClient && (
+                  <span className="text-dukiaBlue font-extrabold">
+                    Gold {queryParam === "Bars" ? "Bars" : "Coins"}
+                  </span>
+                )}
               </p>
             )}
 

@@ -12,7 +12,6 @@ const useFetchProducts = () => {
         "https://api.dukiapreciousmetals.co/api/price/products"
       );
       const products = await response.json();
-      console.log("Fetched products:", products);
       updateFullProducts(products);
     } catch (error) {
       console.error("Error fetching products:", error);
