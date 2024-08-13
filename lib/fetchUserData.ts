@@ -1,4 +1,5 @@
-import { toast } from "@/components/ui/use-toast";
+// import { toast } from "@/components/ui/use-toast";
+import { toast } from 'react-toastify';
 import { useCookies } from "react-cookie";
 import { GetUrl } from "./getUrl";
 import { userAssetsStore, userStore } from "@/store/user";
@@ -54,18 +55,17 @@ const useFetchUserData = () => {
       updateUser(data); // Update the user in the user store
     } catch (error: any) {
       if (error instanceof TypeError && error.message === "Failed to fetch") {
-        toast({
-          variant: "destructive",
-          title: "Network Error",
-          description:
-            "There was a problem connecting to the server. Please check your internet connection and try again.",
+        toast.error("Problem connecting to the server! Check your internet connection.", {
+          position: "bottom-right",
+          theme: "colored",
+          toastId: "Network Error - User Data",
         });
       } else {
         if (token && pathname.startsWith("/dashboard")) {
-          toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "An error occurred! Please refresh the dashboard.",
+          toast.error("An error occurred! Please refresh the dashboard.", {
+            position: "bottom-right",
+            theme: "colored",
+            toastId: "Error - User Data",
           });
         }
       }

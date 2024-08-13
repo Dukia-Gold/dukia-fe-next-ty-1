@@ -1,5 +1,9 @@
 "use client";
 
+import { Toaster } from "react-hot-toast";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import GoldPrice from "@/components/dashboardComponents/GoldPrice";
 import MobileHeader from "@/components/dashboardComponents/MobileHeader";
 import Sidebar from "@/components/dashboardComponents/Sidebar";
@@ -49,6 +53,9 @@ export default function DashboardLayout({
         </ScrollArea>
 
         <StatementOfAccountModal />
+
+        <Toaster />
+        <ToastContainer theme="colored"/>
       </main>
     </div>
   );
