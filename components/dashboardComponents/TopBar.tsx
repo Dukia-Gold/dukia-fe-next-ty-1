@@ -1,3 +1,5 @@
+"use client"
+
 import useAuth from "@/api/auth/useAuth";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import { capitalizeFirstLetter } from "@/lib/formatText";
@@ -14,7 +16,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const TopBar = () => {
@@ -26,9 +28,8 @@ const TopBar = () => {
   const updateModals = useModalsStore((state: any) => state.updateModals);
   const [seeBalance, setSeeBalance] = useState(false);
   const pathname = usePathname();
-  const params = useParams();
-  const { id } = params;
-  console.log(id);
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const { queryParam, idParam } = GetUrl();
 
   return (

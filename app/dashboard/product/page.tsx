@@ -8,16 +8,13 @@ import { CartItem } from "@/typings/cart";
 import { Product } from "@/typings/product";
 import { Spin } from "antd";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-type Props = {
-  searchParams: {
-    id: string;
-  };
-};
+const ProductPage = () => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
 
-const ProductPage = ({ searchParams: { id } }: Props) => {
   const { addToCart } = useCartStore();
   const [product, setProduct] = useState<Product | null>(null);
   const [thumbnail, setThmbnail] = useState("front");
@@ -52,7 +49,7 @@ const ProductPage = ({ searchParams: { id } }: Props) => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const result = await fetchProductDetails(id);
+        const result = await fetchProductDetails(id ?? "");
         setProduct(result);
       } catch (error) {
         console.error("Failed to fetch product details:", error);

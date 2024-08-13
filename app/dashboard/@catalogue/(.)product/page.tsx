@@ -1,6 +1,5 @@
 "use client";
 
-import { useFetchProductPrices } from "@/api/fetchGoldPrice";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/currencyformatter";
@@ -11,19 +10,13 @@ import { Product } from "@/typings/product";
 import { Spin } from "antd";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-
-type Props = {
-  searchParams: {
-    id: string;
-  };
-};
 
 const ProductModal = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  
+
   const { addToCart } = useCartStore();
   const [product, setProduct] = useState<Product | null>(null);
   const [thumbnail, setThmbnail] = useState("front");
