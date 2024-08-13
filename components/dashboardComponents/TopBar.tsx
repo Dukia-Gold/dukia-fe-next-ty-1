@@ -1,9 +1,8 @@
-"use client"
+"use client";
 
 import useAuth from "@/api/auth/useAuth";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import { capitalizeFirstLetter } from "@/lib/formatText";
-import { GetUrl } from "@/lib/getUrl";
 import { useCartStore } from "@/store/cart";
 import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
@@ -29,8 +28,8 @@ const TopBar = () => {
   const [seeBalance, setSeeBalance] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const id = searchParams.get("id");
-  const { queryParam, idParam } = GetUrl();
+  const idParam = searchParams.get("id");
+  const queryParam = searchParams.get("q");
 
   return (
     <div className="text-dukiaBlue mt-7 space-y-7">
