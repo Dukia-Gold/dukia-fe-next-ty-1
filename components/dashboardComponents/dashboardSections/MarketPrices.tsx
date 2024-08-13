@@ -12,6 +12,7 @@ import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import { fetchProductSearch } from "@/lib/fetchProductSearch";
 import { Product } from "@/typings/product";
+import Link from "next/link";
 
 const MarketPrices = () => {
   const [tab, setTab] = useState("bars");
@@ -201,18 +202,26 @@ const MarketPrices = () => {
             bars.map((bar, index) => (
               <TableRow key={index} className="font-semibold text-[#676D88]">
                 {/* Name and Thumbnail */}
-                <TableCell className="p-2.5">
-                  <span className="flex items-center gap-3">
-                    <Image
-                      src={bar.thumbnail_url}
-                      alt="Dukia Token"
-                      width={23.5}
-                      height={40}
-                      className="transform rotate-90"
-                    />
 
-                    <p>{bar.name}</p>
-                  </span>
+                <TableCell className="p-2.5">
+                  <Link
+                    href={{
+                      pathname: "/dashboard/assets",
+                      query: { id: bar.id },
+                    }}
+                  >
+                    <span className="flex items-center gap-3">
+                      <Image
+                        src={bar.thumbnail_url}
+                        alt="Dukia Token"
+                        width={23.5}
+                        height={40}
+                        className="transform rotate-90"
+                      />
+
+                      <p>{bar.name}</p>
+                    </span>
+                  </Link>
                 </TableCell>
 
                 {/* Chart */}
@@ -272,16 +281,23 @@ const MarketPrices = () => {
               <TableRow key={index} className="font-semibold text-[#676D88]">
                 {/* Name and Thumbnail */}
                 <TableCell className="p-2.5">
-                  <span className="flex items-center gap-3">
-                    <Image
-                      src={coin.thumbnail_url}
-                      alt="Dukia Token"
-                      width={60}
-                      height={60}
-                    />
+                  <Link
+                    href={{
+                      pathname: "/dashboard/assets",
+                      query: { id: coin.id },
+                    }}
+                  >
+                    <span className="flex items-center gap-3">
+                      <Image
+                        src={coin.thumbnail_url}
+                        alt="Dukia Token"
+                        width={60}
+                        height={60}
+                      />
 
-                    <p>{coin.name}</p>
-                  </span>
+                      <p>{coin.name}</p>
+                    </span>
+                  </Link>
                 </TableCell>
 
                 {/* Chart */}

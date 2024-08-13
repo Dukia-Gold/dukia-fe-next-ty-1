@@ -24,7 +24,7 @@ const TopBar = () => {
   const user = userStore((state: any) => state.user);
   const updateModals = useModalsStore((state: any) => state.updateModals);
   const [seeBalance, setSeeBalance] = useState(false);
-  const pathname = GetUrl();
+  const { pathname, queryParam, idParam } = GetUrl();
 
   return (
     <div className="text-dukiaBlue mt-7 space-y-7">
@@ -75,22 +75,32 @@ const TopBar = () => {
 
         <div className="flex items-end justify-between">
           <div className="text-xl font-extrabold">
+            {pathname === "/dashboard/cart" && <p>Cart</p>}
+            {pathname === "/dashboard/product" && (
+              <p className="text-[#676D88]">
+                Product /{" "}
+                <span className="text-dukiaBlue font-extrabold">{idParam}</span>
+              </p>
+            )}
+
             {pathname === "/dashboard" && <p>Dashboard</p>}
             {pathname === "/dashboard/profile" && <p>Account Info</p>}
             {pathname === "/dashboard/card" && <p>Debit Card</p>}
             {pathname === "/dashboard/kyc" && <p>KYC Verification</p>}
 
             {pathname === "/dashboard/buy-gold" && <p>Buy Gold</p>}
-            {pathname === "/dashboard/buy-gold/buy-dukia-gold-bars" && (
+            {pathname === "/dashboard/buy-gold/dukia-gold-catalogue" && (
               <p className="text-[#676D88]">
                 Buy Gold /{" "}
-                <span className="text-dukiaBlue font-extrabold">Gold Bars</span>
+                <span className="text-dukiaBlue font-extrabold">
+                  Gold {queryParam === "Bars" ? "Bars" : "Coins"}
+                </span>
               </p>
             )}
 
             {pathname === "/dashboard/assets" && <p>Assets</p>}
             {pathname === "/dashboard/transactions" && <p>Transactions</p>}
-            {pathname === "/dashboard/charts" && <p>Charts</p>}
+            {pathname === "/dashboard/exchange" && <p>Exchange</p>}
             {pathname === "/dashboard/settings" && <p>Settings</p>}
           </div>
 

@@ -1,3 +1,5 @@
+"use client"
+
 import Trade from "@/components/dashboardComponents/dashboardSections/Trade";
 import Transactions from "@/components/dashboardComponents/dashboardSections/Transactions";
 import useModalsStore from "@/store/modalsStore";
@@ -9,7 +11,7 @@ type Props = {
   };
 };
 
-export default async function AssetsPage({ searchParams: { q } }: Props) {
+const AssetsPage = ({ searchParams: { q } }: Props) => {
   const user = userStore((state: any) => state.user);
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
@@ -41,3 +43,5 @@ export default async function AssetsPage({ searchParams: { q } }: Props) {
     </main>
   );
 };
+
+export default AssetsPage;

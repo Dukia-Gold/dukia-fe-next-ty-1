@@ -1,9 +1,11 @@
-import React from 'react'
+import Cart from "@/components/dashboardComponents/cartComponents/Cart";
 
 const CartPage = () => {
   return (
-    <div>CartPage</div>
-  )
-}
+    <>
+      <Cart />
+    </>
+  );
+};
 
-export default CartPage
+export default CartPage;

@@ -21,8 +21,11 @@ const useAuth = () => {
   const token = cookies["auth-token"];
   const { toast } = useToast();
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
-  const updateUser = userStore((state: any) => state.updateUser);
-  const clearUser = userStore((state: any) => state.clearUser);
+  const { updateUser, clearUser } = userStore((state: any) => ({
+    user: state.user,
+    updateUser: state.updateUser,
+    clearUser: state.clearUser,
+  }));
   const router = useRouter();
 
   const loginUser = async (

@@ -9,6 +9,8 @@ import { userStore } from "@/store/user";
 import useFetchUserData from "@/lib/fetchUserData";
 import useFetchTransactionHistory from "@/lib/fetchTransactionHistory";
 import { capitalizeFirstLetter } from "@/lib/formatText";
+import useFetchProducts from "@/lib/fetchProducts";
+import { useEffect } from "react";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -16,6 +18,7 @@ const Sidebar = () => {
   const user = userStore((state: any) => state.user);
   const fetchUserData = useFetchUserData();
   const fetchTransactionHistory = useFetchTransactionHistory();
+  const fetchProducts = useFetchProducts();
 
   return (
     <aside className="hidden h-screen lg:flex flex-col justify-between pt-6 pb-32 w-72 text-[#676D88] font-semibold">
@@ -94,7 +97,7 @@ const Sidebar = () => {
             </Link>
 
             {/* Assets */}
-            <Link href="/dashboard/assets">
+            <Link href="/dashboard/assets?id=philoro-1g">
               <li
                 className={`${
                   pathname === "/dashboard/assets"
@@ -164,33 +167,84 @@ const Sidebar = () => {
               </li>
             </Link>
 
-            {/* Charts */}
-            <Link href="/dashboard/charts">
+            {/* Exchange */}
+            <Link href="/dashboard/exchange">
               <li
                 className={`${
-                  pathname === "/dashboard/charts"
+                  pathname === "/dashboard/exchange"
                     ? "bg-dukiaBlue text-white"
                     : "hover:bg-dukiaBlue/[10%]"
                 } px-5 py-3 cursor-pointer flex gap-2.5 items-center`}
               >
                 <svg
                   width="20"
-                  height="21"
-                  viewBox="0 0 20 21"
+                  height="20"
+                  viewBox="0 0 20 20"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M9.16699 3.4708V18.1708C9.16699 18.7041 8.67533 19.1041 8.15866 18.9875C4.43366 18.1541 1.66699 14.8125 1.66699 10.8208C1.66699 6.82914 4.43366 3.48747 8.15866 2.65414C8.28037 2.62768 8.40647 2.62889 8.52765 2.65769C8.64882 2.68649 8.76198 2.74214 8.85877 2.82054C8.95556 2.89893 9.03351 2.99806 9.08686 3.11061C9.1402 3.22316 9.16759 3.34625 9.16699 3.4708ZM10.8587 3.4708V9.1458C10.8587 9.60414 11.2337 9.97914 11.692 9.97914H17.3503C17.8837 9.97914 18.2837 9.48747 18.167 8.96247C17.4587 5.82914 15.0003 3.36247 11.8753 2.65414C11.3503 2.53747 10.8587 2.93747 10.8587 3.4708ZM10.8587 12.4958V18.1708C10.8587 18.7041 11.3503 19.1041 11.8753 18.9875C15.0087 18.2791 17.467 15.8041 18.1753 12.6708C18.292 12.1541 17.8837 11.6541 17.3587 11.6541H11.7003C11.2337 11.6625 10.8587 12.0375 10.8587 12.4958Z"
-                    fill="white"
+                    d="M10.5 2C5.80588 2 2 5.79454 2 10.4738C2 15.153 5.80588 18.9476 10.5 18.9476C15.1948 18.9476 19 15.153 19 10.4738C19 5.79454 15.1941 2 10.5 2ZM10.1168 5.4C11.4697 5.30792 12.8623 5.67979 13.9645 6.76992C14.9745 7.78779 15.7424 9.20658 15.7268 10.5361H17.2377L14.0898 14.0516L10.9413 10.5361H12.5797C12.579 9.31496 12.2772 8.59388 11.3188 7.64896C10.3803 6.70263 9.42971 6.15438 7.79275 6.01767C8.52245 5.66964 9.31055 5.45971 10.1168 5.4ZM6.91158 6.89671L10.0601 10.4122H8.42175C8.42175 11.6333 8.7235 12.3544 9.68117 13.2993C10.6204 14.2457 11.5703 14.7953 13.2072 14.932C11.3061 15.8302 8.80142 15.9223 7.03767 14.1784C6.02688 13.1605 5.25833 11.7417 5.27463 10.4122H3.76233L6.91158 6.89671Z"
+                    fill="#676D88"
                     className={`${
-                      pathname === "/dashboard/charts"
+                      pathname === "/dashboard/exchange"
                         ? "fill-white"
                         : "fill-[#676D88]"
                     }`}
                   />
                 </svg>
-                Charts
+                Exchange
+              </li>
+            </Link>
+
+            {/* Card */}
+            <Link href="/dashboard/card">
+              <li
+                className={`${
+                  pathname === "/dashboard/card"
+                    ? "bg-dukiaBlue text-white"
+                    : "hover:bg-dukiaBlue/[10%]"
+                } px-5 py-3 cursor-pointer flex gap-2.5 items-center`}
+              >
+                <svg
+                  width="20"
+                  height="17"
+                  viewBox="0 0 20 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <mask
+                    id="mask0_4279_3458"
+                    maskUnits="userSpaceOnUse"
+                    x="1"
+                    y="2"
+                    width="18"
+                    height="13"
+                  >
+                    <path
+                      d="M11.666 2.94434H8.33268C5.19018 2.94434 3.61852 2.94434 2.64268 3.75822C1.93935 4.34364 1.74268 5.1867 1.68768 6.59017H18.311C18.256 5.1867 18.0593 4.34364 17.356 3.75822C16.3802 2.94434 14.8085 2.94434 11.666 2.94434ZM8.33268 14.0554H11.666C14.8085 14.0554 16.3802 14.0554 17.356 13.2416C18.3327 12.4284 18.3327 11.1186 18.3327 8.49989C18.3327 8.19295 18.3327 7.90406 18.331 7.63184H1.66768C1.66602 7.90406 1.66602 8.19295 1.66602 8.49989C1.66602 11.1186 1.66602 12.4284 2.64268 13.2416C3.61852 14.0554 5.19018 14.0554 8.33268 14.0554Z"
+                      fill="white"
+                    />
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M4.375 11.2777C4.375 11.1395 4.44085 11.0071 4.55806 10.9094C4.67527 10.8117 4.83424 10.7568 5 10.7568H8.33333C8.49909 10.7568 8.65806 10.8117 8.77527 10.9094C8.89248 11.0071 8.95833 11.1395 8.95833 11.2777C8.95833 11.4158 8.89248 11.5483 8.77527 11.646C8.65806 11.7436 8.49909 11.7985 8.33333 11.7985H5C4.83424 11.7985 4.67527 11.7436 4.55806 11.646C4.44085 11.5483 4.375 11.4158 4.375 11.2777ZM9.79167 11.2777C9.79167 11.1395 9.85751 11.0071 9.97473 10.9094C10.0919 10.8117 10.2509 10.7568 10.4167 10.7568H11.6667C11.8324 10.7568 11.9914 10.8117 12.1086 10.9094C12.2258 11.0071 12.2917 11.1395 12.2917 11.2777C12.2917 11.4158 12.2258 11.5483 12.1086 11.646C11.9914 11.7436 11.8324 11.7985 11.6667 11.7985H10.4167C10.2509 11.7985 10.0919 11.7436 9.97473 11.646C9.85751 11.5483 9.79167 11.4158 9.79167 11.2777Z"
+                      fill="black"
+                    />
+                  </mask>
+                  <g mask="url(#mask0_4279_3458)">
+                    <path
+                      d="M0 0.166504H20V16.8332H0V0.166504Z"
+                      fill="#676D88"
+                      className={`${
+                        pathname === "/dashboard/card"
+                          ? "fill-white"
+                          : "fill-[#676D88]"
+                      }`}
+                    />
+                  </g>
+                </svg>
+                Card
               </li>
             </Link>
 
