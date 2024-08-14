@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export const fullProductsStore = create((set) => ({
-  fullProducts: [],
+  fullProducts: null,
   updateFullProducts: (newFullProducts: any) =>
     set((state: any) => ({
       fullProducts: { ...state.fullProducts, ...newFullProducts },

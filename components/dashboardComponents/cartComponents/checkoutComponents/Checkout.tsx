@@ -1,17 +1,27 @@
 "use client";
 
 import { useFetchProductPrices } from "@/api/fetchGoldPrice";
+import bullionVan from "@/assets/bullion-van.png";
+import goldStore from "@/assets/gold-bars 1.png";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { formatDecimal } from "@/lib/decimalFormatter";
+import { capitalizeFirstLetter } from "@/lib/formatText";
 import { useCartStore } from "@/store/cart";
+import { fullProductsStore } from "@/store/fullProducts";
 import { userStore } from "@/store/user";
 import { Spin } from "antd";
 import { ShoppingCart, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ShipmentItem from "./ShipmentItem";
+import { CartItem } from "@/typings/cart";
 
 const Checkout = () => {
+  const [delivery, setDelivery] = useState<"" | "delivery" | "storage">(
+    "delivery"
+  );
   const user = userStore((state: any) => state.user);
   const { cart, updatePrices } = useCartStore();
   const router = useRouter();
@@ -85,13 +95,187 @@ const Checkout = () => {
                 <div className="col-span-2">
                   <div className="grid gap-4 max-h-[80vh] overflow-y-auto custom-scrollbar">
                     {/* Accessibility */}
-                    <div></div>
+                    <div className="p-4 bg-[#F6F7F9] rounded-xl">
+                      <p className="font-semibold pb-3 border-b border-[#E8E9ED]">
+                        Accessibility
+                      </p>
+
+                      {/* Storage and Delivery */}
+                      <div className="space-y-4 mt-3">
+                        {/* Storage */}
+                        <div
+                          className={`${
+                            delivery === "storage" && "border border-dukiaGold"
+                          } p-3 bg-white rounded-xl relative flex gap-3 text-sm min-h-[98px]`}
+                        >
+                          {/* Checkbox */}
+                          <div className="flex gap-2">
+                            <input
+                              type="checkbox"
+                              checked={delivery === "storage"}
+                              onChange={(e) =>
+                                setDelivery(e.target.checked ? "storage" : "")
+                              }
+                              id="deliveryStorage"
+                              name="delivery"
+                              className="relative peer shrink-0 appearance-none w-5 h-5 border-2 border-[#676D88] rounded bg-white checked:bg-dukiaGold checked:border-0 cursor-pointer"
+                            />
+                            <svg
+                              className="absolute w-5 h-5 hidden peer-checked:block pointer-events-none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="white"
+                              stroke-width="4"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                          </div>
+
+                          {/* text */}
+                          <div className="space-y-1 pt-0.5">
+                            <p
+                              className={`${
+                                delivery === "storage" && "text-dukiaGold"
+                              } font-semibold text-sm/none`}
+                            >
+                              Storage
+                            </p>
+
+                            <p className="md:max-w-[447px]">
+                              Storage of your gold at our designated LBMA
+                              accredited state-of-the-art, high security, and
+                              fully insured storage facility in Switzerland and
+                              UK.
+                            </p>
+                          </div>
+
+                          {/* Gold Store */}
+                          <Image
+                            width={75}
+                            height={75}
+                            className="absolute right-0 bottom-0"
+                            src={goldStore}
+                            alt="Gold Store"
+                          />
+                        </div>
+
+                        {/* Delivery */}
+                        <div
+                          className={`${
+                            delivery === "delivery" && "border border-dukiaGold"
+                          } p-3 bg-white rounded-xl relative flex gap-3 text-sm min-h-[98px]`}
+                        >
+                          {/* Checkbox */}
+                          <div className="flex gap-2">
+                            <input
+                              type="checkbox"
+                              checked={delivery === "delivery"}
+                              onChange={(e) =>
+                                setDelivery(e.target.checked ? "delivery" : "")
+                              }
+                              id="deliveryStorage"
+                              name="delivery"
+                              className="relative peer shrink-0 appearance-none w-5 h-5 border-2 border-[#676D88] rounded bg-white checked:bg-dukiaGold checked:border-0 cursor-pointer"
+                            />
+                            <svg
+                              className="absolute w-5 h-5 hidden peer-checked:block pointer-events-none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="white"
+                              stroke-width="4"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                          </div>
+
+                          {/* text */}
+                          <div className="space-y-1 pt-0.5">
+                            <p
+                              className={`${
+                                delivery === "delivery" && "text-dukiaGold"
+                              } font-semibold text-sm/none`}
+                            >
+                              Delivery
+                            </p>
+
+                            <p className="md:max-w-[447px]">
+                              Modalities about your asset delivery will be sent
+                              to your email address.
+                            </p>
+                          </div>
+
+                          {/* Gold Store */}
+                          <Image
+                            width={75}
+                            height={75}
+                            className="absolute right-0 bottom-0"
+                            src={bullionVan}
+                            alt="Gold Store"
+                          />
+                        </div>
+                      </div>
+                    </div>
 
                     {/* Customer Address if delivery is selected */}
-                    <div></div>
+                    {delivery === "delivery" && (
+                      <div className="p-4 bg-[#F6F7F9] rounded-xl">
+                        <p className="font-semibold pb-3 border-b border-[#E8E9ED]">
+                          Customer Address
+                        </p>
+
+                        {/* Address Details */}
+                        <div className="mt-3 bg-white rounded-xl p-3 text-sm space-y-4">
+                          {/* Name and Contact Us */}
+                          <div className="flex items-center justify-between">
+                            {/* Name */}
+                            <p className="font-semibold">
+                              {capitalizeFirstLetter(user?.first_name)}{" "}
+                              {capitalizeFirstLetter(user?.last_name)}
+                            </p>
+
+                            {/* Contact Us */}
+                            <p className="underline text-xs font-semibold text-dukiaGold">
+                              Contact Us to change
+                            </p>
+                          </div>
+
+                          {/* Address line 1 */}
+                          <p>
+                            {user.address_line_1
+                              ? user.address_line_1
+                              : "No address provided!"}
+                          </p>
+
+                          {/* Address line 2 */}
+                          {user.address_line_2 && <p>{user.address_line_2}</p>}
+                        </div>
+                      </div>
+                    )}
 
                     {/* Shipment */}
-                    <div></div>
+                    <div className="p-4 bg-[#F6F7F9] rounded-xl">
+                      <p className="font-semibold pb-3 border-b border-[#E8E9ED]">
+                        Shipment
+                      </p>
+
+                      <div className="mt-3">
+                        <div className="grid gap-3 max-h-[16.125rem] overflow-y-auto custom-scrollbar">
+                          {cart?.map((item: CartItem) => (
+                            <ShipmentItem
+                              key={item.id}
+                              quantity={item.quantity}
+                              id={item.id}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
 
                     {/* Payment Method */}
                     <div className="p-4 bg-[#F6F7F9] rounded-xl">
@@ -197,7 +381,17 @@ const Checkout = () => {
                     {/* Confirm Order button */}
                     <div>
                       <Link href={"/dashboard/cart/checkout"}>
-                        <button className="bg-dukiaBlue text-white text-center py-3 font-semibold w-full rounded-lg">
+                        <button
+                          disabled={
+                            delivery === "" ||
+                            (delivery === "delivery" && !user.address_line_1) ||
+                            cart.reduce(
+                              (acc, item) => acc + (item.line_price ?? 0),
+                              0
+                            ) > user.opening_balance_ng
+                          }
+                          className="bg-dukiaBlue text-white text-center py-3 font-semibold w-full rounded-lg disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
+                        >
                           Confirm Order
                         </button>
                       </Link>
@@ -206,7 +400,7 @@ const Checkout = () => {
                     {/* Modify Order button */}
                     <div>
                       <Link href={"/dashboard/cart"}>
-                        <button className="bg-[#E8E9ED] text-dukiaBlue text-center py-3 font-semibold w-full rounded-lg">
+                        <button className="bg-[#E8E9ED] text-dukiaBlue text-center py-3 font-semibold w-full rounded-lg disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed">
                           Modify Order
                         </button>
                       </Link>

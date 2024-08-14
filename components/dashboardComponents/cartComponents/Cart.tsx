@@ -94,14 +94,18 @@ const Cart = () => {
                   </div>
                 </div>
 
+                {/* Summary Details */}
                 <div className="col-span-1">
                   <div className="rounded-xl p-4 bg-[#F6F7F9] space-y-5">
+                    {/* Summary */}
                     <div>
                       <p className="font-semibold pb-3 border-b border-[#E8E9ED]">
                         Cart Summary
                       </p>
 
+                      {/* Summary details */}
                       <div className="text-sm pt-3 space-y-3">
+                        {/* Number of Items */}
                         <div className="flex items-center justify-between">
                           <label className="text-[#676D88]">
                             Number of Items
@@ -114,6 +118,8 @@ const Cart = () => {
                           <label className="text-[#676D88]">
                             Item&apos;s total:
                           </label>
+
+                          {/* Figure */}
                           <p className="font-bold">
                             {formatCurrency(
                               cart.reduce(
@@ -139,6 +145,7 @@ const Cart = () => {
                       </div>
                     </div>
 
+                    {/* Checkout button */}
                     <div>
                       <Link href={"/dashboard/cart/checkout"}>
                         <button className="bg-dukiaBlue text-white text-center py-3 font-semibold w-full rounded-lg">

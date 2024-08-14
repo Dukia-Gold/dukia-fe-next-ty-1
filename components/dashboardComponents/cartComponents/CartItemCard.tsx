@@ -2,7 +2,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { useCartStore } from "@/store/cart";
 import { fullProductsStore } from "@/store/fullProducts";
-import { Product } from "@/typings/product";
 import { Trash } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -15,29 +14,27 @@ type Props = {
 
 const CartItemCard = ({ price, quantity, id }: Props) => {
   const { removeFromCart } = useCartStore();
-  const [itemDetails, setItemDetails] = useState<Product | null>(null);
+  const [itemDetails, setItemDetails] = useState<any>(null);
 
-  const fetchProductDetails = async () => {
-    try {
-      const response = await fetch(
-        "https://api.dukiapreciousmetals.co/api/price/products"
-      );
-      const productsData = await response.json();
+  const fullProducts = fullProductsStore((state: any) => state.fullProducts);
 
-      // Get product details by ID
-      const product = productsData.find(
-        (product: Product) => product.id === id
-      );
-
-      setItemDetails(product || null); // Set itemDetails to the found product or null if not found
-    } catch (error) {
-      console.error("Error fetching products:", error);
+  const findItemById = (id?: string) => {
+    if (!fullProducts) {
+      return null;
     }
+    return Object.values(fullProducts).find((item: any) => item.id === id);
   };
 
+  // Step 3: Use useEffect to update itemDetails when fullProducts or id changes
   useEffect(() => {
-    fetchProductDetails();
-  }, [id]); // Add 'id' to the dependency array to re-fetch if it changes
+    const details = findItemById(id);
+    setItemDetails(details);
+  }, [fullProducts, id]); // Dependencies: update when fullProducts or id changes
+
+  if (!itemDetails) {
+    // Handle the case where the item is not found or still loading
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="rounded-xl bg-[#F6F7F9] py-4 px-6 flex justify-between">
