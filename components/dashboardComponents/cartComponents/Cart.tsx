@@ -41,7 +41,7 @@ const Cart = () => {
 
   return (
     <>
-      {cart ? (
+      {Array.isArray(cart) ? (
         <div className="text-dukiaBlue p-6 bg-white xl:w-[1111px] rounded-2xl relative">
           <div
             onClick={handleBack}
@@ -49,7 +49,6 @@ const Cart = () => {
           >
             <X width={16} height={16} />
           </div>
-
           <div className="space-y-6">
             <p className="font-semibold">Cart ({cart.length})</p>
 
@@ -68,22 +67,13 @@ const Cart = () => {
                   <p className="text-sm font-semibold">
                     Items appear here when you add them to cart.
                   </p>
-
-                  {/* <div>
-                    <button
-                      onClick={() => router.push("/dashboard/buy-gold")}
-                      className="bg-dukiaBlue rounded-lg text-white py-3 px-9"
-                    >
-                      Buy Gold
-                    </button>
-                  </div> */}
                 </div>
               </div>
             ) : (
               <div className="grid grid-cols-3 gap-4">
                 <div className="col-span-2">
                   <div className="grid gap-5 max-h-[31.875rem] overflow-y-auto custom-scrollbar">
-                    {cart?.map((item: CartItem) => (
+                    {cart.map((item: CartItem) => (
                       <CartItemCard
                         key={item.id}
                         price={item.line_price}
