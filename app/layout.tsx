@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "@/components/landingPageComponents/Header";
 import Footer from "@/components/landingPageComponents/Footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -48,7 +49,7 @@ export default function RootLayout({
         <Header />
         <main className="min-h-screen flex flex-col justify-between">
           {auth}
-          
+
           {children}
 
           <Toaster />
@@ -68,6 +69,8 @@ export default function RootLayout({
           </>
 
           <Footer />
+
+          <SpeedInsights />
         </main>
       </body>
     </html>
