@@ -13,6 +13,7 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const ProductComp = () => {
   const searchParams = useSearchParams();
@@ -286,6 +287,10 @@ const ProductComp = () => {
                       onClick={() => {
                         addToCart(cartProduct);
                         handleBack();
+                        toast(`${product.name} added to cart!`, {
+                          position: "bottom-right",
+                          theme: "colored",
+                        });
                       }}
                       className="bg-dukiaBlue py-3 text-white w-full font-semibold rounded-lg"
                     >
@@ -294,6 +299,14 @@ const ProductComp = () => {
                   )}
 
                   <button
+                    onClick={() => {
+                      addToCart(cartProduct);
+                      router.push("/dashboard/cart/checkout");
+                      toast(`${product.name} added to cart!`, {
+                        position: "bottom-right",
+                        theme: "colored",
+                      });
+                    }}
                     disabled={product.ask_price === 0}
                     className="bg-[#E8E9ED] py-3 w-full font-semibold rounded-lg disabled:cursor-not-allowed"
                   >

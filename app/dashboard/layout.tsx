@@ -12,7 +12,6 @@ import StatementOfAccountModal from "@/components/transactionsComponents/Stateme
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { userStore } from "@/store/user";
 import type { Metadata } from "next";
-import React from "react";
 
 // export const metadata: Metadata = {
 //   title: "Dukia Gold",

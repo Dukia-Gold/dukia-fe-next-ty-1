@@ -69,20 +69,20 @@ const Cart = () => {
                     Items appear here when you add them to cart.
                   </p>
 
-                  <div>
+                  {/* <div>
                     <button
                       onClick={() => router.push("/dashboard/buy-gold")}
                       className="bg-dukiaBlue rounded-lg text-white py-3 px-9"
                     >
                       Buy Gold
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ) : (
               <div className="grid grid-cols-3 gap-4">
                 <div className="col-span-2">
-                  <div className="grid gap-5 max-h-[50vh] overflow-y-auto custom-scrollbar">
+                  <div className="grid gap-5 max-h-[31.875rem] overflow-y-auto custom-scrollbar">
                     {cart?.map((item: CartItem) => (
                       <CartItemCard
                         key={item.id}
@@ -94,60 +94,66 @@ const Cart = () => {
                   </div>
                 </div>
 
-                <div className="col-span-1 rounded-xl p-4 bg-[#F6F7F9] space-y-5">
-                  <div>
-                    <p className="font-semibold pb-3 border-b border-[#E8E9ED]">
-                      Cart Summary
-                    </p>
+                <div className="col-span-1">
+                  <div className="rounded-xl p-4 bg-[#F6F7F9] space-y-5">
+                    <div>
+                      <p className="font-semibold pb-3 border-b border-[#E8E9ED]">
+                        Cart Summary
+                      </p>
 
-                    <div className="text-sm pt-3 space-y-3">
-                      <div className="flex items-center justify-between">
-                        <label className="text-[#676D88]">
-                          Number of Items
-                        </label>
-                        <p className="font-bold">{cart.length}</p>
-                      </div>
+                      <div className="text-sm pt-3 space-y-3">
+                        <div className="flex items-center justify-between">
+                          <label className="text-[#676D88]">
+                            Number of Items
+                          </label>
+                          <p className="font-bold">{cart.length}</p>
+                        </div>
 
-                      {/* Item's total */}
-                      <div className="flex items-center justify-between">
-                        <label className="text-[#676D88]">
-                          Item&apos;s total:
-                        </label>
-                        <p className="font-bold">
-                          {formatCurrency(
-                            cart.reduce(
-                              (acc, item) => acc + (item.line_price ?? 0),
-                              0
-                            )
-                          )}
-                        </p>
-                      </div>
+                        {/* Item's total */}
+                        <div className="flex items-center justify-between">
+                          <label className="text-[#676D88]">
+                            Item&apos;s total:
+                          </label>
+                          <p className="font-bold">
+                            {formatCurrency(
+                              cart.reduce(
+                                (acc, item) => acc + (item.line_price ?? 0),
+                                0
+                              )
+                            )}
+                          </p>
+                        </div>
 
-                      {/* Subtotal */}
-                      <div className="flex items-center justify-between">
-                        <label className="text-[#676D88]">Subtotal:</label>
-                        <p className="font-bold">
-                          {formatCurrency(
-                            cart.reduce(
-                              (acc, item) => acc + (item.line_price ?? 0),
-                              0
-                            )
-                          )}
-                        </p>
+                        {/* Subtotal */}
+                        <div className="flex items-center justify-between">
+                          <label className="text-[#676D88]">Subtotal:</label>
+                          <p className="font-bold">
+                            {formatCurrency(
+                              cart.reduce(
+                                (acc, item) => acc + (item.line_price ?? 0),
+                                0
+                              )
+                            )}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <button className="bg-dukiaBlue text-white text-center py-3 font-semibold w-full rounded-lg">
-                    Checkout (
-                    {formatCurrency(
-                      cart.reduce(
-                        (acc, item) => acc + (item.line_price ?? 0),
-                        0
-                      )
-                    )}
-                    )
-                  </button>
+                    <div>
+                      <Link href={"/dashboard/cart/checkout"}>
+                        <button className="bg-dukiaBlue text-white text-center py-3 font-semibold w-full rounded-lg">
+                          Checkout (
+                          {formatCurrency(
+                            cart.reduce(
+                              (acc, item) => acc + (item.line_price ?? 0),
+                              0
+                            )
+                          )}
+                          )
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

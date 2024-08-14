@@ -1,5 +1,5 @@
 import React from "react";
-import { userAssetsStore, userStore } from "@/store/user";
+import { userAssetsStore } from "@/store/user";
 import Image from "next/image";
 import Link from "next/link";
 import { formatDecimal } from "@/lib/decimalFormatter";
@@ -8,7 +8,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { formatCurrency } from "@/lib/currencyformatter";
 
 const Portfolio = () => {
-  const user = userStore((state: any) => state.user);
   const userAssets = userAssetsStore((state: any) => state.userAssets);
   const poolAllocated = userAssets?.products.find(
     (product: any) => product.product_id === "pool-allocated-1g"
@@ -25,7 +24,7 @@ const Portfolio = () => {
             alt="Silver"
             width={77.26}
             height={90}
-            className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
+            className="absolute left-0 bottom-0 rounded-bl-xl"
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">
@@ -34,7 +33,11 @@ const Portfolio = () => {
             {userAssets?.total_ask_price_naira ? (
               <>
                 <p className="font-bold">
-                  {formatCurrency(userAssets?.total_ask_price_naira)}
+                  {formatCurrency(
+                    userAssets?.total_ask_price_usd,
+                    "en-US",
+                    "USD"
+                  )}
                 </p>
               </>
             ) : (
@@ -49,7 +52,7 @@ const Portfolio = () => {
             alt="Silver"
             width={87.8}
             height={149.44}
-            className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
+            className="absolute left-0 bottom-0 rounded-bl-xl"
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">Gold (Au)</p>
@@ -83,14 +86,12 @@ const Portfolio = () => {
             alt="Silver"
             width={72.16}
             height={90}
-            className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
+            className="absolute left-0 bottom-0 rounded-bl-xl"
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">Silver (Ag)</p>
             <p className="font-bold">0.0000g</p>
-            <p className="text-[#979BAE] text-xs font-semibold">
-              ~ ₦ 0.00
-            </p>
+            <p className="text-[#979BAE] text-xs font-semibold">~ ₦ 0.00</p>
           </CardContent>
         </Card>
 
@@ -101,16 +102,14 @@ const Portfolio = () => {
             alt="Platinum"
             width={107.92}
             height={90}
-            className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
+            className="absolute left-0 bottom-0 rounded-bl-xl"
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">
               Platinum (Pt)
             </p>
             <p className="font-bold">0.0000g</p>
-            <p className="text-[#979BAE] text-xs font-semibold">
-              ~ ₦ 0.00
-            </p>
+            <p className="text-[#979BAE] text-xs font-semibold">~ ₦ 0.00</p>
           </CardContent>
         </Card>
 
@@ -121,16 +120,14 @@ const Portfolio = () => {
             alt="Lithium"
             width={62.26}
             height={90}
-            className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
+            className="absolute left-0 bottom-0 rounded-bl-xl"
           />
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">
               Lithium (Li)
             </p>
             <p className="font-bold">0.0000g</p>
-            <p className="text-[#979BAE] text-xs font-semibold">
-              ~ ₦ 0.00
-            </p>
+            <p className="text-[#979BAE] text-xs font-semibold">~ ₦ 0.00</p>
           </CardContent>
         </Card>
 
@@ -142,7 +139,7 @@ const Portfolio = () => {
               alt="see all"
               width={110}
               height={85}
-              className="absolute left-0 bottom-0 w-auto h-auto rounded-bl-xl"
+              className="absolute left-0 bottom-0 rounded-bl-xl"
             />
             <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
               <p className="font-extrabold text-xl text-[#979BAE]">See All</p>
