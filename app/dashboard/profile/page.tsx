@@ -64,9 +64,11 @@ const ProfilePage = () => {
                       capitalizeFirstLetter(user.first_name)}
                     {user.type === "Joint" &&
                       `${capitalizeFirstLetter(
-                        user.first_name 
+                        user.first_name
                       )} & ${capitalizeFirstLetter(user.first_name2)}`}
-                    {(user.type === "Individual" || user.type === "individual" || user.type === "personal") &&
+                    {(user.type === "Individual" ||
+                      user.type === "individual" ||
+                      user.type === "personal") &&
                       `${capitalizeFirstLetter(
                         user.first_name
                       )} ${capitalizeFirstLetter(user.last_name)}`}
@@ -102,13 +104,14 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          {(user.type === "Individual" || user.type === "personal") && (
-            <IndividualInfo />
-          )}
+          {(user.type === "Individual" ||
+            user.type === "individual" ||
+            user.type === "personal") && <IndividualInfo />}
 
-          {user.type === "Joint" && <JointInfo />}
+          {user.type === "Joint" || (user.type === "joint" && <JointInfo />)}
 
-          {user.type === "corporate" && <CompanyInfo />}
+          {user.type === "corporate" ||
+            (user.type === "Corporate" && <CompanyInfo />)}
         </div>
       ) : (
         <div className="w-full h-screen flex items-center justify-center">
