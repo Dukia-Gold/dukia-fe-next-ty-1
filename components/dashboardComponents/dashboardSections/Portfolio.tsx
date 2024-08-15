@@ -31,17 +31,15 @@ const Portfolio = () => {
               Assets Worth
             </p>
             {userAssets?.total_ask_price_naira ? (
-              <>
-                <p className="font-bold">
-                  {formatCurrency(
-                    userAssets?.total_ask_price_usd,
-                    "en-US",
-                    "USD"
-                  )}
-                </p>
-              </>
+              <p className="font-bold">
+                {formatCurrency(
+                  userAssets?.total_ask_price_usd,
+                  "en-US",
+                  "USD"
+                )}
+              </p>
             ) : (
-              <Skeleton className="w-20 md:w-40 h-8" />
+              <p className="font-bold">$0.00</p>
             )}
           </CardContent>
         </Card>
@@ -72,8 +70,8 @@ const Portfolio = () => {
               </>
             ) : (
               <>
-                <Skeleton className="w-20 md:w-40 h-8" />
-                <Skeleton className="w-10 md:w-20 h-8" />
+                <p className="font-bold">0.0000g</p>
+                <p className="text-[#979BAE] text-xs font-semibold">~ $ 0.00</p>
               </>
             )}
           </CardContent>
@@ -91,7 +89,7 @@ const Portfolio = () => {
           <CardContent className="pr-6 space-y-2 flex flex-col justify-center py-0 h-full text-right">
             <p className="font-extrabold text-xl text-[#979BAE]">Silver (Ag)</p>
             <p className="font-bold">0.0000g</p>
-            <p className="text-[#979BAE] text-xs font-semibold">~ ₦ 0.00</p>
+            <p className="text-[#979BAE] text-xs font-semibold">~ $ 0.00</p>
           </CardContent>
         </Card>
 
@@ -109,7 +107,7 @@ const Portfolio = () => {
               Platinum (Pt)
             </p>
             <p className="font-bold">0.0000g</p>
-            <p className="text-[#979BAE] text-xs font-semibold">~ ₦ 0.00</p>
+            <p className="text-[#979BAE] text-xs font-semibold">~ $ 0.00</p>
           </CardContent>
         </Card>
 
@@ -127,7 +125,7 @@ const Portfolio = () => {
               Lithium (Li)
             </p>
             <p className="font-bold">0.0000g</p>
-            <p className="text-[#979BAE] text-xs font-semibold">~ ₦ 0.00</p>
+            <p className="text-[#979BAE] text-xs font-semibold">~ $ 0.00</p>
           </CardContent>
         </Card>
 

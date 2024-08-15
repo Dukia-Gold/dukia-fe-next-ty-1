@@ -195,7 +195,7 @@ const TopBar = () => {
       </div>
 
       {/* KYC (if not verified) */}
-      {user && user.is_bvn === 0 && (
+      {user && user.is_verified === 0 && (
         <div className="bg-[#FFF7F0] py-2.5 px-4 rounded-2xl flex items-center gap-11 border border-dukiaBlue/[10%]">
           <p>You have not completed your KYC verification!</p>
           <Link href="/dashboard/kyc">

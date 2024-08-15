@@ -33,7 +33,7 @@ const GoldTypeCard: React.FC<GoldTypeCardProps> = ({
       alt={imageAlt}
       width={imageWidth}
       height={imageHeight}
-      className="absolute bottom-0 left-0 w-auto h-auto rounded-bl-lg"
+      className="absolute bottom-0 left-0 rounded-bl-lg"
     />
     {label}
   </div>
