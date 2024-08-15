@@ -3,7 +3,6 @@
 import { Toaster } from "react-hot-toast";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import GoldPrice from "@/components/dashboardComponents/GoldPrice";
 import MobileHeader from "@/components/dashboardComponents/MobileHeader";
 import Sidebar from "@/components/dashboardComponents/Sidebar";
@@ -11,13 +10,8 @@ import TopBar from "@/components/dashboardComponents/TopBar";
 import StatementOfAccountModal from "@/components/transactionsComponents/StatementOfAccountModal";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { userStore } from "@/store/user";
-import type { Metadata } from "next";
-
-// export const metadata: Metadata = {
-//   title: "Dukia Gold",
-//   description:
-//     "Buy and sell gold with Dukia Gold, a gold and precious metals refiner and the only full-service bullion-merchant in Nigeria, West Africa.",
-// };
+import { useModalStore } from "@/store/modalStore";
+import ConfirmModal from "@/components/modals/ConfirmModal";
 
 export default function DashboardLayout({
   catalogue,
@@ -27,6 +21,13 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const user = userStore((state: any) => state.user);
+
+  const { isOpen, modalOptions, closeModal } = useModalStore();
+
+  const handleConfirm = () => {
+    if (modalOptions.onConfirm) modalOptions.onConfirm();
+    closeModal();
+  };
 
   return (
     <div
@@ -54,7 +55,15 @@ export default function DashboardLayout({
         <StatementOfAccountModal />
 
         <Toaster />
-        <ToastContainer theme="colored"/>
+        <ToastContainer theme="colored" />
+
+        <ConfirmModal
+          isOpen={isOpen}
+          title={modalOptions.title}
+          message={modalOptions.message}
+          onConfirm={handleConfirm}
+          onCancel={closeModal}
+        />
       </main>
     </div>
   );

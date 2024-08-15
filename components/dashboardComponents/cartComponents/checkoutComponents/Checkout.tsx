@@ -7,7 +7,6 @@ import { formatCurrency } from "@/lib/currencyformatter";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import { capitalizeFirstLetter } from "@/lib/formatText";
 import { useCartStore } from "@/store/cart";
-import { fullProductsStore } from "@/store/fullProducts";
 import { userStore } from "@/store/user";
 import { Spin } from "antd";
 import { ShoppingCart, X } from "lucide-react";
@@ -16,18 +15,49 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ShipmentItem from "./ShipmentItem";
-import { CartItem } from "@/typings/cart";
+import { Cart, CartItem } from "@/typings/cart";
+import { useModalStore } from "@/store/modalStore";
+import useModalsStore from "@/store/modalsStore";
+import useBuy from "@/api/trading/buy";
 
 const Checkout = () => {
+  const { buyDiscrete } = useBuy();
+  const openModal = useModalStore((state) => state.openModal);
+  const updateModals = useModalsStore((state: any) => state.updateModals);
   const [delivery, setDelivery] = useState<"" | "delivery" | "storage">(
     "delivery"
   );
   const user = userStore((state: any) => state.user);
-  const { cart, updatePrices } = useCartStore();
+  const { cart, clearCart, updatePrices } = useCartStore();
   const router = useRouter();
   const fetchProductsPrices = useFetchProductPrices();
   const handleBack = () => {
     router.back();
+  };
+
+  const fullCart: Cart = {
+    cart: cart,
+    delivery_option: delivery,
+  };
+
+  const handleBuyAction = () => {
+    openModal({
+      title: "Confirm Payment",
+      message: `Sure to continue with the payment of ${formatCurrency(
+        cart.reduce((acc, item) => acc + (item.line_price ?? 0), 0)
+      )} ?`,
+      onConfirm: async () => {
+        try {
+          const success = await buyDiscrete(fullCart);
+          if (success) {
+            clearCart(); // Clear the cart if the purchase was successful
+            router.push('/dashboard'); // Redirect to the dashboard
+          }
+        } catch (error) {
+          console.error("Error during purchase:", error);
+        }
+      },
+    });
   };
 
   useEffect(() => {
@@ -382,6 +412,7 @@ const Checkout = () => {
                     <div>
                       <Link href={"/dashboard/cart/checkout"}>
                         <button
+                          onClick={handleBuyAction}
                           disabled={
                             delivery === "" ||
                             (delivery === "delivery" && !user.address_line_1) ||

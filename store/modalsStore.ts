@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 const useModalsStore = create((set) => ({
   login: false,
-  
+
   withdrawal: false,
   confirmWithdrawal: false,
   successfulWithdrawal: false,
@@ -14,10 +14,13 @@ const useModalsStore = create((set) => ({
   statementOfAccount: false,
 
   resetPassword: false,
-  updateModals: (updates: any) => set((state: any) => ({
-    ...state,
-    ...updates,
-  })),
+
+  confirmModal: false,
+  updateModals: (updates: any) =>
+    set((state: any) => ({
+      ...state,
+      ...updates,
+    })),
 }));
 
 export default useModalsStore;

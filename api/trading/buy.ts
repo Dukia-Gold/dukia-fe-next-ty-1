@@ -86,7 +86,7 @@ const useBuy = () => {
     }
   };
 
-  const buyDiscrete = async (cart: Cart) => {
+  const buyDiscrete = async (cart: Cart): Promise<boolean> => {
     updateLoading(true);
     try {
       const response = await axios({
@@ -109,6 +109,8 @@ const useBuy = () => {
       fetchUserData();
       fetchTransactionHistory(5, 1);
       updateLoading(false);
+
+      return true; // Return true to indicate success
     } catch (error: any) {
       console.log(error);
       if (error.response) {
@@ -148,6 +150,7 @@ const useBuy = () => {
         });
       }
       updateLoading(false);
+      return false; // Return false to indicate failure
     }
   };
 
