@@ -323,7 +323,9 @@ const Sidebar = () => {
                     `${capitalizeFirstLetter(
                       user.first_name
                     )} ${capitalizeFirstLetter(user.first_name2)}`}
-                  {(user.type === "Individual" || user.type === "personal") &&
+                  {(user.type === "Individual" ||
+                    user.type === "individual" ||
+                    user.type === "personal") &&
                     `${capitalizeFirstLetter(
                       user.first_name
                     )} ${capitalizeFirstLetter(user.last_name)}`}
