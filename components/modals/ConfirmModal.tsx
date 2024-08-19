@@ -18,16 +18,16 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
   onCancel,
 }) => {
   const [show, setShow] = useState(isOpen);
-  const [countdown, setCountdown] = useState(10);
+  const [countdown, setCountdown] = useState(type === "confirm" ? 10 : 5);
 
   useEffect(() => {
     if (isOpen) {
       setShow(true);
-      setCountdown(10);
+      setCountdown(type === "confirm" ? 10 : 5);
 
       const autoCloseTimeout = setTimeout(() => {
         onCancel();
-      }, 10000);
+      }, 5000);
 
       const countdownInterval = setInterval(() => {
         setCountdown((prev) => prev - 1);
@@ -41,7 +41,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
       const fadeOutTimeout = setTimeout(() => setShow(false), 200);
       return () => clearTimeout(fadeOutTimeout);
     }
-  }, [isOpen, onCancel]);
+  }, [isOpen, onCancel, type]);
 
   if (!show) return null;
 
