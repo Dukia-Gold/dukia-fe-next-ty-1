@@ -159,7 +159,7 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-[#F6F7F9] rounded-xl flex flex-col items-center justify-center space-y-10 py-28 lg:w-[1111px] relative">
+        <div className="bg-[#F6F7F9] rounded-xl flex flex-col items-center justify-center space-y-10 py-28 w-full max-w-md relative">
           {/* Cart Icon */}
           <div className="p-6 rounded-[50%] bg-[#FBF7EB]">
             <ShoppingCart width={83} height={83} fill="#1C254E" />
