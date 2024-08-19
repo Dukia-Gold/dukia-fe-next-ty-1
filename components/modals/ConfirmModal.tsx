@@ -134,7 +134,12 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
           </div>
 
           {type === "error" && (
-            <p className="underline text-dukiaGold font-semibold">Try again</p>
+            <p
+              onClick={onCancel}
+              className="underline text-dukiaGold font-semibold cursor-pointer"
+            >
+              Try again
+            </p>
           )}
 
           {type === "success" && (
