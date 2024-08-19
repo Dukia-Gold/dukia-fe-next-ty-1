@@ -20,13 +20,14 @@ const useBuy = () => {
     order_total: any,
     ask_oz_usd: any
   ) => {
-    if (!token){
+    if (!token) {
       openModal({
         type: "error",
         title: "Unauthenticated!",
-        message: "You need to be logged in to make this purchase."
+        message: "You need to be logged in to make this purchase.",
       });
     }
+
     updateLoading(true);
     try {
       const response = await axios({
@@ -38,57 +39,53 @@ const useBuy = () => {
           ask_oz_usd: ask_oz_usd,
         },
         headers: {
+          Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Include the token in the request headers
         },
       });
 
-      Swal.fire({
-        title: "Success!",
-        text: `${response.data.message}`,
-        icon: "success",
-        confirmButtonText: "Okay",
+      openModal({
+        type: "success",
+        title: "Order Successful!",
+        message: `${response.data.message}`,
       });
 
       fetchUserData();
       fetchTransactionHistory(5, 1);
       updateLoading(false);
     } catch (error: any) {
-      console.log(error);
       if (error.response) {
         const { status, data } = error.response;
 
         if (status === 401) {
-          Swal.fire({
+          openModal({
+            type: "error",
             title: "Unauthorized request!",
-            text: "You're not authorized to perform this action.",
-            icon: "error",
-            confirmButtonText: "Okay",
+            message: "You're not authorized to perform this action.",
           });
         } else if (
           data.message ===
           "Your account has been suspended. Please contact support."
         ) {
-          Swal.fire({
+          openModal({
+            type: "error",
             title: "Account suspended!",
-            text: "Your account has been suspended. Please contact support.",
-            icon: "error",
-            confirmButtonText: "Okay",
+            message: "Your account has been suspended. Please contact support.",
           });
         } else {
-          Swal.fire({
+          openModal({
+            type: "error",
             title: "Error!",
-            text: `${error.response.data.message}`,
-            icon: "error",
-            confirmButtonText: "Okay",
+            message: `${error.response.data.message}`,
           });
         }
       } else {
-        Swal.fire({
+        openModal({
+          type: "error",
           title: "Network Error!",
-          text: "Error connecting to the server. Please check your internet connection and try again.",
-          icon: "error",
-          confirmButtonText: "Okay",
+          message:
+            "Error connecting to the server. Please check your internet connection and try again.",
         });
       }
       updateLoading(false);
@@ -96,6 +93,14 @@ const useBuy = () => {
   };
 
   const buyDiscrete = async (cart: Cart): Promise<boolean> => {
+    if (!token) {
+      openModal({
+        type: "error",
+        title: "Unauthenticated!",
+        message: "You need to be logged in to make this purchase.",
+      });
+    }
+
     updateLoading(true);
     try {
       const response = await axios({
@@ -103,16 +108,16 @@ const useBuy = () => {
         method: "POST",
         data: cart,
         headers: {
+          Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Include the token in the request headers
         },
       });
 
-      Swal.fire({
-        title: "Success!",
-        text: `${response.data.message}`,
-        icon: "success",
-        confirmButtonText: "Okay",
+      openModal({
+        type: "success",
+        title: "Order Successful!",
+        message: `${response.data.message}`,
       });
 
       fetchUserData();
@@ -121,41 +126,37 @@ const useBuy = () => {
 
       return true; // Return true to indicate success
     } catch (error: any) {
-      console.log(error);
       if (error.response) {
         const { status, data } = error.response;
 
         if (status === 401) {
-          Swal.fire({
+          openModal({
+            type: "error",
             title: "Unauthorized request!",
-            text: "You're not authorized to perform this action.",
-            icon: "error",
-            confirmButtonText: "Okay",
+            message: "You're not authorized to perform this action.",
           });
         } else if (
           data.message ===
           "Your account has been suspended. Please contact support."
         ) {
-          Swal.fire({
+          openModal({
+            type: "error",
             title: "Account suspended!",
-            text: "Your account has been suspended. Please contact support.",
-            icon: "error",
-            confirmButtonText: "Okay",
+            message: "Your account has been suspended. Please contact support.",
           });
         } else {
-          Swal.fire({
+          openModal({
+            type: "error",
             title: "Error!",
-            text: `${error.response.data.message}`,
-            icon: "error",
-            confirmButtonText: "Okay",
+            message: `${error.response.data.message}`,
           });
         }
       } else {
-        Swal.fire({
+        openModal({
+          type: "error",
           title: "Network Error!",
-          text: "Error connecting to the server. Please check your internet connection and try again.",
-          icon: "error",
-          confirmButtonText: "Okay",
+          message:
+            "Error connecting to the server. Please check your internet connection and try again.",
         });
       }
       updateLoading(false);
