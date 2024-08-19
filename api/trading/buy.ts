@@ -5,8 +5,10 @@ import { useCookies } from "react-cookie";
 import useFetchUserData from "@/lib/fetchUserData";
 import useFetchTransactionHistory from "@/lib/fetchTransactionHistory";
 import { Cart } from "@/typings/cart";
+import { useModalStore } from "@/store/modalStore";
 
 const useBuy = () => {
+  const openModal = useModalStore((state) => state.openModal);
   const fetchUserData = useFetchUserData();
   const fetchTransactionHistory = useFetchTransactionHistory();
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
@@ -18,6 +20,13 @@ const useBuy = () => {
     order_total: any,
     ask_oz_usd: any
   ) => {
+    if (!token){
+      openModal({
+        type: "error",
+        title: "Unauthenticated!",
+        message: "You need to be logged in to make this purchase."
+      });
+    }
     updateLoading(true);
     try {
       const response = await axios({

@@ -12,7 +12,6 @@ const LoginForm = () => {
     const password = event.currentTarget.password.value;
     const deviceName = "device-name"; // Assume a default device name for now
     await loginUser(email, password, deviceName);
-    window.location.assign("/dashboard");
   };
 
   return (

@@ -1,11 +1,12 @@
 // import { toast } from "@/components/ui/use-toast";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
 import { GetUrl } from "./getUrl";
 import { userAssetsStore, userStore } from "@/store/user";
 import { useEffect } from "react";
 
 const useFetchUserData = () => {
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   const updateUser = userStore((state: any) => state.updateUser);
   const updateUserAssets = userAssetsStore(
     (state: any) => state.updateUserAssets
@@ -17,24 +18,21 @@ const useFetchUserData = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch(
-        "https://api.dukiapreciousmetals.co/api/v2/me",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-            Authorization: `Bearer ${token}`, // Include the token in the request headers
-          },
-        }
-      );
+      const response = await fetch(`${apiBaseUrl}/v2/me`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: `Bearer ${token}`, // Include the token in the request headers
+        },
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
 
-      let assetUrl = `https://api.dukiapreciousmetals.co/api/product-weights/${data.id}`;
+      let assetUrl = `${apiBaseUrl}/product-weights/${data.id}`;
 
       const assetResponse = await fetch(assetUrl, {
         method: "GET",
@@ -55,14 +53,17 @@ const useFetchUserData = () => {
       updateUser(data); // Update the user in the user store
     } catch (error: any) {
       if (error instanceof TypeError && error.message === "Failed to fetch") {
-        toast.error("Problem connecting to the server! Check your internet connection.", {
-          position: "bottom-right",
-          theme: "colored",
-          toastId: "Network Error - User Data",
-        });
+        toast.error(
+          "Problem connecting to the server! Check your internet connection.",
+          {
+            position: "bottom-right",
+            theme: "colored",
+            toastId: "Network Error - User Data",
+          }
+        );
       } else {
         if (token && pathname.startsWith("/dashboard")) {
-          toast.error("An error occurred! Please refresh the dashboard.", {
+          toast.error(error.response?.data?.message || "An error occured!", {
             position: "bottom-right",
             theme: "colored",
             toastId: "Error - User Data",

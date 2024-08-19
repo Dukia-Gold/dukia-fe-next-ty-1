@@ -24,9 +24,7 @@ const Checkout = () => {
   const { buyDiscrete } = useBuy();
   const openModal = useModalStore((state) => state.openModal);
   const updateModals = useModalsStore((state: any) => state.updateModals);
-  const [delivery, setDelivery] = useState<"" | "delivery" | "storage">(
-    "delivery"
-  );
+  const [delivery, setDelivery] = useState<"" | "delivery" | "storage">("");
   const user = userStore((state: any) => state.user);
   const { cart, clearCart, updatePrices } = useCartStore();
   const router = useRouter();
@@ -42,6 +40,7 @@ const Checkout = () => {
 
   const handleBuyAction = () => {
     openModal({
+      type: "confirm",
       title: "Confirm Payment",
       message: `Sure to continue with the payment of ${formatCurrency(
         cart.reduce((acc, item) => acc + (item.line_price ?? 0), 0)
@@ -51,7 +50,7 @@ const Checkout = () => {
           const success = await buyDiscrete(fullCart);
           if (success) {
             clearCart(); // Clear the cart if the purchase was successful
-            router.push('/dashboard'); // Redirect to the dashboard
+            router.push("/dashboard"); // Redirect to the dashboard
           }
         } catch (error) {
           console.error("Error during purchase:", error);
@@ -135,8 +134,13 @@ const Checkout = () => {
                         {/* Storage */}
                         <div
                           className={`${
-                            delivery === "storage" && "border border-dukiaGold"
-                          } p-3 bg-white rounded-xl relative flex gap-3 text-sm min-h-[98px]`}
+                            delivery === "storage"
+                              ? "border border-dukiaGold"
+                              : ""
+                          } p-3 bg-white rounded-xl relative flex gap-3 text-sm min-h-[98px] cursor-pointer`}
+                          onClick={() =>
+                            setDelivery(delivery === "storage" ? "" : "storage")
+                          } // Toggles the delivery state on click
                         >
                           {/* Checkbox */}
                           <div className="flex gap-2">
@@ -149,6 +153,7 @@ const Checkout = () => {
                               id="deliveryStorage"
                               name="delivery"
                               className="relative peer shrink-0 appearance-none w-5 h-5 border-2 border-[#676D88] rounded bg-white checked:bg-dukiaGold checked:border-0 cursor-pointer"
+                              onClick={(e) => e.stopPropagation()} // Prevents the click event from bubbling up when the checkbox is directly clicked
                             />
                             <svg
                               className="absolute w-5 h-5 hidden peer-checked:block pointer-events-none"
@@ -156,19 +161,19 @@ const Checkout = () => {
                               viewBox="0 0 24 24"
                               fill="none"
                               stroke="white"
-                              stroke-width="4"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeWidth="4"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                             >
                               <polyline points="20 6 9 17 4 12"></polyline>
                             </svg>
                           </div>
 
-                          {/* text */}
+                          {/* Text */}
                           <div className="space-y-1 pt-0.5">
                             <p
                               className={`${
-                                delivery === "storage" && "text-dukiaGold"
+                                delivery === "storage" ? "text-dukiaGold" : ""
                               } font-semibold text-sm/none`}
                             >
                               Storage
@@ -196,7 +201,12 @@ const Checkout = () => {
                         <div
                           className={`${
                             delivery === "delivery" && "border border-dukiaGold"
-                          } p-3 bg-white rounded-xl relative flex gap-3 text-sm min-h-[98px]`}
+                          } p-3 bg-white rounded-xl relative flex gap-3 text-sm min-h-[98px] cursor-pointer`}
+                          onClick={() =>
+                            setDelivery(
+                              delivery === "delivery" ? "" : "delivery"
+                            )
+                          } // Toggles the delivery state on click
                         >
                           {/* Checkbox */}
                           <div className="flex gap-2">

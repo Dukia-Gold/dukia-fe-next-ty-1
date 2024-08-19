@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 type ModalOptions = {
+  type?: "success" | "error" | "confirm";
   title?: string;
   message?: string;
   onConfirm?: () => void;

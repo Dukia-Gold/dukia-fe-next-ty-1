@@ -59,6 +59,7 @@ export default function DashboardLayout({
 
         <ConfirmModal
           isOpen={isOpen}
+          type={modalOptions.type}
           title={modalOptions.title}
           message={modalOptions.message}
           onConfirm={handleConfirm}

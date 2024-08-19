@@ -19,6 +19,7 @@ import GoldTypeCard from "./TradeComponents/GoldTypeCard";
 import GoldItem from "./TradeComponents/GoldItem";
 import { Cart } from "@/typings/cart";
 import { useProductStore } from "@/store/product";
+import { useModalStore } from "@/store/modalStore";
 
 // Type definitions for the trade type and rates
 type TradeType = "buy" | "sell";
@@ -43,6 +44,7 @@ interface Range {
 }
 
 const Trade = () => {
+  const openModal = useModalStore((state) => state.openModal);
   const getProductById = useProductStore((state) => state.getProductById);
 
   const [tradeType, setTradeType] = useState<TradeType>("buy");
@@ -129,7 +131,16 @@ const Trade = () => {
       ],
       delivery_option: delivery ? "delivery" : "storage",
     };
-    await buyDiscrete(cart);
+    openModal({
+      type: "confirm",
+      title: "Confirm Payment",
+      message: `Sure to continue with the payment of ${formatCurrency(
+        discreteBuyWorth
+      )} ?`,
+      onConfirm: async () => {
+        await buyDiscrete(cart);
+      },
+    });
   };
 
   const poolAllocatedTradingFunc = async () => {
@@ -137,7 +148,21 @@ const Trade = () => {
       const price = getRate(buyValueParsed, tradeType);
 
       if (price !== undefined) {
-        await executeTrade(buyValueParsed, buyWorthParsed, price, tradeType);
+        openModal({
+          type: "confirm",
+          title: "Confirm Payment",
+          message: `Sure to continue with the ${
+            tradeType === "buy" ? "payment" : "withdrawal"
+          } of ${formatCurrency(buyWorthParsed)} ?`,
+          onConfirm: async () => {
+            await executeTrade(
+              buyValueParsed,
+              buyWorthParsed,
+              price,
+              tradeType
+            );
+          },
+        });
       }
     }
   };

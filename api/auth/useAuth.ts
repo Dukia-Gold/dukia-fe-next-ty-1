@@ -2,23 +2,24 @@
 
 import { useState } from "react";
 import axios from "axios";
-import cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { userStore } from "@/store/user";
-import { useCookies } from "react-cookie";
+import Cookies from "js-cookie";
 import useLoadingStore from "@/store/loadingStore";
 import { transactionStore } from "@/store/transactions";
 import useModalsStore from "@/store/modalsStore";
 
 const useAuth = () => {
+  const baseUrl = process.env.BASE_URL;
+  const isLocalhost =
+    typeof window !== "undefined" && window.location.hostname === "localhost";
   const updateModals = useModalsStore((state: any) => state.updateModals);
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
   const clearTransactions = transactionStore(
     (state: any) => state.clearTransactions
   );
-  const [cookies] = useCookies(["auth-token"]);
-  const token = cookies["auth-token"];
+  const token = Cookies.get("auth-token");
   const { toast } = useToast();
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
   const { updateUser, clearUser } = userStore((state: any) => ({
@@ -33,38 +34,46 @@ const useAuth = () => {
     password: string,
     deviceName: string
   ) => {
+    console.log("loggin user in");
     setLoginLoading(true);
     try {
       updateLoading(true);
+      console.log("loggin user in 1");
 
       const response = await axios.post(
-        "https://api.dukiapreciousmetals.co/api/login",
+        `${baseUrl}/login`,
         {
           email,
           password,
           device_name: deviceName,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+          },
         }
       );
 
       const { authorization, expires, user: userData } = response.data;
       updateUser(userData);
+      console.log("loggin user in 2");
 
       const expiresAt = expires;
       const expiryDate = new Date(expiresAt);
+      console.log("loggin user in 3");
 
       // Ensure the cookie is set before redirecting
-      await new Promise((resolve, reject) => {
-        // Correct the argument count by omitting the callback if `cookie.set` only accepts 2 or 3 arguments
-        cookie.set("auth-token", authorization, {
-          expires: expiryDate,
-          secure: true,
-          sameSite: "none",
-        });
-        resolve(true); // Resolve the promise directly after setting the cookie
+
+      Cookies.set("auth-token", authorization, {
+        expires: expiryDate,
+        secure: !isLocalhost, // Only secure if not localhost
+        sameSite: isLocalhost ? "lax" : "none", // Use "lax" for localhost
       });
+      console.log("loggin user in 4");
 
       updateModals({ login: false });
       updateLoading(false);
+      window.location.assign("/dashboard");
     } catch (error: any) {
       // console.log(error.response.status);
       if (error.response.status === 401) {
@@ -80,6 +89,12 @@ const useAuth = () => {
           title: "Uh oh! Something went wrong.",
           description:
             error.response?.data?.message || "This email is not registered!",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: error.response?.data?.message || "An error occured!",
         });
       }
       updateLoading(false);
@@ -100,7 +115,7 @@ const useAuth = () => {
         }
       );
 
-      cookie.remove("auth-token");
+      Cookies.remove("auth-token");
       clearTransactions();
       clearUser();
 
