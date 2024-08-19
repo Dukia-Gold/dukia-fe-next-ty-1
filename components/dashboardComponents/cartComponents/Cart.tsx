@@ -62,7 +62,7 @@ const Cart = () => {
   return (
     <>
       {cart.length > 0 ? (
-        <div className="text-dukiaBlue p-6 bg-white xl:w-[1111px] rounded-2xl relative">
+        <div className="text-dukiaBlue p-6 bg-white lg:w-[1111px] rounded-2xl relative">
           <div
             onClick={handleBack}
             className="absolute top-5 right-5 rounded-[50%] bg-[#E8E9ED] p-2 cursor-pointer"
@@ -159,7 +159,7 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-[#F6F7F9] rounded-xl flex flex-col items-center justify-center space-y-10 py-28">
+        <div className="bg-[#F6F7F9] rounded-xl flex flex-col items-center justify-center space-y-10 py-28 lg:w-[1111px] relative">
           {/* Cart Icon */}
           <div className="p-6 rounded-[50%] bg-[#FBF7EB]">
             <ShoppingCart width={83} height={83} fill="#1C254E" />

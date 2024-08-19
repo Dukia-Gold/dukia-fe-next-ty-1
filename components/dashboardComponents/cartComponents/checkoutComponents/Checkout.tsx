@@ -82,7 +82,7 @@ const Checkout = () => {
   return (
     <>
       {cart ? (
-        <div className="text-dukiaBlue animate-in fade-in-5 duration-500 ease-in-out p-6 bg-white xl:w-[1111px] rounded-2xl relative">
+        <div className="text-dukiaBlue animate-in fade-in-5 duration-500 ease-in-out p-6 bg-white lg:w-[1111px] rounded-2xl relative">
           <div
             onClick={handleBack}
             className="absolute top-5 right-5 rounded-[50%] bg-[#E8E9ED] p-2 cursor-pointer"
@@ -453,7 +453,7 @@ const Checkout = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out p-7 pr-10 text-center xl:w-[1111px] flex items-center justify-center rounded-2xl h-[90vh] relative">
+        <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out p-7 pr-10 text-center lg:w-[1111px] flex items-center justify-center rounded-2xl h-[90vh] relative">
           <div
             onClick={handleBack}
             className="absolute top-5 right-5 rounded-[50%] bg-[#E8E9ED] p-2.5 cursor-pointer"
