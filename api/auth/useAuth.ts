@@ -11,7 +11,7 @@ import { transactionStore } from "@/store/transactions";
 import useModalsStore from "@/store/modalsStore";
 
 const useAuth = () => {
-  const baseUrl = process.env.BASE_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   const isLocalhost =
     typeof window !== "undefined" && window.location.hostname === "localhost";
   const updateModals = useModalsStore((state: any) => state.updateModals);
@@ -105,7 +105,7 @@ const useAuth = () => {
     try {
       updateLoading(true);
       await axios.post(
-        "https://api.dukiapreciousmetals.co/api/v2/logout",
+        `${baseUrl}/v2/logout`,
         null, // Assuming no data payload for logout
         {
           headers: {
