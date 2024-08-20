@@ -34,11 +34,9 @@ const useAuth = () => {
     password: string,
     deviceName: string
   ) => {
-    console.log("loggin user in");
     setLoginLoading(true);
     try {
       updateLoading(true);
-      console.log("loggin user in 1");
 
       const response = await axios.post(
         `${baseUrl}/login`,
@@ -56,11 +54,9 @@ const useAuth = () => {
 
       const { authorization, expires, user: userData } = response.data;
       updateUser(userData);
-      console.log("loggin user in 2");
 
       const expiresAt = expires;
       const expiryDate = new Date(expiresAt);
-      console.log("loggin user in 3");
 
       // Ensure the cookie is set before redirecting
 
@@ -69,7 +65,6 @@ const useAuth = () => {
         secure: !isLocalhost, // Only secure if not localhost
         sameSite: isLocalhost ? "lax" : "none", // Use "lax" for localhost
       });
-      console.log("loggin user in 4");
 
       updateModals({ login: false });
       updateLoading(false);
