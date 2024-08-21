@@ -3,13 +3,17 @@ export const fetchProductSearch = async (query: string) => {
     const response = await fetch(
       "https://api.dukiapreciousmetals.co/api/price/products"
     );
-    const products = await response.json();
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const products = await response.json();
 
-    const filteredProducts = products.filter(
-      (product: any) => product.type === query
-    );
-    
-    return filteredProducts;
+      const filteredProducts = products.filter(
+        (product: any) => product.type === query
+      );
+
+      return filteredProducts;
+    }
   } catch (error) {
     console.error("Error fetching products:", error);
   }

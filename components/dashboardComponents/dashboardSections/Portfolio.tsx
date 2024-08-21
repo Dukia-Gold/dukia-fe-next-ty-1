@@ -1,10 +1,8 @@
-import React from "react";
 import { userAssetsStore } from "@/store/user";
 import Image from "next/image";
 import Link from "next/link";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { formatCurrency } from "@/lib/currencyformatter";
 
 const Portfolio = () => {
