@@ -4,6 +4,7 @@ import { fullProductsStore } from "@/store/fullProducts";
 import { userAssetsStore } from "@/store/user";
 import { ArrowDown, ArrowUpRight, Plus } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Main = ({ id }: { id: string }) => {
@@ -57,9 +58,47 @@ const Main = ({ id }: { id: string }) => {
         <div></div>
       </div>
 
-      <div className="mt-4"></div>
+      <div className="mt-4 gap-7 grid grid-cols-4">
+        {fullProducts &&
+          Object.values(fullProducts).map((item: any) => (
+            <Link key={item.id} href={`/dashboard/assets?id=${item.id}`}>
+              <div
+                key={item.id}
+                className={`${
+                  item.id === id
+                    ? "border-2 border-dukiaBlue"
+                    : "border border-[#E8E9ED]"
+                } p-2.5 bg-white rounded-lg flex items-center gap-3`}
+              >
+                {item.type === "bar" ? (
+                  <div className="bg-[#E8E9ED] w-7 h-7 rounded-[50%] flex items-center justify-center border border-[#E8E9ED]">
+                    <Image
+                      src={item.thumbnail_url}
+                      alt={item.name}
+                      width={18.67}
+                      height={10.97}
+                      className="-rotate-90"
+                    />
+                  </div>
+                ) : (
+                  <Image
+                    src={item.thumbnail_url}
+                    alt={item.name}
+                    width={28}
+                    height={28}
+                    className="h-auto w-auto rounded-[50%]"
+                  />
+                )}
 
+                <p className="text-xs font-semibold">{item.name}</p>
+              </div>
+            </Link>
+          ))}
+      </div>
+
+      {/* Asset Details Section */}
       <div className="mt-8 bg-[#F6F7F9] rounded-xl p-4 flex items-center justify-between">
+        {/* Asset Details */}
         <div className="flex items-center">
           {/* Asset Thumbnail */}
           <div className="p-2.5 bg-[#FBF7EB] border border-white rounded-[50%]">
@@ -101,25 +140,37 @@ const Main = ({ id }: { id: string }) => {
         <div className="text-sm font-semibold flex space-x-6">
           {/* Buy */}
           <div className="space-y-2 flex flex-col items-center">
-            <div className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1">
+            <button
+              type="button"
+              disabled={itemDetails?.ask_price === 0}
+              className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
+            >
               <Plus width={24} height={24} stroke="white" />
-            </div>
+            </button>
             <p>Buy</p>
           </div>
 
           {/* Sell */}
           <div className="space-y-2 flex flex-col items-center">
-            <div className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1">
+            <button
+              type="button"
+              disabled={balance === 0}
+              className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
+            >
               <ArrowDown width={24} height={24} stroke="white" />
-            </div>
+            </button>
             <p>Sell</p>
           </div>
 
           {/* Gift */}
           <div className="space-y-2 flex flex-col items-center">
-            <div className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1">
+            <button
+              type="button"
+              disabled={balance === 0}
+              className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
+            >
               <ArrowUpRight width={24} height={24} stroke="white" />
-            </div>
+            </button>
             <p>Gift</p>
           </div>
         </div>
