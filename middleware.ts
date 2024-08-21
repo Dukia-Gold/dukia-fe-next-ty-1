@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
 
   // Redirect unauthenticated users trying to access protected routes to the homepage
   if (req.nextUrl.pathname.startsWith("/dashboard") && !verifiedToken) {
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   // Allow the request to proceed if the user is authenticated or if the request does not match any protected paths
