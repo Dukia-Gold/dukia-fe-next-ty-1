@@ -50,7 +50,7 @@ const Checkout = () => {
           const success = await buyDiscrete(fullCart);
           if (success) {
             clearCart(); // Clear the cart if the purchase was successful
-            router.push("/dashboard"); // Redirect to the dashboard
+            window.location.assign("/dashboard");
           }
         } catch (error) {
           console.error("Error during purchase:", error);
