@@ -1,34 +1,25 @@
 import { formatCurrency } from "@/lib/currencyformatter";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import { fullProductsStore } from "@/store/fullProducts";
-import { userAssetsStore } from "@/store/user";
 import { ArrowDown, ArrowUpRight, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import AssetCard from "../AssetCard";
+import useFind from "@/lib/findById";
+import { Cart } from "@/typings/cart";
+import useBuy from "@/api/trading/buy";
+import { useModalStore } from "@/store/modalStore";
 
 const Main = ({ id }: { id: string }) => {
+  const openModal = useModalStore((state) => state.openModal);
+  const { buyPoolAllocated, buyDiscrete } = useBuy();
+
   const [itemDetails, setItemDetails] = useState<any>(null);
   const [balance, setBalance] = useState<number>(0);
   const [balanceUnit, setBalanceUnit] = useState<string>("g");
   const fullProducts = fullProductsStore((state: any) => state.fullProducts);
-  const userAssets = userAssetsStore((state: any) => state.userAssets);
-
-  const findItemById = (id?: string) => {
-    if (!fullProducts) {
-      return null;
-    }
-    return Object.values(fullProducts).find((item: any) => item.id === id);
-  };
-
-  const findBalanceById = (id?: string) => {
-    if (!userAssets) {
-      return null;
-    }
-    return userAssets?.products.find(
-      (product: any) => product.product_id === id
-    );
-  };
+  const { findBalanceById, findItemById } = useFind();
 
   useEffect(() => {
     // Function to fetch and update details
@@ -50,8 +41,43 @@ const Main = ({ id }: { id: string }) => {
     return () => clearInterval(intervalId);
   }, [fullProducts, id]); // Dependencies: update when fullProducts or id changes
 
+  const handleTrade = (tradeType: "buy" | "sell") => {
+    let cart: Cart = {
+      cart: [
+        {
+          sn: 1,
+          id: id,
+          price: itemDetails?.ask_price,
+          usd_price: itemDetails?.ask_price_usd,
+          quantity: 1,
+          line_price: itemDetails?.ask_price,
+        },
+      ],
+      delivery_option: "storage",
+    };
+
+    openModal({
+      type: "confirm",
+      title: "Confirm Payment",
+      message: `Sure to continue with the ${
+        tradeType === "buy" ? "payment" : "withdrawal"
+      } of ${
+        tradeType === "buy"
+          ? formatCurrency(itemDetails?.ask_price)
+          : formatCurrency(itemDetails?.bid_price)
+      } ?`,
+      onConfirm: async () => {
+        if (tradeType === "buy") {
+          await buyDiscrete(cart);
+        } else {
+          console.log("Withdrawal not implemented");
+        }
+      },
+    });
+  };
+
   return (
-    <div className="bg-white rounded-2xl p-4">
+    <div className="bg-white rounded-2xl p-4 col-span-2">
       <div className="flex items-center justify-between">
         <p className="font-semibold">All Assets</p>
 
@@ -62,36 +88,7 @@ const Main = ({ id }: { id: string }) => {
         {fullProducts &&
           Object.values(fullProducts).map((item: any) => (
             <Link key={item.id} href={`/dashboard/assets?id=${item.id}`}>
-              <div
-                key={item.id}
-                className={`${
-                  item.id === id
-                    ? "border-2 border-dukiaBlue"
-                    : "border border-[#E8E9ED]"
-                } p-2.5 bg-white rounded-lg flex items-center gap-3`}
-              >
-                {item.type === "bar" ? (
-                  <div className="bg-[#E8E9ED] w-7 h-7 rounded-[50%] flex items-center justify-center border border-[#E8E9ED]">
-                    <Image
-                      src={item.thumbnail_url}
-                      alt={item.name}
-                      width={18.67}
-                      height={10.97}
-                      className="-rotate-90"
-                    />
-                  </div>
-                ) : (
-                  <Image
-                    src={item.thumbnail_url}
-                    alt={item.name}
-                    width={28}
-                    height={28}
-                    className="h-auto w-auto rounded-[50%]"
-                  />
-                )}
-
-                <p className="text-xs font-semibold">{item.name}</p>
-              </div>
+              <AssetCard item={item} id={id} />
             </Link>
           ))}
       </div>
@@ -142,6 +139,7 @@ const Main = ({ id }: { id: string }) => {
           <div className="space-y-2 flex flex-col items-center">
             <button
               type="button"
+              onClick={() => handleTrade("buy")}
               disabled={itemDetails?.ask_price === 0}
               className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
             >
@@ -154,6 +152,7 @@ const Main = ({ id }: { id: string }) => {
           <div className="space-y-2 flex flex-col items-center">
             <button
               type="button"
+              onClick={() => handleTrade("sell")}
               disabled={balance === 0}
               className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
             >

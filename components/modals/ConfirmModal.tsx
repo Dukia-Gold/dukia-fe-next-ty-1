@@ -25,9 +25,12 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
       setShow(true);
       setCountdown(type === "confirm" ? 10 : 5);
 
-      const autoCloseTimeout = setTimeout(() => {
-        onCancel();
-      }, 5000);
+      const autoCloseTimeout = setTimeout(
+        () => {
+          onCancel();
+        },
+        type === "confirm" ? 10000 : 5000
+      );
 
       const countdownInterval = setInterval(() => {
         setCountdown((prev) => prev - 1);
@@ -144,7 +147,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
 
           {type === "success" && (
             <button
-              className="px-6 py-3 text-dukiaBlue rounded-lg bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue "
+              className="px-6 py-3 text-white rounded-lg bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue "
               onClick={onCancel}
             >
               Okay

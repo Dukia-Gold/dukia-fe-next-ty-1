@@ -22,15 +22,13 @@ const AssetsPage = ({ searchParams: { id } }: Props) => {
       {user ? (
         <div className="py-4 mb-40 space-y-6">
           <div className="grid grid-cols-3 gap-4">
-            <div className="col-span-2">
-              <Main id={id} />
-            </div>
+            <Main id={id} />
             <Trade />
           </div>
 
           <div className="grid grid-cols-3 gap-4">
             <div className="col-span-2">
-              <Chart />
+              <Chart id={id} />
             </div>
             <div></div>
           </div>
