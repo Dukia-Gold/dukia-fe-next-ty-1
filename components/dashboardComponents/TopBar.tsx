@@ -98,6 +98,15 @@ const TopBar = () => {
             )}
 
             {pathname === "/dashboard" && <p>Dashboard</p>}
+            {pathname === "/dashboard/portfolio" && (
+              <p className="text-[#676D88]">
+                Dashboard /{" "}
+                <span className="text-dukiaBlue font-extrabold">
+                  Portfolio
+                </span>
+              </p>
+            )}
+
             {pathname === "/dashboard/profile" && <p>Account Info</p>}
             {pathname === "/dashboard/card" && <p>Debit Card</p>}
             {pathname === "/dashboard/kyc" && <p>KYC Verification</p>}

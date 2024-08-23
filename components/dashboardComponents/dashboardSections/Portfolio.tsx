@@ -128,7 +128,7 @@ const Portfolio = () => {
         </Card>
 
         {/* See All */}
-        <Link href={"/dashboard/assets"}>
+        <Link href={"/dashboard/portfolio"}>
           <Card className="bg-[#F6F6F6] border-0 rounded-xl h-28 flex justify-end items-center relative">
             <Image
               src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722757027/triple_pointer_arrow_atbmty.png"

@@ -41,7 +41,7 @@ const Main = ({ id }: { id: string }) => {
     return () => clearInterval(intervalId);
   }, [fullProducts, id]); // Dependencies: update when fullProducts or id changes
 
-  const handleTrade = (tradeType: "buy" | "sell") => {
+  const handleBuy = () => {
     let cart: Cart = {
       cart: [
         {
@@ -58,20 +58,12 @@ const Main = ({ id }: { id: string }) => {
 
     openModal({
       type: "confirm",
-      title: "Confirm Payment",
-      message: `Sure to continue with the ${
-        tradeType === "buy" ? "payment" : "withdrawal"
-      } of ${
-        tradeType === "buy"
-          ? formatCurrency(itemDetails?.ask_price)
-          : formatCurrency(itemDetails?.bid_price)
-      } ?`,
+      title: `Confirm Payment`,
+      message: `Sure to continue with the payment of ${formatCurrency(
+        itemDetails?.ask_price
+      )}`,
       onConfirm: async () => {
-        if (tradeType === "buy") {
-          await buyDiscrete(cart);
-        } else {
-          console.log("Withdrawal not implemented");
-        }
+        await buyDiscrete(cart);
       },
     });
   };
@@ -139,7 +131,7 @@ const Main = ({ id }: { id: string }) => {
           <div className="space-y-2 flex flex-col items-center">
             <button
               type="button"
-              onClick={() => handleTrade("buy")}
+              onClick={handleBuy}
               disabled={itemDetails?.ask_price === 0}
               className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
             >
@@ -152,7 +144,7 @@ const Main = ({ id }: { id: string }) => {
           <div className="space-y-2 flex flex-col items-center">
             <button
               type="button"
-              onClick={() => handleTrade("sell")}
+              onClick={() => {}}
               disabled={balance === 0}
               className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
             >
