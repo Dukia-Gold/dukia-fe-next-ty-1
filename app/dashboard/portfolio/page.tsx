@@ -1,5 +1,7 @@
 "use client";
 
+import ChartComponent from "@/components/portfolioComponents/Chart";
+import TableComponent from "@/components/portfolioComponents/Table";
 import { ArrowLeft, TimerReset } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -48,7 +50,7 @@ const PortfolioPage = () => {
 
         <div></div>
 
-        <div></div>
+        {layout === "table" ? <TableComponent /> : <ChartComponent />}
       </div>
     </div>
   );
