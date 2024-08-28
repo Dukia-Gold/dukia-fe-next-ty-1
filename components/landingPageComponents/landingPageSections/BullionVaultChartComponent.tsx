@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Script from "next/script";
 import "@/app/bullion.css";
 
 const BullionVaultChartComponent: React.FC = () => {
+  const chartRef = useRef<any>(null);
+
   useEffect(() => {
     const initializeChart = () => {
       const options = {
@@ -23,24 +25,32 @@ const BullionVaultChartComponent: React.FC = () => {
       };
 
       if (typeof window !== "undefined" && (window as any).BullionVaultChart) {
-        const chartBV = new (window as any).BullionVaultChart(options, "embed");
+        chartRef.current = new (window as any).BullionVaultChart(
+          options,
+          "embed"
+        );
       }
     };
 
-    if ((window as any).BullionVaultChart) {
-      // If the script is already loaded
-      initializeChart();
-    } else {
-      // Wait for the script to load
-      const handleScriptLoad = () => {
+    if (!chartRef.current) {
+      if ((window as any).BullionVaultChart) {
+        // If the script is already loaded
         initializeChart();
-      };
+      } else {
+        // Wait for the script to load
+        const handleScriptLoad = () => {
+          initializeChart();
+        };
 
-      window.addEventListener("BullionVaultChartLoaded", handleScriptLoad);
+        window.addEventListener("BullionVaultChartLoaded", handleScriptLoad);
 
-      return () => {
-        window.removeEventListener("BullionVaultChartLoaded", handleScriptLoad);
-      };
+        return () => {
+          window.removeEventListener(
+            "BullionVaultChartLoaded",
+            handleScriptLoad
+          );
+        };
+      }
     }
   }, []);
 
