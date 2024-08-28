@@ -58,7 +58,7 @@ const BullionVaultChartComponent: React.FC = () => {
       <div className="pt-20 flex justify-center items-center">
         <div
           id="container"
-          className="rounded-2xl pt-14 p-4 bg-[#f6f7f9] shadow-md space-y-16"
+          className="rounded-2xl pt-14 p-4 bg-[#f6f7f9] space-y-16"
         >
           <h1 className="text-center text-4xl font-extrabold">
             Live Gold Market Price
