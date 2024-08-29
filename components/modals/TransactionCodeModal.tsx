@@ -173,7 +173,7 @@ const TransactionCodeModal = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
-      <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out text-dukiaBlue rounded-lg py-5 w-[95%] md:w-[38.3125rem] px-6">
+      <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out text-dukiaBlue rounded-2xl py-5 w-[95%] md:w-[38.3125rem] px-6">
         <div className="flex items-center justify-between">
           <p className="font-semibold">Transaction Code</p>
 
@@ -208,7 +208,9 @@ const TransactionCodeModal = () => {
                   maxLength={1}
                   value={inputValues[index]}
                   onChange={handleChange(index)}
-                  className="font-semibold placeholder:text-dukiaBlue py-3.5 px-2.5 w-8 h-12 rounded-lg border-[1.5px] bg-transparent outline-none disabled:cursor-not-allowed border-dukiaBlue disabled:border-[#B9BBC8] shadow-md disabled:shadow-none"
+                  className={`${
+                    error ? "border-[#FF5757]" : "border-dukiaBlue"
+                  } font-semibold placeholder:text-dukiaBlue py-3.5 px-2.5 w-8 h-12 rounded-lg border-[1.5px] bg-transparent outline-none disabled:cursor-not-allowed disabled:border-[#B9BBC8] shadow-md disabled:shadow-none`}
                 />
               ))}
             </div>
