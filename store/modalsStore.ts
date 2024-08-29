@@ -16,6 +16,12 @@ const useModalsStore = create((set) => ({
   resetPassword: false,
 
   confirmModal: false,
+
+  transactionCode: false,
+  payload: {},
+  token: "",
+  message: "",
+  attemptsLeft: "",
   updateModals: (updates: any) =>
     set((state: any) => ({
       ...state,

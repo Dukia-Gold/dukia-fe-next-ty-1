@@ -12,6 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { userStore } from "@/store/user";
 import { useModalStore } from "@/store/modalStore";
 import ConfirmModal from "@/components/modals/ConfirmModal";
+import TransactionCodeModal from "@/components/modals/TransactionCodeModal";
 
 export default function DashboardLayout({
   catalogue,
@@ -56,6 +57,8 @@ export default function DashboardLayout({
 
         <Toaster />
         <ToastContainer theme="colored" />
+
+        <TransactionCodeModal />
 
         <ConfirmModal
           isOpen={isOpen}
