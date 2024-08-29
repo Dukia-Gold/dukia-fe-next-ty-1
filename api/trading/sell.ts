@@ -52,8 +52,6 @@ const useSell = () => {
           attemptsLeft: response.data.attempts,
         });
       }
-
-      fetchUserData();
       updateLoading(false);
     } catch (error: any) {
       console.log(error);

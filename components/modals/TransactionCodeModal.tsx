@@ -1,3 +1,4 @@
+import useFetchUserData from "@/lib/fetchUserData";
 import { capitalizeFirstLetter } from "@/lib/formatText";
 import useLoadingStore from "@/store/loadingStore";
 import useModalsStore from "@/store/modalsStore";
@@ -7,13 +8,24 @@ import { X } from "lucide-react";
 import { useState } from "react";
 
 const TransactionCodeModal = () => {
+  const [inputValues, setInputValues] = useState<string[]>(Array(10).fill(""));
   const [error, setError] = useState<string>("");
-  const transactionCode = useModalsStore((state: any) => state.transactionCode);
-  const message = useModalsStore((state: any) => state.message);
-  const token = useModalsStore((state: any) => state.token);
-  const payload = useModalsStore((state: any) => state.payload);
-  const attemptsLeft = useModalsStore((state: any) => state.attemptsLeft);
-  const updateModals = useModalsStore((state: any) => state.updateModals);
+  const fetchUserData = useFetchUserData();
+  const {
+    transactionCode,
+    message,
+    token,
+    payload,
+    attemptsLeft,
+    updateModals,
+  } = useModalsStore((state: any) => ({
+    transactionCode: state.transactionCode,
+    message: state.message,
+    token: state.token,
+    payload: state.payload,
+    attemptsLeft: state.attemptsLeft,
+    updateModals: state.updateModals,
+  }));
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
   const openModal = useModalStore((state) => state.openModal);
 
@@ -24,9 +36,6 @@ const TransactionCodeModal = () => {
 
   // Extracted positions (Convert them to zero-indexed)
   const positionsToEnable = extractPositions(message).map((pos) => pos - 1);
-
-  // Initialize state for all inputs
-  const [inputValues, setInputValues] = useState<string[]>(Array(10).fill(""));
 
   // Initialize disabled state based on extracted positions
   const inputs = Array(10)
@@ -85,6 +94,7 @@ const TransactionCodeModal = () => {
             title: "Transaction Successful!",
             message: `${response.data.response_data}. You'll receive your funds in your bank account shortly. Please check your account balance for the updated amount.`,
           });
+          fetchUserData();
           updateLoading(false);
         }
       } catch (error: any) {
