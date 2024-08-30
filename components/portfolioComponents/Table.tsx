@@ -13,20 +13,22 @@ const TableComponent = () => {
       <TableHeader>
         <TableRow className="hidden md:table-row bg-dukiaGrey border-b border-dukiaBlue/[10%] hover:bg-dukiaGrey">
           <TableHead className="p-2.5 text-dukiaBlue rounded-tl-xl font-bold">
-            Trx ID
+            Type
           </TableHead>
           <TableHead className="p-2.5 text-dukiaBlue font-bold">
-            Date & Time
+            Weight
           </TableHead>
-          <TableHead className="p-2.5 text-dukiaBlue font-bold">Type</TableHead>
           <TableHead className="p-2.5 text-dukiaBlue font-bold">
             Quantity
           </TableHead>
           <TableHead className="p-2.5 text-dukiaBlue font-bold">
-            Status
+            Amount(₦) / Unit
+          </TableHead>
+          <TableHead className="p-2.5 text-dukiaBlue font-bold">
+            Total Value (₦)
           </TableHead>
           <TableHead className="p-2.5 text-dukiaBlue font-bold rounded-tr-xl">
-            Price
+            Quick Actions
           </TableHead>
         </TableRow>
       </TableHeader>

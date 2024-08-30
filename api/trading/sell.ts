@@ -5,8 +5,10 @@ import { useCookies } from "react-cookie";
 import useFetchUserData from "@/lib/fetchUserData";
 import useFetchTransactionHistory from "@/lib/fetchTransactionHistory";
 import useModalsStore from "@/store/modalsStore";
+import { useModalStore } from "@/store/modalStore";
 
 const useSell = () => {
+  const openModal = useModalStore((state) => state.openModal);
   const fetchUserData = useFetchUserData();
   const fetchTransactionHistory = useFetchTransactionHistory();
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
@@ -59,43 +61,107 @@ const useSell = () => {
         const { status, data } = error.response;
 
         if (status === 401) {
-          Swal.fire({
+          openModal({
+            type: "error",
             title: "Unauthorized request!",
-            text: "You're not authorized to perform this action.",
-            icon: "error",
-            confirmButtonText: "Okay",
+            message: "You're not authorized to perform this action.",
           });
         } else if (
           data.message ===
           "Your account has been suspended. Please contact support."
         ) {
-          Swal.fire({
+          openModal({
+            type: "error",
             title: "Account suspended!",
-            text: "Your account has been suspended. Please contact support.",
-            icon: "error",
-            confirmButtonText: "Okay",
+            message: "Your account has been suspended. Please contact support.",
           });
         } else {
-          Swal.fire({
+          openModal({
+            type: "error",
             title: "Error!",
-            text: `${error.response.data.message}`,
-            icon: "error",
-            confirmButtonText: "Okay",
+            message: `${error.response.data.message}`,
           });
         }
       } else {
-        Swal.fire({
+        openModal({
+          type: "error",
           title: "Network Error!",
-          text: "Error connecting to the server. Please check your internet connection and try again.",
-          icon: "error",
-          confirmButtonText: "Okay",
+          message:
+            "Error connecting to the server. Please check your internet connection and try again.",
         });
       }
       updateLoading(false);
     }
   };
 
-  return sellPoolAllocated;
+  const sellDiscrete = async (item_id: any, quantity: any, price: any) => {
+    updateLoading(true);
+    const payload = {
+      item_id: item_id,
+      quantity: quantity,
+      price: price,
+    };
+
+    try {
+      const response = await axios({
+        url: "https://api.dukiapreciousmetals.co/api/v2/sell-discrete",
+        method: "POST",
+        data: payload,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include the token in the request headers
+        },
+      });
+
+      if (response.status === 200 && response.data.token) {
+        updateModals({
+          transactionCode: true,
+          payload: payload,
+          token: response.data.token,
+          message: response.data.message,
+          attemptsLeft: response.data.attempts,
+        });
+      }
+      updateLoading(false);
+    } catch (error: any) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (status === 401) {
+          openModal({
+            type: "error",
+            title: "Unauthorized request!",
+            message: "You're not authorized to perform this action.",
+          });
+        } else if (
+          data.message ===
+          "Your account has been suspended. Please contact support."
+        ) {
+          openModal({
+            type: "error",
+            title: "Account suspended!",
+            message: "Your account has been suspended. Please contact support.",
+          });
+        } else {
+          openModal({
+            type: "error",
+            title: "Error!",
+            message: `${error.response.data.message}`,
+          });
+        }
+      } else {
+        openModal({
+          type: "error",
+          title: "Network Error!",
+          message:
+            "Error connecting to the server. Please check your internet connection and try again.",
+        });
+      }
+      updateLoading(false);
+    }
+  };
+
+  return { sellPoolAllocated, sellDiscrete };
 };
 
 export default useSell;

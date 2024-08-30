@@ -57,7 +57,7 @@ const Trade = () => {
   const [delivery, setDelivery] = useState<boolean>(false);
 
   const { buyPoolAllocated, buyDiscrete } = useBuy();
-  const sellPoolAllocated = useSell();
+  const { sellPoolAllocated } = useSell();
   const buyValueParsed = parseFloat(buyValue.replace(/,/g, ""));
   const buyWorthParsed =
     buyWorth !== undefined ? parseFloat(buyWorth.replace(/,/g, "")) : 0;
