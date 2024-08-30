@@ -13,6 +13,7 @@ const TransactionCodeModal = () => {
   const fetchUserData = useFetchUserData();
   const {
     transactionCode,
+    trade,
     message,
     token,
     payload,
@@ -20,6 +21,7 @@ const TransactionCodeModal = () => {
     updateModals,
   } = useModalsStore((state: any) => ({
     transactionCode: state.transactionCode,
+    trade: state.trade,
     message: state.message,
     token: state.token,
     payload: state.payload,
@@ -66,12 +68,22 @@ const TransactionCodeModal = () => {
     missing_digits: mergedValues, // Add or update the key-value pair
   };
 
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  let endpoint;
+  if (trade === "discrete") {
+    endpoint = "/v2/sell-discrete";
+  } else if (trade === "pool") {
+    endpoint = "/v2/sell-order";
+  }
+
+  const apiUrl = `${API_BASE_URL}${endpoint}`;
+
   const handleSubmit = async () => {
     if (mergedValues.length === 4) {
       updateLoading(true);
       try {
         const response = await axios({
-          url: "https://api.dukiapreciousmetals.co/api/v2/sell-order",
+          url: apiUrl,
           method: "POST",
           data: updatedPayload,
           headers: {

@@ -18,6 +18,7 @@ const useModalsStore = create((set) => ({
   confirmModal: false,
 
   transactionCode: false,
+  trade: "",
   payload: {},
   token: "",
   message: "",

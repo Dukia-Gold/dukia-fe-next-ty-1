@@ -48,6 +48,7 @@ const useSell = () => {
       if (response.status === 200 && response.data.token) {
         updateModals({
           transactionCode: true,
+          trade: "pool",
           payload: payload,
           token: response.data.token,
           message: response.data.message,
@@ -116,6 +117,7 @@ const useSell = () => {
       if (response.status === 200 && response.data.token) {
         updateModals({
           transactionCode: true,
+          trade: "discrete",
           payload: payload,
           token: response.data.token,
           message: response.data.message,
