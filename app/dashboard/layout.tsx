@@ -13,6 +13,7 @@ import { userStore } from "@/store/user";
 import { useModalStore } from "@/store/modalStore";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import TransactionCodeModal from "@/components/modals/TransactionCodeModal";
+import SellModal from "@/components/modals/SellModal";
 
 export default function DashboardLayout({
   catalogue,
@@ -59,6 +60,8 @@ export default function DashboardLayout({
         <ToastContainer theme="colored" />
 
         <TransactionCodeModal />
+
+        <SellModal />
 
         <ConfirmModal
           isOpen={isOpen}

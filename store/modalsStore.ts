@@ -11,6 +11,9 @@ const useModalsStore = create((set) => ({
   successfulDeposit: false,
   depositResponse: "",
 
+  sell: false,
+  sellProductId: "",
+
   statementOfAccount: false,
 
   resetPassword: false,

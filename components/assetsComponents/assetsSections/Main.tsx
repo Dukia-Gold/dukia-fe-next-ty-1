@@ -10,9 +10,11 @@ import useFind from "@/lib/findById";
 import { Cart } from "@/typings/cart";
 import useBuy from "@/api/trading/buy";
 import { useModalStore } from "@/store/modalStore";
+import useModalsStore from "@/store/modalsStore";
 
 const Main = ({ id }: { id: string }) => {
   const openModal = useModalStore((state) => state.openModal);
+  const updateModals = useModalsStore((state: any) => state.updateModals);
   const { buyPoolAllocated, buyDiscrete } = useBuy();
 
   const [itemDetails, setItemDetails] = useState<any>(null);
@@ -39,7 +41,7 @@ const Main = ({ id }: { id: string }) => {
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
-  }, [fullProducts, id]); // Dependencies: update when fullProducts or id changes
+  }, [fullProducts, id, findBalanceById, findItemById]); // Dependencies: update when fullProducts, id, findBalanceById, or findItemById changes
 
   const handleBuy = () => {
     let cart: Cart = {
@@ -144,7 +146,9 @@ const Main = ({ id }: { id: string }) => {
           <div className="space-y-2 flex flex-col items-center">
             <button
               type="button"
-              onClick={() => {}}
+              onClick={() => {
+                updateModals({ sell: true, sellProductId: id });
+              }}
               disabled={balance === 0}
               className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
             >
