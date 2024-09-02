@@ -1,21 +1,58 @@
+import useSell from "@/api/trading/sell";
+import { formatCurrency } from "@/lib/currencyformatter";
+import useFind from "@/lib/findById";
+import { capitalizeFirstLetter } from "@/lib/formatText";
+import { fullProductsStore } from "@/store/fullProducts";
 import useModalsStore from "@/store/modalsStore";
+import { useModalStore } from "@/store/modalStore";
+import { userStore } from "@/store/user";
+import { Info } from "lucide-react";
 import React from "react";
 
 const SellModal = () => {
+  const { sellDiscrete } = useSell();
+  const openModal = useModalStore((state) => state.openModal);
+  const [itemDetails, setItemDetails] = React.useState<any>(null);
+  const user = userStore((state: any) => state.user);
   const sell = useModalsStore((state: any) => state.sell);
   const sellProductId = useModalsStore((state: any) => state.sellProductId);
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
   const [quantity, setQuantity] = React.useState(1);
 
+  const bankDetails = [
+    {
+      Bank: user?.bank_account_bank_name,
+      Account_name: user?.bank_account_name,
+      Account_number: user?.bank_account_number,
+      Email_address: user?.email,
+    },
+  ];
+
+  const { findItemById } = useFind();
+
+  React.useEffect(() => {
+    const details = findItemById(sellProductId);
+    setItemDetails(details);
+  }, [findItemById, sellProductId]); // Dependencies: update when fullProducts or id changes
+
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(Number(event.target.value));
   };
 
   const handleSell = () => {
-    // Handle the sell action here
-    console.log(`Selling ${quantity} items`);
-    updateModals({ sell: false });
+    openModal({
+      type: "confirm",
+      title: "Confirm Payment",
+      message: `Sure to continue with the withdrawal of ${formatCurrency(
+        itemDetails?.bid_price * quantity
+      )} ?`,
+      onConfirm: async () => {
+        await sellDiscrete(sellProductId, quantity, itemDetails.bid_price);
+        console.log(`Selling ${quantity} items`);
+        updateModals({ sell: false });
+      },
+    });
   };
 
   return (
@@ -38,6 +75,36 @@ const SellModal = () => {
               </p>
             </div>
 
+            <div className="p-2 rounded-xl border border-[#E8E9ED] mb-4">
+              <div className="rounded-lg border-[0.5px] bg-[#FBF7EB] border-[#E8E9ED] pr-6 p-2 space-y-2">
+                <div className="flex items-center justify-between font-semibold text-xs">
+                  <div className="flex items-center space-x-2">
+                    <Info width={18} height={18} fill="#1C254E" stroke="#fff" />
+                    <p>Your bank information</p>
+                  </div>
+
+                  <p className="text-[#43BA64]">
+                    Edit Details?{" "}
+                    <span className="text-dukiaBlue underline">
+                      Contact Support
+                    </span>
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 pl-6 text-[10px]">
+                  {Object.entries(bankDetails[0]).map(([key, value], index) => (
+                    <div
+                      key={index}
+                      className="col-span-1 bg-white rounded-lg border border-[#E8E9ED] py-3.5 px-1.5 space-y-1"
+                    >
+                      <p className="text-[#676D88]">{key.replace(/_/g, " ")}</p>
+                      <p className="font-semibold">{value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             <div className="space-y-1 mb-4 font-semibold">
               <label htmlFor="" className="text-[#676D88]">
                 Asset
@@ -45,7 +112,11 @@ const SellModal = () => {
 
               <input
                 type="text"
-                value={sellProductId}
+                value={
+                  itemDetails?.name
+                    ? itemDetails?.name
+                    : capitalizeFirstLetter(sellProductId)
+                }
                 disabled
                 className="w-full p-4 text-[#979BAE] mb-4 outline-none rounded-lg disabled:bg-[#E8E9ED]"
               />
@@ -64,6 +135,16 @@ const SellModal = () => {
                 className="w-full p-4 text-[#979BAE] border-[#E8E9ED] mb-4 outline-none rounded-lg border-[1.5px]"
               />
             </div>
+
+            <p className="text-xs mb-4">
+              {itemDetails?.name
+                ? itemDetails?.name
+                : capitalizeFirstLetter(sellProductId)}{" "}
+              ~{" "}
+              <span className="font-semibold">
+                {formatCurrency(itemDetails?.bid_price)}
+              </span>
+            </p>
 
             <button
               onClick={handleSell}

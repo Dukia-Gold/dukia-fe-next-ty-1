@@ -21,12 +21,6 @@ const useSell = () => {
     order_total: any,
     bid_unit_price: any
   ) => {
-    //   {
-    //     "quantity" : "0.05",
-    //     "order_total" : "6056.05",
-    //     "bid_unit_price" : "100000",
-    //     "missing_digits" : "hamk"
-    // }
     updateLoading(true);
     const payload = {
       quantity: order_weight,
