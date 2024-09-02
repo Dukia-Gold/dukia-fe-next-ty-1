@@ -4,7 +4,7 @@ import { useCartStore } from "@/store/cart";
 import { fullProductsStore } from "@/store/fullProducts";
 import { Trash } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type Props = {
   price: number | undefined;
@@ -18,18 +18,20 @@ const CartItemCard = ({ price, quantity, id }: Props) => {
 
   const fullProducts = fullProductsStore((state: any) => state.fullProducts);
 
-  const findItemById = (id?: string) => {
-    if (!fullProducts) {
-      return null;
-    }
-    return Object.values(fullProducts).find((item: any) => item.id === id);
-  };
+  const findItemById = useCallback(
+    (id?: string) => {
+      if (!fullProducts) {
+        return null;
+      }
+      return Object.values(fullProducts).find((item: any) => item.id === id);
+    },
+    [fullProducts]
+  ); // Add fullProducts as a dependency
 
-  // Step 3: Use useEffect to update itemDetails when fullProducts or id changes
   useEffect(() => {
     const details = findItemById(id);
     setItemDetails(details);
-  }, [fullProducts, id]); // Dependencies: update when fullProducts or id changes
+  }, [findItemById, id]); // Dependencies: update when fullProducts or id changes
 
   if (!itemDetails) {
     // Handle the case where the item is not found or still loading
