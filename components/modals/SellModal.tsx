@@ -6,13 +6,14 @@ import { fullProductsStore } from "@/store/fullProducts";
 import useModalsStore from "@/store/modalsStore";
 import { useModalStore } from "@/store/modalStore";
 import { userStore } from "@/store/user";
-import { Info } from "lucide-react";
+import { Info, X } from "lucide-react";
 import React from "react";
 
 const SellModal = () => {
-  const { sellDiscrete } = useSell();
+  const { sellPoolAllocated, sellDiscrete } = useSell();
   const openModal = useModalStore((state) => state.openModal);
   const [itemDetails, setItemDetails] = React.useState<any>(null);
+  const [balance, setBalance] = React.useState<any>(null);
   const user = userStore((state: any) => state.user);
   const sell = useModalsStore((state: any) => state.sell);
   const sellProductId = useModalsStore((state: any) => state.sellProductId);
@@ -29,12 +30,14 @@ const SellModal = () => {
     },
   ];
 
-  const { findItemById } = useFind();
+  const { findItemById, findBalanceById } = useFind();
 
   React.useEffect(() => {
     const details = findItemById(sellProductId);
+    const balance = findBalanceById(sellProductId);
+    setBalance(balance);
     setItemDetails(details);
-  }, [findItemById, sellProductId]); // Dependencies: update when fullProducts or id changes
+  }, [findItemById, findBalanceById, sellProductId]); // Dependencies: update when fullProducts or id changes
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(Number(event.target.value));
@@ -48,9 +51,17 @@ const SellModal = () => {
         itemDetails?.bid_price * quantity
       )} ?`,
       onConfirm: async () => {
-        await sellDiscrete(sellProductId, quantity, itemDetails.bid_price);
-        console.log(`Selling ${quantity} items`);
-        updateModals({ sell: false });
+        if (sellProductId != "pool-allocated-1g") {
+          await sellDiscrete(sellProductId, quantity, itemDetails.bid_price);
+          updateModals({ sell: false });
+        } else {
+          await sellPoolAllocated(
+            quantity,
+            itemDetails?.bid_price * quantity,
+            itemDetails?.bid_price
+          );
+          updateModals({ sell: false });
+        }
       },
     });
   };
@@ -61,12 +72,12 @@ const SellModal = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-2xl border-[0.5px] shadow-lg py-5 px-6 w-full max-w-[613px] text-dukiaBlue">
             <button
-              className="text-gray-500 hover:text-gray-700 float-right"
+              className="bg-[#E8E9ED] hover:bg-gray-700 hover:text-white float-right rounded-full p-2"
               onClick={() => {
                 updateModals({ sell: false });
               }}
             >
-              &times;
+              <X width={16} height={16} />
             </button>
             <div className="mb-4 font-semibold">
               <h2 className="text-xl">Sell (Withdraw)</h2>
@@ -134,6 +145,12 @@ const SellModal = () => {
                 min="1"
                 className="w-full p-4 text-[#979BAE] border-[#E8E9ED] mb-4 outline-none rounded-lg border-[1.5px]"
               />
+
+              {quantity > Number(balance?.total_weight) && (
+                <p className="text-red-600 text-xs">
+                  You only have {Number(balance.total_weight)}
+                </p>
+              )}
             </div>
 
             <p className="text-xs mb-4">
@@ -148,7 +165,12 @@ const SellModal = () => {
 
             <button
               onClick={handleSell}
-              disabled={quantity === 0}
+              disabled={
+                quantity === 0 ||
+                quantity > Number(balance?.total_weight) ||
+                !itemDetails?.bid_price ||
+                itemDetails?.bid_price === 0
+              }
               className="w-full bg-dukiaBlue text-white p-3 rounded-lg disabled:cursor-not-allowed disabled:bg-dukiaBlue/[50%]"
             >
               Withdraw
