@@ -2,7 +2,6 @@ import useSell from "@/api/trading/sell";
 import { formatCurrency } from "@/lib/currencyformatter";
 import useFind from "@/lib/findById";
 import { capitalizeFirstLetter } from "@/lib/formatText";
-import { fullProductsStore } from "@/store/fullProducts";
 import useModalsStore from "@/store/modalsStore";
 import { useModalStore } from "@/store/modalStore";
 import { userStore } from "@/store/user";
@@ -44,22 +43,24 @@ const SellModal = () => {
   };
 
   const handleSell = () => {
+    const cart = {
+      quantity,
+      total: itemDetails?.bid_price * quantity,
+      unitPrice: itemDetails?.bid_price,
+    };
+
     openModal({
       type: "confirm",
       title: "Confirm Payment",
       message: `Sure to continue with the withdrawal of ${formatCurrency(
-        itemDetails?.bid_price * quantity
+        cart.total
       )} ?`,
       onConfirm: async () => {
         if (sellProductId != "pool-allocated-1g") {
           await sellDiscrete(sellProductId, quantity, itemDetails.bid_price);
           updateModals({ sell: false });
         } else {
-          await sellPoolAllocated(
-            quantity,
-            itemDetails?.bid_price * quantity,
-            itemDetails?.bid_price
-          );
+          await sellPoolAllocated(cart.quantity, cart.total, cart.unitPrice);
           updateModals({ sell: false });
         }
       },
@@ -74,13 +75,14 @@ const SellModal = () => {
             <button
               className="bg-[#E8E9ED] hover:bg-gray-700 hover:text-white float-right rounded-full p-2"
               onClick={() => {
+                setQuantity(1);
                 updateModals({ sell: false });
               }}
             >
               <X width={16} height={16} />
             </button>
             <div className="mb-4 font-semibold">
-              <h2 className="text-xl">Sell (Withdraw)</h2>
+              <h2>Sell (Withdraw)</h2>
               <p className="text-xs text-[#676D88]">
                 To be sent into your registered bank account.
               </p>
@@ -135,14 +137,24 @@ const SellModal = () => {
 
             <div className="space-y-1 mb-4 font-semibold">
               <label htmlFor="" className="text-[#676D88] text-sm">
-                Quantity
+                {itemDetails?.type === "bar"
+                  ? "Number of bars"
+                  : itemDetails?.type === "coin"
+                  ? "Number of coins"
+                  : "Quantity"}
               </label>
 
               <input
-                type="number"
+                type={sellProductId === "pool-allocated-1g" ? "number" : "text"}
                 value={quantity}
                 onChange={handleQuantityChange}
-                min="1"
+                min={0.0001}
+                step={0.0001}
+                pattern={
+                  sellProductId != "pool-allocated-1g"
+                    ? "[0-9]*"
+                    : "[0-9]*.?[0-9]*"
+                }
                 className="w-full p-4 text-[#979BAE] border-[#E8E9ED] mb-4 outline-none rounded-lg border-[1.5px]"
               />
 

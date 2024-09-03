@@ -14,6 +14,7 @@ import { useModalStore } from "@/store/modalStore";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import TransactionCodeModal from "@/components/modals/TransactionCodeModal";
 import SellModal from "@/components/modals/SellModal";
+import GiftingModal from "@/components/modals/GiftingModal";
 
 export default function DashboardLayout({
   catalogue,
@@ -62,6 +63,7 @@ export default function DashboardLayout({
         <TransactionCodeModal />
 
         <SellModal />
+        <GiftingModal />
 
         <ConfirmModal
           isOpen={isOpen}

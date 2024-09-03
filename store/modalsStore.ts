@@ -14,6 +14,8 @@ const useModalsStore = create((set) => ({
   sell: false,
   sellProductId: "",
 
+  gifting: false,
+
   statementOfAccount: false,
 
   resetPassword: false,

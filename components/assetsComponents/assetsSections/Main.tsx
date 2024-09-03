@@ -62,7 +62,7 @@ const Main = ({ id }: { id: string }) => {
       type: "confirm",
       title: `Confirm Payment`,
       message: `Sure to continue with the payment of ${formatCurrency(
-        itemDetails?.ask_price
+        cart.cart[0].price ?? 0
       )}`,
       onConfirm: async () => {
         await buyDiscrete(cart);
@@ -158,16 +158,21 @@ const Main = ({ id }: { id: string }) => {
           </div>
 
           {/* Gift */}
-          <div className="space-y-2 flex flex-col items-center">
-            <button
-              type="button"
-              disabled={balance === 0}
-              className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
-            >
-              <ArrowUpRight width={24} height={24} stroke="white" />
-            </button>
-            <p>Gift</p>
-          </div>
+          {id === "pool-allocated-1g" && (
+            <div className="space-y-2 flex flex-col items-center">
+              <button
+                type="button"
+                onClick={() => {
+                  updateModals({ gifting: true });
+                }}
+                disabled={balance === 0}
+                className="bg-dukiaBlue rounded-[50%] cursor-pointer flex items-center justify-center p-1 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
+              >
+                <ArrowUpRight width={24} height={24} stroke="white" />
+              </button>
+              <p>Gift</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
