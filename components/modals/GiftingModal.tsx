@@ -1,8 +1,12 @@
+import useGift from "@/api/trading/gifting";
+import { calculateGiftingFee } from "@/lib/calculateGiftingFee";
+import { formatDecimal } from "@/lib/decimalFormatter";
 import { fetchNameByAccNum } from "@/lib/fetchNameByAccNum";
 import useFind from "@/lib/findById";
 import { capitalizeFirstLetter } from "@/lib/formatText";
 import useModalsStore from "@/store/modalsStore";
 import { useModalStore } from "@/store/modalStore";
+import { userStore } from "@/store/user";
 import { X } from "lucide-react";
 import React from "react";
 
@@ -19,27 +23,32 @@ interface User {
 
 interface Fee {
   status: string;
-  transaferable_balance: number;
-  transfer_fee: number;
-  total_deduction: number;
+  message?: string;
+  transaferable_balance?: number;
+  transfer_fee?: number;
+  total_deduction?: number;
 }
 
 const GiftingModal = () => {
+  const user = userStore((state: any) => state.user);
   const openModal = useModalStore((state) => state.openModal);
   const gifting = useModalsStore((state: any) => state.gifting);
   const updateModals = useModalsStore((state: any) => state.updateModals);
+  const [remark, setRemark] = React.useState<string | null>(null);
 
   //   Check Balance
+  const [userID, setUserID] = React.useState<number | null>(null);
   const [balance, setBalance] = React.useState<any>(null);
   const { findBalanceById } = useFind();
   React.useEffect(() => {
+    setUserID(user?.id || null);
     const fetchBalance = async () => {
       const balanceData = await findBalanceById("pool-allocated-1g");
       setBalance(balanceData);
     };
 
     fetchBalance();
-  }, [findBalanceById]);
+  }, [findBalanceById, user]);
 
   //   Fetch Account Name
   const [accountNumber, setAccountNumber] = React.useState("");
@@ -61,17 +70,34 @@ const GiftingModal = () => {
   //   Calculate Fee
   const [quantity, setQuantity] = React.useState(0);
   const [fee, setFee] = React.useState<Fee | null>(null);
+  const [feeLoading, setFeeLoading] = React.useState<boolean>(false);
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFee(null);
     setQuantity(Number(event.target.value));
   };
-  const calculateFee = async () => {};
+  const calculateFee = async () => {
+    if (userID) {
+      setFeeLoading(true);
+      const fee = await calculateGiftingFee(accountNumber, userID, quantity);
+      setFee(fee);
+      setFeeLoading(false);
+    }
+  };
 
   const close = () => {
     setAccountNumber("");
     setUsername(null);
     setQuantity(0);
     setFee(null);
+    setRemark(null);
+    updateModals({ gifting: false });
+  };
+
+  //   Gift Gold
+  const sendGift = useGift();
+  const giftGold = async () => {
+    await sendGift(accountNumber, quantity, remark || "");
+    close();
     updateModals({ gifting: false });
   };
 
@@ -143,7 +169,7 @@ const GiftingModal = () => {
                   {/* Label and balance */}
                   <div className="flex justify-between text-sm">
                     <label htmlFor="" className="text-[#676D88]">
-                      Quantity (in grams)
+                      Quantity (min: 0.01)
                     </label>
 
                     {/* User's balance */}
@@ -158,8 +184,8 @@ const GiftingModal = () => {
                     disabled={!username?.data}
                     value={quantity}
                     onChange={handleQuantityChange}
-                    min={0.0001}
-                    step={0.0001}
+                    min={0.01}
+                    step={0.01}
                     pattern="[0-9]*.?[0-9]*"
                     placeholder="0.09"
                     className={`${
@@ -170,9 +196,29 @@ const GiftingModal = () => {
 
                   {/* Fee and Total */}
                   <div className="flex text-xs justify-between">
-                    <p>Fee: </p>
+                    {fee?.status === "success" ? (
+                      <>
+                        <p>
+                          Fee:{" "}
+                          {fee?.transfer_fee && (
+                            <span className="text-green-600">
+                              {formatDecimal(fee?.transfer_fee, 4, false)}g
+                            </span>
+                          )}
+                        </p>
 
-                    <p>Total:</p>
+                        <p>
+                          Total:{" "}
+                          {fee?.total_deduction && (
+                            <span className="text-green-600">
+                              {formatDecimal(fee?.total_deduction, 4, false)}g
+                            </span>
+                          )}
+                        </p>
+                      </>
+                    ) : (
+                      <p className="text-red-600">{fee?.message}</p>
+                    )}
                   </div>
                 </div>
 
@@ -184,6 +230,8 @@ const GiftingModal = () => {
 
                   <input
                     type="text"
+                    value={remark ?? ""}
+                    onChange={(e) => setRemark(e.target.value)}
                     className="w-full border-2 p-4 rounded-lg border-[#E8E9ED] placeholder:text-[#979BAE]"
                     placeholder="Write remark..."
                   />
@@ -192,14 +240,21 @@ const GiftingModal = () => {
 
               <button
                 disabled={
-                  quantity < 0.0001 ||
+                  quantity < 0.01 ||
                   quantity > Number(balance.total_weight) ||
                   !username ||
-                  username.status === "error"
+                  username.status === "error" ||
+                  fee?.status === "error" ||
+                  (fee?.status === "success" && !remark)
                 }
+                onClick={fee?.status === "success" ? giftGold : calculateFee}
                 className="w-full rounded-lg bg-dukiaBlue disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed text-white font-semibold p-3"
               >
-                {fee ? "Gift" : "Calculate Fee"}
+                {feeLoading
+                  ? "Calculating..."
+                  : fee?.status === "success"
+                  ? "Gift"
+                  : "Calculate Fee"}
               </button>
             </div>
 

@@ -1,27 +1,29 @@
+import axios from "axios";
+
 export const calculateGiftingFee = async (
   accNum: string,
   userID: number,
   quantity: number
 ) => {
   try {
-    const response = await fetch(
+    const response = await axios.post(
       "https://api.dukiapreciousmetals.co/api/calculate-gold-gifting-fee",
       {
-        method: "POST",
+        recipient_account_number: accNum,
+        fire: userID,
+        quantity: quantity,
+      },
+      {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          recipient_account_number: accNum,
-          fire: userID,
-          quantity: quantity,
-        }),
       }
     );
-    if (!response.ok) {
+
+    if (response.status !== 200) {
       throw new Error(`HTTP error! status: ${response.status}`);
     } else {
-      const fee = await response.json();
+      const fee = response.data;
 
       if (fee.status === "success") {
         return fee;
@@ -33,7 +35,7 @@ export const calculateGiftingFee = async (
         status: "error",
         message: "Network error. Please check your internet connection.",
       };
-    } else if (error.message === "HTTP error! status: 400") {
+    } else if (error.response.data) {
       return {
         status: "error",
         message: error.response.data.message || "Bad request",

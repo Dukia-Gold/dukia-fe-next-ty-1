@@ -74,6 +74,8 @@ const TransactionCodeModal = () => {
     endpoint = "/v2/sell-discrete";
   } else if (trade === "pool") {
     endpoint = "/v2/sell-order";
+  } else if (trade === "gifting") {
+    endpoint = "/v2/gold-transfers";
   }
 
   const apiUrl = `${API_BASE_URL}${endpoint}`;
@@ -91,7 +93,10 @@ const TransactionCodeModal = () => {
             Authorization: `Bearer ${token}`, // Include the token in the request headers
           },
         });
-        if (response.status === 200 && response.data.response_data) {
+        if (
+          response.status === 200 &&
+          (response.data.response_data || response.data.message)
+        ) {
           setInputValues(Array(10).fill("")); // Reset all inputs to empty strings
           setError(""); // Reset error message
           updateModals({
@@ -104,7 +109,10 @@ const TransactionCodeModal = () => {
           openModal({
             type: "success",
             title: "Transaction Successful!",
-            message: `${response.data.response_data}. You'll receive your funds in your bank account shortly. Please check your account balance for the updated amount.`,
+            message:
+              trade === "pool"
+                ? `${response.data.response_data}. You'll receive your funds in your bank account shortly. Please check your account balance for the updated amount.`
+                : response.data.message,
           });
           fetchUserData();
           updateLoading(false);
