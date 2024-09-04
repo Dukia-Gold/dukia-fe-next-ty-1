@@ -1,11 +1,9 @@
-import useSell from "@/api/trading/sell";
-import { formatCurrency } from "@/lib/currencyformatter";
 import { fetchNameByAccNum } from "@/lib/fetchNameByAccNum";
 import useFind from "@/lib/findById";
 import { capitalizeFirstLetter } from "@/lib/formatText";
 import useModalsStore from "@/store/modalsStore";
 import { useModalStore } from "@/store/modalStore";
-import { Info, X } from "lucide-react";
+import { X } from "lucide-react";
 import React from "react";
 
 interface User {
@@ -20,6 +18,7 @@ interface User {
 }
 
 const GiftingModal = () => {
+  const [quantity, setQuantity] = React.useState(0);
   const openModal = useModalStore((state) => state.openModal);
   const gifting = useModalsStore((state: any) => state.gifting);
   const updateModals = useModalsStore((state: any) => state.updateModals);
@@ -40,8 +39,6 @@ const GiftingModal = () => {
 
     fetchName();
   }, [accountNumber, username]);
-
-  const [quantity, setQuantity] = React.useState(1);
 
   const [balance, setBalance] = React.useState<any>(null);
   const { findBalanceById } = useFind();
@@ -132,6 +129,7 @@ const GiftingModal = () => {
 
                   <input
                     type="number"
+                    disabled={!username?.data}
                     value={quantity}
                     onChange={handleQuantityChange}
                     min={0.0001}
@@ -141,7 +139,7 @@ const GiftingModal = () => {
                     className={`${
                       quantity > balance.total_weight &&
                       "outline-red-600 border-red-600"
-                    } w-full border-2 p-4 rounded-lg border-[#E8E9ED] placeholder:text-[#979BAE]`}
+                    } w-full border-2 p-4 rounded-lg border-[#E8E9ED] placeholder:text-[#979BAE] disabled:bg-dukiaBlue/[15%] disabled:border-dukiaBlue/[15%] disabled:cursor-not-allowed`}
                   />
 
                   <div className="flex text-xs justify-between">
