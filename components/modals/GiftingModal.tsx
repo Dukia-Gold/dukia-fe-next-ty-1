@@ -88,9 +88,16 @@ const GiftingModal = () => {
 
                   <input
                     type="text"
-                    onChange={(e) => setAccountNumber(e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const regex = /^[A-Za-z]{3}\d{0,11}$/;
+                      if (regex.test(value) || value === "") {
+                        setAccountNumber(value);
+                      }
+                    }}
+                    maxLength={14}
                     className="w-full border-2 p-4 rounded-lg border-[#E8E9ED] placeholder:text-[#979BAE]"
-                    placeholder="SIP**********"
+                    placeholder="SIP***********"
                   />
 
                   <p
@@ -162,7 +169,8 @@ const GiftingModal = () => {
                 disabled={
                   quantity < 0.0001 ||
                   quantity > Number(balance.total_weight) ||
-                  !username
+                  !username ||
+                  username.status === "error"
                 }
                 className="w-full rounded-lg bg-dukiaBlue disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed text-white font-semibold p-3"
               >

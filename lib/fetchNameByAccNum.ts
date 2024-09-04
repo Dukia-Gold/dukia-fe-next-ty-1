@@ -3,7 +3,9 @@ export const fetchNameByAccNum = async (accNum: string) => {
 
   try {
     const response = await fetch(url);
-    if (response.ok){
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
       const user = await response.json();
 
       if (user.status === "success") {
