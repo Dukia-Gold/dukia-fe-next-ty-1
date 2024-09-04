@@ -1,44 +1,61 @@
 import useSell from "@/api/trading/sell";
 import { formatCurrency } from "@/lib/currencyformatter";
+import { fetchNameByAccNum } from "@/lib/fetchNameByAccNum";
 import useFind from "@/lib/findById";
 import { capitalizeFirstLetter } from "@/lib/formatText";
 import useModalsStore from "@/store/modalsStore";
 import { useModalStore } from "@/store/modalStore";
-import { userStore } from "@/store/user";
 import { Info, X } from "lucide-react";
 import React from "react";
 
+interface User {
+  status: string;
+  message?: string;
+  data?: {
+    account_number: string;
+    first_name: string;
+    middle_name: string;
+    last_name: string;
+  };
+}
+
 const GiftingModal = () => {
   const openModal = useModalStore((state) => state.openModal);
-  const [itemDetails, setItemDetails] = React.useState<any>(null);
-  const [balance, setBalance] = React.useState<any>(null);
-  const user = userStore((state: any) => state.user);
   const gifting = useModalsStore((state: any) => state.gifting);
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
+  const [accountNumber, setAccountNumber] = React.useState("");
+  const [username, setUsername] = React.useState<User | null>(null);
+
+  React.useEffect(() => {
+    const fetchName = async () => {
+      const digitCount = accountNumber.replace(/\D/g, "").length;
+      if (digitCount === 11 && !username) {
+        const user = await fetchNameByAccNum(accountNumber);
+        setUsername(user ? user : "Network error. Please, try again later");
+      } else if (digitCount < 11) {
+        setUsername(null);
+      }
+    };
+
+    fetchName();
+  }, [accountNumber, username]);
+
   const [quantity, setQuantity] = React.useState(1);
 
-  const { findItemById, findBalanceById } = useFind();
+  const [balance, setBalance] = React.useState<any>(null);
+  const { findBalanceById } = useFind();
+  React.useEffect(() => {
+    const fetchBalance = async () => {
+      const balanceData = await findBalanceById("pool-allocated-1g");
+      setBalance(balanceData);
+    };
+
+    fetchBalance();
+  }, [findBalanceById]);
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(Number(event.target.value));
-  };
-
-  const handleSell = () => {
-    const cart = {
-      quantity,
-      total: itemDetails?.bid_price * quantity,
-      unitPrice: itemDetails?.bid_price,
-    };
-
-    openModal({
-      type: "confirm",
-      title: "Confirm Payment",
-      message: `Sure to continue with the withdrawal of ${formatCurrency(
-        cart.total
-      )} ?`,
-      onConfirm: async () => {},
-    });
   };
 
   return (
@@ -66,14 +83,65 @@ const GiftingModal = () => {
               <div className="mb-5 font-semibold space-y-5">
                 <div className="flex flex-col space-y-1">
                   <label htmlFor="" className="text-sm text-[#676D88]">
-                    Recipient (account number or email)
+                    Recipient (account number)
                   </label>
 
                   <input
                     type="text"
+                    onChange={(e) => setAccountNumber(e.target.value)}
                     className="w-full border-2 p-4 rounded-lg border-[#E8E9ED] placeholder:text-[#979BAE]"
                     placeholder="SIP**********"
                   />
+
+                  <p
+                    className={`${
+                      username?.status === "success"
+                        ? "text-green-600"
+                        : "text-red-600"
+                    } text-xs font-bold`}
+                  >
+                    {username?.data
+                      ? `${capitalizeFirstLetter(
+                          username.data.first_name
+                        )} ${capitalizeFirstLetter(
+                          username.data.middle_name
+                        )} ${capitalizeFirstLetter(username.data.last_name)}`
+                      : username?.message ||
+                        (accountNumber && "Enter complete account number")}
+                  </p>
+                </div>
+
+                <div className="flex flex-col space-y-1">
+                  <div className="flex justify-between text-sm">
+                    <label htmlFor="" className="text-[#676D88]">
+                      Amount in grams
+                    </label>
+
+                    <p>
+                      Bal: {balance.total_weight}
+                      {balance.total_weight_unit}
+                    </p>
+                  </div>
+
+                  <input
+                    type="number"
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                    min={0.0001}
+                    step={0.0001}
+                    pattern="[0-9]*.?[0-9]*"
+                    placeholder="0.09"
+                    className={`${
+                      quantity > balance.total_weight &&
+                      "outline-red-600 border-red-600"
+                    } w-full border-2 p-4 rounded-lg border-[#E8E9ED] placeholder:text-[#979BAE]`}
+                  />
+
+                  <div className="flex text-xs justify-between">
+                    <p>Fee: </p>
+
+                    <p>Total:</p>
+                  </div>
                 </div>
 
                 {/* Description */}
@@ -90,7 +158,14 @@ const GiftingModal = () => {
                 </div>
               </div>
 
-              <button className="w-full rounded-lg bg-dukiaBlue text-white font-semibold p-3">
+              <button
+                disabled={
+                  quantity < 0.0001 ||
+                  quantity > Number(balance.total_weight) ||
+                  !username
+                }
+                className="w-full rounded-lg bg-dukiaBlue disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed text-white font-semibold p-3"
+              >
                 Gift
               </button>
             </div>

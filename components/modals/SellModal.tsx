@@ -20,14 +20,16 @@ const SellModal = () => {
 
   const [quantity, setQuantity] = React.useState(1);
 
-  const bankDetails = [
-    {
-      Bank: user?.bank_account_bank_name,
-      Account_name: user?.bank_account_name,
-      Account_number: user?.bank_account_number,
-      Email_address: user?.email,
-    },
-  ];
+  const bankDetails = user
+    ? [
+        {
+          Bank: user.bank_account_bank_name || "Not provided",
+          Account_name: user.bank_account_name || "Not provided",
+          Account_number: user.bank_account_number || "Not provided",
+          Email_address: user.email || "Not provided",
+        },
+      ]
+    : [];
 
   const { findItemById, findBalanceById } = useFind();
 
@@ -105,15 +107,27 @@ const SellModal = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 pl-6 text-[10px]">
-                  {Object.entries(bankDetails[0]).map(([key, value], index) => (
-                    <div
-                      key={index}
-                      className="col-span-1 bg-white rounded-lg border border-[#E8E9ED] py-3.5 px-1.5 space-y-1"
-                    >
-                      <p className="text-[#676D88]">{key.replace(/_/g, " ")}</p>
-                      <p className="font-semibold">{value}</p>
+                  {bankDetails && bankDetails.length > 0 ? (
+                    Object.entries(bankDetails[0]).map(
+                      ([key, value], index) => (
+                        <div
+                          key={index}
+                          className="col-span-1 bg-white rounded-lg border border-[#E8E9ED] py-3.5 px-1.5 space-y-1"
+                        >
+                          <p className="text-[#676D88]">
+                            {capitalizeFirstLetter(key.replace(/_/g, " "))}
+                          </p>
+                          <p className="font-semibold">{value}</p>
+                        </div>
+                      )
+                    )
+                  ) : (
+                    <div className="col-span-2 bg-white rounded-lg border border-[#E8E9ED] py-3.5 px-1.5 text-center">
+                      <p className="text-[#676D88]">
+                        No bank details available
+                      </p>
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
             </div>
