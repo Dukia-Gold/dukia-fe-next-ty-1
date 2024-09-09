@@ -96,9 +96,28 @@ const GiftingModal = () => {
   //   Gift Gold
   const sendGift = useGift();
   const giftGold = async () => {
-    await sendGift(accountNumber, quantity, remark || "");
-    close();
-    updateModals({ gifting: false });
+    openModal({
+      type: "confirm",
+      title: "Confirm Payment",
+      message: `Sure to continue with the transfer of ${formatDecimal(
+        quantity,
+        4,
+        false
+      )}g to ${
+        username?.data
+          ? `${capitalizeFirstLetter(
+              username.data.first_name
+            )} ${capitalizeFirstLetter(
+              username.data.middle_name
+            )} ${capitalizeFirstLetter(username.data.last_name)}`
+          : "the recipient"
+      }?`,
+      onConfirm: async () => {
+        await sendGift(accountNumber, quantity, remark || "");
+        close();
+        updateModals({ gifting: false });
+      },
+    });
   };
 
   return (

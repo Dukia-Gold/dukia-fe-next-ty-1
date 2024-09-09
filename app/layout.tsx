@@ -10,6 +10,7 @@ import DepositModal from "@/components/modals/DepositModal";
 import SuccessfulDepositModal from "@/components/modals/SuccessfulDepositModal";
 import WithdrawalModal from "@/components/modals/WithdrawalModal";
 import LoginModal from "@/components/modals/authModals/LoginModal";
+import Copyright from "@/components/landingPageComponents/Copyright";
 // import ConfirmWithdrawalModal from "@/components/modals/ConfirmWithdrawalModal";
 // import ConfirmWithdrawalModal from "@/components/modals/ConfirmWithdrawalModal";
 
@@ -69,6 +70,8 @@ export default function RootLayout({
           </>
 
           <Footer />
+
+          <Copyright />
 
           <SpeedInsights />
         </main>

@@ -11,7 +11,7 @@ const Footer = () => {
     <footer
       className={` ${
         pathname.startsWith("/dashboard") ? "hidden" : "flex"
-      } pt-7 pb-11 px-3 text-white bg-dukiaBlue`}
+      } pt-7 pb-11 px-3 text-white bg-[#F6F7F9]`}
     >
       <div className="md:container flex flex-col items-center lg:flex-row lg:items-start lg:justify-between space-y-10 lg:space-y-0">
         {/* LEFT */}
