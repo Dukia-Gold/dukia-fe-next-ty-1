@@ -29,9 +29,8 @@ const Footer = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2, // Increased from 0.1
-        delayChildren: 0.5, // Increased from 0.3
-        duration: 1, // Added duration for slower overall animation
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
       },
     },
   };
@@ -44,9 +43,8 @@ const Footer = () => {
       rotateX: 0,
       transition: {
         type: "spring",
-        stiffness: 50, // Reduced from 100 for slower animation
-        damping: 15, // Increased from 10 for slower animation
-        duration: 1.5, // Added duration for slower animation
+        stiffness: 100,
+        damping: 10,
       },
     },
   };

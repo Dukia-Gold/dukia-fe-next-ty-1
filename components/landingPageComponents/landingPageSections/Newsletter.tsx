@@ -17,7 +17,7 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="py-12 px-4 sm:px-0 flex flex-col gap-6 items-center bg-[#F3F3F4] dark:bg-dukiaDark">
+    <section className="py-12 px-4 sm:px-0 flex flex-col gap-6 items-center dark:bg-dukiaDark">
       <div className="flex flex-col items-center gap-2">
         <Image
           src="https://res.cloudinary.com/dvcw253zw/image/upload/c_scale,w_134/v1718960746/mail-dynamic-premium_vghfe7.png"

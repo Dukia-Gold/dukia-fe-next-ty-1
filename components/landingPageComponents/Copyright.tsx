@@ -33,8 +33,8 @@ const Copyright = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 1,
-        staggerChildren: 0.2,
+        duration: 0.5,
+        staggerChildren: 0.1,
       },
     },
   };
@@ -45,7 +45,7 @@ const Copyright = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 1.5,
+        duration: 0.5,
       },
     },
   };
