@@ -57,7 +57,7 @@ const Footer = () => {
       variants={containerVariants}
       className={` ${
         pathname.startsWith("/dashboard") ? "hidden" : "flex"
-      } pt-11 pb-24 px-3 text-dukiaBlue bg-[#F6F7F9]`}
+      } mt-[120px] pt-11 pb-24 px-3 text-dukiaBlue bg-[#F6F7F9]`}
     >
       <div className="md:container flex flex-col items-center lg:flex-row lg:items-start lg:justify-between space-y-10 lg:space-y-0">
         {/* LEFT */}
