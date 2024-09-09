@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FAQComp from "../FAQComp";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const FAQ = () => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    } else {
+      controls.start("hidden");
+    }
+  }, [controls, inView]);
+
   const FAQArray = [
     {
       id: 1,
       title: "Who is Dukia Gold? ",
       content:
-        "Dukia Gold & Precious Metals Refining Co. Ltd (“Dukia Gold”) is a full-service bullion merchant involved in the trading (buying and selling), vaulting and custodial services of gold and other precious metals in addition to our other gold value chain activities from mines to market. ",
+        "Dukia Gold & Precious Metals Refining Co. Ltd (Dukia Gold) is a full-service bullion merchant involved in the trading (buying and selling), vaulting and custodial services of gold and other precious metals in addition to our other gold value chain activities from mines to market."
     },
     {
       id: 2,
@@ -29,24 +45,73 @@ const FAQ = () => {
     },
   ];
 
-  const title = "Lorem ipsum dolor sit amet consectetur?";
-  return (
-    <section
-      id="FAQ"
-      className="dark:bg-dukiaBlue dark:text-white py-12 px-4 sm:px-auto"
-    >
-      <div className="md:container space-y-14 flex flex-col items-center">
-        <p className="font-bold text-2xl text-center">
-          Frequently Asked Questions (FAQs)
-        </p>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
 
-        <div className="grid gap-4">
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20, rotateX: -45 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      },
+    },
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, scale: 0.5 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 15,
+      },
+    },
+  };
+
+  return (
+    <motion.section
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      variants={containerVariants}
+      id="FAQ"
+      className="mt-[120px] dark:bg-dukiaBlue dark:text-white px-4 sm:px-auto"
+    >
+      <div className="max-w-[1064px] mx-auto w-full space-y-4">
+        <motion.p
+          variants={titleVariants}
+          className="font-extrabold text-[2.5rem]/[3.75rem] text-center"
+        >
+          Frequently Asked Questions (FAQs)
+        </motion.p>
+
+        <motion.div
+          variants={containerVariants}
+          className="grid gap-2.5 w-full"
+        >
           {FAQArray.map((faq) => (
-            <FAQComp key={faq.id} title={faq.title} content={faq.content} />
+            <motion.div key={faq.id} variants={itemVariants}>
+              <FAQComp title={faq.title} content={faq.content} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
