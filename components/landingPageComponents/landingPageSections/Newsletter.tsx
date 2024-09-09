@@ -1,64 +1,171 @@
-// import { NewsletterAPI } from "@/api/newsletter";
 import NewsletterAPI from "@/api/newsletter";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RiArrowRightLine } from "react-icons/ri";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const Newsletter = () => {
   const handleSubscribe = NewsletterAPI();
   const [loading, setLoading] = useState<boolean>(false);
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
 
-  const subscribeNewsletter = async (event: any) => {
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    } else {
+      controls.start("hidden");
+    }
+  }, [controls, inView]);
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const goldBarVariants = {
+    hidden: { opacity: 0, x: -50, rotate: -45 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      rotate: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      },
+    },
+  };
+
+  const subscribeNewsletter = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
     setLoading(true);
-    const data = new FormData(event.target);
+    const form = event.target as HTMLFormElement;
+    const data = new FormData(form);
 
     await handleSubscribe(data);
     setLoading(false);
+    const emailInput = form.querySelector(
+      'input[type="email"]'
+    ) as HTMLInputElement;
+    if (emailInput) {
+      emailInput.value = "";
+    }
   };
 
   return (
-    <section className="mt-[120px] px-4 sm:px-0 dark:bg-dukiaDark">
+    <motion.section
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      variants={containerVariants}
+      className="mt-[120px] px-4 sm:px-0 dark:bg-dukiaDark text-dukiaBlue"
+    >
       <div className="max-w-[1064px] mx-auto w-full">
-        <div className="rounded-t-2xl bg-[#FBF7EB] pl-5 pr-8 mx-20 flex items-center justify-between">
-          <div></div>
+        <motion.div
+          variants={itemVariants}
+          className="rounded-t-2xl bg-[#FBF7EB] pl-44 pr-8 mx-20 relative"
+        >
+          <motion.div
+            variants={goldBarVariants}
+            className="absolute -top-8 left-3.5 z-10"
+          >
+            <Image
+              src="https://res.cloudinary.com/dvcw253zw/image/upload/v1725897876/newsletter-gold_zcu2it.png"
+              alt="Gold bars"
+              width={166.51}
+              height={139}
+            />
+          </motion.div>
 
-          <div className="py-3">
-            <button className="flex items-center gap-2.5 border border-dukiaGold rounded-full p-2.5 pl-5">
+          <motion.div
+            variants={itemVariants}
+            className="py-3 flex items-center justify-between"
+          >
+            <p className="font-extrabold text-xl">We Buy Gold.</p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2.5 border border-dukiaGold rounded-full p-2.5 pl-5"
+            >
               <p className="font-semibold">Sell to Us</p>
-              <div className="bg-dukiaGold rounded-full p-1">
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+                className="bg-dukiaGold rounded-full p-1"
+              >
                 <RiArrowRightLine color="white" />
-              </div>
-            </button>
-          </div>
-        </div>
+              </motion.div>
+            </motion.button>
+          </motion.div>
+        </motion.div>
 
-        {/* Newsletter Section */}
-        <div className="border-2 border-dukiaGold rounded-2xl py-20 px-8 bg-[url('https://res.cloudinary.com/dvcw253zw/image/upload/v1725896130/newsletter-bg_dfjfrp.png')] bg-cover bg-center bg-no-repeat bg-opacity-80 bg-black flex items-end justify-between">
-          {/* Text Section */}
-          <div className="space-y-5 text-white font-extrabold">
-            {/* Sign Up for Our Newsletter */}
-            <p className="text-[2.5rem]/[3.75rem]">
+        <motion.div
+          variants={itemVariants}
+          className="relative z-20 border-2 border-dukiaGold rounded-2xl py-20 px-8 bg-[url('https://res.cloudinary.com/dvcw253zw/image/upload/v1725896130/newsletter-bg_dfjfrp.png')] bg-cover bg-center bg-no-repeat bg-opacity-80 bg-black flex items-end justify-between"
+        >
+          <motion.div
+            variants={itemVariants}
+            className="space-y-5 text-white font-extrabold"
+          >
+            <motion.p
+              variants={itemVariants}
+              className="text-[2.5rem]/[3.75rem]"
+            >
               Sign Up for
               <br /> Our Newsletter
-            </p>
+            </motion.p>
 
-            {/* Stay updated with the latest gold market trends, news, and insights  */}
-            <p className="text-xl/[1.875rem]">
+            <motion.p
+              variants={itemVariants}
+              className="text-xl/[1.875rem]"
+            >
               Stay updated with the latest gold
               <br /> market trends, news, and insights
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
-          {/* Form Section */}
-          <form
+          <motion.form
+            variants={itemVariants}
             action=""
             onSubmit={subscribeNewsletter}
             className="flex flex-col md:flex-row md:items-end gap-2"
           >
-            <div className="flex flex-col gap-2 w-full font-semibold">
-              <label htmlFor="email" className="text-white">Email</label>
-              <input
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col gap-2 font-semibold"
+            >
+              <label htmlFor="email" className="text-white">
+                Email
+              </label>
+              <motion.input
+                whileFocus={{ scale: 1.05 }}
                 type="email"
                 name="email"
                 id="email"
@@ -66,18 +173,29 @@ const Newsletter = () => {
                 placeholder="Your email address"
                 className="bg-white dark:bg-dukiaBlue outline-none rounded-lg w-[15.75rem] md:w-[23.25rem] text-sm text-dukiaBlue dark:text-white placeholder:text-[#676D88] dark:placeholder:text-white/[50%] dark:border dark:border-dukiaGold px-4 py-3.5"
               />
-            </div>
+            </motion.div>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               type="submit"
-              className="bg-dukiaGold rounded-lg text-white font-semibold py-3 px-4"
+              className="bg-dukiaGold rounded-lg text-white font-semibold py-3 px-4 md:min-w-[106px]"
             >
-              {loading ? "Loading" : "Subscribe"}
-            </button>
-          </form>
-        </div>
+              {loading ? (
+                <motion.span
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                >
+                  ⟳
+                </motion.span>
+              ) : (
+                "Sign Up"
+              )}
+            </motion.button>
+          </motion.form>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
