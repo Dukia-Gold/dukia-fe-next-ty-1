@@ -11,7 +11,7 @@ const Footer = () => {
     <footer
       className={` ${
         pathname.startsWith("/dashboard") ? "hidden" : "flex"
-      } pt-7 pb-11 px-3 text-white bg-[#F6F7F9]`}
+      } pt-7 pb-11 px-3 text-dukiaBlue bg-[#F6F7F9]`}
     >
       <div className="md:container flex flex-col items-center lg:flex-row lg:items-start lg:justify-between space-y-10 lg:space-y-0">
         {/* LEFT */}
@@ -107,22 +107,25 @@ const Footer = () => {
         </div>
 
         {/* RIGHT */}
-        <div className="grid grid-cols-2 gap-y-5 md:grid-cols-4 lg:grid-cols-2 2xl:grid-cols-4 gap-x-10 md:gap-x-3.5 text-sm">
+        <div className="grid grid-cols-2 gap-y-5 md:grid-cols-3 lg:grid-cols-2 2xl:grid-cols-3 gap-x-10 md:gap-x-3.5 xl:gap-x-14 text-sm">
           {/* COMPANY */}
-          <div className="flex flex-col gap-1">
-            <p className="font-semibold">COMPANY</p>
-            <div className="flex flex-col">
+          <div className="flex flex-col gap-1 font-semibold space-y-3 w-fit">
+            <p>COMPANY</p>
+            {/* LINKS */}
+            <div className="flex flex-col text-[#676D88] gap-3">
               <Link href="about-us/dukia-gold" className="hover:text-dukiaGold">
                 About Us
               </Link>
-              <p>Why invest with us?</p>
+              <p>Cookies & Privacy Policy</p>
+              <p>Terms & Conditions</p>
             </div>
           </div>
 
           {/* PRODUCTS */}
-          <div className="flex flex-col gap-1">
-            <p className="font-semibold">PRODUCTS</p>
-            <div className="flex flex-col">
+          <div className="flex flex-col gap-1 font-semibold space-y-3 w-fit">
+            <p>PRODUCTS</p>
+            {/* LINKS */}
+            <div className="flex flex-col text-[#676D88] gap-3">
               <Link href="/buy-gold/bars" className="hover:text-dukiaGold">
                 Gold Bars
               </Link>
@@ -136,22 +139,18 @@ const Footer = () => {
           </div>
 
           {/* GUIDES */}
-          <div className="flex flex-col gap-1">
-            <p className="font-semibold">GUIDES</p>
-            <div className="flex flex-col">
-              <p>Why invest in Gold?</p>
+          <div className="flex flex-col gap-1 font-semibold space-y-3 w-fit">
+            <p>GUIDES</p>
+            {/* LINKS */}
+            <div className="flex flex-col text-[#676D88] gap-3">
+              <p>Pool Allocated Calculator</p>
+              <p>Shop With Ease</p>
+              <p>What We Offer</p>
+              <p>Why Choose Us</p>
+              <p>As Featured In</p>
               <Link href="/#customer-review" className="hover:text-dukiaGold">
                 FAQs
               </Link>
-            </div>
-          </div>
-
-          {/* LEGAL */}
-          <div className="flex flex-col gap-1">
-            <p className="font-semibold">LEGAL</p>
-            <div className="flex flex-col">
-              <p>Cookies & Privacy Policy</p>
-              <p>Terms & Conditions</p>
             </div>
           </div>
         </div>
