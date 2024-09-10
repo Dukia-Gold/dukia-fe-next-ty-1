@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Quote } from "lucide-react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { RiDoubleQuotesR } from "react-icons/ri";
 
 interface ReviewProps {
   key: number;
@@ -114,6 +115,11 @@ const CustomerReviews = () => {
     tap: { scale: 0.9 },
   };
 
+  const dotVariants = {
+    inactive: { scale: 1 },
+    active: { scale: 1.5 },
+  };
+
   return (
     <motion.section
       ref={ref}
@@ -132,7 +138,11 @@ const CustomerReviews = () => {
             className="text-[2.5rem]/[3.75rem]"
             variants={{
               hidden: { opacity: 0, y: -20 },
-              visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { type: "spring", stiffness: 100 },
+              },
             }}
           >
             Customers Reviews
@@ -141,7 +151,11 @@ const CustomerReviews = () => {
             className="text-xl/[1.875rem]"
             variants={{
               hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, delay: 0.2 } },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { type: "spring", stiffness: 100, delay: 0.2 },
+              },
             }}
           >
             What various satisfied customers have to say about Dukia Gold!
@@ -169,7 +183,7 @@ const CustomerReviews = () => {
                             className="flex justify-end"
                             variants={quoteVariants}
                           >
-                            <Quote size={72} color="#DAAA38" />
+                            <RiDoubleQuotesR size={72} color="#DAAA38" />
                           </motion.div>
                           <motion.blockquote
                             className="text-left pt-10"
@@ -212,6 +226,23 @@ const CustomerReviews = () => {
           >
             <span className="text-5xl font-light">&gt;</span>
           </motion.button>
+        </div>
+
+        {/* Carousel Dots */}
+        <div className="flex justify-center space-x-5 pt-5">
+          {Array.from({ length: Math.ceil(reviewsArray.length / 2) }).map(
+            (_, index) => (
+              <motion.div
+                key={index}
+                className={`rounded-full ${
+                  index === currentIndex / 2 ? "bg-dukiaBlue w-16 h-3" : "w-3 h-3 bg-gray-300"
+                }`}
+                variants={dotVariants}
+                animate={index === currentIndex / 2 ? "active" : "inactive"}
+                onClick={() => setCurrentIndex(index * 2)}
+              />
+            )
+          )}
         </div>
       </div>
     </motion.section>
