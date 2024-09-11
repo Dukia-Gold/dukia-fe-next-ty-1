@@ -95,7 +95,7 @@ const FAQ = () => {
       <div className="max-w-[1064px] mx-auto w-full space-y-4">
         <motion.p
           variants={titleVariants}
-          className="font-extrabold text-[2.5rem]/[3.75rem] text-center"
+          className="font-extrabold text-dukiaBlue dark:text-white text-[2.5rem]/[3.75rem] text-center"
         >
           Frequently Asked Questions (FAQs)
         </motion.p>

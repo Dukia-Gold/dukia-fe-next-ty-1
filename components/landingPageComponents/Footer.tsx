@@ -213,7 +213,7 @@ const Footer = () => {
               <p>What We Offer</p>
               <p>Why Choose Us</p>
               <p>As Featured In</p>
-              <Link href="/#customer-review" className="hover:text-dukiaGold">
+              <Link href="/#FAQ" className="hover:text-dukiaGold">
                 FAQs
               </Link>
             </motion.div>
