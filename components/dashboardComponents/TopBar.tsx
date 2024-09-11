@@ -86,21 +86,21 @@ const TopBar = () => {
                   <ChevronDown className="w-5 h-5 text-dukiaBlue" />
                 </div>
               </PopoverTrigger>
-              <PopoverContent className="w-56 rounded-lg p-2.5" align="end">
+              <PopoverContent className="w-52 rounded-lg p-2.5" align="end">
                 <div className="pb-4 border-b-2 border-[#E8E9ED] flex items-center gap-3">
                   <UserCircle2 size={32} />
                   <div>
-                    <p className="font-semibold">
+                    <p className="font-semibold text-sm">
                       {capitalizeFirstLetter(user?.first_name)}{" "}
                       {capitalizeFirstLetter(user?.last_name)}
                     </p>
-                    <p className="text-sm text-[#676D88]">{user?.account_number}</p>
+                    <p className="text-xs text-[#676D88]">{user?.account_number}</p>
                   </div>
                 </div>
 
                 <div></div>
 
-                <div className="space-y-2 mt-4">
+                <div className="space-y-2 mt-4 text-sm">
                   <Link
                     href="/dashboard/profile"
                     className="flex items-center gap-3 p-2 hover:bg-gray-100"

@@ -68,7 +68,7 @@ const useAuth = () => {
 
       updateModals({ login: false });
       updateLoading(false);
-      window.location.assign("/dashboard");
+      router.push("/dashboard");
     } catch (error: any) {
       // console.log(error.response.status);
       if (error.response.status === 401) {
@@ -110,11 +110,12 @@ const useAuth = () => {
         }
       );
 
+      router.push("/");
+
       Cookies.remove("auth-token");
       clearTransactions();
       clearUser();
 
-      window.location.assign("/");
       updateLoading(false);
     } catch (error: any) {
       // console.log(error.response.status);

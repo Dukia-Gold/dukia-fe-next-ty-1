@@ -11,8 +11,10 @@ import {
   RiTwitterXFill,
   RiYoutubeFill,
 } from "react-icons/ri";
+import { usePathname } from "next/navigation";
 
 const Copyright = () => {
+  const pathname = usePathname();
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: false, // Changed to false to allow multiple triggers
@@ -51,7 +53,11 @@ const Copyright = () => {
   };
 
   return (
-    <section className="bg-dukiaBlue py-10">
+    <section
+      className={` ${
+        pathname.startsWith("/dashboard") ? "hidden" : "flex"
+      } bg-dukiaBlue py-10`}
+    >
       <motion.div
         ref={ref}
         initial="hidden"
