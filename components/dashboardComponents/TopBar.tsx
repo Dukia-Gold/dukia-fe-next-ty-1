@@ -18,6 +18,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { RiShoppingCartFill } from "react-icons/ri";
 
 const TopBar = () => {
   const cart = useCartStore((state) => state.cart);
@@ -57,7 +58,7 @@ const TopBar = () => {
                     {itemCount}
                   </span>
                 )}
-                <ShoppingCart className="text-xl" />
+                <RiShoppingCartFill className="text-xl" />
               </div>
             </Link>
 
