@@ -9,16 +9,27 @@ import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
 import {
   ArrowRight,
+  ChevronDown,
   Eye,
   EyeOff,
   Info,
   Power,
-  ShoppingCart,
+  User,
+  User2,
+  UserCircle2,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { RiShoppingCartFill } from "react-icons/ri";
+import {
+  RiLogoutBoxRLine,
+  RiNotificationFill,
+  RiProfileFill,
+  RiSettings2Fill,
+  RiSettingsFill,
+  RiShoppingCartFill,
+} from "react-icons/ri";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 const TopBar = () => {
   const cart = useCartStore((state) => state.cart);
@@ -64,27 +75,56 @@ const TopBar = () => {
 
             {/* Notification */}
             <div className="p-2.5 rounded-[50%] bg-white">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9.99925 1.6665C8.45215 1.6665 6.96842 2.28109 5.87446 3.37505C4.7805 4.46901 4.16592 5.95274 4.16592 7.49984V10.4398C4.16604 10.5691 4.13608 10.6966 4.07842 10.8123L2.64758 13.6732C2.57769 13.8129 2.54469 13.9683 2.55171 14.1244C2.55873 14.2805 2.60554 14.4322 2.6877 14.5651C2.76987 14.698 2.88464 14.8078 3.02114 14.8838C3.15763 14.9599 3.31132 14.9999 3.46758 14.9998H16.5309C16.6872 14.9999 16.8409 14.9599 16.9774 14.8838C17.1139 14.8078 17.2286 14.698 17.3108 14.5651C17.393 14.4322 17.4398 14.2805 17.4468 14.1244C17.4538 13.9683 17.4208 13.8129 17.3509 13.6732L15.9209 10.8123C15.863 10.6967 15.8327 10.5692 15.8326 10.4398V7.49984C15.8326 5.95274 15.218 4.46901 14.124 3.37505C13.0301 2.28109 11.5463 1.6665 9.99925 1.6665ZM9.99925 17.4998C9.48207 17.5 8.97756 17.3398 8.55521 17.0413C8.13285 16.7428 7.81343 16.3207 7.64092 15.8332H12.3576C12.1851 16.3207 11.8656 16.7428 11.4433 17.0413C11.0209 17.3398 10.5164 17.5 9.99925 17.4998Z"
-                  fill="#111827"
-                />
-              </svg>
+              <RiNotificationFill className="text-xl" />
             </div>
 
-            {/* Logout */}
-            <div
-              onClick={logout}
-              className="p-2.5 rounded-[50%] bg-white cursor-pointer"
-            >
-              <Power width={20} height={20} />
-            </div>
+            {/* User */}
+            <Popover>
+              <PopoverTrigger asChild>
+                <div className="p-1 pr-2 flex items-center gap-1 rounded-full bg-white cursor-pointer">
+                  <UserCircle2 size={32} />
+                  <ChevronDown className="w-5 h-5 text-dukiaBlue" />
+                </div>
+              </PopoverTrigger>
+              <PopoverContent className="w-56 rounded-lg p-2.5" align="end">
+                <div className="pb-4 border-b-2 border-[#E8E9ED] flex items-center gap-3">
+                  <UserCircle2 size={32} />
+                  <div>
+                    <p className="font-semibold">
+                      {capitalizeFirstLetter(user?.first_name)}{" "}
+                      {capitalizeFirstLetter(user?.last_name)}
+                    </p>
+                    <p className="text-sm text-[#676D88]">{user?.account_number}</p>
+                  </div>
+                </div>
+
+                <div></div>
+
+                <div className="space-y-2 mt-4">
+                  <Link
+                    href="/dashboard/profile"
+                    className="flex items-center gap-3 p-2 hover:bg-gray-100"
+                  >
+                    <RiProfileFill size={20} />
+                    Account Information
+                  </Link>
+                  <Link
+                    href="/dashboard/settings"
+                    className="flex items-center gap-3 p-2 hover:bg-gray-100"
+                  >
+                    <RiSettings2Fill size={20} />
+                    Settings
+                  </Link>
+                  <button
+                    onClick={logout}
+                    className="w-full text-left flex items-center gap-3 p-2 hover:bg-gray-100 outline-none"
+                  >
+                    <RiLogoutBoxRLine size={20} />
+                    Logout
+                  </button>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
 
@@ -102,9 +142,7 @@ const TopBar = () => {
             {pathname === "/dashboard/portfolio" && (
               <p className="text-[#676D88]">
                 Dashboard /{" "}
-                <span className="text-dukiaBlue font-extrabold">
-                  Portfolio
-                </span>
+                <span className="text-dukiaBlue font-extrabold">Portfolio</span>
               </p>
             )}
 
