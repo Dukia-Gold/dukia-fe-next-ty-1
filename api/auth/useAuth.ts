@@ -68,7 +68,7 @@ const useAuth = () => {
 
       updateModals({ login: false });
       updateLoading(false);
-      router.push("/dashboard");
+      window.location.assign("/dashboard");
     } catch (error: any) {
       // console.log(error.response.status);
       if (error.response.status === 401) {
@@ -99,34 +99,33 @@ const useAuth = () => {
   const logout = async () => {
     try {
       updateLoading(true);
-      await axios.post(
-        `${baseUrl}/v2/logout`,
-        null, // Assuming no data payload for logout
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Include the bearer token here
-          },
-        }
-      );
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
 
-      router.push("/");
+      await axios.post(`${baseUrl}/v2/logout`, null, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
+      // Clear all auth-related data
       Cookies.remove("auth-token");
       clearTransactions();
-      clearUser();
+      await clearUser();
 
-      updateLoading(false);
+      // Redirect to home page
+      window.location.assign("/");
     } catch (error: any) {
-      // console.log(error.response.status);
-      if (token) {
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description:
-            "There was a problem connecting to the server. Please check your internet connection and try again.",
-        });
-      }
+      console.error("Logout error:", error);
+      toast({
+        variant: "destructive",
+        title: "Logout Failed",
+        description:
+          error.message || "An error occurred during logout. Please try again.",
+      });
+    } finally {
       updateLoading(false);
     }
   };

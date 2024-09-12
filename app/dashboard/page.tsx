@@ -9,13 +9,26 @@ import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
 import { Spin } from "antd";
 import { useEffect, useState } from "react";
+import { useCheckLoginStatus } from "@/lib/isLoggedIn";
+import { useRouter } from "next/navigation";
 
 const DashboardPage = () => {
   const user = userStore((state: any) => state.user);
-  const updateModals = useModalsStore((state: any) => state.updateModals);
-
+  const router = useRouter();
+  const checkLoginStatus = useCheckLoginStatus();
   const [isOnline, setIsOnline] = useState(false);
-  const [remainingTime, setRemainingTime] = useState<number | null>(null);
+  // const [remainingTime, setRemainingTime] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Run immediately on mount
+    checkLoginStatus(router);
+
+    // Set up interval to run every 5 seconds
+    const intervalId = setInterval(() => checkLoginStatus(router), 5000);
+
+    // Clean up function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [router]); // Only re-run if router changes
 
   // ONLINE OR OFFLINE
   useEffect(() => {
