@@ -1,9 +1,8 @@
-// import { toast } from "@/components/ui/use-toast";
 import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
 import { GetUrl } from "./getUrl";
 import { userAssetsStore, userStore } from "@/store/user";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 
 const useFetchUserData = () => {
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -16,7 +15,7 @@ const useFetchUserData = () => {
   const token = cookies["auth-token"];
   const { pathname } = GetUrl();
 
-  const fetchUserData = async () => {
+  const fetchUserData = useCallback(async () => {
     try {
       const response = await fetch(`${apiBaseUrl}/v2/me`, {
         method: "GET",
@@ -71,19 +70,20 @@ const useFetchUserData = () => {
         }
       }
     }
-  };
+  }, [token, apiBaseUrl, updateUser, updateUserAssets, pathname]);
 
   useEffect(() => {
-    if (token) {
-      // Check if token exists before fetching data
+    if (token && pathname.startsWith("/dashboard")) {
       fetchUserData();
     }
-  }, [token]); // Fetch data when token changes
+  }, [token, pathname, fetchUserData]);
 
   useEffect(() => {
-    const interval = setInterval(fetchUserData, 10000); // Fetch every 2 minutes (adjust as needed)
-    return () => clearInterval(interval); // Cleanup on component unmount
-  }, []);
+    if (token && pathname.startsWith("/dashboard")) {
+      const interval = setInterval(fetchUserData, 10000); // Fetch every 2 minutes (adjust as needed)
+      return () => clearInterval(interval); // Cleanup on component unmount
+    }
+  }, [token, pathname, fetchUserData]);
 
   return fetchUserData; // Return the user data (if needed)
 };

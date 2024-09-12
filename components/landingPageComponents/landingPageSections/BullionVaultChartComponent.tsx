@@ -57,10 +57,17 @@ const BullionVaultChartComponent: React.FC = () => {
   return (
     <>
       <Script
+        src="https://code.highcharts.com/highcharts.js"
+        strategy="afterInteractive"
+      />
+      <Script
+        src="https://code.highcharts.com/modules/accessibility.js"
+        strategy="afterInteractive"
+      />
+      <Script
         src="https://www.bullionvault.com/chart/bullionvaultchart.js"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         onLoad={() => {
-          // Dispatch an event to notify that the script has loaded
           const event = new Event("BullionVaultChartLoaded");
           window.dispatchEvent(event);
         }}
