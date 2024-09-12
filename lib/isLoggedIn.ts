@@ -16,17 +16,16 @@ export const useCheckLoginStatus = () => {
   );
   const clearUser = userStore((state: any) => state.clearUser);
 
-  const checkLoginStatus = (router: any) => {
+  const clearUserDetails = async () => {
+    await clearTransactions();
+    await clearUser();
+  };
+
+  const checkLoginStatus = async () => {
     const loggedIn = isLoggedIn();
-    console.log("Logged in:", loggedIn);
     if (!loggedIn) {
-      console.log("Not logged in, clearing transactions and user...");
-      clearTransactions();
-      console.log("Cleared transactions...");
-      clearUser();
-      console.log("Cleared user...");
-      router.push("/");
-      console.log("Redirected to home...");
+      await clearUserDetails();
+      window.location.href = "/";
     }
     return loggedIn;
   };

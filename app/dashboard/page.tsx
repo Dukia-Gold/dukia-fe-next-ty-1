@@ -21,14 +21,14 @@ const DashboardPage = () => {
 
   useEffect(() => {
     // Run immediately on mount
-    checkLoginStatus(router);
+    checkLoginStatus();
 
     // Set up interval to run every 5 seconds
-    const intervalId = setInterval(() => checkLoginStatus(router), 5000);
+    const intervalId = setInterval(() => checkLoginStatus(), 5000);
 
     // Clean up function to clear the interval when the component unmounts
     return () => clearInterval(intervalId);
-  }, [router]); // Only re-run if router changes
+  }, []);
 
   // ONLINE OR OFFLINE
   useEffect(() => {
