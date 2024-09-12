@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { GiHamburgerMenu } from "react-icons/gi";
+import Cookies from "js-cookie";
 import MobileNav from "./MobileNav";
 // import AOS from "aos";
 // import "aos/dist/aos.css"; // You can also use <link> for styles
@@ -14,21 +14,21 @@ import {
   HoverCardTrigger,
 } from "../ui/hover-card";
 import { formatCurrency } from "@/lib/currencyformatter";
-import { userStore } from "@/store/user";
 import { goldStore } from "@/store/goldPrice";
 import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
 import useFetchUserData from "@/lib/fetchUserData";
 import useModalsStore from "@/store/modalsStore";
 import { usePathname } from "next/navigation";
+import AuthButtons from "./AuthButtons";
 
 type header = {
   // name: string
 };
 
 const Header: FC<header> = () => {
+  const token = Cookies.get("auth-token");
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
-  const user = userStore((state: any) => state.user);
   const fetchUserData = useFetchUserData();
 
   const goldDollars = goldStore((state: any) => state.goldDollars);
@@ -185,28 +185,7 @@ const Header: FC<header> = () => {
           </nav>
 
           <div className="hidden sm:flex">
-            {user ? (
-              <Link href="/dashboard">
-                <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-5 rounded-lg">
-                  Return to Dashboard
-                </button>
-              </Link>
-            ) : (
-              <div className="flex items-center gap-7">
-                {/* <Link href="/login">Open modal</Link> */}
-                <p
-                  onClick={() => updateModals({ login: true })}
-                  className="font-semibold text-dukiaGold hover:underline hover:cursor-pointer"
-                >
-                  Login
-                </p>
-                <Link href="/login">
-                  <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-4 rounded-lg">
-                    Register
-                  </button>
-                </Link>
-              </div>
-            )}
+            <AuthButtons updateModals={updateModals} />
 
             {/* <Link href="/login">
                <button className="text-white font-semibold py-3 px-5 rounded-lg border border-white">
