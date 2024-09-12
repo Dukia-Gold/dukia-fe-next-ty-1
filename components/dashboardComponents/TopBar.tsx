@@ -80,14 +80,15 @@ const TopBar = () => {
             </div>
 
             {/* User */}
-            {user && (
-              <Popover>
-                <PopoverTrigger asChild>
-                  <div className="p-1 pr-2 flex items-center gap-1 rounded-full bg-white cursor-pointer">
-                    <UserCircle2 size={32} />
-                    <ChevronDown className="w-5 h-5 text-dukiaBlue" />
-                  </div>
-                </PopoverTrigger>
+
+            <Popover>
+              <PopoverTrigger asChild>
+                <div className="p-1 pr-2 flex items-center gap-1 rounded-full bg-white cursor-pointer">
+                  <UserCircle2 size={32} />
+                  <ChevronDown className="w-5 h-5 text-dukiaBlue" />
+                </div>
+              </PopoverTrigger>
+              {user && (
                 <PopoverContent
                   className="w-[13.5rem] rounded-lg p-2.5"
                   align="end"
@@ -165,7 +166,7 @@ const TopBar = () => {
                       Account Information
                     </Link>
                     <Link
-                      href="/dashboard/settings"
+                      href="/dashboard/profile#settings"
                       className="flex items-center gap-3 p-2 hover:bg-gray-100"
                     >
                       <RiSettings2Fill size={20} />
@@ -180,8 +181,8 @@ const TopBar = () => {
                     </button>
                   </div>
                 </PopoverContent>
-              </Popover>
-            )}
+              )}
+            </Popover>
           </div>
         </div>
 
@@ -203,7 +204,6 @@ const TopBar = () => {
               </p>
             )}
 
-            {pathname === "/dashboard/profile" && <p>Account Info</p>}
             {pathname === "/dashboard/card" && <p>Debit Card</p>}
             {pathname === "/dashboard/kyc" && <p>KYC Verification</p>}
 
@@ -222,7 +222,8 @@ const TopBar = () => {
             {pathname === "/dashboard/assets" && <p>Assets</p>}
             {pathname === "/dashboard/transactions" && <p>Transactions</p>}
             {pathname === "/dashboard/exchange" && <p>Exchange</p>}
-            {pathname === "/dashboard/settings" && <p>Settings</p>}
+
+            {pathname === "/dashboard/profile" && <p>Profile</p>}
           </div>
 
           <div className="flex items-center gap-6">
