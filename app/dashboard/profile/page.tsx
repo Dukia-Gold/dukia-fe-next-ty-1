@@ -11,10 +11,11 @@ import JointInfo from "@/components/profileComponents/JointInfo";
 import CompanyInfo from "@/components/profileComponents/Company";
 import ResetPasswordModal from "@/components/profileComponents/ResetPasswordModal";
 import useModalsStore from "@/store/modalsStore";
-import { RiUser2Fill, RiUser3Fill } from "react-icons/ri";
+import { RiAlarmWarningFill, RiErrorWarningFill, RiUser2Fill, RiUser3Fill } from "react-icons/ri";
 import Address from "@/components/profileComponents/Address";
 import PersonalDetails from "@/components/profileComponents/PersonalDetails";
 import BankInformation from "@/components/profileComponents/BankInformation";
+import { Trash2 } from "lucide-react";
 
 const ProfilePage = () => {
   const [activeSection, setActiveSection] = useState<
@@ -34,7 +35,7 @@ const ProfilePage = () => {
   }
 
   return (
-    <main className="w-full bg-white rounded-2xl text-dukiaBlue h-full mb-40 lg:mb-24">
+    <main className="w-full bg-white rounded-2xl text-dukiaBlue h-full">
       {/* <button
         onClick={() => updateModals({ resetPassword: true })}
         className="bg-dukiaBlue hover:bg-dukiaGold hover:text-black text-white font-semibold text-sm py-4 px-6 rounded-lg"
@@ -305,6 +306,38 @@ const ProfilePage = () => {
               </div>
             </div>
             {/* <div className="border border-[#E8E9ED] rounded-xl p-6 space-y-3"></div> */}
+          </div>
+
+          <div className="mt-12 space-y-6 text-red-500 font-semibold">
+            <div className="flex items-center gap-2.5">
+              <RiAlarmWarningFill size={24} />
+              <p>Danger Zone</p>
+            </div>
+
+            <div className="border border-[#E8E9ED] rounded-xl p-6">
+              <div className="rounded-lg border border-[#E8E9ED] py-4 px-6 cursor-pointer flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <Trash2 size={16} />
+
+                  <p>Delete Account</p>
+                </div>
+
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       ) : (
