@@ -2,22 +2,23 @@
 
 import { userStore } from "@/store/user";
 import { Spin } from "antd";
-import profile from "../../../assets/profile.jpg";
-import Image from "next/image";
 import React, { useState } from "react";
 import { capitalizeFirstLetter } from "@/lib/formatText";
-import IndividualInfo from "@/components/profileComponents/IndividualInfo";
-import JointInfo from "@/components/profileComponents/JointInfo";
-import CompanyInfo from "@/components/profileComponents/Company";
 import ResetPasswordModal from "@/components/profileComponents/ResetPasswordModal";
 import useModalsStore from "@/store/modalsStore";
-import { RiAlarmWarningFill, RiErrorWarningFill, RiUser2Fill, RiUser3Fill } from "react-icons/ri";
+import {
+  RiAlarmWarningFill,
+  RiQuestionMark,
+  RiUser3Fill,
+} from "react-icons/ri";
 import Address from "@/components/profileComponents/Address";
 import PersonalDetails from "@/components/profileComponents/PersonalDetails";
 import BankInformation from "@/components/profileComponents/BankInformation";
-import { Trash2 } from "lucide-react";
+import { LogOut, Trash2 } from "lucide-react";
+import useAuth from "@/api/auth/useAuth";
 
 const ProfilePage = () => {
+  const { logout } = useAuth();
   const [activeSection, setActiveSection] = useState<
     "personalDetails" | "address" | "bank" | null
   >(null);
@@ -308,20 +309,65 @@ const ProfilePage = () => {
             {/* <div className="border border-[#E8E9ED] rounded-xl p-6 space-y-3"></div> */}
           </div>
 
+          {/* Logout section */}
+          <div className="mt-12 space-y-6 font-semibold">
+            {/* Logout header */}
+            <div className="flex items-center gap-2.5">
+              <div className="rounded-full bg-dukiaBlue p-1 text-white">
+                <RiQuestionMark size={20} />
+              </div>
+
+              <p>Got Nothing Else To Do?</p>
+            </div>
+
+            <div className="border border-[#E8E9ED] rounded-xl p-6">
+              {/* Delete Account button */}
+              <div
+                onClick={logout}
+                className="rounded-lg border border-[#E8E9ED] py-4 px-6 cursor-pointer flex items-center justify-between"
+              >
+                <div className="flex items-center gap-2.5">
+                  <LogOut size={16} />
+                  <p className="text-[#676D88]">Logout</p>
+                </div>
+
+                {/* Right arrow icon */}
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Danger Zone section */}
           <div className="mt-12 space-y-6 text-red-500 font-semibold">
+            {/* Danger Zone header */}
             <div className="flex items-center gap-2.5">
               <RiAlarmWarningFill size={24} />
               <p>Danger Zone</p>
             </div>
 
+            {/* Delete Account container */}
             <div className="border border-[#E8E9ED] rounded-xl p-6">
+              {/* Delete Account button */}
               <div className="rounded-lg border border-[#E8E9ED] py-4 px-6 cursor-pointer flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <Trash2 size={16} />
-
                   <p>Delete Account</p>
                 </div>
 
+                {/* Right arrow icon */}
                 <svg
                   className="w-6 h-6"
                   fill="none"
