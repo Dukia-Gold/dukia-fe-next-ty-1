@@ -12,8 +12,14 @@ import CompanyInfo from "@/components/profileComponents/Company";
 import ResetPasswordModal from "@/components/profileComponents/ResetPasswordModal";
 import useModalsStore from "@/store/modalsStore";
 import { RiUser2Fill, RiUser3Fill } from "react-icons/ri";
+import Address from "@/components/profileComponents/Address";
+import PersonalDetails from "@/components/profileComponents/PersonalDetails";
+import BankInformation from "@/components/profileComponents/BankInformation";
 
 const ProfilePage = () => {
+  const [activeSection, setActiveSection] = useState<
+    "personalDetails" | "address" | "bank" | null
+  >(null);
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
   const user = userStore((state: any) => state.user);
@@ -38,6 +44,7 @@ const ProfilePage = () => {
 
       {user ? (
         <div className="px-10 py-12">
+          {/* User Details */}
           <div className="border border-[#E8E9ED] py-5 pl-6 pr-8 rounded-xl flex items-center justify-between">
             {/* User profile information container */}
             <div className="flex items-center gap-3">
@@ -69,6 +76,7 @@ const ProfilePage = () => {
               </div>
             </div>
 
+            {/* Account Details */}
             <div className="flex items-center gap-3">
               {/* Account Number */}
               <div className="flex flex-col px-1.5 md:px-6 border-r-2 font-semibold">
@@ -113,47 +121,193 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
+
+          {/* Account Information */}
+          <div className="mt-12 space-y-6">
+            <p className="font-semibold">Account Information</p>
+
+            {/* Account Information */}
+            <div className="border border-[#E8E9ED] rounded-xl p-6 space-y-3">
+              {/* Personal Details */}
+              <div
+                className={`${
+                  activeSection === "personalDetails" &&
+                  "border-2 border-dukiaBlue"
+                } bg-white rounded-lg border border-[#E8E9ED] overflow-hidden`}
+              >
+                {/* Personal Details */}
+                <div
+                  className={`${
+                    activeSection === "personalDetails" && "pt-14"
+                  } py-4 px-6 flex items-center justify-between cursor-pointer`}
+                  onClick={() =>
+                    setActiveSection(
+                      activeSection === "personalDetails"
+                        ? null
+                        : "personalDetails"
+                    )
+                  }
+                >
+                  {/* Personal Details */}
+                  <div className="flex items-center">
+                    <svg
+                      className="w-6 h-6 text-dukiaBlue mr-2"
+                      fill="#1c254e"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                    <span className="font-semibold">Personal Details</span>
+                  </div>
+                  <svg
+                    className={`w-6 h-6 transform ${
+                      activeSection === "personalDetails" ? "rotate-90" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </div>
+
+                {/* Personal Details */}
+                {activeSection === "personalDetails" && (
+                  <PersonalDetails user={user} />
+                )}
+              </div>
+
+              {/* Address */}
+              <div
+                className={`${
+                  activeSection === "address" && "border-2 border-dukiaBlue"
+                } bg-white rounded-lg border border-[#E8E9ED] overflow-hidden`}
+              >
+                <div
+                  className={`${
+                    activeSection === "address" && "pt-14"
+                  } py-4 px-6 flex items-center justify-between cursor-pointer`}
+                  onClick={() =>
+                    setActiveSection(
+                      activeSection === "address" ? null : "address"
+                    )
+                  }
+                >
+                  <div className="flex items-center">
+                    <svg
+                      className="w-6 h-6 text-dukiaBlue mr-2"
+                      fill="#1c254e"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        fill="white"
+                        stroke="white"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                    <span className="font-semibold">Address</span>
+                  </div>
+                  <svg
+                    className={`w-6 h-6 transform ${
+                      activeSection === "address" ? "rotate-90" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </div>
+
+                {activeSection === "address" && <Address user={user} />}
+              </div>
+
+              {/* Bank Information */}
+              <div
+                className={`${
+                  activeSection === "bank" && "border-2 border-dukiaBlue"
+                } bg-white rounded-lg border border-[#E8E9ED] overflow-hidden`}
+              >
+                <div
+                  className={`${
+                    activeSection === "bank" && "pt-14"
+                  } py-4 px-6 flex items-center justify-between cursor-pointer`}
+                  onClick={() =>
+                    setActiveSection(activeSection === "bank" ? null : "bank")
+                  }
+                >
+                  <div className="flex items-center">
+                    <svg
+                      className="w-6 h-6 text-dukiaBlue mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                      />
+                    </svg>
+                    <span className="font-semibold">Bank Information</span>
+                  </div>
+                  <svg
+                    className={`w-6 h-6 transform ${
+                      activeSection === "bank" ? "rotate-90" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </div>
+
+                {activeSection === "bank" && <BankInformation user={user} />}
+              </div>
+            </div>
+            {/* <div className="border border-[#E8E9ED] rounded-xl p-6 space-y-3"></div> */}
+          </div>
         </div>
       ) : (
-        // <div className="pt-4 pb-14 space-y-6">
-
-        //   {/* Basic Details */}
-        //   <div className="bg-white p-3 md:p-6 rounded-lg space-y-8 xl:space-y-2">
-
-        //     <div className="xl:flex space-y-3 xl:space-y-0 items-center justify-between">
-
-        //       {/* Account Details */}
-        //       <div className="py-1.5 md:py-3 text-sm border rounded-md border-dukiaBlue/[10%] flex justify-evenly items-center">
-        //         {/* Account Number */}
-        //         <div className="flex flex-col items-center font-semibold px-1.5 md:px-6 border-r">
-        //           <p>User ID</p>
-        //           <p className="text-dukiaGold">{user.account_number}</p>
-        //         </div>
-
-        //         {/* Account Tier */}
-        //         <div className="flex flex-col items-center px-1.5 md:px-6 border-r">
-        //           <p className="font-semibold">Account Tier</p>
-        //           <p>Tier {user.tier}</p>
-        //         </div>
-
-        //         {/* Account Type */}
-        //         <div className="flex flex-col items-center px-1.5 md:px-6">
-        //           <p className="font-semibold">Account Type</p>
-        //           <p>{capitalizeFirstLetter(user.type)} account</p>
-        //         </div>
-        //       </div>
-        //     </div>
-        //   </div>
-
-        //   {(user.type === "Individual" ||
-        //     user.type === "individual" ||
-        //     user.type === "personal") && <IndividualInfo />}
-
-        //   {user.type === "Joint" || (user.type === "joint" && <JointInfo />)}
-
-        //   {user.type === "corporate" ||
-        //     (user.type === "Corporate" && <CompanyInfo />)}
-        // </div>
         <div className="w-full h-screen flex items-center justify-center">
           <Spin size="large" />
         </div>
