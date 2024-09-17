@@ -9,6 +9,7 @@ import useModalsStore from "@/store/modalsStore";
 import {
   RiAlarmWarningFill,
   RiQuestionMark,
+  RiSettings3Fill,
   RiUser3Fill,
 } from "react-icons/ri";
 import Address from "@/components/profileComponents/Address";
@@ -135,7 +136,7 @@ const ProfilePage = () => {
                 className={`${
                   activeSection === "personalDetails" &&
                   "border-2 border-dukiaBlue"
-                } bg-white rounded-lg border border-[#E8E9ED] overflow-hidden`}
+                } bg-white rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue overflow-hidden`}
               >
                 {/* Personal Details */}
                 <div
@@ -196,7 +197,7 @@ const ProfilePage = () => {
               <div
                 className={`${
                   activeSection === "address" && "border-2 border-dukiaBlue"
-                } bg-white rounded-lg border border-[#E8E9ED] overflow-hidden`}
+                } bg-white rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue overflow-hidden`}
               >
                 <div
                   className={`${
@@ -258,7 +259,7 @@ const ProfilePage = () => {
               <div
                 className={`${
                   activeSection === "bank" && "border-2 border-dukiaBlue"
-                } bg-white rounded-lg border border-[#E8E9ED] overflow-hidden`}
+                } bg-white rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue overflow-hidden`}
               >
                 <div
                   className={`${
@@ -309,6 +310,126 @@ const ProfilePage = () => {
             {/* <div className="border border-[#E8E9ED] rounded-xl p-6 space-y-3"></div> */}
           </div>
 
+          {/* Settings */}
+          <div className="mt-12 space-y-6 font-semibold">
+            {/* Settings header */}
+            <div className="flex items-center gap-2.5">
+              <RiSettings3Fill size={24} />
+
+              <p>Settings</p>
+            </div>
+
+            {/* Settings container */}
+            <div className="border border-[#E8E9ED] rounded-xl p-6 space-y-3">
+              {/* Logout button */}
+              <div
+                onClick={logout}
+                className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between"
+              >
+                <div className="flex items-center gap-2.5">
+                  <LogOut size={16} />
+                  <p className="text-[#676D88]">Reset Login Password</p>
+                </div>
+
+                {/* Right arrow icon */}
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+
+              <div
+                onClick={logout}
+                className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between"
+              >
+                <div className="flex items-center gap-2.5">
+                  <LogOut size={16} />
+                  <p className="text-[#676D88]">Reset Card PIN</p>
+                </div>
+
+                {/* Right arrow icon */}
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+
+              <div
+                onClick={logout}
+                className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between"
+              >
+                <div className="flex items-center gap-2.5">
+                  <LogOut size={16} />
+                  <p className="text-[#676D88]">Reset Transaction Code</p>
+                </div>
+
+                {/* Right arrow icon */}
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+
+              <div
+                onClick={logout}
+                className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between"
+              >
+                <div className="flex items-center gap-2.5">
+                  <LogOut size={16} />
+                  <p className="text-[#676D88]">AutoSave</p>
+                </div>
+
+                {/* Right arrow icon */}
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            
+          </div>
+
           {/* Logout section */}
           <div className="mt-12 space-y-6 font-semibold">
             {/* Logout header */}
@@ -320,11 +441,12 @@ const ProfilePage = () => {
               <p>Got Nothing Else To Do?</p>
             </div>
 
+            {/* Logout container */}
             <div className="border border-[#E8E9ED] rounded-xl p-6">
-              {/* Delete Account button */}
+              {/* Logout button */}
               <div
                 onClick={logout}
-                className="rounded-lg border border-[#E8E9ED] py-4 px-6 cursor-pointer flex items-center justify-between"
+                className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between"
               >
                 <div className="flex items-center gap-2.5">
                   <LogOut size={16} />
@@ -361,7 +483,7 @@ const ProfilePage = () => {
             {/* Delete Account container */}
             <div className="border border-[#E8E9ED] rounded-xl p-6">
               {/* Delete Account button */}
-              <div className="rounded-lg border border-[#E8E9ED] py-4 px-6 cursor-pointer flex items-center justify-between">
+              <div className="rounded-lg border border-[#E8E9ED] hover:border-red-500 py-4 px-6 cursor-pointer flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <Trash2 size={16} />
                   <p>Delete Account</p>
