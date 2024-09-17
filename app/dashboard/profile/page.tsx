@@ -8,17 +8,22 @@ import ResetPasswordModal from "@/components/profileComponents/ResetPasswordModa
 import useModalsStore from "@/store/modalsStore";
 import {
   RiAlarmWarningFill,
+  RiKeyboardFill,
+  RiKeyFill,
   RiQuestionMark,
   RiSettings3Fill,
+  RiToggleFill,
   RiUser3Fill,
 } from "react-icons/ri";
 import Address from "@/components/profileComponents/Address";
 import PersonalDetails from "@/components/profileComponents/PersonalDetails";
 import BankInformation from "@/components/profileComponents/BankInformation";
-import { LogOut, Trash2 } from "lucide-react";
+import { Code2Icon, LogOut, Trash2 } from "lucide-react";
 import useAuth from "@/api/auth/useAuth";
+import { usePathname } from "next/navigation";
 
 const ProfilePage = () => {
+  const pathname = usePathname();
   const { logout } = useAuth();
   const [activeSection, setActiveSection] = useState<
     "personalDetails" | "address" | "bank" | null
@@ -311,7 +316,7 @@ const ProfilePage = () => {
           </div>
 
           {/* Settings */}
-          <div className="mt-12 space-y-6 font-semibold">
+          <div id="settings" className="mt-12 space-y-6 font-semibold">
             {/* Settings header */}
             <div className="flex items-center gap-2.5">
               <RiSettings3Fill size={24} />
@@ -320,14 +325,21 @@ const ProfilePage = () => {
             </div>
 
             {/* Settings container */}
-            <div className="border border-[#E8E9ED] rounded-xl p-6 space-y-3">
-              {/* Logout button */}
+            <div
+              className={`${
+                pathname === "/dashboard/profile" &&
+                window.location.hash === "#settings"
+                  ? "border-2 border-dukiaBlue"
+                  : "border border-[#E8E9ED]"
+              } rounded-xl p-6 space-y-3`}
+            >
+              {/* Password Reset button */}
               <div
-                onClick={logout}
+                onClick={() => updateModals({ resetPassword: true })}
                 className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between"
               >
                 <div className="flex items-center gap-2.5">
-                  <LogOut size={16} />
+                  <RiKeyFill size={24} />
                   <p className="text-[#676D88]">Reset Login Password</p>
                 </div>
 
@@ -348,12 +360,10 @@ const ProfilePage = () => {
                 </svg>
               </div>
 
-              <div
-                onClick={logout}
-                className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between"
-              >
+              {/* Reset Card Pin button */}
+              <div className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <LogOut size={16} />
+                  <RiKeyboardFill size={24} />
                   <p className="text-[#676D88]">Reset Card PIN</p>
                 </div>
 
@@ -379,7 +389,7 @@ const ProfilePage = () => {
                 className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between"
               >
                 <div className="flex items-center gap-2.5">
-                  <LogOut size={16} />
+                  <Code2Icon size={24} />
                   <p className="text-[#676D88]">Reset Transaction Code</p>
                 </div>
 
@@ -400,12 +410,9 @@ const ProfilePage = () => {
                 </svg>
               </div>
 
-              <div
-                onClick={logout}
-                className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between"
-              >
+              <div className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <LogOut size={16} />
+                  <RiToggleFill size={24} />
                   <p className="text-[#676D88]">AutoSave</p>
                 </div>
 
@@ -426,8 +433,6 @@ const ProfilePage = () => {
                 </svg>
               </div>
             </div>
-
-            
           </div>
 
           {/* Logout section */}
