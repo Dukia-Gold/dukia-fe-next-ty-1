@@ -2,13 +2,13 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { visionAndMission } from "@/config/landing_page/about";
+import { aboutContent, visionAndMission } from "@/config/landing_page/about";
 
 interface WeAreDukiaProps {
   nextSectionRef: React.RefObject<HTMLElement>;
 }
 
-const WeAreDukia = ({ nextSectionRef }: WeAreDukiaProps) => {
+const WeAreDukia = () => {
   const [ref1, inView1] = useInView({ triggerOnce: false, threshold: 0.1 });
   const [ref2, inView2] = useInView({ triggerOnce: false, threshold: 0.1 });
   const [ref3, inView3] = useInView({ triggerOnce: false, threshold: 0.1 });
@@ -30,11 +30,49 @@ const WeAreDukia = ({ nextSectionRef }: WeAreDukiaProps) => {
   };
 
   return (
-    <section
-      ref={nextSectionRef}
-      className="mt-[120px] max-w-[1063px] mx-auto text-dukiaBlue dark:bg-dukiaBlue dark:text-white space-y-[120px]"
-    >
-      <motion.div
+    <section className="mt-[120px] max-w-[1063px] mx-auto text-dukiaBlue dark:bg-dukiaBlue dark:text-white space-y-[120px]">
+      {aboutContent.map((item, index) => {
+        const sectionInView = item.inView === "inView1" ? inView1 : inView2; // Fixed syntax
+        return (
+          <motion.div
+            key={index}
+            ref={item.ref === "ref1" ? ref1 : ref2}
+            initial="hidden"
+            animate={sectionInView ? "visible" : "hidden"}
+            variants={fadeInUp}
+            transition={{ duration: 0.6 }}
+            className={`${
+              item.reverseLayout ? "flex-row-reverse" : ""
+            } flex justify-between`}
+          >
+            <motion.p
+              variants={item.reverseLayout ? fadeInRight : fadeInLeft}
+              className="max-w-[519px] text-base"
+            >
+              {item.pg1}
+              <br />
+              <br />
+              {item.pg2}
+              <br />
+              <br />
+              {item.pg3}
+              <br />
+              <br />
+              {item.pg4}
+            </motion.p>
+
+            <motion.p
+              variants={item.reverseLayout ? fadeInLeft : fadeInRight}
+              className={`${
+                item.reverseLayout ? "" : "text-end"
+              } text-[40px] font-extrabold max-w-[410px]`}
+            >
+              {item.title}
+            </motion.p>
+          </motion.div>
+        );
+      })}
+      {/* <motion.div
         ref={ref1}
         initial="hidden"
         animate={inView1 ? "visible" : "hidden"}
@@ -118,7 +156,7 @@ const WeAreDukia = ({ nextSectionRef }: WeAreDukiaProps) => {
           Incorporated with Nigeria&apos;s Corporate Affairs; OECD & LMBA
           Compliant.
         </motion.p>
-      </motion.div>
+      </motion.div> */}
 
       {visionAndMission.map((section, index) => {
         const sectionInView = section.inView === "inView3" ? inView3 : inView4; // Fixed syntax

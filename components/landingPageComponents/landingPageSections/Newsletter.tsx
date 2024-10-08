@@ -1,13 +1,13 @@
 import NewsletterAPI from "@/api/newsletter";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { RiArrowRightLine } from "react-icons/ri";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const Newsletter = () => {
   const handleSubscribe = NewsletterAPI();
-  const [loading, setLoading] = useState<boolean>(false);
+  let loading = false;
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: false,
@@ -65,12 +65,12 @@ const Newsletter = () => {
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-    setLoading(true);
+    loading = true;
     const form = event.target as HTMLFormElement;
     const data = new FormData(form);
 
     await handleSubscribe(data);
-    setLoading(false);
+    loading = false;
     const emailInput = form.querySelector(
       'input[type="email"]'
     ) as HTMLInputElement;
@@ -142,10 +142,7 @@ const Newsletter = () => {
               <br /> Our Newsletter
             </motion.p>
 
-            <motion.p
-              variants={itemVariants}
-              className="text-xl/[1.875rem]"
-            >
+            <motion.p variants={itemVariants} className="text-xl/[1.875rem]">
               Stay updated with the latest gold
               <br /> market trends, news, and insights
             </motion.p>
