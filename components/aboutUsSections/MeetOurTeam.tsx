@@ -66,7 +66,7 @@ const MeetOurTeam = () => {
                   alt={member.name}
                   width={340}
                   height={338}
-                  className="rounded-lg shadow-md transition-shadow duration-300 group-hover:shadow-xl"
+                  className="rounded-lg"
                 />
               </motion.div>
 
