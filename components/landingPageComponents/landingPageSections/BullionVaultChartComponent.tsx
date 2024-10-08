@@ -1,8 +1,12 @@
+import React, { useState } from "react"; // {{ edit_1 }}
 import { useEffect, useRef } from "react";
 import Script from "next/script";
 import "@/app/bullion.css";
+import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
+import { motion } from "framer-motion"; // Import motion from framer-motion
 
 const BullionVaultChartComponent: React.FC = () => {
+  const [viewChart, setViewChart] = useState(true);
   const chartRef = useRef<any>(null);
 
   useEffect(() => {
@@ -72,15 +76,42 @@ const BullionVaultChartComponent: React.FC = () => {
           window.dispatchEvent(event);
         }}
       />
-      <div className="pt-20 flex justify-center items-center">
+      <div className="pt-20 flex justify-center items-center text-dukiaBlue">
         <div
           id="container"
-          className="rounded-2xl pt-14 p-4 bg-[#f6f7f9] space-y-16"
+          className={`${viewChart ? "pt-14 p-4" : "py-10"} rounded-2xl bg-[#f6f7f9] w-full max-w-[1066px] space-y-16 flex flex-col items-center`}
         >
-          <h1 className="text-center text-4xl font-extrabold">
-            Live Gold Market Price
-          </h1>
-          <div id="embed" className="w-[1034px] h-[511px]"></div>
+          <div className="flex items-center gap-6">
+            <div className="cursor-pointer p-4 bg-[#FBF7EB] rounded-full">
+              {viewChart ? (
+                <RiEyeOffFill
+                  size={25}
+                  onClick={() => {
+                    setViewChart(false);
+                  }}
+                />
+              ) : (
+                <RiEyeFill
+                  size={25}
+                  onClick={() => {
+                    setViewChart(true);
+                  }}
+                />
+              )}
+            </div>
+
+            <h1 className="text-center text-4xl font-extrabold">
+              {viewChart ? "Hide" : "See"} Live Gold Market Price
+            </h1>
+          </div>
+
+          <motion.div
+            id="embed"
+            className={`${viewChart ? "block" : "hidden"} w-[1034px]`}
+            initial={{ height: 0 }}
+            animate={{ height: viewChart ? 511 : 0 }}
+            transition={{ duration: 0.5 }}
+          ></motion.div>
         </div>
       </div>
     </>

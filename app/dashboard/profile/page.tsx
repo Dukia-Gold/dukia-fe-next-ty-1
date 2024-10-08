@@ -43,13 +43,6 @@ const ProfilePage = () => {
 
   return (
     <main className="w-full bg-white rounded-2xl text-dukiaBlue h-full">
-      {/* <button
-        onClick={() => updateModals({ resetPassword: true })}
-        className="bg-dukiaBlue hover:bg-dukiaGold hover:text-black text-white font-semibold text-sm py-4 px-6 rounded-lg"
-      >
-        Reset Password
-      </button> */}
-
       {user ? (
         <div className="px-10 py-12">
           {/* User Details */}

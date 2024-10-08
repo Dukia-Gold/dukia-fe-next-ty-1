@@ -1,60 +1,67 @@
-import Image from "next/image";
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 type AboutHeroProps = {
   handleScrollToNextSection: () => void;
 };
 
 const AboutHero = ({ handleScrollToNextSection }: AboutHeroProps) => {
-  
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   return (
-    <section className="relative min-h-screen bg-hero-pattern bg-cover bg-no-repeat bg-center bg-fixed pt-48 xl:pt-36 px-3 py-4 flex flex-col justify-center items-center">
-      {/* <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60"></div> */}
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
+      transition={{ duration: 0.8 }}
+      className="relative max-w-[1063px] mx-auto rounded-2xl h-[410px] mt-56 bg-hero-pattern bg-cover bg-no-repeat bg-center bg-fixed flex flex-col justify-center items-center text-dukiaBlue overflow-hidden"
+    >
+      {/* <motion.div
+        initial={{ scale: 1.2, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.5, duration: 1 }}
+        className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30"
+      /> */}
 
-      <div className="md:container flex flex-col gap-2 items-center">
-        <Image
-          src="https://res.cloudinary.com/dcu3hr3eo/image/upload/c_scale,w_134/v1686236202/Dukia_Gold_Logo_TRA_cwhx0e.png"
-          alt="Dukia Gold's Logo"
-          width={120}
-          height={102.99}
-        />{" "}
-        <div className="flex flex-col gap-6 items-center text-dukiaBlue">
-          <div className="flex flex-col gap-2 text-center md:max-w-[80%]">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
-              We Are Dukia Gold
-            </h1>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold mt-4">
-              Nigeria&apos;s Foremost & Largest Full-Service Bullion Dealer
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mt-6">
-              Creating ease of access to investment-grade gold and other
-              precious metals in Nigeria via a safe and secure trading platform.
-              With Dukia Gold, you have full control and peace of mind over
-              securing your financial future.
-            </p>
+      <div className="flex justify-between items-end px-14 w-full relative z-10">
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="font-extrabold max-w-[356px]"
+        >
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 1, duration: 0.4 }}
+            className="text-[40px]"
+          >
+            We Are Dukia Gold
+          </motion.p>
 
-            {/* <p className="font-extrabold text-5xl">
-              About <br className="md:hidden" /> Dukia Gold
-            </p>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.4 }}
+            className="text-[#676D88] text-xl"
+          >
+            Nigeria&apos;s Foremost & Largest Full-Service Bullion Dealer
+          </motion.p>
+        </motion.div>
 
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Fermentum velit dignissim
-              pretium aenean sagittis parturient faucibus. Donec scelerisque
-              cursus cras rhoncus viverra nibh orci.
-            </p> */}
-          </div>
-
-          <div>
-            <button
-              className="bg-dukiaGold py-3 px-8 rounded-lg text-dukiaBlue font-semibold text-sm mt-6"
-              onClick={handleScrollToNextSection}
-            >
-              Read More
-            </button>
-          </div>
-        </div>
+        <motion.p
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 1.4, duration: 0.6 }}
+          className="max-w-[484px]"
+        >
+          Creating ease of access to investment-grade gold and other precious metals in Nigeria via a safe and secure trading platform.
+        </motion.p>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
