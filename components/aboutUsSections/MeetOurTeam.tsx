@@ -85,7 +85,13 @@ const MeetOurTeam = () => {
                   whileHover={{ scale: 1.2, color: "#0077B5" }}
                   transition={{ duration: 0.2 }}
                 >
-                  <RiLinkedinBoxFill size={32} color="#676D88" />
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <RiLinkedinBoxFill size={32} color="#676D88" />
+                  </a>
                 </motion.div>
               </motion.div>
             </motion.div>
