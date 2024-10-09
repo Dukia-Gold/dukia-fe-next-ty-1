@@ -1,5 +1,6 @@
 "use client";
 
+import React from 'react'; // {{ edit_1 }}
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { fetchProductDetails } from "@/lib/fetchProductDetails";

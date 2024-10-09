@@ -63,63 +63,73 @@ const Header: FC<header> = () => {
     <header
       className={`${
         pathname.startsWith("/dashboard") ? "hidden" : "fixed z-30"
-      } w-full space-y-4`}
+      } w-full`}
     >
       {/* GOLD PRICE */}
-      <div className="mt-4 bg-[#F4E5C1] flex flex-col md:items-center  md:flex-row justify-between gap-1 font-semibold text-dukiaBlue py-3 px-6 md:px-4 lg:px-9 rounded-2xl xl:max-w-[1280px] mx-auto">
-        {/* Ask */}
-        <p className="flex items-center gap-0.5 lg:gap-1">
-          GOLD ASK:
-          <span className={`font-black ${askClass}`}>
-            {formatCurrency(goldDollars?.ask.oz, "en-US", "USD")}/oz
-          </span>
-          |
-          <span className={`font-black ${askClass}`}>
-            {formatCurrency(goldDollars?.ask.g, "en-US", "USD")}/g
-          </span>
-          |
-          <span className={`font-black ${askClass}`}>
-            {formatCurrency(goldDollars?.ask.kg, "en-US", "USD")}/kg
-          </span>
-          <span className="hidden sm:block">-0.01% (-$0.12)</span>
-        </p>
+      <div className="bg-[#F4E5C1] flex flex-col md:items-center  md:flex-row justify-between gap-1 font-semibold text-dukiaBlue py-3 px-6 md:px-4 lg:px-9">
+        <div className="max-w-[1280px] mx-auto flex justify-between w-full">
+          {/* Ask */}
+          <p className="flex items-center gap-0.5 lg:gap-1">
+            GOLD ASK:
+            <span className={`font-black ${askClass}`}>
+              {formatCurrency(goldDollars?.ask.oz, "en-US", "USD")}/oz
+            </span>
+            |
+            <span className={`font-black ${askClass}`}>
+              {formatCurrency(goldDollars?.ask.g, "en-US", "USD")}/g
+            </span>
+            |
+            <span className={`font-black ${askClass}`}>
+              {formatCurrency(goldDollars?.ask.kg, "en-US", "USD")}/kg
+            </span>
+            <span className="hidden sm:block">-0.01% (-$0.12)</span>
+          </p>
 
-        {/* Bid */}
-        <p className="flex items-center gap-0.5 lg:gap-1">
-          GOLD BID:
-          <span className={`font-black ${bidClass}`}>
-            {formatCurrency(goldDollars?.bid.oz, "en-US", "USD")}/oz
-          </span>
-          |
-          <span className={`font-black ${bidClass}`}>
-            {formatCurrency(goldDollars?.bid.g, "en-US", "USD")}/g
-          </span>
-          |
-          <span className={`font-black ${bidClass}`}>
-            {formatCurrency(goldDollars?.bid.kg, "en-US", "USD")}/kg
-          </span>
-        </p>
+          {/* Bid */}
+          <p className="flex items-center gap-0.5 lg:gap-1">
+            GOLD BID:
+            <span className={`font-black ${bidClass}`}>
+              {formatCurrency(goldDollars?.bid.oz, "en-US", "USD")}/oz
+            </span>
+            |
+            <span className={`font-black ${bidClass}`}>
+              {formatCurrency(goldDollars?.bid.g, "en-US", "USD")}/g
+            </span>
+            |
+            <span className={`font-black ${bidClass}`}>
+              {formatCurrency(goldDollars?.bid.kg, "en-US", "USD")}/kg
+            </span>
+          </p>
+        </div>
       </div>
 
       {/* Main Header */}
-      <div className="xl:max-w-[1280px] mx-auto px-9">
-        <div className="py-2 bg-white px-4 rounded-xl shadow-lg flex items-center justify-between">
-          <Image
-            src={
-              "https://res.cloudinary.com/dvcw253zw/image/upload/v1721822926/dukia-new-logo_gg5cde.png"
-            }
-            alt="Dukia Gold Logo"
-            width={224.47}
-            height={50}
-          />
+      <div className="bg-white">
+        <div className="max-w-[1280px] mx-auto py-2 flex items-center justify-between">
+          <div className="flex items-center gap-10">
+            <Image
+              src={
+                "https://res.cloudinary.com/dvcw253zw/image/upload/v1721822926/dukia-new-logo_gg5cde.png"
+              }
+              alt="Dukia Gold Logo"
+              width={224.47}
+              height={50}
+            />
+
+            <div className="flex gap-7 font-semibold">
+              <p className="text-dukiaGold">Individual</p>
+
+              <p>Corporate</p>
+            </div>
+          </div>
 
           <nav className="hidden sm:block">
-            <ul className="flex text-sm items-center gap-4 lg:gap-4 text-dukiaBlue">
+            <ul className="flex items-center gap-4 lg:gap-4 text-dukiaBlue font-semibold">
               {/* HOME */}
               <li
                 className={`${
                   pathname === "/" ? "text-dukiaGold font-bold" : ""
-                } hover:text-dukiaGold hover:font-semibold`}
+                } hover:text-dukiaGold`}
               >
                 <Link href="/">Home</Link>
               </li>
@@ -130,7 +140,7 @@ const Header: FC<header> = () => {
                   pathname === "/about-dukia-gold"
                     ? "text-dukiaGold font-bold"
                     : ""
-                } hover:text-dukiaGold hover:font-semibold`}
+                } hover:text-dukiaGold`}
               >
                 <Link href="/about-dukia-gold">About Dukia</Link>
               </li>
@@ -141,7 +151,7 @@ const Header: FC<header> = () => {
                   pathname.startsWith("/buy-gold")
                     ? "text-dukiaGold font-bold"
                     : ""
-                } hover:text-dukiaGold hover:font-semibold`}
+                } hover:text-dukiaGold`}
               >
                 <HoverCard>
                   <HoverCardTrigger asChild>
@@ -176,7 +186,7 @@ const Header: FC<header> = () => {
               </li>
 
               {/* GUIDES */}
-              <li className="hover:text-dukiaGold hover:font-semibold">
+              <li className="hover:text-dukiaGold">
                 <Link href="/">
                   <p>Guides</p>
                 </Link>
