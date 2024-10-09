@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
-import { RiArrowDropDownLine } from "react-icons/ri";
+import { RiArrowDropDownLine, RiFireFill } from "react-icons/ri";
 import Cookies from "js-cookie";
 import MobileNav from "./MobileNav";
 // import AOS from "aos";
@@ -20,6 +20,7 @@ import useFetchUserData from "@/lib/fetchUserData";
 import useModalsStore from "@/store/modalsStore";
 import { usePathname } from "next/navigation";
 import AuthButtons from "./AuthButtons";
+import { ArrowRight } from "lucide-react";
 
 type header = {
   // name: string
@@ -54,6 +55,26 @@ const Header: FC<header> = () => {
     const timeoutId = setTimeout(() => setBidClass(""), 1500);
     return () => clearTimeout(timeoutId);
   }, [goldDollars]);
+
+  const [buyGold, openBuyGold] = useState(false);
+
+  const products = [
+    {
+      pic: "",
+      slug: "/buy-gold/bars",
+      name: "Gold Bars",
+    },
+    {
+      pic: "https://res.cloudinary.com/dvcw253zw/image/upload/v1728479454/header-coins_zsnaxm.png",
+      slug: "/buy-gold/coins",
+      name: "Gold Coins",
+    },
+    {
+      pic: "",
+      slug: "/",
+      name: "Pool Allocated",
+    },
+  ];
 
   // useEffect(() => {
   //   AOS.init();
@@ -147,42 +168,17 @@ const Header: FC<header> = () => {
 
               {/* BUY GOLD */}
               <li
+                onClick={() => openBuyGold(!buyGold)}
                 className={`${
                   pathname.startsWith("/buy-gold")
                     ? "text-dukiaGold font-bold"
                     : ""
                 } hover:text-dukiaGold`}
               >
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <div className="flex items-center gap-0.5 cursor-pointer">
-                      <p>Buy Gold</p>
-                      <RiArrowDropDownLine size={30} />
-                    </div>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-32 text-dukiaBlue dark:bg-dukiaBlue flex flex-col gap-2">
-                    <Link
-                      href="/buy-gold/bars"
-                      className={`${
-                        pathname === "/buy-gold/bars"
-                          ? "text-dukiaGold font-bold"
-                          : ""
-                      } font-normal hover:font-bold`}
-                    >
-                      Gold Bars
-                    </Link>
-                    <Link
-                      href="/buy-gold/coins"
-                      className={`${
-                        pathname === "/buy-gold/coins"
-                          ? "text-dukiaGold font-bold"
-                          : ""
-                      } font-normal hover:font-bold`}
-                    >
-                      Gold Coins
-                    </Link>
-                  </HoverCardContent>
-                </HoverCard>
+                <div className="flex items-center gap-0.5 cursor-pointer">
+                  <p>Buy Gold</p>
+                  <RiArrowDropDownLine size={30} />
+                </div>
               </li>
 
               {/* GUIDES */}
@@ -211,6 +207,51 @@ const Header: FC<header> = () => {
           </div>
         </div>
       </div>
+
+      {/* Buy Gold */}
+      {buyGold && (
+        <div className="bg-white font-semibold">
+          <div className="max-w-[1280px] mx-auto pt-32 pb-8 space-y-14">
+            <div className="flex items-center gap-3">
+              <div className="bg-[#FBF7EB] rounded-full p-3">
+                <RiFireFill color="#D4A418" size={25} />
+              </div>
+
+              <p className="max-w-[667px]">
+                Buy, sell, or invest in investment-grade gold through
+                Nigeria&apos;s premier bullion dealer. Select gold type to
+                continue.{" "}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-6">
+              {products.map((product, index) => (
+                <Link key={index} href={product.slug}>
+                  <div
+                    key={index}
+                    className="p-3 border border-[#E8E9ED] rounded-2xl flex items-center justify-between"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="border-2 border-[#E8E9ED] w-[108px] h-[76px] rounded-xl"></div>
+
+                      <div>
+                        <p className="text-xs">BUY</p>
+                        <p className="font-extrabold text-dukiaGold text-xl">
+                          {product.name}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#F6F7F9] rounded-full p-3 hover:bg-dukiaBlue hover:text-dukiaGold">
+                      <ArrowRight size={16} />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <MobileNav isOpen={isOpen} toggle={closeMobileNav} />
     </header>

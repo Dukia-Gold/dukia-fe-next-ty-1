@@ -87,7 +87,7 @@ const Newsletter = () => {
       variants={containerVariants}
       className="mt-[120px] px-4 sm:px-0 dark:bg-dukiaDark text-dukiaBlue"
     >
-      <div className="max-w-[1064px] mx-auto w-full">
+      <div className="max-w-[1063px] mx-auto w-full">
         <motion.div
           variants={itemVariants}
           className="rounded-t-2xl bg-[#FBF7EB] pl-44 pr-8 mx-20 relative"

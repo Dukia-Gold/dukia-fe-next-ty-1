@@ -39,7 +39,7 @@ const BarCard: React.FC<BarCardProps> = ({
   handleClick,
 }) => {
   return (
-    <div className="border border-[#E8E9ED] max-w-[314px] space-y-4 bg-white rounded-xl">
+    <div className="border border-[#E8E9ED] space-y-4 bg-white rounded-xl">
       <div className="flex justify-center py-3">
         <Image
           src={isFront ? bar.thumbnail_url : bar.thumbnail_url2}
