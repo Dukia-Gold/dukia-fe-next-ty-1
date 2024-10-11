@@ -12,6 +12,7 @@ import {
   RiYoutubeFill,
 } from "react-icons/ri";
 import { usePathname } from "next/navigation";
+import { copyright } from "@/config/landing_page/home";
 
 const Copyright = () => {
   const pathname = usePathname();
@@ -69,7 +70,7 @@ const Copyright = () => {
           variants={itemVariants}
           className="text-white text-sm font-semibold"
         >
-          © 2024, Dukia Gold - Precious Metals Refining Co. Ltd.
+          © {copyright.year}, {copyright.corporation}
         </motion.p>
 
         <motion.div variants={itemVariants} className="flex items-center gap-4">

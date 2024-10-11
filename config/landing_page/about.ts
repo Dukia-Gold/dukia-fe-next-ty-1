@@ -1,11 +1,13 @@
-export const aboutHero = {
+import { AboutContent, AboutHero, TeamMember, VisionAndMission } from "@/typings/landingPage/about";
+
+export const aboutHero: AboutHero = {
   title: "We Are Dukia Gold",
   subtitle: "Nigeria's Foremost & Largest Full-Service Bullion Dealer",
   content:
     "Creating ease of access to investment-grade gold and other precious metals in Nigeria via a safe and secure trading platform.",
 };
 
-export const aboutContent = [
+export const aboutContent: AboutContent[] = [
   {
     title: "Your Premier And Largest Bullion Dealer In Nigeria.",
     pg1: "We are your premier and largest bullion dealer in Nigeria, West Africa, creating ease of access to investment grade gold & other precious metals in Nigeria via a safe and secure trading platform. Dukia Gold offers an easy, secure and accessible way to buy, sell, invest and do much more with gold. With Dukia Gold, you have full control and peace of mind over securing your financial future.",
@@ -29,7 +31,7 @@ export const aboutContent = [
   },
 ];
 
-export const visionAndMission = [
+export const visionAndMission: VisionAndMission[] = [
   // Our Vision
   {
     title: "Our Vision",
@@ -55,7 +57,7 @@ export const visionAndMission = [
   },
 ];
 
-export const team = [
+export const team: TeamMember[] = [
   // Tunde Fagbemi
   {
     pic: "https://res.cloudinary.com/dvcw253zw/image/upload/v1728386302/tunde-fagbemi_s2dzg3.png",

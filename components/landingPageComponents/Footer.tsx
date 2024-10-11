@@ -7,6 +7,7 @@ import { RiHome4Fill, RiMailFill, RiPhoneFill } from "react-icons/ri";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import { footer } from "@/config/landing_page/home";
 
 const Footer = () => {
   const pathname = usePathname();
@@ -64,7 +65,7 @@ const Footer = () => {
         <motion.div variants={itemVariants} className="flex flex-col gap-11">
           <motion.div variants={itemVariants}>
             <Image
-              src="https://res.cloudinary.com/dvcw253zw/image/upload/v1721822926/dukia-new-logo_gg5cde.png"
+              src={footer.logo}
               alt="Dukia Gold's Logo"
               width={224.47}
               height={50}
@@ -77,12 +78,8 @@ const Footer = () => {
           >
             {/* NAME */}
             <motion.div variants={itemVariants} className="flex flex-col gap-1">
-              <p className="font-extrabold text-base">
-                Dukia Gold & Precious Metals Refining Co. Ltd.
-              </p>
-              <p className="text-xs">
-                Your Precious Metals Refiner & Trusted Bullion Merchant
-              </p>
+              <p className="font-extrabold text-base">{footer.corporation}</p>
+              <p className="text-xs">{footer.subtext}</p>
             </motion.div>
 
             {/* CONTACT DETAILS */}
@@ -96,7 +93,7 @@ const Footer = () => {
                   <RiHome4Fill width={20} height={16} />
                 </div>
 
-                <p>3B, Olusola Olude Close, Gbagada Phase 2, Lagos, Nigeria</p>
+                <p>{footer.address}</p>
               </motion.div>
 
               {/* EMAIL */}
@@ -112,7 +109,7 @@ const Footer = () => {
                   href="mailto:sales@dukiapreciousmetals.co"
                   className="underline hover:text-dukiaGold"
                 >
-                  sales@dukiapreciousmetals.co
+                  {footer.email}
                 </Link>
               </motion.div>
 
@@ -125,7 +122,7 @@ const Footer = () => {
                   <RiPhoneFill width={13.86} height={20} />
                 </div>
 
-                <p>+234 703 323 8121 | +234 903 150 6699</p>
+                <p>{footer.phone.join(" | ")}</p>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -136,8 +133,8 @@ const Footer = () => {
           >
             <p>Stored by:</p>
             <Image
-              src="https://res.cloudinary.com/dvcw253zw/image/upload/v1721826164/brinks-logo-blue_1_bgbw94.png"
-              alt="Brinks"
+              src={footer.store.logo}
+              alt={footer.store.name}
               width={143}
               height={19}
             />
@@ -149,75 +146,29 @@ const Footer = () => {
           variants={itemVariants}
           className="grid grid-cols-2 gap-y-5 md:grid-cols-3 lg:grid-cols-2 2xl:grid-cols-3 gap-x-10 md:gap-x-3.5 xl:gap-x-14 text-sm"
         >
-          {/* COMPANY */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col gap-1 font-semibold space-y-3 w-fit"
-          >
-            <p>COMPANY</p>
-            {/* LINKS */}
+          {footer.sections.map((section, index) => (
             <motion.div
+              key={index}
               variants={itemVariants}
-              className="flex flex-col text-[#676D88] gap-3"
+              className="flex flex-col gap-1 font-semibold space-y-3 w-fit"
             >
-              <Link href="about-us/dukia-gold" className="hover:text-dukiaGold">
-                About Us
-              </Link>
-              <p>Cookies & Privacy Policy</p>
-              <p>Terms & Conditions</p>
+              <p>{section.title}</p>
+              <motion.div
+                variants={itemVariants}
+                className="flex flex-col text-[#676D88] gap-3"
+              >
+                {section.links.map((link, linkIndex) => (
+                  <Link
+                    key={linkIndex}
+                    href={link.href}
+                    className="hover:text-dukiaGold"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </motion.div>
             </motion.div>
-          </motion.div>
-
-          {/* PRODUCTS */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col gap-1 font-semibold space-y-3 w-fit"
-          >
-            <p>PRODUCTS</p>
-            {/* LINKS */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col text-[#676D88] gap-3"
-            >
-              <Link href="/buy-gold/bars" className="hover:text-dukiaGold">
-                Buy Gold Bars
-              </Link>
-              <Link href="/buy-gold/bars" className="hover:text-dukiaGold">
-                Buy Gold Coins
-              </Link>
-              <Link href="/buy-gold/bars" className="hover:text-dukiaGold">
-                Buy Pool Allocated
-              </Link>
-              <Link href="/buy-gold/coins" className="hover:text-dukiaGold">
-                Dukia Gold Card
-              </Link>
-              <Link href="/" className="hover:text-dukiaGold">
-                Sell To Us
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          {/* GUIDES */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col gap-1 font-semibold space-y-3 w-fit"
-          >
-            <p>GUIDES</p>
-            {/* LINKS */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col text-[#676D88] gap-3"
-            >
-              <p>Pool Allocated Calculator</p>
-              <p>Shop With Ease</p>
-              <p>What We Offer</p>
-              <p>Why Choose Us</p>
-              <p>As Featured In</p>
-              <Link href="/#FAQ" className="hover:text-dukiaGold">
-                FAQs
-              </Link>
-            </motion.div>
-          </motion.div>
+          ))}
         </motion.div>
       </div>
     </motion.footer>

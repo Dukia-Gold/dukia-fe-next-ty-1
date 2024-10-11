@@ -4,41 +4,9 @@ import { Quote } from "lucide-react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { RiDoubleQuotesR } from "react-icons/ri";
-
-interface ReviewProps {
-  key: number;
-  name: string;
-  review: string;
-}
+import { customerReviews } from "@/config/landing_page/home";
 
 const CustomerReviews = () => {
-  const reviewsArray: ReviewProps[] = [
-    {
-      key: 1,
-      name: "Abdullah Yusuf",
-      review:
-        "I was new to gold trading and did not know where to start. Thankfully, I found the Dukia Gold website and it made the whole process easy and stress-free. They have a wide variety of products at fair prices. The educational resources on the website helped me understand more about investing in gold",
-    },
-    {
-      key: 2,
-      name: "Bolaji Anifowoshe",
-      review:
-        "I was impressed with the level of security and privacy measures the trading platform had. I felt comfortable trading with them with a solid assurance that my transactions were safe and secure.",
-    },
-    {
-      key: 3,
-      name: "Abdullateef Olushola",
-      review:
-        "Their customer service team is top-notch and always available to answer any questions I have on gold investment. Now, I feel like a pro!",
-    },
-    {
-      key: 4,
-      name: "Wale Soneye",
-      review:
-        "I had a delightful experience using the Dukia Gold Trading Platform to make my first gold purchase. It was user-friendly and easy to navigate. I highly recommend this platform to anyone interested in investing in gold.",
-    },
-  ];
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const controls = useAnimation();
   const [ref, inView] = useInView({
@@ -56,14 +24,14 @@ const CustomerReviews = () => {
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex + 2 >= reviewsArray.length ? 0 : prevIndex + 2
+      prevIndex + 2 >= customerReviews.length ? 0 : prevIndex + 2
     );
     controls.start("hidden").then(() => controls.start("visible"));
   };
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex - 2 < 0 ? reviewsArray.length - 2 : prevIndex - 2
+      prevIndex - 2 < 0 ? customerReviews.length - 2 : prevIndex - 2
     );
     controls.start("hidden").then(() => controls.start("visible"));
   };
@@ -172,7 +140,7 @@ const CustomerReviews = () => {
               exit="hidden"
               variants={containerVariants}
             >
-              {reviewsArray
+              {customerReviews
                 .slice(currentIndex, currentIndex + 2)
                 .map((review) => (
                   <motion.div key={review.key} variants={cardVariants}>
@@ -230,7 +198,7 @@ const CustomerReviews = () => {
 
         {/* Carousel Dots */}
         <div className="flex justify-center space-x-5 pt-5">
-          {Array.from({ length: Math.ceil(reviewsArray.length / 2) }).map(
+          {Array.from({ length: Math.ceil(customerReviews.length / 2) }).map(
             (_, index) => (
               <motion.div
                 key={index}

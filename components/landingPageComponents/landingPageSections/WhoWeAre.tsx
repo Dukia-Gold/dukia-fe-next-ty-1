@@ -15,15 +15,17 @@ const WhoWeAre: React.FC = () => {
   // }, [askNaira1g]);
 
   return (
-    <section className="xl:max-w-[1061px] mx-auto flex flex-col gap-8 bg-white dark:bg-dukiaBlue dark:text-white text-dukiaBlue justify-between">
-      <section className="md:container pt-40 py-12 flex flex-col gap-14">
+    <section className="xl:max-w-[1066px] mx-auto flex flex-col gap-8 bg-white dark:bg-dukiaBlue dark:text-white text-dukiaBlue justify-between">
+      <section className="pt-40 py-12 flex flex-col gap-14">
         {/* TEXTS */}
-        <div className="flex flex-col md:items-center gap-4 font-extrabold">
-          <p className="text-[2.5rem]">Who We Are</p>
+        <div className="flex justify-between gap-4 font-extrabold">
+          <div className="space-y-1">
+            <p className="text-[2.5rem]">Who We Are</p>
 
-          <p className="text-[#676D88] text-xl">From Mine to Market</p>
+            <p className="text-[#676D88] text-xl">From Mine to Market</p>
+          </div>
 
-          <p className="text-base font-normal md:text-center">
+          <p className="text-base font-normal max-w-[519px]">
             Dukia Gold is the Foremost & Largest Full-Service Bullion Dealer in
             Nigeria, West Africa creating ease of access to investment grade
             gold & other precious metals in Nigeria via a safe and secure
