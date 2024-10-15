@@ -221,7 +221,10 @@ const TopBar = () => {
 
             {pathname === "/dashboard/assets" && <p>Assets</p>}
             {pathname === "/dashboard/transactions" && <p>Transactions</p>}
+            {pathname === "/dashboard/bills" && <p>Pay Bills</p>}
             {pathname === "/dashboard/exchange" && <p>Exchange</p>}
+            {pathname === "/dashboard/savings" && <p>Savings</p>}
+            {pathname === "/dashboard/dukia-live-blog" && <p>Live Blog</p>}
 
             {pathname === "/dashboard/profile" && <p>Profile</p>}
           </div>
