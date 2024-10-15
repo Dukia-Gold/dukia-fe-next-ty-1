@@ -1,7 +1,7 @@
-const SavingsPage = () => {
-  return (
-    <div>SavingsPage</div>
-  )
-}
+import ComingSoon from "@/components/dashboardComponents/ComingSoon";
 
-export default SavingsPage
+const SavingsPage = () => {
+  return <ComingSoon />;
+};
+
+export default SavingsPage;

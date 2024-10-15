@@ -1,9 +1,8 @@
-import React from 'react'
+import ComingSoon from "@/components/dashboardComponents/ComingSoon";
+import React from "react";
 
 const ExchangePage = () => {
-  return (
-    <div>ExchangePage</div>
-  )
-}
+  return <ComingSoon />;
+};
 
-export default ExchangePage
+export default ExchangePage;

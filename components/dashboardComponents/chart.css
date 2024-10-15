@@ -1,0 +1,80 @@
+#jschart_credits,
+#jschart_creditLogo,
+#jschart_timestamp,
+#jschart_PDX,
+.highcharts-plot-border,
+.highcharts-axis-labels,
+.highcharts-axis,
+.highcharts-grid {
+  display: none !important;
+}
+
+.important-min-height {
+    min-height: 115px !important;
+}
+
+#jschart_container,
+#highcharts-ge14k1m-0,
+.highcharts-root {
+  height: 103px !important;
+}
+
+.highcharts-background,
+.highcharts-plot-background,
+.highcharts-series-group {
+  width: 200px !important;
+}
+
+#jschart_title {
+  display: none !important;
+}
+
+tspan,
+image {
+  display: none;
+}
+
+.highcharts-area {
+  fill: #111827;
+  fill-opacity: 5%;
+}
+
+.jschart_inside {
+  margin: 0 !important;
+  display: flex;
+  gap: 1.25rem;
+  justify-content: end;
+  background: white;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding-bottom: 5px;
+  padding-right: 1rem;
+}
+
+#jschart_wrapper {
+  border: 0px !important;
+  background: white !important;
+}
+
+.jschart_clicked {
+  background: #1c254e !important;
+  border: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1c254e !important;
+  font-weight: 900 !important;
+}
+
+.jschart_blank {
+  border: none !important;
+  border-radius: 12px !important;
+  background-color: transparent !important;
+  font-size: 14px !important;
+}
+
+#jschart_currency {
+  outline: none;
+  border: 1px solid #1c254e !important;
+  cursor: pointer;
+}

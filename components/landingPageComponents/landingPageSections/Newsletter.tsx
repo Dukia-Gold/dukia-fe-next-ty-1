@@ -128,7 +128,7 @@ const Newsletter = () => {
 
         <motion.div
           variants={itemVariants}
-          className="relative z-20 border-2 border-dukiaGold rounded-2xl py-20 px-8 bg-[url('https://res.cloudinary.com/dvcw253zw/image/upload/v1725896130/newsletter-bg_dfjfrp.png')] bg-cover bg-center bg-no-repeat bg-opacity-80 bg-black flex items-end justify-between"
+          className="relative z-10 border-2 border-dukiaGold rounded-2xl py-20 px-8 bg-[url('https://res.cloudinary.com/dvcw253zw/image/upload/v1725896130/newsletter-bg_dfjfrp.png')] bg-cover bg-center bg-no-repeat bg-opacity-80 bg-black flex items-end justify-between"
         >
           <motion.div
             variants={itemVariants}

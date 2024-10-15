@@ -35,7 +35,7 @@ export const useFetchProductPrices = () => {
 
     const interval = setInterval(() => {
       fetchProductsPrices(); // Fetch every 12 seconds
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);

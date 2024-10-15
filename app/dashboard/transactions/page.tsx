@@ -23,7 +23,7 @@ import useModalsStore from "@/store/modalsStore";
 import { transactionStore } from "@/store/transactions";
 import { Spin } from "antd";
 import { DownloadIcon, Filter } from "lucide-react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const TransactionPage = () => {
   const [filter, setFilter] = useState("all");

@@ -1,7 +1,11 @@
+import ComingSoon from "@/components/dashboardComponents/ComingSoon";
+
 const DukiaLiveBlogPage = () => {
   return (
-    <div>DukiaLiveBlogPage</div>
-  )
-}
+    <main className="h-full">
+      <ComingSoon />
+    </main>
+  );
+};
 
-export default DukiaLiveBlogPage
+export default DukiaLiveBlogPage;

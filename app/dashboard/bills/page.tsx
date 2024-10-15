@@ -1,6 +1,8 @@
+import ComingSoon from "@/components/dashboardComponents/ComingSoon"
+
 const BillsPage = () => {
   return (
-    <div>BillsPage</div>
+    <ComingSoon />
   )
 }
 

@@ -100,7 +100,7 @@ const Sidebar = () => {
             </Link>
 
             {/* Assets */}
-            <Link href="/dashboard/assets?id=philoro-1g">
+            <Link href="/dashboard/assets?id=pool-allocated-1g">
               <li
                 className={`${
                   pathname === "/dashboard/assets"

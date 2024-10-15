@@ -1,9 +1,8 @@
-import React from 'react'
+import ComingSoon from "@/components/dashboardComponents/ComingSoon";
+import React from "react";
 
 const CardPage = () => {
-  return (
-    <div>CardPage</div>
-  )
-}
+  return <ComingSoon />;
+};
 
-export default CardPage
+export default CardPage;
