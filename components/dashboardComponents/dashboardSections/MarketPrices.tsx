@@ -41,7 +41,7 @@ const MarketPrices = () => {
     const interval = setInterval(() => {
       fetchBarsData();
       fetchCoinsData();
-    }, 10000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, []);
@@ -205,7 +205,7 @@ const MarketPrices = () => {
                 {/* Chart */}
                 <TableCell className="p-2.5">
                   <div>
-                    <Chart chartId={`chart-${bar.id}-${index}`} />
+                    {/* <Chart chartId={`chart-${bar.id}-${index}`} /> */}
                   </div>
                 </TableCell>
 
@@ -253,7 +253,7 @@ const MarketPrices = () => {
 
                 {/* Chart */}
                 <TableCell className="p-2.5">
-                  <Chart chartId={`chart-${coin.id}-${index}`} />
+                  {/* <Chart chartId={`chart-${coin.id}-${index}`} /> */}
                 </TableCell>
 
                 <TableCell className="p-2.5">
