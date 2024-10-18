@@ -14,6 +14,7 @@ import { fetchProductSearch } from "@/lib/fetchProductSearch";
 import { Product } from "@/typings/product";
 import Link from "next/link";
 import Chart from "../Chart";
+import { formatCurrency } from "@/lib/currencyformatter";
 
 const MarketPrices = () => {
   const [tab, setTab] = useState("bars");
@@ -215,7 +216,7 @@ const MarketPrices = () => {
                 <TableCell className="p-2.5">
                   {bar.ask_formattedPrice}
                 </TableCell>
-                <TableCell className="p-2.5">{bar.margin_ask}</TableCell>
+                <TableCell className="p-2.5">{formatCurrency(bar.ask_price - bar.bid_price)}</TableCell>
                 <TableCell className="p-2.5">{bar.margin_bid}</TableCell>
                 <TableCell className="p-2.5 text-[#43BA64]">
                   <span className="flex items-center">
