@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .savings-card-gradient {
+    background: linear-gradient(115.42deg, #ffffff 16.94%, #e3e0dc 84.52%);
+  }
+
+  .savings-card-shadow {
+    box-shadow: 5px 10px 10px 10px rgba(153, 153, 153, 0.05); /* #9999990D converted to rgba */
+  }
+
+  .inner-savings-card-shadow {
+    box-shadow: 0px 4px 4px 0px rgba(153, 153, 153, 0.078);
+  }
+}
+
 /* custom.css */
 .custom-ant-picker-focus:focus,
 .custom-ant-picker-focus:focus-within,
@@ -9,8 +23,7 @@
   @apply border-dukiaBlue/[11%] ring-2 ring-transparent;
 }
 
-
-#dashboardLayout{
+#dashboardLayout {
   overflow-y: hidden;
 }
 
@@ -28,11 +41,11 @@
 }
 
 .index-module_type__E-SaG::after {
-  color: #DAAA38; /* Change this to your desired color */
+  color: #daaa38; /* Change this to your desired color */
   /* You might also need to set the content and other properties if required */
 }
 
-.ant-picker-suffix{
+.ant-picker-suffix {
   color: white !important;
 }
 

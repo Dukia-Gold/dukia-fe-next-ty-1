@@ -30,15 +30,15 @@ export const useFetchProductPrices = () => {
     }
   };
 
-  useEffect(() => {
-    fetchProductsPrices(); // Initial fetch
+  // useEffect(() => {
+  //   fetchProductsPrices(); // Initial fetch
 
-    const interval = setInterval(() => {
-      fetchProductsPrices(); // Fetch every 12 seconds
-    }, 10000);
+  //   const interval = setInterval(() => {
+  //     fetchProductsPrices(); // Fetch every 12 seconds
+  //   }, 10000);
 
-    return () => clearInterval(interval); // Cleanup interval on component unmount
-  }, []);
+  //   return () => clearInterval(interval); // Cleanup interval on component unmount
+  // }, []);
 
   return fetchProductsPrices;
 };
@@ -71,7 +71,7 @@ export const useFetchGoldPriceDollars = () => {
 
     const interval = setInterval(() => {
       fetchGoldPriceDollars(); // Fetch every 12 seconds
-    }, 15000);
+    }, 30000);
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);

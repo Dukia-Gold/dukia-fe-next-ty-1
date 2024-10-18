@@ -72,18 +72,18 @@ const useFetchUserData = () => {
     }
   }, [token, apiBaseUrl, updateUser, updateUserAssets, pathname]);
 
-  useEffect(() => {
-    if (token && pathname.startsWith("/dashboard")) {
-      fetchUserData();
-    }
-  }, [token, pathname, fetchUserData]);
+  // useEffect(() => {
+  //   if (token && pathname.startsWith("/dashboard")) {
+  //     fetchUserData();
+  //   }
+  // }, [token, pathname, fetchUserData]);
 
-  useEffect(() => {
-    if (token && pathname.startsWith("/dashboard")) {
-      const interval = setInterval(fetchUserData, 10000); // Fetch every 2 minutes (adjust as needed)
-      return () => clearInterval(interval); // Cleanup on component unmount
-    }
-  }, [token, pathname, fetchUserData]);
+  // useEffect(() => {
+  //   if (token && pathname.startsWith("/dashboard")) {
+  //     const interval = setInterval(fetchUserData, 30000); // Fetch every 2 minutes (adjust as needed)
+  //     return () => clearInterval(interval); // Cleanup on component unmount
+  //   }
+  // }, [token, pathname, fetchUserData]);
 
   return fetchUserData; // Return the user data (if needed)
 };
