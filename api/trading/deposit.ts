@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
 import useModalsStore from "@/store/modalsStore";
+import Swal from "sweetalert2";
 
 const useDeposit = () => {
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
@@ -40,7 +41,6 @@ const useDeposit = () => {
 
       data = response;
       updateModals({ depositResponse: response.data.message });
-      console.log(response); // Update the user in the user store
       updateLoading(false);
       updateModals({ successfulDeposit: true });
     } catch (error: any) {
@@ -50,6 +50,13 @@ const useDeposit = () => {
           title: "Network Error",
           description:
             "There was a problem connecting to the server. Please check your internet connection and try again.",
+        });
+      } else{
+        Swal.fire({
+          title: "Daily Limit!",
+          text: `${error.response.data.message}`,
+          icon: "error",
+          confirmButtonText: "Okay",
         });
       }
       updateLoading(false);

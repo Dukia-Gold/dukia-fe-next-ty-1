@@ -1,7 +1,5 @@
 import { FC, useEffect } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { usePathname } from "next/navigation";
-// import { FaCartShopping } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -10,6 +8,7 @@ import {
   CollapsibleTrigger,
 } from "../ui/collapsible";
 import { userStore } from "@/store/user";
+import { GetUrl } from "@/lib/getUrl";
 
 type MobileNavProps = {
   isOpen: boolean;
@@ -18,7 +17,7 @@ type MobileNavProps = {
 
 const MobileNav: FC<MobileNavProps> = ({ isOpen, toggle }) => {
   const user = userStore((state: any) => state.user);
-  const pathname = usePathname();
+  const { pathname } = GetUrl();
 
   useEffect(() => {
     if (isOpen) {

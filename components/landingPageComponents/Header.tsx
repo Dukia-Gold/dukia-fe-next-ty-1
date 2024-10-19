@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
-import { RiArrowDropDownLine } from "react-icons/ri";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { RiArrowDropDownLine, RiFireFill } from "react-icons/ri";
+import Cookies from "js-cookie";
 import MobileNav from "./MobileNav";
 // import AOS from "aos";
 // import "aos/dist/aos.css"; // You can also use <link> for styles
@@ -14,27 +14,28 @@ import {
   HoverCardTrigger,
 } from "../ui/hover-card";
 import { formatCurrency } from "@/lib/currencyformatter";
-import { GetUrl } from "@/lib/getUrl";
-import { userStore } from "@/store/user";
 import { goldStore } from "@/store/goldPrice";
 import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
 import useFetchUserData from "@/lib/fetchUserData";
 import useModalsStore from "@/store/modalsStore";
+import { usePathname } from "next/navigation";
+import AuthButtons from "./AuthButtons";
+import { ArrowRight } from "lucide-react";
 
 type header = {
   // name: string
 };
 
 const Header: FC<header> = () => {
+  const token = Cookies.get("auth-token");
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
-  const user = userStore((state: any) => state.user);
   const fetchUserData = useFetchUserData();
 
   const goldDollars = goldStore((state: any) => state.goldDollars);
   const fetchGoldPriceDollars = useFetchGoldPriceDollars();
 
-  const pathname = GetUrl();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [askClass, setAskClass] = useState("");
   const [bidClass, setBidClass] = useState("");
@@ -55,6 +56,26 @@ const Header: FC<header> = () => {
     return () => clearTimeout(timeoutId);
   }, [goldDollars]);
 
+  const [buyGold, openBuyGold] = useState(false);
+
+  const products = [
+    {
+      pic: "",
+      slug: "/buy-gold/bars",
+      name: "Gold Bars",
+    },
+    {
+      pic: "https://res.cloudinary.com/dvcw253zw/image/upload/v1728479454/header-coins_zsnaxm.png",
+      slug: "/buy-gold/coins",
+      name: "Gold Coins",
+    },
+    {
+      pic: "",
+      slug: "/",
+      name: "Pool Allocated",
+    },
+  ];
+
   // useEffect(() => {
   //   AOS.init();
   // }, []);
@@ -62,64 +83,74 @@ const Header: FC<header> = () => {
   return (
     <header
       className={`${
-        pathname.startsWith("/dashboard") ? "hidden" : "fixed z-10"
-      } w-full space-y-4`}
+        pathname.startsWith("/dashboard") ? "hidden" : "fixed z-20"
+      } w-full`}
     >
       {/* GOLD PRICE */}
-      <div className="mt-4 bg-dukiaGold flex flex-col md:items-center  md:flex-row justify-between gap-1 font-semibold text-dukiaBlue py-3 px-6 md:px-4 lg:px-9 rounded-2xl xl:max-w-[1280px] mx-auto">
-        {/* Ask */}
-        <p className="flex items-center gap-0.5 lg:gap-1">
-          GOLD ASK:
-          <span className={`text-xs font-black ${askClass}`}>
-            {formatCurrency(goldDollars?.ask.oz, "en-US", "USD")}/oz
-          </span>
-          |
-          <span className={`text-xs font-black ${askClass}`}>
-            {formatCurrency(goldDollars?.ask.g, "en-US", "USD")}/g
-          </span>
-          |
-          <span className={`text-xs font-black ${askClass}`}>
-            {formatCurrency(goldDollars?.ask.kg, "en-US", "USD")}/kg
-          </span>
-          <span className="text-xs hidden sm:block">-0.01% (-$0.12)</span>
-        </p>
+      <div className="bg-[#F4E5C1] flex flex-col md:items-center  md:flex-row justify-between gap-1 font-semibold text-dukiaBlue py-3 px-6 md:px-4 lg:px-9">
+        <div className="max-w-[1280px] mx-auto flex justify-between w-full">
+          {/* Ask */}
+          <p className="flex items-center gap-0.5 lg:gap-1">
+            GOLD ASK:
+            <span className={`font-black ${askClass}`}>
+              {formatCurrency(goldDollars?.ask.oz, "en-US", "USD")}/oz
+            </span>
+            |
+            <span className={`font-black ${askClass}`}>
+              {formatCurrency(goldDollars?.ask.g, "en-US", "USD")}/g
+            </span>
+            |
+            <span className={`font-black ${askClass}`}>
+              {formatCurrency(goldDollars?.ask.kg, "en-US", "USD")}/kg
+            </span>
+            <span className="hidden sm:block">-0.01% (-$0.12)</span>
+          </p>
 
-        {/* Bid */}
-        <p className="flex items-center gap-0.5 lg:gap-1">
-          GOLD BID:
-          <span className={`text-xs font-black ${bidClass}`}>
-            {formatCurrency(goldDollars?.bid.oz, "en-US", "USD")}/oz
-          </span>
-          |
-          <span className={`text-xs font-black ${bidClass}`}>
-            {formatCurrency(goldDollars?.bid.g, "en-US", "USD")}/g
-          </span>
-          |
-          <span className={`text-xs font-black ${bidClass}`}>
-            {formatCurrency(goldDollars?.bid.kg, "en-US", "USD")}/kg
-          </span>
-        </p>
+          {/* Bid */}
+          <p className="flex items-center gap-0.5 lg:gap-1">
+            GOLD BID:
+            <span className={`font-black ${bidClass}`}>
+              {formatCurrency(goldDollars?.bid.oz, "en-US", "USD")}/oz
+            </span>
+            |
+            <span className={`font-black ${bidClass}`}>
+              {formatCurrency(goldDollars?.bid.g, "en-US", "USD")}/g
+            </span>
+            |
+            <span className={`font-black ${bidClass}`}>
+              {formatCurrency(goldDollars?.bid.kg, "en-US", "USD")}/kg
+            </span>
+          </p>
+        </div>
       </div>
 
       {/* Main Header */}
-      <div className="xl:max-w-[1280px] mx-auto px-9">
-        <div className="py-2 bg-white px-4 rounded-xl border-2 border-[#EFEFEFCC]/[80%] shadow-lg flex items-center justify-between">
-          <Image
-            src={
-              "https://res.cloudinary.com/dvcw253zw/image/upload/v1721822926/dukia-new-logo_gg5cde.png"
-            }
-            alt="Dukia Gold Logo"
-            width={224.47}
-            height={50}
-          />
+      <div className="bg-white">
+        <div className="max-w-[1280px] mx-auto py-2 flex items-center justify-between">
+          <div className="flex items-center gap-10">
+            <Image
+              src={
+                "https://res.cloudinary.com/dvcw253zw/image/upload/v1721822926/dukia-new-logo_gg5cde.png"
+              }
+              alt="Dukia Gold Logo"
+              width={224.47}
+              height={50}
+            />
+
+            <div className="flex gap-7 font-semibold">
+              <p className="text-dukiaGold">Individual</p>
+
+              <p>Corporate</p>
+            </div>
+          </div>
 
           <nav className="hidden sm:block">
-            <ul className="flex text-sm items-center gap-4 lg:gap-4 text-dukiaBlue">
+            <ul className="flex items-center gap-4 lg:gap-4 text-dukiaBlue font-semibold">
               {/* HOME */}
               <li
                 className={`${
                   pathname === "/" ? "text-dukiaGold font-bold" : ""
-                } hover:text-dukiaGold hover:font-semibold`}
+                } hover:text-dukiaGold`}
               >
                 <Link href="/">Home</Link>
               </li>
@@ -130,53 +161,28 @@ const Header: FC<header> = () => {
                   pathname === "/about-dukia-gold"
                     ? "text-dukiaGold font-bold"
                     : ""
-                } hover:text-dukiaGold hover:font-semibold`}
+                } hover:text-dukiaGold`}
               >
                 <Link href="/about-dukia-gold">About Dukia</Link>
               </li>
 
               {/* BUY GOLD */}
               <li
+                onClick={() => openBuyGold(!buyGold)}
                 className={`${
                   pathname.startsWith("/buy-gold")
                     ? "text-dukiaGold font-bold"
                     : ""
-                } hover:text-dukiaGold hover:font-semibold`}
+                } hover:text-dukiaGold`}
               >
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <div className="flex items-center gap-0.5 cursor-pointer">
-                      <p>Buy Gold</p>
-                      <RiArrowDropDownLine size={30} />
-                    </div>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-32 text-dukiaBlue dark:bg-dukiaBlue flex flex-col gap-2">
-                    <Link
-                      href="/buy-gold/bars"
-                      className={`${
-                        pathname === "/buy-gold/bars"
-                          ? "text-dukiaGold font-bold"
-                          : ""
-                      } font-normal hover:font-bold`}
-                    >
-                      Gold Bars
-                    </Link>
-                    <Link
-                      href="/buy-gold/coins"
-                      className={`${
-                        pathname === "/buy-gold/coins"
-                          ? "text-dukiaGold font-bold"
-                          : ""
-                      } font-normal hover:font-bold`}
-                    >
-                      Gold Coins
-                    </Link>
-                  </HoverCardContent>
-                </HoverCard>
+                <div className="flex items-center gap-0.5 cursor-pointer">
+                  <p>Buy Gold</p>
+                  <RiArrowDropDownLine size={30} />
+                </div>
               </li>
 
               {/* GUIDES */}
-              <li className="hover:text-dukiaGold hover:font-semibold">
+              <li className="hover:text-dukiaGold">
                 <Link href="/">
                   <p>Guides</p>
                 </Link>
@@ -185,22 +191,7 @@ const Header: FC<header> = () => {
           </nav>
 
           <div className="hidden sm:flex">
-            {user ? (
-              <Link href="/dashboard">
-                <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-5 rounded-lg">
-                  Return to Dashboard
-                </button>
-              </Link>
-            ) : (
-              <div className="flex items-center gap-7">
-                <p onClick={() => updateModals({ login: true })} className="font-semibold text-dukiaGold hover:underline hover:cursor-pointer">Login</p>
-                <Link href="/login">
-                  <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-4 rounded-lg">
-                    Register
-                  </button>
-                </Link>
-              </div>
-            )}
+            <AuthButtons updateModals={updateModals} />
 
             {/* <Link href="/login">
                <button className="text-white font-semibold py-3 px-5 rounded-lg border border-white">
@@ -216,6 +207,51 @@ const Header: FC<header> = () => {
           </div>
         </div>
       </div>
+
+      {/* Buy Gold */}
+      {buyGold && (
+        <div className="bg-white font-semibold">
+          <div className="max-w-[1280px] mx-auto pt-32 pb-8 space-y-14">
+            <div className="flex items-center gap-3">
+              <div className="bg-[#FBF7EB] rounded-full p-3">
+                <RiFireFill color="#D4A418" size={25} />
+              </div>
+
+              <p className="max-w-[667px]">
+                Buy, sell, or invest in investment-grade gold through
+                Nigeria&apos;s premier bullion dealer. Select gold type to
+                continue.{" "}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-6">
+              {products.map((product, index) => (
+                <Link key={index} href={product.slug}>
+                  <div
+                    key={index}
+                    className="p-3 border border-[#E8E9ED] rounded-2xl flex items-center justify-between"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="border-2 border-[#E8E9ED] w-[108px] h-[76px] rounded-xl"></div>
+
+                      <div>
+                        <p className="text-xs">BUY</p>
+                        <p className="font-extrabold text-dukiaGold text-xl">
+                          {product.name}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#F6F7F9] rounded-full p-3 hover:bg-dukiaBlue hover:text-dukiaGold">
+                      <ArrowRight size={16} />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <MobileNav isOpen={isOpen} toggle={closeMobileNav} />
     </header>

@@ -12,8 +12,8 @@ import FAQ from "@/components/landingPageComponents/landingPageSections/FAQ";
 import AsFeaturedIn from "@/components/landingPageComponents/landingPageSections/AsFeaturedIn";
 import CustomerReviews from "@/components/landingPageComponents/landingPageSections/CustomersReviews";
 import WhyChooseDukia from "@/components/landingPageComponents/landingPageSections/WhyChooseDukia";
-import TrustedPartners from "@/components/landingPageComponents/landingPageSections/TrustedPartners";
 import PoolAllocated from "@/components/landingPageComponents/landingPageSections/PoolAllocated";
+import BullionVaultChartComponent from "@/components/landingPageComponents/landingPageSections/BullionVaultChartComponent";
 
 export default function Home() {
   const [isOnline, setIsOnline] = useState(false);
@@ -100,12 +100,12 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="xl:max-w-[1280px] xl:mx-auto">
+    <main className="">
       <Hero />
 
-      <TrustedPartners />
-
       <WhoWeAre />
+
+      <BullionVaultChartComponent />
 
       <PoolAllocated />
 

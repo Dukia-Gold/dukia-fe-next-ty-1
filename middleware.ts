@@ -10,19 +10,15 @@ export async function middleware(req: NextRequest) {
       console.log(err);
     }));
 
-  if (req.nextUrl.pathname.startsWith("/login") && !verifiedToken) {
-    return;
-  }
-
-  if (req.nextUrl.pathname.startsWith("/login") && verifiedToken) {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
-  }
-
-  if (!verifiedToken) {
+  // Redirect unauthenticated users trying to access protected routes to the homepage
+  if (req.nextUrl.pathname.startsWith("/dashboard") && !verifiedToken) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
+
+  // Allow the request to proceed if the user is authenticated or if the request does not match any protected paths
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login"],
+  matcher: ["/dashboard/:path*"],
 };

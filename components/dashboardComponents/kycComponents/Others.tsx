@@ -1,3 +1,4 @@
+import React from 'react'; // {{ edit_1 }}
 import {
   Select,
   SelectContent,
@@ -14,7 +15,7 @@ const Others = () => {
   return (
     <>
       {user ? (
-        <form className="rounded-lg p-3 md:p-6 bg-white space-y-10 text-dukiaBlue">
+        <form className="rounded-lg bg-white space-y-10 text-dukiaBlue">
           {/* Personal Details */}
           <div className="space-y-6">
             {/* Texts */}

@@ -1,19 +1,54 @@
+"use client";
+
 import useAuth from "@/api/auth/useAuth";
 import { formatDecimal } from "@/lib/decimalFormatter";
 import { capitalizeFirstLetter } from "@/lib/formatText";
 import { GetUrl } from "@/lib/getUrl";
+import { useCartStore } from "@/store/cart";
 import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
-import { ArrowRight, Eye, EyeOff, Info, Power } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUp,
+  ChevronDown,
+  Eye,
+  EyeOff,
+  Info,
+  Power,
+  User,
+  User2,
+  UserCircle2,
+} from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import {
+  RiLogoutBoxRLine,
+  RiNotificationFill,
+  RiProfileFill,
+  RiSettings2Fill,
+  RiSettingsFill,
+  RiShoppingCartFill,
+} from "react-icons/ri";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 const TopBar = () => {
+  const cart = useCartStore((state) => state.cart);
+  const itemCount = cart.length;
+
   const { logout } = useAuth();
   const user = userStore((state: any) => state.user);
   const updateModals = useModalsStore((state: any) => state.updateModals);
   const [seeBalance, setSeeBalance] = useState(false);
-  const pathname = GetUrl();
+  const pathname = usePathname();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // Set the client-side flag to true after the component mounts
+    setIsClient(true);
+  }, []);
+
+  const { queryParam, idParam } = GetUrl();
 
   return (
     <div className="text-dukiaBlue mt-7 space-y-7">
@@ -27,61 +62,171 @@ const TopBar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-2">
+            {/* Cart */}
+            <Link href={"/dashboard/cart"}>
+              <div className="p-2.5 rounded-[50%] bg-white relative">
+                {itemCount > 0 && (
+                  <span className="absolute top-1 right-1.5 transform translate-x-1/2 -translate-y-1/2 bg-dukiaGold font-semibold text-white rounded-full text-sm px-2 py-1">
+                    {itemCount}
+                  </span>
+                )}
+                <RiShoppingCartFill className="text-xl" />
+              </div>
+            </Link>
+
+            {/* Notification */}
             <div className="p-2.5 rounded-[50%] bg-white">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2.99609 3.49609C2.99609 3.36349 3.04877 3.23631 3.14254 3.14254C3.23631 3.04877 3.36349 2.99609 3.49609 2.99609H3.93409C4.66109 2.99609 5.07909 3.46909 5.32109 3.94109C5.48609 4.26409 5.60509 4.65809 5.70409 5.00009H15.9991C16.1536 5.00014 16.306 5.03599 16.4443 5.10484C16.5827 5.17368 16.7032 5.27365 16.7964 5.39689C16.8896 5.52013 16.953 5.66329 16.9815 5.81514C17.0101 5.96699 17.0031 6.1234 16.9611 6.27209L15.4651 11.5471C15.3461 11.9656 15.0939 12.3339 14.7467 12.5961C14.3994 12.8583 13.9762 13.0001 13.5411 13.0001H8.46209C8.02337 13.0002 7.59677 12.8561 7.24801 12.59C6.89926 12.3238 6.6477 11.9503 6.53209 11.5271L5.89009 9.17209L5.88009 9.14009L4.85009 5.64209L4.75009 5.30509C4.65009 4.95909 4.56209 4.65309 4.43009 4.39609C4.27109 4.08609 4.12509 3.99609 3.93409 3.99609H3.49609C3.36349 3.99609 3.23631 3.94342 3.14254 3.84965C3.04877 3.75588 2.99609 3.6287 2.99609 3.49609ZM8.49909 17.0001C8.89692 17.0001 9.27845 16.8421 9.55975 16.5608C9.84106 16.2794 9.99909 15.8979 9.99909 15.5001C9.99909 15.1023 9.84106 14.7207 9.55975 14.4394C9.27845 14.1581 8.89692 14.0001 8.49909 14.0001C8.10127 14.0001 7.71974 14.1581 7.43843 14.4394C7.15713 14.7207 6.99909 15.1023 6.99909 15.5001C6.99909 15.8979 7.15713 16.2794 7.43843 16.5608C7.71974 16.8421 8.10127 17.0001 8.49909 17.0001ZM13.4991 17.0001C13.8969 17.0001 14.2785 16.8421 14.5598 16.5608C14.8411 16.2794 14.9991 15.8979 14.9991 15.5001C14.9991 15.1023 14.8411 14.7207 14.5598 14.4394C14.2785 14.1581 13.8969 14.0001 13.4991 14.0001C13.1013 14.0001 12.7197 14.1581 12.4384 14.4394C12.1571 14.7207 11.9991 15.1023 11.9991 15.5001C11.9991 15.8979 12.1571 16.2794 12.4384 16.5608C12.7197 16.8421 13.1013 17.0001 13.4991 17.0001Z"
-                  fill="#111827"
-                />
-              </svg>
+              <RiNotificationFill className="text-xl" />
             </div>
 
-            <div className="p-2.5 rounded-[50%] bg-white">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9.99925 1.6665C8.45215 1.6665 6.96842 2.28109 5.87446 3.37505C4.7805 4.46901 4.16592 5.95274 4.16592 7.49984V10.4398C4.16604 10.5691 4.13608 10.6966 4.07842 10.8123L2.64758 13.6732C2.57769 13.8129 2.54469 13.9683 2.55171 14.1244C2.55873 14.2805 2.60554 14.4322 2.6877 14.5651C2.76987 14.698 2.88464 14.8078 3.02114 14.8838C3.15763 14.9599 3.31132 14.9999 3.46758 14.9998H16.5309C16.6872 14.9999 16.8409 14.9599 16.9774 14.8838C17.1139 14.8078 17.2286 14.698 17.3108 14.5651C17.393 14.4322 17.4398 14.2805 17.4468 14.1244C17.4538 13.9683 17.4208 13.8129 17.3509 13.6732L15.9209 10.8123C15.863 10.6967 15.8327 10.5692 15.8326 10.4398V7.49984C15.8326 5.95274 15.218 4.46901 14.124 3.37505C13.0301 2.28109 11.5463 1.6665 9.99925 1.6665ZM9.99925 17.4998C9.48207 17.5 8.97756 17.3398 8.55521 17.0413C8.13285 16.7428 7.81343 16.3207 7.64092 15.8332H12.3576C12.1851 16.3207 11.8656 16.7428 11.4433 17.0413C11.0209 17.3398 10.5164 17.5 9.99925 17.4998Z"
-                  fill="#111827"
-                />
-              </svg>
-            </div>
+            {/* User */}
 
-            <div className="p-2.5 rounded-[50%] bg-white cursor-pointer">
-              <Power onClick={logout} width={20} height={20} />
-            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <div className="p-1 pr-2 flex items-center gap-1 rounded-full bg-white cursor-pointer">
+                  <UserCircle2 size={32} />
+                  <ChevronDown className="w-5 h-5 text-dukiaBlue" />
+                </div>
+              </PopoverTrigger>
+              {user && (
+                <PopoverContent
+                  className="w-[13.5rem] rounded-lg p-2.5"
+                  align="end"
+                >
+                  <div className="pb-4 border-b-2 border-[#E8E9ED] flex items-center gap-3">
+                    <UserCircle2 size={32} />
+                    <div>
+                      <p className="font-semibold text-sm">
+                        {capitalizeFirstLetter(user?.first_name)}{" "}
+                        {capitalizeFirstLetter(user?.last_name)}
+                      </p>
+                      <p className="text-xs text-[#676D88]">
+                        {user?.account_number}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-[#FBF7EB] border-[0.5px] border-dukiaGold rounded-lg p-2 mt-4">
+                    <div className="flex gap-3 w-full">
+                      <svg
+                        width="25"
+                        height="35"
+                        viewBox="0 0 25 35"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M16.1091 1.66806C15.6642 1.14518 15.1111 0.725196 14.488 0.437183C13.8648 0.149169 13.1865 0 12.5 0C11.8135 0 11.1352 0.149169 10.512 0.437183C9.88889 0.725196 9.33576 1.14518 8.89093 1.66806L8.8246 1.74703C8.6623 1.93743 8.45709 2.08655 8.22587 2.18211C7.99466 2.27767 7.74405 2.31694 7.49469 2.29668L7.39202 2.28879C6.708 2.23397 6.02024 2.32837 5.37629 2.56547C4.73234 2.80256 4.14757 3.1767 3.66243 3.662C3.17728 4.1473 2.80332 4.73218 2.56642 5.37621C2.32952 6.02023 2.23533 6.70802 2.29036 7.39202L2.29668 7.49469C2.31694 7.74405 2.27767 7.99466 2.18211 8.22587C2.08655 8.45709 1.93743 8.6623 1.74703 8.82459L1.66806 8.89093C1.14518 9.33576 0.725197 9.88889 0.437183 10.512C0.149169 11.1352 0 11.8135 0 12.5C0 13.1865 0.149169 13.8648 0.437183 14.488C0.725197 15.1111 1.14518 15.6642 1.66806 16.1091L1.74703 16.1754C1.93743 16.3377 2.08655 16.5429 2.18211 16.7741C2.27767 17.0053 2.31694 17.2559 2.29668 17.5053L2.28879 17.608C2.1947 18.7825 2.54132 19.95 3.26108 20.8829C3.98085 21.8158 5.02218 22.4473 6.18216 22.6544V33.033C6.18211 33.3189 6.2597 33.5995 6.40664 33.8448C6.55358 34.0902 6.76435 34.291 7.01648 34.4259C7.26861 34.5608 7.55263 34.6247 7.83825 34.6108C8.12386 34.597 8.40035 34.5058 8.63822 34.3471L12.5 31.7726L16.3618 34.3471C16.5996 34.5058 16.8761 34.597 17.1618 34.6108C17.4474 34.6247 17.7314 34.5608 17.9835 34.4259C18.2356 34.291 18.4464 34.0902 18.5934 33.8448C18.7403 33.5995 18.8179 33.3189 18.8178 33.033V22.6559C19.9781 22.4489 21.0197 21.8172 21.7395 20.8839C22.4593 19.9507 22.8057 18.7828 22.7112 17.608L22.7033 17.5053C22.6831 17.2559 22.7223 17.0053 22.8179 16.7741C22.9135 16.5429 23.0626 16.3377 23.253 16.1754L23.3319 16.1091C23.8548 15.6642 24.2748 15.1111 24.5628 14.488C24.8508 13.8648 25 13.1865 25 12.5C25 11.8135 24.8508 11.1352 24.5628 10.512C24.2748 9.88889 23.8548 9.33576 23.3319 8.89093L23.253 8.82459C23.0626 8.6623 22.9135 8.45709 22.8179 8.22587C22.7223 7.99466 22.6831 7.74405 22.7033 7.49469L22.7112 7.39202C22.766 6.708 22.6716 6.02024 22.4345 5.37629C22.1974 4.73234 21.8233 4.14757 21.338 3.66242C20.8527 3.17727 20.2678 2.80332 19.6238 2.56642C18.9798 2.32952 18.292 2.23533 17.608 2.29036L17.5053 2.29668C17.2559 2.31694 17.0053 2.27767 16.7741 2.18211C16.5429 2.08655 16.3377 1.93743 16.1754 1.74703L16.1091 1.66806ZM9.34108 30.0826V23.7931C10.2101 24.5695 11.3347 24.9987 12.5 24.9987C13.6653 24.9987 14.7899 24.5695 15.6589 23.7931V30.0794L13.3766 28.5584C13.117 28.3852 12.812 28.2928 12.5 28.2928C12.188 28.2928 11.883 28.3852 11.6234 28.5584L9.34108 30.0826Z"
+                          fill="#1C254E"
+                        />
+                        <text
+                          x="50%"
+                          y="37%"
+                          dominantBaseline="middle"
+                          textAnchor="middle"
+                          fill="white"
+                          fontSize={14}
+                          fontWeight={600}
+                        >
+                          {user.tier ? user.tier : "0"}
+                        </text>
+                      </svg>
+
+                      <div className="space-y-2 text-xs flex-grow">
+                        <div className="flex items-center justify-between">
+                          <p className="font-semibold">Tier {user?.tier}</p>
+
+                          {user && user.is_bvn === 0 ? (
+                            <Link href="/dashboard/profile/kyc">
+                              <button className="hover:bg-[#ED7004] border-[0.5px] border-[#ED7004] rounded py-0.5 px-1.5 text-[#ED7004] hover:text-white text-[0.625rem] flex items-center">
+                                Complete KYC
+                                <ArrowUp size={10} />
+                              </button>
+                            </Link>
+                          ) : (
+                            <p className="text-[#16A34A] border-dashed border border-[#43BA64] rounded py-0.5 px-1.5 text-[0.625rem] shadow-[8px_8px_8px_0px_#FFD4D426]">
+                              Verified
+                            </p>
+                          )}
+                        </div>
+
+                        <p>{capitalizeFirstLetter(user?.type)} Account</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 mt-4 text-sm">
+                    <Link
+                      href="/dashboard/profile"
+                      className="flex items-center gap-3 p-2 hover:bg-gray-100"
+                    >
+                      <RiProfileFill size={20} />
+                      Account Information
+                    </Link>
+                    <Link
+                      href="/dashboard/profile#settings"
+                      className="flex items-center gap-3 p-2 hover:bg-gray-100"
+                    >
+                      <RiSettings2Fill size={20} />
+                      Settings
+                    </Link>
+                    <button
+                      onClick={logout}
+                      className="w-full text-left flex items-center gap-3 p-2 hover:bg-gray-100 outline-none"
+                    >
+                      <RiLogoutBoxRLine size={20} />
+                      Logout
+                    </button>
+                  </div>
+                </PopoverContent>
+              )}
+            </Popover>
           </div>
         </div>
 
         <div className="flex items-end justify-between">
           <div className="text-xl font-extrabold">
+            {pathname === "/dashboard/cart" && <p>Cart</p>}
+            {pathname === "/dashboard/product" && (
+              <p className="text-[#676D88]">
+                Product /{" "}
+                <span className="text-dukiaBlue font-extrabold">{idParam}</span>
+              </p>
+            )}
+
             {pathname === "/dashboard" && <p>Dashboard</p>}
-            {pathname === "/dashboard/profile" && <p>Account Info</p>}
+            {pathname === "/dashboard/portfolio" && (
+              <p className="text-[#676D88]">
+                Dashboard /{" "}
+                <span className="text-dukiaBlue font-extrabold">Portfolio</span>
+              </p>
+            )}
+
             {pathname === "/dashboard/card" && <p>Debit Card</p>}
             {pathname === "/dashboard/kyc" && <p>KYC Verification</p>}
 
             {pathname === "/dashboard/buy-gold" && <p>Buy Gold</p>}
-            {pathname === "/dashboard/buy-gold/buy-dukia-gold-bars" && (
+            {pathname === "/dashboard/buy-gold/dukia-gold-catalogue" && (
               <p className="text-[#676D88]">
                 Buy Gold /{" "}
-                <span className="text-dukiaBlue font-extrabold">Gold Bars</span>
+                {isClient && (
+                  <span className="text-dukiaBlue font-extrabold">
+                    Gold {queryParam === "Bars" ? "Bars" : "Coins"}
+                  </span>
+                )}
               </p>
             )}
 
             {pathname === "/dashboard/assets" && <p>Assets</p>}
             {pathname === "/dashboard/transactions" && <p>Transactions</p>}
-            {pathname === "/dashboard/charts" && <p>Charts</p>}
-            {pathname === "/dashboard/settings" && <p>Settings</p>}
+            {pathname === "/dashboard/bills" && <p>Pay Bills</p>}
+            {pathname === "/dashboard/exchange" && <p>Exchange</p>}
+            {pathname === "/dashboard/savings" && <p>Savings</p>}
+            {pathname === "/dashboard/dukia-live-blog" && <p>Live Blog</p>}
+
+            {pathname === "/dashboard/profile" && <p>Profile</p>}
           </div>
 
           <div className="flex items-center gap-6">
@@ -151,7 +296,7 @@ const TopBar = () => {
       </div>
 
       {/* KYC (if not verified) */}
-      {user && user.is_bvn === 0 && (
+      {user && user.is_verified === 0 && (
         <div className="bg-[#FFF7F0] py-2.5 px-4 rounded-2xl flex items-center gap-11 border border-dukiaBlue/[10%]">
           <p>You have not completed your KYC verification!</p>
           <Link href="/dashboard/kyc">

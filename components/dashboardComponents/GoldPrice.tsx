@@ -1,10 +1,11 @@
-import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
+import { useFetchGoldPriceDollars, useFetchProductPrices } from "@/api/fetchGoldPrice";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { goldStore } from "@/store/goldPrice";
 import React, { useEffect, useState } from "react";
 
 const GoldPrice = () => {
   const fetchGoldPriceDollars = useFetchGoldPriceDollars();
+  const fetchProductsPrices = useFetchProductPrices();
   const goldDollars = goldStore((state: any) => state.goldDollars);
   const [askClass, setAskClass] = useState("");
   const [bidClass, setBidClass] = useState("");

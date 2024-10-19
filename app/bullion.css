@@ -1,0 +1,60 @@
+#jschart_credits,
+#jschart_creditLogo,
+#jschart_timestamp,
+#jschart_PDX {
+  display: none !important;
+}
+
+#jschart_wrapper {
+  border-radius: 12px;
+}
+
+tspan,
+image {
+  display: none;
+}
+
+.highcharts-area {
+  fill: #111827;
+  fill-opacity: 5%;
+}
+
+.jschart_inside{
+    margin: 0 !important;
+    display: flex;
+    gap: 1.25rem;
+    justify-content: end;
+    background: white;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    padding-bottom: 5px;
+    padding-right: 1rem;
+}
+
+#jschart_wrapper{
+    border: 0px !important;
+    background: white !important;
+}
+
+.jschart_clicked{
+    background: #1C254E !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1C254E !important;
+    font-weight: 900 !important;
+}
+
+.jschart_blank{
+    border: none !important;
+    border-radius: 12px !important;
+    background-color: transparent !important;
+    font-size: 14px !important;
+}
+
+#jschart_currency{
+    outline: none;
+    border: 1px solid #1C254E !important;
+    cursor: pointer;
+}
