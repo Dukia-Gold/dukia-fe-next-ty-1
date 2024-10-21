@@ -1,7 +1,9 @@
 import { Plus } from "lucide-react";
 import React from "react";
 
-const SavingsList = () => {
+const SavingsList: React.FC<{ setCreateNew: (value: number) => void }> = ({
+  setCreateNew,
+}) => {
   const [savingsPlan, setSavingsPlan] = React.useState<Array<any> | null>(null);
 
   return (
@@ -32,7 +34,10 @@ const SavingsList = () => {
         </div>
 
         {/* Create New  */}
-        <button className="flex flex-col items-center gap-2">
+        <button
+          onClick={() => setCreateNew(1)}
+          className="flex flex-col items-center gap-2"
+        >
           <div className="w-8 h-8 rounded-full flex items-center justify-center bg-dukiaBlue text-white">
             <Plus size={16} />
           </div>
