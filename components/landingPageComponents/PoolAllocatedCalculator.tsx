@@ -15,14 +15,46 @@ const PoolAllocatedCalculator = () => {
     isGramToPrice,
   } = PoolAllocated();
   const [tab, setTab] = useState(true);
-  
+
   return (
     <div className="text-black dark:text-white rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 shadow-2xl bg-white dark:bg-dukiaDark/[80%]">
       <div className=" rounded-t-2xl py-4 flex justify-center bg-dukiaGrey text-dukiaBlue font-semibold">
-        <p>Pool Allocated Calculator</p>
-      </div>
+        <div className="flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="size-6 pr-1"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M6.32 1.827a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V19.5a3 3 0 0 1-3 3H6.75a3 3 0 0 1-3-3V4.757c0-1.47 1.073-2.756 2.57-2.93ZM7.5 11.25a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H8.25a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H8.25Zm-.75 3a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H8.25a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V18a.75.75 0 0 0-.75-.75H8.25Zm1.748-6a.75.75 0 0 1 .75-.75h.007a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.007a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.335.75.75.75h.007a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75h-.007Zm-.75 3a.75.75 0 0 1 .75-.75h.007a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.007a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.335.75.75.75h.007a.75.75 0 0 0 .75-.75V18a.75.75 0 0 0-.75-.75h-.007Zm1.754-6a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75h-.008Zm-.75 3a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V18a.75.75 0 0 0-.75-.75h-.008Zm1.748-6a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75h-.008Zm-8.25-6A.75.75 0 0 1 8.25 6h7.5a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-7.5a.75.75 0 0 1-.75-.75v-.75Zm9 9a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-2.25Z"
+              clip-rule="evenodd"
+            />
+          </svg>
 
+          <span> Pool Allocated Calculator</span>
+        </div>
+      </div>
       <form className="pb-6 px-6 flex flex-col gap-6">
+        <div className="flex bg-dukiaGrey py-2 text-xs rounded-md font-bold px-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="size-7 pr-1 text-dukiaBlue"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span className="text-dukiaBlue">
+            Pool allocated means that you are investing in a share of gold from
+            our bullion reserves
+          </span>
+        </div>
         <div className="flex flex-col gap-2">
           {/* NAIRA INPUT - NAIRA to G */}
           <div
@@ -44,7 +76,9 @@ const PoolAllocatedCalculator = () => {
                 placeholder="Enter Naira Value"
               />
             </div>
-            <p className="text-sm text-dukiaGold font-semibold">Starting from N5,000</p>
+            <p className="text-sm text-dukiaGold font-semibold">
+              Starting from N5,000
+            </p>
           </div>
 
           {/* WEIGHT INPUT - G to NAIRA */}
@@ -69,7 +103,9 @@ const PoolAllocatedCalculator = () => {
                 placeholder="Weight(g)"
               />
             </div>
-            <p className="text-sm text-dukiaGold font-semibold">Minimum of 0.0301 grams</p>
+            <p className="text-sm text-dukiaGold font-semibold">
+              Minimum of 0.0301 grams
+            </p>
           </div>
 
           <div className="flex justify-center">
@@ -121,7 +157,7 @@ const PoolAllocatedCalculator = () => {
           >
             <div className="flex flex-col gap-2">
               <label htmlFor="currency" className="text-sm font-semibold">
-                Currency (Naira)
+                Amount (Naira)
               </label>
               <div className=" bg-white dark:bg-dukiaBlue h-[3.125rem] text-dukiaBlue dark:text-dukiaGrey flex items-center px-6 border border-dukiaBlue/[15%] dark:border-dukiaGold rounded-lg placeholder:text-dukiaBlue/[50%] dark:placeholder:text-dukiaGrey/[50%]">
                 <p>{price}</p>
@@ -131,10 +167,10 @@ const PoolAllocatedCalculator = () => {
         </div>
 
         <button className="bg-dukiaBlue text-white py-3 font-semibold rounded-lg">
-          Continue
+          Buy Gold
         </button>
 
-        <p className="text-right text-sm">
+        <p className="text-center text-sm">
           Time until next update:{" "}
           <span id="timer" className="font-semibold">
             {timer}
