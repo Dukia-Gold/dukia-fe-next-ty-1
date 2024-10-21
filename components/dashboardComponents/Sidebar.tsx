@@ -21,6 +21,15 @@ const Sidebar = () => {
   const fetchTransactionHistory = useFetchTransactionHistory();
   const fetchProducts = useFetchProducts();
 
+  // const fetchStuff = () => {
+  //   fetchUserData;
+  //   fetchProducts;
+  // };
+
+  // useEffect(() => {
+  //   fetchStuff();
+  // }, []);
+
   return (
     <aside className="hidden h-screen lg:flex flex-col justify-between pt-6 pb-32 w-72 text-[#676D88] font-semibold">
       <div className="flex flex-col items-center gap-14">

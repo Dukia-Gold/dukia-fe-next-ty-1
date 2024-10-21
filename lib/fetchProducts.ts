@@ -23,16 +23,16 @@ const useFetchProducts = () => {
     }
   };
 
-  // useEffect(() => {
-  //   // Fetch products immediately on component mount
-  //   fetchProducts();
+  useEffect(() => {
+    // Fetch products immediately on component mount
+    fetchProducts();
 
-  //   // Set up an interval to fetch products every 10 seconds
-  //   const intervalId = setInterval(fetchProducts, 30000); // 10000 ms = 10 seconds
+    // Set up an interval to fetch products every 10 seconds
+    const intervalId = setInterval(fetchProducts, 30000); // 10000 ms = 10 seconds
 
-  //   // Clean up the interval on component unmount
-  //   return () => clearInterval(intervalId);
-  // }, []);
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
   return fetchProducts;
 };

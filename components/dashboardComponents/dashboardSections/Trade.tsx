@@ -64,31 +64,31 @@ const Trade = () => {
 
   // Define the ranges and corresponding rate keys
   const ranges: Range[] = [
-    { max: 1, rateKey: "1g" },
-    { max: 10, rateKey: "10g" },
-    { max: 31.1035, rateKey: "1oz" },
-    { max: 50, rateKey: "50g" },
-    { max: 100, rateKey: "100g" },
-    { max: Infinity, rateKey: "1kg" },
+    { max: 31.1035, rateKey: "1g" },
+    // { max: 10, rateKey: "10g" },
+    { max: Infinity, rateKey: "1oz" },
+    // { max: 50, rateKey: "50g" },
+    // { max: 100, rateKey: "100g" },
+    // { max: Infinity, rateKey: "1kg" },
   ];
 
   // Define the buy and sell rates for different quantities
   const rates: Rates = {
     buy: {
       "1g": getProductById("philoro-1g")?.ask_price,
-      "10g": getProductById("philoro-10g")?.ask_price,
+      // "10g": getProductById("philoro-10g")?.ask_price,
       "1oz": getProductById("philoro-1oz")?.ask_price,
-      "50g": getProductById("philoro-50g")?.ask_price,
-      "100g": getProductById("philoro-100g")?.ask_price,
-      "1kg": getProductById("philoro-1kg")?.ask_price,
+      // "50g": getProductById("philoro-50g")?.ask_price,
+      // "100g": getProductById("philoro-100g")?.ask_price,
+      // "1kg": getProductById("philoro-1kg")?.ask_price,
     },
     sell: {
       "1g": getProductById("philoro-1g")?.bid_price,
-      "10g": getProductById("philoro-10g")?.bid_price,
+      // "10g": getProductById("philoro-10g")?.bid_price,
       "1oz": getProductById("philoro-1oz")?.bid_price,
-      "50g": getProductById("philoro-50g")?.bid_price,
-      "100g": getProductById("philoro-100g")?.bid_price,
-      "1kg": getProductById("philoro-1kg")?.bid_price,
+      // "50g": getProductById("philoro-50g")?.bid_price,
+      // "100g": getProductById("philoro-100g")?.bid_price,
+      // "1kg": getProductById("philoro-1kg")?.bid_price,
     },
   };
 
