@@ -68,7 +68,7 @@ const useAuth = () => {
 
       updateModals({ login: false });
       updateLoading(false);
-      window.location.assign("/dashboard");
+      router.push("/dashboard");
     } catch (error: any) {
       // console.log(error.response.status);
       if (error.response.status === 401) {
@@ -116,7 +116,7 @@ const useAuth = () => {
       await clearUser();
 
       // Redirect to home page
-      window.location.assign("/");
+      router.push("/");
     } catch (error: any) {
       console.error("Logout error:", error);
       toast({

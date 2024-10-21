@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PoolAllocated from "@/lib/poolallocated";
+import { formatDecimal } from "@/lib/decimalFormatter";
 
 const PoolAllocatedCalculator = () => {
   const {
@@ -15,7 +16,7 @@ const PoolAllocatedCalculator = () => {
     isGramToPrice,
   } = PoolAllocated();
   const [tab, setTab] = useState(true);
-  
+
   return (
     <div className="text-black dark:text-white rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 shadow-2xl bg-white dark:bg-dukiaDark/[80%]">
       <div className=" rounded-t-2xl py-4 flex justify-center bg-dukiaGrey text-dukiaBlue font-semibold">
@@ -44,7 +45,9 @@ const PoolAllocatedCalculator = () => {
                 placeholder="Enter Naira Value"
               />
             </div>
-            <p className="text-sm text-dukiaGold font-semibold">Starting from N5,000</p>
+            <p className="text-sm text-dukiaGold font-semibold">
+              Starting from N5,000
+            </p>
           </div>
 
           {/* WEIGHT INPUT - G to NAIRA */}
@@ -69,7 +72,9 @@ const PoolAllocatedCalculator = () => {
                 placeholder="Weight(g)"
               />
             </div>
-            <p className="text-sm text-dukiaGold font-semibold">Minimum of 0.0301 grams</p>
+            <p className="text-sm text-dukiaGold font-semibold">
+              Minimum of {formatDecimal(5000 / goldPricePerGram, 4)} grams
+            </p>
           </div>
 
           <div className="flex justify-center">

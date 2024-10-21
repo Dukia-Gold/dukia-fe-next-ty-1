@@ -5,13 +5,11 @@ import MarketPrices from "@/components/dashboardComponents/dashboardSections/Mar
 import Portfolio from "@/components/dashboardComponents/dashboardSections/Portfolio";
 import Trade from "@/components/dashboardComponents/dashboardSections/Trade";
 import Transactions from "@/components/dashboardComponents/dashboardSections/Transactions";
-import useModalsStore from "@/store/modalsStore";
 import { userStore } from "@/store/user";
 import { Spin } from "antd";
 import { useEffect, useState } from "react";
 import { useCheckLoginStatus } from "@/lib/isLoggedIn";
 import { useRouter } from "next/navigation";
-import Chart from "@/components/dashboardComponents/Chart";
 
 const DashboardPage = () => {
   const user = userStore((state: any) => state.user);
