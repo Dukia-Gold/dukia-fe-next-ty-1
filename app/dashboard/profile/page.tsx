@@ -21,12 +21,13 @@ import BankInformation from "@/components/profileComponents/BankInformation";
 import { Code2Icon, LogOut, Trash2 } from "lucide-react";
 import useAuth from "@/api/auth/useAuth";
 import { usePathname } from "next/navigation";
+import TransactionCode from "@/components/profileComponents/settingsComponents/TransactionCode";
 
 const ProfilePage = () => {
   const pathname = usePathname();
   const { logout } = useAuth();
   const [activeSection, setActiveSection] = useState<
-    "personalDetails" | "address" | "bank" | null
+    "personalDetails" | "address" | "bank" | "transactionCode" | null
   >(null);
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
@@ -377,30 +378,52 @@ const ProfilePage = () => {
                 </svg>
               </div>
 
+              {/* Transaction Code */}
               <div
-                onClick={logout}
-                className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between"
+                className={`${
+                  activeSection === "transactionCode" &&
+                  "border-2 border-dukiaBlue pt-10"
+                } rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue`}
               >
-                <div className="flex items-center gap-2.5">
-                  <Code2Icon size={24} />
-                  <p className="text-[#676D88]">Reset Transaction Code</p>
+                <div
+                  onClick={() =>
+                    setActiveSection(
+                      activeSection === "transactionCode"
+                        ? null
+                        : "transactionCode"
+                    )
+                  }
+                  className={`${
+                    activeSection === "transactionCode" && "border-b"
+                  } flex items-center justify-between py-4 px-6 cursor-pointer`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Code2Icon size={24} />
+                    <p className="text-[#676D88]">Transaction Code</p>
+                  </div>
+
+                  {/* Right arrow icon */}
+                  <svg
+                    className={`w-6 h-6 transform ${
+                      activeSection === "transactionCode" ? "rotate-90" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
                 </div>
 
-                {/* Right arrow icon */}
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+                {activeSection === "transactionCode" && (
+                  <TransactionCode user={user} />
+                )}
               </div>
 
               <div className="rounded-lg border border-[#E8E9ED] hover:border-dukiaBlue py-4 px-6 cursor-pointer flex items-center justify-between">
