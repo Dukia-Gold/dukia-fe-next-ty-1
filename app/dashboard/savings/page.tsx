@@ -6,7 +6,7 @@ import SavingsList from "@/components/savingsComponents/SavingsList";
 import TransactionHistory from "@/components/savingsComponents/TransactionHistory";
 import { X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { RiInformation2Fill } from "react-icons/ri";
+import { RiInformation2Fill, RiInformationFill } from "react-icons/ri";
 import {
   Select,
   SelectContent,
@@ -18,6 +18,12 @@ import {
 const SavingsPage = () => {
   const [createNew, setCreateNew] = React.useState<number>(0);
   const [selectedGateway, setSelectedGateway] = React.useState<string>("");
+  const [formData, setFormData] = React.useState({
+    title: "",
+    amount: "",
+    plan_code: "",
+    frequency: "Monthly", // Assuming this is a fixed value as per the UI
+  });
 
   return (
     <main className="flex justify-between px-4 py-7 bg-white rounded-2xl">
@@ -40,6 +46,18 @@ const SavingsPage = () => {
           setCreateNew={setCreateNew}
           selectedGateway={selectedGateway}
           setSelectedGateway={setSelectedGateway}
+          formData={formData}
+          setFormData={setFormData}
+        />
+      )}
+
+      {createNew === 3 && (
+        <Step3
+          setCreateNew={setCreateNew}
+          selectedGateway={selectedGateway}
+          setSelectedGateway={setSelectedGateway}
+          formData={formData}
+          setFormData={setFormData}
         />
       )}
     </main>
@@ -157,7 +175,9 @@ const Step2: React.FC<{
   setCreateNew: (value: number) => void;
   selectedGateway: string;
   setSelectedGateway: (gateway: string) => void;
-}> = ({ setCreateNew, setSelectedGateway }) => {
+  formData: any;
+  setFormData: (formData: any) => void;
+}> = ({ setCreateNew, setSelectedGateway, formData, setFormData }) => {
   const amount = [
     "5000",
     "10000",
@@ -172,12 +192,6 @@ const Step2: React.FC<{
   ];
   const [plans, setPlans] = React.useState<Array<any> | null>(null);
   const [error, setError] = React.useState<string>("");
-  const [formData, setFormData] = React.useState({
-    title: "",
-    amount: "",
-    plan_code: "",
-    frequency: "Monthly", // Assuming this is a fixed value as per the UI
-  });
 
   React.useEffect(() => {
     const fetchPlans = async () => {
@@ -200,7 +214,7 @@ const Step2: React.FC<{
 
   const handleInputChange = (value: string, name: string) => {
     console.log(value);
-    setFormData((prevState) => ({
+    setFormData((prevState: any) => ({
       ...prevState,
       [name]: value,
     }));
@@ -325,10 +339,93 @@ const Step2: React.FC<{
           </div>
 
           {/* NEXT button */}
-          <button className="rounded-lg py-3 px-4 text-white bg-dukiaBlue w-full font-semibold">
+          <button
+            onClick={() => setCreateNew(3)}
+            className="rounded-lg py-3 px-4 text-white bg-dukiaBlue w-full font-semibold"
+          >
             Next
           </button>
         </form>
+      </div>
+    </div>
+  );
+};
+
+const Step3: React.FC<{
+  setCreateNew: (value: number) => void;
+  selectedGateway: string;
+  setSelectedGateway: (gateway: string) => void;
+  formData: any;
+  setFormData: (formData: any) => void;
+}> = ({
+  setCreateNew,
+  selectedGateway,
+  setSelectedGateway,
+  formData,
+  setFormData,
+}) => {
+  const closeModal = () => {
+    setCreateNew(0);
+    setSelectedGateway("");
+  };
+
+  return (
+    <div className="fixed top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
+      <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out rounded-2xl py-3 md:py-6 px-5 md:px-6 w-[95%] md:w-[37.5rem] space-y-7">
+        <div className="flex items-center justify-between">
+          <p className="font-semibold">Authorise Savings Plan</p>
+
+          <button
+            onClick={closeModal}
+            className="p-2.5 bg-dukiaBlue/[5%] rounded-[50%]"
+          >
+            <X width={18} height={18} />
+          </button>
+        </div>
+
+        <div className="space-y-7">
+          <div className="space-y-5">
+            <div className="border-[0.5px] border-[#B9BBC8] bg-white p-3 space-y-5 rounded-lg text-sm">
+              <p className="text-[#676D88]">
+                <span className="font-semibold text-dukiaGold">Sign to authorise</span>
+                <br /> <br />
+                <span className="font-semibold text-dukiaBlue">Authorization for Direct Debit On My Bank Account</span>
+                <br /> <br />
+                I, Boluwatife Eze ,with the account number 2038741832, hereby
+                authorize Dukia Gold to initiate a direct debit to automatically
+                debit my bank account at your bank.
+              </p>
+
+              <div className="flex items-center gap-3">
+                <input type="checkbox" name="" id="" className="w-7 h-7 outline-none" />
+                <p>by check this box, you have signed the standing order</p>
+              </div>
+            </div>
+
+            <div className="border-[0.5px] border-dukiaGold bg-[#FBF7EB] rounded-lg p-3 space-y-5 text-sm">
+              <div className="flex items-center gap-3">
+                <RiInformationFill size={24} />
+                <p className="font-semibold">Important Notice</p>
+              </div>
+
+              <p>
+                Please note that, autodebit is initiated by our partner payment
+                gateway, {selectedGateway}. Your first autosave will be
+                initiated as soon as you create a saving plan with us. Next
+                autodebit is on 30th of September, 2024. <br /> <br />{" "}
+                Transaction charges: 1% on ₦100,000; 1.5% on amount over
+                ₦100,000.
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setCreateNew(4)}
+            className="rounded-lg py-3 px-4 text-white bg-dukiaBlue w-full font-semibold"
+          >
+            Create Plan
+          </button>
+        </div>
       </div>
     </div>
   );
