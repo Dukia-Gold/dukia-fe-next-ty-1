@@ -22,7 +22,6 @@ const SavingsPage = () => {
     title: "",
     amount: "",
     plan_code: "",
-    frequency: "Monthly", // Assuming this is a fixed value as per the UI
   });
 
   return (
@@ -366,8 +365,11 @@ const Step3: React.FC<{
 }) => {
   const closeModal = () => {
     setCreateNew(0);
+    setFormData({});
     setSelectedGateway("");
   };
+
+  const [consent, setConsent] = React.useState(false);
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
@@ -387,9 +389,13 @@ const Step3: React.FC<{
           <div className="space-y-5">
             <div className="border-[0.5px] border-[#B9BBC8] bg-white p-3 space-y-5 rounded-lg text-sm">
               <p className="text-[#676D88]">
-                <span className="font-semibold text-dukiaGold">Sign to authorise</span>
+                <span className="font-semibold text-dukiaGold">
+                  Sign to authorise
+                </span>
                 <br /> <br />
-                <span className="font-semibold text-dukiaBlue">Authorization for Direct Debit On My Bank Account</span>
+                <span className="font-semibold text-dukiaBlue">
+                  Authorization for Direct Debit On My Bank Account
+                </span>
                 <br /> <br />
                 I, Boluwatife Eze ,with the account number 2038741832, hereby
                 authorize Dukia Gold to initiate a direct debit to automatically
@@ -397,7 +403,13 @@ const Step3: React.FC<{
               </p>
 
               <div className="flex items-center gap-3">
-                <input type="checkbox" name="" id="" className="w-7 h-7 outline-none" />
+                <input
+                  type="checkbox"
+                  onChange={(e) => setConsent(e.target.checked)}
+                  name=""
+                  id=""
+                  className="w-7 h-7 outline-none cursor-pointer"
+                />
                 <p>by check this box, you have signed the standing order</p>
               </div>
             </div>
@@ -421,7 +433,8 @@ const Step3: React.FC<{
 
           <button
             onClick={() => setCreateNew(4)}
-            className="rounded-lg py-3 px-4 text-white bg-dukiaBlue w-full font-semibold"
+            disabled={!consent}
+            className="rounded-lg py-3 px-4 text-white bg-dukiaBlue disabled:opacity-50 disabled:cursor-not-allowed w-full font-semibold"
           >
             Create Plan
           </button>
