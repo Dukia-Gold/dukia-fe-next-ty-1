@@ -2,27 +2,31 @@
 
 import { useState } from "react";
 import axios from "axios";
-import cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { userStore } from "@/store/user";
-import { useCookies } from "react-cookie";
+import Cookies from "js-cookie";
 import useLoadingStore from "@/store/loadingStore";
 import { transactionStore } from "@/store/transactions";
 import useModalsStore from "@/store/modalsStore";
 
 const useAuth = () => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const isLocalhost =
+    typeof window !== "undefined" && window.location.hostname === "localhost";
   const updateModals = useModalsStore((state: any) => state.updateModals);
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
   const clearTransactions = transactionStore(
     (state: any) => state.clearTransactions
   );
-  const [cookies] = useCookies(["auth-token"]);
-  const token = cookies["auth-token"];
+  const token = Cookies.get("auth-token");
   const { toast } = useToast();
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
-  const updateUser = userStore((state: any) => state.updateUser);
-  const clearUser = userStore((state: any) => state.clearUser);
+  const { updateUser, clearUser } = userStore((state: any) => ({
+    user: state.user,
+    updateUser: state.updateUser,
+    clearUser: state.clearUser,
+  }));
   const router = useRouter();
 
   const loginUser = async (
@@ -35,11 +39,16 @@ const useAuth = () => {
       updateLoading(true);
 
       const response = await axios.post(
-        "https://api.dukiapreciousmetals.co/api/login",
+        `${baseUrl}/login`,
         {
           email,
           password,
           device_name: deviceName,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+          },
         }
       );
 
@@ -50,21 +59,16 @@ const useAuth = () => {
       const expiryDate = new Date(expiresAt);
 
       // Ensure the cookie is set before redirecting
-      await new Promise((resolve, reject) => {
-        // Correct the argument count by omitting the callback if `cookie.set` only accepts 2 or 3 arguments
-        cookie.set("auth-token", authorization, {
-          expires: expiryDate,
-          secure: true,
-          sameSite: "none",
-        });
-        resolve(true); // Resolve the promise directly after setting the cookie
+
+      Cookies.set("auth-token", authorization, {
+        expires: expiryDate,
+        secure: !isLocalhost, // Only secure if not localhost
+        sameSite: isLocalhost ? "lax" : "none", // Use "lax" for localhost
       });
 
       updateModals({ login: false });
       updateLoading(false);
-
-      // Redirect after cookie is set
-      // router.push("/dashboard");
+      window.location.assign("/dashboard");
     } catch (error: any) {
       // console.log(error.response.status);
       if (error.response.status === 401) {
@@ -81,6 +85,12 @@ const useAuth = () => {
           description:
             error.response?.data?.message || "This email is not registered!",
         });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: error.response?.data?.message || "An error occured!",
+        });
       }
       updateLoading(false);
     }
@@ -89,33 +99,33 @@ const useAuth = () => {
   const logout = async () => {
     try {
       updateLoading(true);
-      await axios.post(
-        "https://api.dukiapreciousmetals.co/api/v2/logout",
-        null, // Assuming no data payload for logout
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Include the bearer token here
-          },
-        }
-      );
-
-      cookie.remove("auth-token");
-      clearTransactions();
-      clearUser();
-
-      router.push("/login");
-      updateLoading(false);
-    } catch (error: any) {
-      // console.log(error.response.status);
-      if (token) {
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description:
-            "There was a problem connecting to the server. Please check your internet connection and try again.",
-        });
+      if (!token) {
+        throw new Error("No authentication token found");
       }
+
+      await axios.post(`${baseUrl}/v2/logout`, null, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Clear all auth-related data
+      Cookies.remove("auth-token");
+      clearTransactions();
+      await clearUser();
+
+      // Redirect to home page
+      window.location.assign("/");
+    } catch (error: any) {
+      console.error("Logout error:", error);
+      toast({
+        variant: "destructive",
+        title: "Logout Failed",
+        description:
+          error.message || "An error occurred during logout. Please try again.",
+      });
+    } finally {
       updateLoading(false);
     }
   };

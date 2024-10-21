@@ -1,5 +1,6 @@
 "use client";
 
+import React from 'react'; // {{ edit_1 }}
 import Newsletter from "@/components/landingPageComponents/landingPageSections/Newsletter";
 import { ArrowRight, Search } from "lucide-react";
 import Link from "next/link";
@@ -16,11 +17,10 @@ export default function BuyGoldLayout({ children }: BuyGoldLayoutProps) {
 
   return (
     <div className="flex flex-col dark:bg-dukiaBlue">
-      <div className="md:container px-3 pt-32 pb-20 flex flex-col gap-7 md:gap-14">
+      <div className="max-w-[1063px] mx-auto w-full pt-32 pb-20 flex flex-col gap-7 md:gap-14">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-10 text-dukiaBlue dark:text-white gap-3">
           <div className="flex items-center gap-2 text-lg font-bold">
-            <Link href="/">Home</Link>
-            <ArrowRight size={18} />{" "}
+            <Link href="/">Home /</Link>
             <Link
               href="/buy-gold"
               className={`${pathname === "/buy-gold" ? "text-dukiaGold" : ""}`}

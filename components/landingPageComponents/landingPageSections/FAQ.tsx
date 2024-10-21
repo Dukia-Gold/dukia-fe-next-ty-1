@@ -1,52 +1,115 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FAQComp from "../FAQComp";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { faqs } from "@/config/landing_page/home";
 
 const FAQ = () => {
-  const FAQArray = [
-    {
-      id: 1,
-      title: "Who is Dukia Gold? ",
-      content:
-        "Dukia Gold & Precious Metals Refining Co. Ltd (“Dukia Gold”) is a full-service bullion merchant involved in the trading (buying and selling), vaulting and custodial services of gold and other precious metals in addition to our other gold value chain activities from mines to market. ",
-    },
-    {
-      id: 2,
-      title: "How do I buy gold from you?",
-      content:
-        "Once your Dukia Gold Trading Account has been set up, you can then start buying from our selection of investment grade gold products.",
-    },
-    {
-      id: 3,
-      title: "What are your delivery methods?",
-      content:
-        "Our packages are discretely wrapped and delivered through our partner couriers with an option for insurance. You can also advise your preferred courier service provider and arrange for your insurance. When you receive goods from us by courier, we advise you ensure the external packaging has not been tampered with. If you notice any sign of tampering or damages, you should not sign for it.",
-    },
-    {
-      id: 4,
-      title: "Can you store your gold with us?",
-      content:
-        "Yes, you can opt for storage of your gold at our designated LBMA accredited state-of-the-art, high security, and fully insured storage facility in Switzerland and UK. ",
-    },
-  ];
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
 
-  const title = "Lorem ipsum dolor sit amet consectetur?";
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    } else {
+      controls.start("hidden");
+    }
+  }, [controls, inView]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20, rotateX: -45 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      },
+    },
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, scale: 0.5 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 15,
+      },
+    },
+  };
+
+  const buttonVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      },
+    },
+  };
+
   return (
-    <section
+    <motion.section
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      variants={containerVariants}
       id="FAQ"
-      className="dark:bg-dukiaBlue dark:text-white py-12 px-4 sm:px-auto"
+      className="mt-[120px] dark:bg-dukiaBlue dark:text-white px-4 sm:px-auto"
     >
-      <div className="md:container space-y-14 flex flex-col items-center">
-        <p className="font-bold text-2xl text-center">
+      <div className="max-w-[1064px] mx-auto w-full space-y-4 flex flex-col items-center">
+        <motion.p
+          variants={titleVariants}
+          className="font-extrabold text-dukiaBlue dark:text-white text-[2.5rem]/[3.75rem] text-center"
+        >
           Frequently Asked Questions (FAQs)
-        </p>
+        </motion.p>
 
-        <div className="grid gap-4">
-          {FAQArray.map((faq) => (
-            <FAQComp key={faq.id} title={faq.title} content={faq.content} />
+        <motion.div
+          variants={containerVariants}
+          className="grid gap-2.5 w-full"
+        >
+          {faqs.slice(0, 5).map((faq) => (
+            <motion.div key={faq.id} variants={itemVariants}>
+              <FAQComp title={faq.title} content={faq.content} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
+
+        <motion.div variants={buttonVariants} className="pt-16">
+          <Link
+            href="/faqs"
+            className="flex items-center gap-2.5 py-3 px-5 bg-[#E8E9ED] rounded-lg font-semibold"
+          >
+            See All <ArrowRight size={19} />
+          </Link>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

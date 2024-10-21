@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "@/components/landingPageComponents/Header";
 import Footer from "@/components/landingPageComponents/Footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -9,6 +10,7 @@ import DepositModal from "@/components/modals/DepositModal";
 import SuccessfulDepositModal from "@/components/modals/SuccessfulDepositModal";
 import WithdrawalModal from "@/components/modals/WithdrawalModal";
 import LoginModal from "@/components/modals/authModals/LoginModal";
+import Copyright from "@/components/landingPageComponents/Copyright";
 // import ConfirmWithdrawalModal from "@/components/modals/ConfirmWithdrawalModal";
 // import ConfirmWithdrawalModal from "@/components/modals/ConfirmWithdrawalModal";
 
@@ -36,8 +38,10 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
+  auth,
   children,
 }: Readonly<{
+  auth: React.ReactNode;
   children: React.ReactNode;
 }>) {
   return (
@@ -45,6 +49,8 @@ export default function RootLayout({
       <body className={`${manrope.className} min-h-screen bg-white`}>
         <Header />
         <main className="min-h-screen flex flex-col justify-between">
+          {auth}
+
           {children}
 
           <Toaster />
@@ -64,6 +70,10 @@ export default function RootLayout({
           </>
 
           <Footer />
+
+          <Copyright />
+
+          <SpeedInsights />
         </main>
       </body>
     </html>

@@ -7,9 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { formatCurrency } from "@/lib/currencyformatter";
+import { fetchProductSearch } from "@/lib/fetchProductSearch";
+import { ArrowDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { notFound } from "next/navigation";
+import { format } from "path";
+import { useEffect, useState } from "react";
 
 interface Bar {
   key: number;
@@ -19,7 +24,7 @@ interface Bar {
 }
 
 interface BarCardProps {
-  bar: Bar;
+  bar: any;
   isFront: boolean;
   handleMouseEnter: () => void;
   handleMouseLeave: () => void;
@@ -34,48 +39,80 @@ const BarCard: React.FC<BarCardProps> = ({
   handleClick,
 }) => {
   return (
-    <Card
-      key={bar.key}
-      className="dark:bg-white/[5%] shadow-lg pt-5 border-none rounded-2xl flex flex-col items-center w-[100%] gap-5"
-    >
-      <CardHeader>
-        <CardTitle className="text-center">{bar.title}</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <div className="border border-[#E8E9ED] space-y-4 bg-white rounded-xl">
+      <div className="flex justify-center py-3">
         <Image
-          src={isFront ? bar.imageFront : bar.imageBack}
+          src={isFront ? bar.thumbnail_url : bar.thumbnail_url2}
           alt={bar.title}
-          width={350}
-          height={350}
+          width={200}
+          height={344}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={handleClick}
           className="cursor-pointer"
         />
-      </CardContent>
-      <CardFooter className="relative w-full rounded-b-2xl">
-        <div className="absolute inset-0 bg-black/[6%] dark:bg-dukiaDark/[30%] blur w-full h-full"></div>
-        <div className="pt-5 w-full h-full inset-0 text-dukiaGold text-center">
-          <p className="text-sm">
-            Please call{" "}
-            <span className="font-bold text-base underline">
-              +234 703 323 8121
-            </span>{" "}
-            or send an email to{" "}
-            <span className="font-bold text-base underline">
-              <Link href="mailto:sales@dukiapreciousmetals.co">
-                sales@dukiapreciousmetals.co
-              </Link>
-            </span>{" "}
-            to order.
+      </div>
+
+      <div className="px-3 pb-3 font-semibold space-y-5">
+        <div className="space-y-2 text-base/5">
+          <p>{bar.name}</p>
+
+          <p className="flex gap-1 items-center">
+            {formatCurrency(bar.ask_price)}{" "}
+            <span className="text-xs text-red-600 flex items-center">
+              <ArrowDown size={12} />0.99%
+            </span>
           </p>
         </div>
-      </CardFooter>
-    </Card>
+
+        <button className="bg-dukiaBlue py-3 text-white rounded-lg w-full">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+    // <Card
+    //   key={bar.key}
+    //   className="dark:bg-white/[5%] shadow-lg pt-5 border-none rounded-2xl flex flex-col items-center w-[100%] gap-5"
+    // >
+    //   <CardHeader>
+    //     <CardTitle className="text-center">{bar.name}</CardTitle>
+    //   </CardHeader>
+    //   <CardContent>
+    //     <Image
+    //       src={isFront ? bar.thumbnail_url : bar.thumbnail_url2}
+    //       alt={bar.title}
+    //       width={350}
+    //       height={350}
+    //       onMouseEnter={handleMouseEnter}
+    //       onMouseLeave={handleMouseLeave}
+    //       onClick={handleClick}
+    //       className="cursor-pointer"
+    //     />
+    //   </CardContent>
+    //   <CardFooter className="relative w-full rounded-b-2xl">
+    //     <div className="absolute inset-0 bg-black/[6%] dark:bg-dukiaDark/[30%] blur w-full h-full"></div>
+    //     <div className="pt-5 w-full h-full inset-0 text-dukiaGold text-center">
+    //       <p className="text-sm">
+    //         Please call{" "}
+    //         <span className="font-bold text-base underline">
+    //           +234 703 323 8121
+    //         </span>{" "}
+    //         or send an email to{" "}
+    //         <span className="font-bold text-base underline">
+    //           <Link href="mailto:sales@dukiapreciousmetals.co">
+    //             sales@dukiapreciousmetals.co
+    //           </Link>
+    //         </span>{" "}
+    //         to order.
+    //       </p>
+    //     </div>
+    //   </CardFooter>
+    // </Card>
   );
 };
 
 const BarsPage = () => {
+  const [bars, setBars] = useState([]);
   const [flippedState, setFlippedState] = useState<{ [key: number]: boolean }>(
     {}
   );
@@ -91,6 +128,18 @@ const BarsPage = () => {
   const handleClick = (key: number) => {
     setFlippedState((prev) => ({ ...prev, [key]: !prev[key] }));
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const products = await fetchProductSearch("bar");
+      setBars(products);
+      console.log(products);
+      if (!products) return notFound();
+    };
+
+    const interval = setInterval(fetchData, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   const BarsArray: Bar[] = [
     {
@@ -155,14 +204,14 @@ const BarsPage = () => {
       <p className="xl:hidden font-bold text-[2.5rem]">Gold Bars</p>
 
       <div className="w-full grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {BarsArray.map((bar) => (
+        {bars?.map((bar, index: number) => (
           <BarCard
-            key={bar.key}
+            key={index}
             bar={bar}
-            isFront={flippedState[bar.key] !== false}
-            handleMouseEnter={() => handleMouseEnter(bar.key)}
-            handleMouseLeave={() => handleMouseLeave(bar.key)}
-            handleClick={() => handleClick(bar.key)}
+            isFront={flippedState[index] !== false}
+            handleMouseEnter={() => handleMouseEnter(index)}
+            handleMouseLeave={() => handleMouseLeave(index)}
+            handleClick={() => handleClick(index)}
           />
         ))}
       </div>

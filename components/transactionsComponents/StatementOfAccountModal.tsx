@@ -1,21 +1,19 @@
+"use client";
+
 import { userStore } from "@/store/user";
 import { DatePicker, DatePickerProps } from "antd";
 import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import useDownloadAccountStatement from "@/api/downloadAccountStatement";
 import useLoadingStore from "@/store/loadingStore";
-import LoadingModal from "../loadingModal";
+import useModalsStore from "@/store/modalsStore";
 
-interface StatementOfAccountModalProps {
-  isOpen: boolean;
-  closeModal: () => void;
-}
+const StatementOfAccountModal = () => {
+  const statementOfAccount = useModalsStore(
+    (state: any) => state.statementOfAccount
+  );
+  const updateModals = useModalsStore((state: any) => state.updateModals);
 
-const StatementOfAccountModal = ({
-  isOpen,
-  closeModal,
-}: StatementOfAccountModalProps) => {
-  const loading = useLoadingStore((state: any) => state.loading);
   const [start_date, setStart_date] = useState("");
   const [start_dateVal, setStart_dateVal] = useState<Dayjs | null>(null);
   const [end_date, setEnd_date] = useState("");
@@ -42,7 +40,7 @@ const StatementOfAccountModal = ({
 
   const user = userStore((state: any) => state.user);
   useEffect(() => {
-    if (isOpen) {
+    if (statementOfAccount) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -51,7 +49,7 @@ const StatementOfAccountModal = ({
 
   const downloadAccountStatement = useDownloadAccountStatement();
 
-  if (!isOpen) {
+  if (statementOfAccount === false || statementOfAccount === undefined) {
     return null;
   }
 
@@ -67,7 +65,10 @@ const StatementOfAccountModal = ({
             </p>
           </div>
 
-          <button onClick={closeModal} className="text-3xl">
+          <button
+            onClick={() => updateModals({ statementOfAccount: false })}
+            className="text-3xl"
+          >
             &times;
           </button>
         </div>

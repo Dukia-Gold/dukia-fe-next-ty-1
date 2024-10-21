@@ -1,9 +1,6 @@
 import {
   Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  CardContent
 } from "@/components/ui/card";
 import {
   Carousel,
@@ -113,7 +110,7 @@ const AsFeaturedIn = () => {
   ];
 
   return (
-    <section className="px-2 md:px-8 py-12 bg-dukiaGrey dark:bg-dukiaDark text-dukiaBlue dark:text-white">
+    <section className="px-2 md:px-8 mt-[120px] dark:bg-dukiaDark text-dukiaBlue dark:text-white">
       <div className="md:container flex flex-col items-center space-y-14">
         <div className="flex flex-col gap-2 text-center">
           <p className="font-bold text-[1.75rem]">As Featured In</p>
