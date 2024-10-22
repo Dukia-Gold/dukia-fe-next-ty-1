@@ -33,7 +33,6 @@ const PoolAllocated = () => {
         const precisePrice = gram * data.ask_price;
         const roundedPrice = roundUpToNearestTen(precisePrice);
         setPrice(formatDecimal(roundedPrice, 2, true));
-        setPrice(formatDecimal(gram * data.ask_price, 2, true));
       } else {
         setGram(formatDecimal(localPrice / goldPricePerGram, 4));
       }

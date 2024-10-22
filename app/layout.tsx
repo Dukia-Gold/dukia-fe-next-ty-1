@@ -41,7 +41,6 @@ export const metadata: Metadata = {
       url: "https://www.dukiagold.com",
     },
   ],
-  themeColor: "#000000",
   robots: [
     "index",
     "follow",
