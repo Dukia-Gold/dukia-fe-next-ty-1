@@ -1,5 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import checkAuth from "@/lib/checkAuth";
+import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -32,6 +35,18 @@ export default function DashboardLayout({
     if (modalOptions.onConfirm) modalOptions.onConfirm();
     closeModal();
   };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuthInterval = setInterval(() => {
+      if (!checkAuth()) {
+        router.push("/");
+      }
+    }, 1000);
+
+    return () => clearInterval(checkAuthInterval);
+  }, [router]);
 
   return (
     <div

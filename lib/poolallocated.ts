@@ -70,7 +70,6 @@ const PoolAllocated = () => {
 
   const handlePriceInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/,/g, "");
-    console.log(e.target.value);
     if (!isNaN(Number(value)) || value === "" || value === ".") {
       localPrice = Number(value);
 

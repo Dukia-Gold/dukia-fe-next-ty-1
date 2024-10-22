@@ -1,7 +1,9 @@
 import { fullProductsStore } from "@/store/fullProducts";
+import { useProductStore } from "@/store/product";
 import { useEffect } from "react";
 
 const useFetchProducts = () => {
+  const setProducts = useProductStore((state) => state.setProducts);
   const updateFullProducts = fullProductsStore(
     (state: any) => state.updateFullProducts
   );
@@ -14,6 +16,7 @@ const useFetchProducts = () => {
       if (response.ok) {
         // Check if the response status is OK (200-299)
         const products = await response.json();
+        setProducts(products);
         updateFullProducts(products);
       } else {
         console.error(`Error fetching products: ${response.statusText}`);
