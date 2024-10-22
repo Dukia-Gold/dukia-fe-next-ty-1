@@ -5,6 +5,30 @@ import Cookies from "js-cookie";
 import useModalsStore from "@/store/modalsStore";
 import { useRouter } from "next/navigation";
 
+const items = [
+  {
+    price: "₦10,000",
+    weight: "0.05g",
+    change: "0.11%",
+    changeType: "down",
+    color: "text-red-500",
+  },
+  {
+    price: "₦15,000",
+    weight: "0.08g",
+    change: "0.11%",
+    changeType: "up",
+    color: "text-dukiaBlue",
+  },
+  {
+    price: "₦20,000",
+    weight: "0.11g",
+    change: "0.11%",
+    changeType: "up",
+    color: "text-green-500",
+  },
+];
+
 const Shop = () => {
   const router = useRouter();
   const token = Cookies.get("auth-token");
@@ -168,119 +192,52 @@ const Shop = () => {
             </button> */}
           </div>
         </div>
+
         <div className="flex flex-row justify-between mx-6 gap-4">
-          <div className="bg-white rounded-xl">
-            <Image
-              src="https://res.cloudinary.com/dvcw253zw/image/upload/v1729386042/Dust_soqtdr.png"
-              alt="Dukia Gold: Gold Bar 1 g - Philoro"
-              width={300}
-              height={300}
-              className="rounded-xl"
-            />
-            <div className="text-dukiaBlue space-y-2 m-4">
-              <p className="text-[16px] font-semibold leading-[19.2px] tracking-[-0.03em]">
-                Fractional Gold
-              </p>
-              <div className="flex items-center justify-between">
-                <p className="text-[20px] font-extrabold leading-[30px] tracking-[-0.03em]">
-                  ₦10,000
+          {items.map((item, index) => (
+            <div className="bg-white rounded-xl" key={index}>
+              <Image
+                src="https://res.cloudinary.com/dvcw253zw/image/upload/v1729386042/Dust_soqtdr.png"
+                alt="Dukia Gold: Gold Bar 1 g - Philoro"
+                width={300}
+                height={300}
+                className="rounded-xl"
+              />
+              <div className="text-dukiaBlue space-y-2 m-4">
+                <p className="text-[16px] font-semibold leading-[19.2px] tracking-[-0.03em]">
+                  Fractional Gold
                 </p>
-                <span className="flex items-center gap-3 text-dukiaBlue bg-dukiaGrey px-2 py-1 rounded-lg text-sm font-bold">
-                  0.05g
-                  <span className="text-red-500 flex text-xs">
-                    <ArrowDown size={16} />
-                    0.11%
+                <div className="flex items-center justify-between">
+                  <p className="text-[20px] font-extrabold leading-[30px] tracking-[-0.03em]">
+                    {item.price}
+                  </p>
+                  <span className="flex items-center gap-3 text-dukiaBlue bg-dukiaGrey px-2 py-1 rounded-lg text-sm font-bold">
+                    {item.weight}
+                    <span className={`flex text-xs ${item.color}`}>
+                      {item.changeType === "down" ? (
+                        <ArrowDown size={16} />
+                      ) : (
+                        <ArrowUp size={16} />
+                      )}
+                      {item.change}
+                    </span>
                   </span>
-                </span>
+                </div>
+                <button
+                  onClick={() => {
+                    if (token) {
+                      router.push("/dashboard");
+                    } else {
+                      updateModals({ login: true });
+                    }
+                  }}
+                  className="w-full py-2 mt-4 rounded-lg bg-dukiaGrey text-center text-dukiaBlue font-semibold hover:bg-dukiaGold"
+                >
+                  Buy Now
+                </button>
               </div>
-              <button
-                onClick={() => {
-                  if (token) {
-                    router.push("/dashboard");
-                  } else {
-                    updateModals({ login: true });
-                  }
-                }}
-                className="w-full py-2 mt-4 rounded-lg bg-dukiaGrey text-center text-dukiaBlue font-semibold hover:bg-dukiaGold"
-              >
-                Buy Now
-              </button>
             </div>
-          </div>
-          <div className="bg-white rounded-xl">
-            <Image
-              src="https://res.cloudinary.com/dvcw253zw/image/upload/v1729386042/Dust_soqtdr.png"
-              alt="Dukia Gold: Gold Bar 1 g - Philoro"
-              width={300}
-              height={300}
-              className="rounded-xl"
-            />
-            <div className="text-dukiaBlue space-y-2 m-4">
-              <p className="text-[16px] font-semibold leading-[19.2px] tracking-[-0.03em]">
-                Fractional Gold
-              </p>
-              <div className="flex items-center justify-between">
-                <p className="text-[20px] font-extrabold leading-[30px] tracking-[-0.03em]">
-                  ₦15,000
-                </p>
-                <span className="flex items-center gap-3 text-dukiaBlue bg-dukiaGrey px-2 py-1 rounded-lg text-sm font-bold">
-                  0.08g
-                  <span className="text-dukiaBlue text-xs flex">
-                    <ArrowUp size={16} />
-                    0.11%
-                  </span>
-                </span>
-              </div>
-              <button 
-               onClick={() => {
-                if (token) {
-                  router.push("/dashboard");
-                } else {
-                  updateModals({ login: true });
-                }
-              }}
-              className="w-full py-2 mt-4 rounded-lg bg-dukiaGrey text-center text-dukiaBlue font-semibold hover:bg-dukiaGold">
-                Buy Now
-              </button>
-            </div>
-          </div>
-          <div className="bg-white rounded-xl">
-            <Image
-              src="https://res.cloudinary.com/dvcw253zw/image/upload/v1729386042/Dust_soqtdr.png"
-              alt="Dukia Gold: Gold Bar 1 g - Philoro"
-              width={300}
-              height={300}
-              className="rounded-xl"
-            />
-            <div className="text-dukiaBlue space-y-2 m-4">
-              <p className="text-[16px] font-semibold leading-[19.2px] tracking-[-0.03em]">
-                Fractional Gold
-              </p>
-              <div className="flex items-center justify-between">
-                <p className="text-[20px] font-extrabold leading-[30px] tracking-[-0.03em]">
-                  ₦20,000
-                </p>
-                <span className="flex items-center gap-3 text-dukiaBlue bg-dukiaGrey px-2 py-1 rounded-lg text-sm font-bold">
-                  0.11g
-                  <span className="text-green-500 text-xs flex">
-                    <ArrowUp size={16} />
-                    0.11%
-                  </span>
-                </span>
-              </div>
-              <button 
-               onClick={() => {
-                if (token) {
-                  router.push("/dashboard");
-                } else {
-                  updateModals({ login: true });
-                }
-              }}
-              className="w-full py-2 mt-4 rounded-lg bg-dukiaGrey text-center text-dukiaBlue font-semibold hover:bg-dukiaGold">
-                Buy Now
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
       <div className="flex  justify-between  px-[27rem] py-20 gap-7 mx-auto ">
