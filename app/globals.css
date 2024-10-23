@@ -32,6 +32,10 @@
   overflow-y: hidden;
 }
 
+.slick-dots, :where(.css-dev-only-do-not-override-m4timi).ant-carousel .slick-dots{
+  display: none !important;
+}
+
 @keyframes flash {
   0% {
     background-color: yellow;

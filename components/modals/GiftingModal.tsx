@@ -44,7 +44,10 @@ const GiftingModal = () => {
     setUserID(user?.id || null);
     const fetchBalance = async () => {
       const balanceData = await findBalanceById("pool-allocated-1g");
-      setBalance(balanceData);
+      if (balanceData) {
+        setBalance(balanceData);
+      } else {
+      }
     };
 
     fetchBalance();
@@ -193,8 +196,8 @@ const GiftingModal = () => {
 
                     {/* User's balance */}
                     <p>
-                      Bal: {balance.total_weight}
-                      {balance.total_weight_unit}
+                      Bal: {balance?.total_weight || '0.0000'}
+                      {balance?.total_weight_unit || 'g'}
                     </p>
                   </div>
 
@@ -208,7 +211,7 @@ const GiftingModal = () => {
                     pattern="[0-9]*.?[0-9]*"
                     placeholder="0.09"
                     className={`${
-                      quantity > balance.total_weight &&
+                      quantity > balance?.total_weight &&
                       "outline-red-600 border-red-600"
                     } w-full border-2 p-4 rounded-lg border-[#E8E9ED] placeholder:text-[#979BAE] disabled:bg-dukiaBlue/[15%] disabled:border-dukiaBlue/[15%] disabled:cursor-not-allowed`}
                   />
@@ -260,7 +263,7 @@ const GiftingModal = () => {
               <button
                 disabled={
                   quantity < 0.01 ||
-                  quantity > Number(balance.total_weight) ||
+                  quantity > Number(balance?.total_weight) ||
                   !username ||
                   username.status === "error" ||
                   fee?.status === "error" ||
