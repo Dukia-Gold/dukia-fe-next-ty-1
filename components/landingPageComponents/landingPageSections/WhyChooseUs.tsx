@@ -45,7 +45,7 @@ const WhyChooseUs = () => {
               <p className="text-dukiaBlue text-[14px] font-normal leading-[21px] tracking-[-0.03em] text-left">
                 For your peace of mind, your gold holdings are safe, secure, and
                 insured with our designated third-party LBMA Vaulting Service
-                Provider, Brink's. Products in transit are discreetly packed in
+                Provider, Brink&apos;s. Products in transit are discreetly packed in
                 tamper-proof packaging and safely delivered to you.
               </p>
             </div>
@@ -101,7 +101,7 @@ const WhyChooseUs = () => {
               </h5>
               <p className="text-dukiaBlue text-[14px] font-normal leading-[21px] tracking-[-0.03em] text-left">
                 At Dukia Gold, we take seriously the safeguarding of our
-                customers' interests and we have established frameworks and
+                customers&apos; interests and we have established frameworks and
                 controls for risk management on an ongoing basis taking into
                 account operational risks, unlikely event of winding-down, legal
                 and compliance risks.
