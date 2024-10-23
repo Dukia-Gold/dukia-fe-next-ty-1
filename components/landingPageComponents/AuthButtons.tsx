@@ -1,28 +1,25 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Cookies from "js-cookie";
+import checkAuth from "@/lib/checkAuth";
 
 const AuthButtons = ({ updateModals }: { updateModals: any }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check authentication status here
-    const checkAuth = () => {
-      const token = Cookies.get("auth-token"); // or however you store your token
-      setIsAuthenticated(!!token);
+    // Check authentication status every second
+    const checkAuthInterval = async () => {
+      // Make the function async
+      setIsAuthenticated(await checkAuth()); // Await the promise
       setIsLoading(false);
     };
 
-    checkAuth();
+    const interval = setInterval(checkAuthInterval, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   if (isLoading) {
-    return (
-      <div className="font-semibold py-3">
-        Checking Status...
-      </div>
-    ); // or any loading indicator
+    return <div className="font-semibold py-3">Checking Status...</div>; // or any loading indicator
   }
 
   if (isAuthenticated) {
@@ -43,11 +40,14 @@ const AuthButtons = ({ updateModals }: { updateModals: any }) => {
       >
         Login
       </p>
-      <Link href="/login">
-        <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-4 rounded-lg">
-          Register
-        </button>
-      </Link>
+      {/* <Link href="/login"> */}
+      <button
+        onClick={() => updateModals({ register: true })}
+        className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-4 rounded-lg"
+      >
+        Register
+      </button>
+      {/* </Link> */}
     </div>
   );
 };

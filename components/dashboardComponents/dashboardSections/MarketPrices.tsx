@@ -15,6 +15,7 @@ import { Product } from "@/typings/product";
 import Link from "next/link";
 import Chart from "../Chart";
 import { formatCurrency } from "@/lib/currencyformatter";
+import { formatDecimal } from "@/lib/decimalFormatter";
 
 const MarketPrices = () => {
   const [tab, setTab] = useState("bars");
@@ -91,9 +92,9 @@ const MarketPrices = () => {
             <TableHead className="p-2.5 text-dukiaBlue rounded-tl-xl font-bold">
               Market Prices
             </TableHead>
-            <TableHead className="p-2.5 text-dukiaBlue font-bold">
+            {/* <TableHead className="p-2.5 text-dukiaBlue font-bold">
               Chart
-            </TableHead>
+            </TableHead> */}
             {(tab === "bars" || tab === "coins") && (
               <>
                 <TableHead className="p-2.5 text-dukiaBlue font-bold">
@@ -151,11 +152,11 @@ const MarketPrices = () => {
               </TableCell>
 
               {/* Chart */}
-              <TableCell className="p-2.5">
+              {/* <TableCell className="p-2.5">
                 <div>
                   <Chart chartId="chart-token" />
                 </div>
-              </TableCell>
+              </TableCell> */}
 
               {/* Price */}
               <TableCell className="p-2.5">₦ 180,321.85</TableCell>
@@ -204,11 +205,11 @@ const MarketPrices = () => {
                 </TableCell>
 
                 {/* Chart */}
-                <TableCell className="p-2.5">
+                {/* <TableCell className="p-2.5">
                   <div>
-                    {/* <Chart chartId={`chart-${bar.id}-${index}`} /> */}
+                    <Chart chartId={`chart-${bar.id}-${index}`} />
                   </div>
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell className="p-2.5">
                   {bar.bid_formattedPrice}
@@ -216,7 +217,12 @@ const MarketPrices = () => {
                 <TableCell className="p-2.5">
                   {bar.ask_formattedPrice}
                 </TableCell>
-                <TableCell className="p-2.5">{formatCurrency(bar.ask_price - bar.bid_price)}</TableCell>
+                <TableCell className="p-2.5">
+                  {formatDecimal(
+                    ((bar.ask_price - bar.bid_price) / bar.ask_price) * 100
+                  )}
+                  %
+                </TableCell>
                 <TableCell className="p-2.5">{bar.margin_bid}</TableCell>
                 <TableCell className="p-2.5 text-[#43BA64]">
                   <span className="flex items-center">
@@ -253,9 +259,9 @@ const MarketPrices = () => {
                 </TableCell>
 
                 {/* Chart */}
-                <TableCell className="p-2.5">
-                  {/* <Chart chartId={`chart-${coin.id}-${index}`} /> */}
-                </TableCell>
+                {/* <TableCell className="p-2.5">
+                  <Chart chartId={`chart-${coin.id}-${index}`} />
+                </TableCell> */}
 
                 <TableCell className="p-2.5">
                   {coin.bid_formattedPrice}
@@ -263,7 +269,12 @@ const MarketPrices = () => {
                 <TableCell className="p-2.5">
                   {coin.ask_formattedPrice}
                 </TableCell>
-                <TableCell className="p-2.5">{coin.margin_ask}</TableCell>
+                <TableCell className="p-2.5">
+                  {formatDecimal(
+                    ((coin.ask_price - coin.bid_price) / coin.ask_price) * 100
+                  )}
+                  %
+                </TableCell>
                 <TableCell className="p-2.5">{coin.margin_bid}</TableCell>
                 <TableCell className="p-2.5 text-[#43BA64]">
                   <span className="flex items-center">

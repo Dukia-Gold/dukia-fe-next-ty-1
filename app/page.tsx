@@ -5,13 +5,10 @@ import AOS from "aos";
 import "aos/dist/aos.css"; // You can also use <link> for styles
 import Hero from "@/components/landingPageComponents/landingPageSections/Hero";
 import WhoWeAre from "@/components/landingPageComponents/landingPageSections/WhoWeAre";
-import WhatWeOffer from "@/components/landingPageComponents/landingPageSections/WhatWeOffer";
 import Newsletter from "@/components/landingPageComponents/landingPageSections/Newsletter";
 import { toast } from "@/components/ui/use-toast";
 import FAQ from "@/components/landingPageComponents/landingPageSections/FAQ";
-import AsFeaturedIn from "@/components/landingPageComponents/landingPageSections/AsFeaturedIn";
 import CustomerReviews from "@/components/landingPageComponents/landingPageSections/CustomersReviews";
-import WhyChooseDukia from "@/components/landingPageComponents/landingPageSections/WhyChooseDukia";
 import PoolAllocated from "@/components/landingPageComponents/landingPageSections/PoolAllocated";
 import BullionVaultChartComponent from "@/components/landingPageComponents/landingPageSections/BullionVaultChartComponent";
 import Shop from "@/components/landingPageComponents/landingPageSections/Shop";

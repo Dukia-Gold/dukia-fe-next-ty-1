@@ -1,8 +1,10 @@
 "use client";
 
 import useAuth from "@/api/auth/useAuth";
+import { getDeviceName } from "@/lib/getDeviceName";
 import useModalsStore from "@/store/modalsStore";
 import { Eye, EyeOff, X } from "lucide-react";
+import { register } from "module";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -10,14 +12,13 @@ const LoginModal = () => {
   const { loginUser } = useAuth();
   const updateModals = useModalsStore((state: any) => state.updateModals);
   const login = useModalsStore((state: any) => state.login);
-
   const [viewPassword, setViewPassword] = useState<boolean>(false);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const email = event.currentTarget.email.value;
     const password = event.currentTarget.password.value;
-    const deviceName = "device-name"; // Assume a default device name for now
+    const deviceName = getDeviceName();
     await loginUser(email, password, deviceName);
   };
 
@@ -128,7 +129,10 @@ const LoginModal = () => {
 
             <div className="font-semibold flex justify-between">
               <p>Don&apos;t Have an Account?</p>
-              <p className="text-dukiaGold hover:underline cursor-pointer">
+              <p
+                onClick={() => updateModals({ login: false, register: true })}
+                className="text-dukiaGold hover:underline cursor-pointer"
+              >
                 Register
               </p>
             </div>

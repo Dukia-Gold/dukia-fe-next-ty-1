@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Cookies from "js-cookie";
 import SavingsCard from "@/components/savingsComponents/SavingsCard";
 import SavingsList from "@/components/savingsComponents/SavingsList";
 import TransactionHistory from "@/components/savingsComponents/TransactionHistory";
@@ -14,6 +15,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useModalStore } from "@/store/modalStore";
+import useLoadingStore from "@/store/loadingStore";
 
 const SavingsPage = () => {
   const [createNew, setCreateNew] = React.useState<number>(0);
@@ -363,13 +366,57 @@ const Step3: React.FC<{
   formData,
   setFormData,
 }) => {
+  const openModal = useModalStore((state) => state.openModal);
+  const updateLoading = useLoadingStore((state: any) => state.setLoading);
   const closeModal = () => {
     setCreateNew(0);
     setFormData({});
     setSelectedGateway("");
   };
-
+  const token = Cookies.get("auth-token");
   const [consent, setConsent] = React.useState(false);
+
+  const submitSavingsPlan = async () => {
+    updateLoading(true);
+    try {
+      const response = await fetch(
+        "https://api.dukiapreciousmetals.co/api/v2/savings-plan",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+
+      // const data = await response.json();
+      console.log(data);
+      openModal({
+        type: "success",
+        title: "Successful!",
+        message: data.message,
+      });
+      window.open(data.authorization_url, "_blank");
+      // Handle success as needed
+    } catch (error: any) {
+      openModal({
+        type: "error",
+        title: "Error!",
+        message: error.message,
+      });
+      console.error("Error submitting savings plan:", error);
+      // Handle error as needed
+    } finally {
+      updateLoading(false);
+    }
+  };
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000040] flex justify-center items-center transition-opacity duration-300">
@@ -432,7 +479,7 @@ const Step3: React.FC<{
           </div>
 
           <button
-            onClick={() => setCreateNew(4)}
+            onClick={submitSavingsPlan}
             disabled={!consent}
             className="rounded-lg py-3 px-4 text-white bg-dukiaBlue disabled:opacity-50 disabled:cursor-not-allowed w-full font-semibold"
           >

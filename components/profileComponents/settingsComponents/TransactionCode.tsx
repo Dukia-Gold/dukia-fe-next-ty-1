@@ -21,7 +21,7 @@ const TransactionCode: React.FC<{ user: any }> = ({ user }) => {
   return (
     <div className="py-10 px-6">
       <div className="font-semibold flex gap-1">
-        {user.isTransactionCodeSet === 0 && (
+        {!user.isTransactionCodeSet && (
           <button
             onClick={() => {
               setMode("set");
@@ -36,7 +36,7 @@ const TransactionCode: React.FC<{ user: any }> = ({ user }) => {
         )}
 
         <button
-          disabled={user.isTransactionCodeSet === 0}
+          disabled={!user.isTransactionCodeSet}
           onClick={() => setMode(mode === "reset" ? null : "reset")}
           className="py-3 px-4 disabled:cursor-not-allowed bg-[#E8E9ED] rounded-lg"
         >

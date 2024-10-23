@@ -41,34 +41,44 @@ const TableComponent = () => {
       </TableHeader>
 
       <TableBody>
-        {userAssets?.products.map((product: any, index: number) => (
-          <TableRow key={index}>
-            <TableCell className="p-2.5 text-left">
-              {capitalizeFirstLetter(product.product_id)}
-            </TableCell>
-            <TableCell className="p-2.5 text-left">
-              {product.total_weight}
-              {product.total_weight_unit}
-            </TableCell>
-            <TableCell className="p-2.5 text-left">
-              {product.total_quantity}
-            </TableCell>
-            <TableCell className="p-2.5 text-left">{product.amount}</TableCell>
-            <TableCell className="p-2.5 text-left">
-              {formatCurrency(product.total_bid_price_naira)}
-            </TableCell>
-            <TableCell className="p-2.5 text-left flex items-center gap-3 text-sm">
-              <button className="bg-white hover:bg-[#43BA64] font-bold py-0.5 px-2 border border-[#43BA64] text-[#43BA64] hover:text-white flex items-center gap-2.5 rounded-lg">
-                <Plus width={14} height={14} />
-                Buy
-              </button>
-              <button className="bg-white hover:bg-[#FF5757] font-bold py-0.5 px-2 border border-[#FF5757] text-[#FF5757] hover:text-white flex items-center gap-2.5 rounded-lg">
-                <ArrowDown width={14} height={14} />
-                Sell
-              </button>
+        {userAssets?.products.length > 0 ? (
+          userAssets.products.map((product: any, index: number) => (
+            <TableRow key={index}>
+              <TableCell className="p-2.5 text-left">
+                {capitalizeFirstLetter(product.product_id)}
+              </TableCell>
+              <TableCell className="p-2.5 text-left">
+                {product.total_weight}
+                {product.total_weight_unit}
+              </TableCell>
+              <TableCell className="p-2.5 text-left">
+                {product.total_quantity}
+              </TableCell>
+              <TableCell className="p-2.5 text-left">
+                {product.amount}
+              </TableCell>
+              <TableCell className="p-2.5 text-left">
+                {formatCurrency(product.total_bid_price_naira)}
+              </TableCell>
+              <TableCell className="p-2.5 text-left flex items-center gap-3 text-sm">
+                <button className="bg-white hover:bg-[#43BA64] font-bold py-0.5 px-2 border border-[#43BA64] text-[#43BA64] hover:text-white flex items-center gap-2.5 rounded-lg">
+                  <Plus width={14} height={14} />
+                  Buy
+                </button>
+                <button className="bg-white hover:bg-[#FF5757] font-bold py-0.5 px-2 border border-[#FF5757] text-[#FF5757] hover:text-white flex items-center gap-2.5 rounded-lg">
+                  <ArrowDown width={14} height={14} />
+                  Sell
+                </button>
+              </TableCell>
+            </TableRow>
+          ))
+        ) : (
+          <TableRow>
+            <TableCell colSpan={6} className="text-center p-4 font-bold">
+              No products available.
             </TableCell>
           </TableRow>
-        ))}
+        )}
       </TableBody>
     </Table>
   );

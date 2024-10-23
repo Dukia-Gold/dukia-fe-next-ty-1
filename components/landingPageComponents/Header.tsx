@@ -6,19 +6,12 @@ import { FC, useEffect, useState } from "react";
 import { RiArrowDropDownLine, RiFireFill } from "react-icons/ri";
 import Cookies from "js-cookie";
 import MobileNav from "./MobileNav";
-// import AOS from "aos";
-// import "aos/dist/aos.css"; // You can also use <link> for styles
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "../ui/hover-card";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { goldStore } from "@/store/goldPrice";
 import { useFetchGoldPriceDollars } from "@/api/fetchGoldPrice";
 import useFetchUserData from "@/lib/fetchUserData";
 import useModalsStore from "@/store/modalsStore";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import AuthButtons from "./AuthButtons";
 import { ArrowRight } from "lucide-react";
 
@@ -27,6 +20,7 @@ type header = {
 };
 
 const Header: FC<header> = () => {
+  const router = useRouter();
   const token = Cookies.get("auth-token");
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
@@ -60,7 +54,7 @@ const Header: FC<header> = () => {
 
   const products = [
     {
-      pic: "",
+      pic: "https://res.cloudinary.com/dvcw253zw/image/upload/v1728479454/header-bars_zrm1ig.png",
       slug: "/buy-gold/bars",
       name: "Gold Bars",
     },
@@ -70,11 +64,16 @@ const Header: FC<header> = () => {
       name: "Gold Coins",
     },
     {
-      pic: "",
+      pic: "https://res.cloudinary.com/dvcw253zw/image/upload/v1728479454/header-pool_kll97m.png",
       slug: "/",
       name: "Pool Allocated",
     },
   ];
+
+  const handleClick = (slug: string) => {
+    openBuyGold(false);
+    router.push(slug);
+  };
 
   // useEffect(() => {
   //   AOS.init();
@@ -148,6 +147,7 @@ const Header: FC<header> = () => {
             <ul className="flex items-center gap-4 lg:gap-4 text-dukiaBlue font-semibold">
               {/* HOME */}
               <li
+                onClick={() => openBuyGold(false)}
                 className={`${
                   pathname === "/" ? "text-dukiaGold font-bold" : ""
                 } hover:text-dukiaGold`}
@@ -157,6 +157,7 @@ const Header: FC<header> = () => {
 
               {/* ABOUT US */}
               <li
+                onClick={() => openBuyGold(false)}
                 className={`${
                   pathname === "/about-dukia-gold"
                     ? "text-dukiaGold font-bold"
@@ -182,7 +183,10 @@ const Header: FC<header> = () => {
               </li>
 
               {/* GUIDES */}
-              <li className="hover:text-dukiaGold">
+              <li
+                onClick={() => openBuyGold(false)}
+                className="hover:text-dukiaGold"
+              >
                 <Link href="/">
                   <p>Guides</p>
                 </Link>
@@ -210,7 +214,14 @@ const Header: FC<header> = () => {
 
       {/* Buy Gold */}
       {buyGold && (
-        <div className="bg-white font-semibold">
+        <div
+          className="bg-white font-semibold"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              openBuyGold(!buyGold);
+            }
+          }}
+        >
           <div className="max-w-[1280px] mx-auto pt-32 pb-8 space-y-14">
             <div className="flex items-center gap-3">
               <div className="bg-[#FBF7EB] rounded-full p-3">
@@ -226,27 +237,35 @@ const Header: FC<header> = () => {
 
             <div className="grid grid-cols-3 gap-6">
               {products.map((product, index) => (
-                <Link key={index} href={product.slug}>
-                  <div
-                    key={index}
-                    className="p-3 border border-[#E8E9ED] rounded-2xl flex items-center justify-between"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="border-2 border-[#E8E9ED] w-[108px] h-[76px] rounded-xl"></div>
+                <div
+                  key={index}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClick(product.slug);
+                  }}
+                  className="p-3 border border-[#E8E9ED] rounded-2xl flex items-center justify-between cursor-pointer"
+                >
+                  <div className="flex items-center gap-4">
+                    <Image
+                      src={product.pic}
+                      alt={product.name}
+                      width={108}
+                      height={76}
+                      className="border-2 border-[#E8E9ED] w-[108px] h-[76px] rounded-xl"
+                    />
 
-                      <div>
-                        <p className="text-xs">BUY</p>
-                        <p className="font-extrabold text-dukiaGold text-xl">
-                          {product.name}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="bg-[#F6F7F9] rounded-full p-3 hover:bg-dukiaBlue hover:text-dukiaGold">
-                      <ArrowRight size={16} />
+                    <div>
+                      <p className="text-xs">BUY</p>
+                      <p className="font-extrabold text-dukiaGold text-xl">
+                        {product.name}
+                      </p>
                     </div>
                   </div>
-                </Link>
+
+                  <div className="bg-[#F6F7F9] rounded-full p-3 hover:bg-dukiaBlue hover:text-dukiaGold">
+                    <ArrowRight size={16} />
+                  </div>
+                </div>
               ))}
             </div>
           </div>
