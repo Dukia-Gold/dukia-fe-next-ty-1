@@ -10,6 +10,7 @@ import { Spin } from "antd";
 import { useEffect, useState } from "react";
 import { useCheckLoginStatus } from "@/lib/isLoggedIn";
 import { useRouter } from "next/navigation";
+import Gift from "@/components/dashboardComponents/dashboardSections/Gift";
 
 const DashboardPage = () => {
   const user = userStore((state: any) => state.user);
@@ -65,7 +66,7 @@ const DashboardPage = () => {
               <Portfolio />
               <Trade />
             </div>
-
+            <Gift />
             <MarketPrices />
 
             <Transactions />

@@ -14,6 +14,13 @@ import CustomerReviews from "@/components/landingPageComponents/landingPageSecti
 import WhyChooseDukia from "@/components/landingPageComponents/landingPageSections/WhyChooseDukia";
 import PoolAllocated from "@/components/landingPageComponents/landingPageSections/PoolAllocated";
 import BullionVaultChartComponent from "@/components/landingPageComponents/landingPageSections/BullionVaultChartComponent";
+import Shop from "@/components/landingPageComponents/landingPageSections/Shop";
+import WeOffer from "@/components/landingPageComponents/landingPageSections/WeOffer";
+import WhyChooseUs from "@/components/landingPageComponents/landingPageSections/WhyChooseUs";
+import AsFeatured from "@/components/landingPageComponents/landingPageSections/AsFeatured";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 export default function Home() {
   const [isOnline, setIsOnline] = useState(false);
@@ -109,11 +116,19 @@ export default function Home() {
 
       <PoolAllocated />
 
-      <WhatWeOffer />
+      <Shop/>
 
-      <WhyChooseDukia />
+      <WeOffer />
 
-      <AsFeaturedIn />
+      {/* <WhatWeOffer /> */}
+
+      <WhyChooseUs />
+
+      {/* <WhyChooseDukia /> */}
+
+      <AsFeatured /> 
+
+      {/* <AsFeaturedIn /> */}
 
       <CustomerReviews />
 
