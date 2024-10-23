@@ -84,6 +84,7 @@ const RegisterModal = () => {
 
       if (success) {
         closeModal();
+        updateModals({ login: true });
       }
     } catch (error) {
       console.error("Error registering account:", error);
@@ -100,7 +101,7 @@ const RegisterModal = () => {
     // setShowPassword(false);
     // setShowConfirmPassword(false);
     setFormData({});
-    updateModals({ register: false, login: true });
+    updateModals({ register: false });
   };
 
   if (register === false || register === undefined) {
@@ -112,7 +113,7 @@ const RegisterModal = () => {
       <div className="bg-white animate-in fade-in-5 duration-500 ease-in-out text-dukiaBlue rounded-lg w-[95%] h-[75%] md:h-[40rem] max-h-[95vh] xl:h-auto md:w-[38.3125rem] xl:w-[1280px] flex justify-center relative">
         <div
           onClick={closeModal}
-          className="cursor-pointer xl:hidden absolute top-5 md:top-11 right-5 md:right-10 bg-[#E8E9ED] rounded-[50%] p-2.5"
+          className="cursor-pointer xl:hidden absolute top-5 md:top-5 right-5 md:right-5 bg-[#E8E9ED] rounded-[50%] p-2.5 z-10"
         >
           <X width={24} height={24} />
         </div>
@@ -128,7 +129,7 @@ const RegisterModal = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center relative w-[calc(100%-37.9375rem)]">
+        <div className="flex justify-center items-center relative xl:w-[calc(100%-37.9375rem)]">
           <div
             onClick={closeModal}
             className="cursor-pointer hidden xl:block absolute top-11 right-10 bg-[#E8E9ED] rounded-[50%] p-2.5"
@@ -136,8 +137,8 @@ const RegisterModal = () => {
             <X width={24} height={24} />
           </div>
 
-          <div className="space-y-[52px]">
-            <div className="space-y-16">
+          <div className="space-y-[26px] xl:space-y-[52px]">
+            <div className="space-y-8 cl:space-y-16">
               <div className="space-y-3">
                 <p className="font-extrabold text-xl">
                   Welcome to Dukia Gold !
@@ -235,9 +236,9 @@ const RegisterModal = () => {
                   };
 
                   return (
-                    <div className="grid space-y-5">
+                    <div className="grid-cols-2 grid gap-5">
                       {fields
-                        .slice(currentIndex, currentIndex + 4)
+                        .slice(currentIndex, currentIndex + 8)
                         .map((field, index) => (
                           <div key={index} className="relative font-semibold">
                             <label
@@ -260,7 +261,7 @@ const RegisterModal = () => {
                                     handleInputChange(e);
                                   }}
                                   {...field}
-                                  className="border-[1.5px] border-[#979BAE] focus:border-dukiaBlue rounded-lg py-3 px-4 placeholder:text-[#979BAE] w-[357px] outline-none"
+                                  className="border-[1.5px] border-[#979BAE] focus:border-dukiaBlue rounded-lg py-3 px-4 placeholder:text-[#979BAE] w-[275px] outline-none"
                                 />
 
                                 {/* {field.type === "password" &&
@@ -335,7 +336,7 @@ const RegisterModal = () => {
                         ))}
 
                       {/* Next and previous buttons */}
-                      <div className="grid grid-cols-2 gap-6 font-semibold">
+                      <div className="grid grid-cols-2 col-span-2 gap-6 font-semibold">
                         {/* Previous button */}
                         <button
                           type="button"
@@ -375,8 +376,6 @@ const RegisterModal = () => {
               </p>
             </div>
           </div>
-
-          {accountTypeSelected !== "" && <div></div>}
         </div>
       </div>
     </div>

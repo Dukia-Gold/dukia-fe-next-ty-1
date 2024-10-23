@@ -8,7 +8,7 @@ const PoolAllocated = () => {
   const [price, setPrice] = useState<string>("0");
   const [goldPricePerGram, setGoldPricePerGram] = useState<number>(0);
   const [timer, setTimer] = useState<number>(30);
-  const [isGramToPrice, setIsGramToPrice] = useState<boolean>(true);
+  const [isGramToPrice, setIsGramToPrice] = useState<boolean>(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Helper function to round up to the nearest 10
