@@ -1,6 +1,7 @@
 import { ExternalLinkIcon } from "lucide-react";
 
 const BVN = () => {
+  const verifyBVN = () => {};
   return (
     <div className="mt-10 mb-16 space-y-6 text-dukiaBlue">
       <div className="font-semibold flex items-center gap-6">
@@ -39,8 +40,6 @@ const BVN = () => {
 
           <div className="py-4 px-6 border border-[#E8E9ED] rounded flex items-center justify-between w-[450px]">
             <div className="flex items-center gap-6">
-              
-
               <div>
                 <p className="font-semibold">BVN Verification</p>
                 <p className="text-sm">For Nigerian Customers</p>
@@ -53,7 +52,10 @@ const BVN = () => {
       </div>
 
       <div className="space-y-6 text-sm">
-        <button className="py-3.5 px-6 bg-dukiaBlue text-white rounded-lg">
+        <button
+          onClick={verifyBVN}
+          className="py-3.5 px-6 bg-dukiaBlue text-white rounded-lg"
+        >
           Proceed to BVN Verification
         </button>
       </div>

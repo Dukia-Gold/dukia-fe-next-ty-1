@@ -101,7 +101,7 @@ const KYCPage = () => {
             </div>
           </div>
 
-          {user.is_bvn === 1 && <BVN />}
+          {user.is_bvn === 0 && <BVN />}
 
           {user.is_verified === 1 && <Others />}
         </div>

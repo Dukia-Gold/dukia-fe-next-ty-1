@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { userStore } from "@/store/user";
+import { userAssetsStore, userStore } from "@/store/user";
 import Cookies from "js-cookie";
 import useLoadingStore from "@/store/loadingStore";
 import { transactionStore } from "@/store/transactions";
@@ -27,6 +27,12 @@ const useAuth = () => {
     updateUser: state.updateUser,
     clearUser: state.clearUser,
   }));
+  const { updateUserAssets, clearUserAssets } = userAssetsStore(
+    (state: any) => ({
+      updateUserAssets: state.updateUserAssets,
+      clearUserAssets: state.clearUserAssets,
+    })
+  );
   const router = useRouter();
 
   const loginUser = async (
@@ -53,6 +59,24 @@ const useAuth = () => {
       );
 
       const { authorization, expires, user: userData } = response.data;
+      let assetUrl = `${baseUrl}/product-weights/${userData.id}`;
+
+      const assetResponse = await fetch(assetUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: `Bearer ${token}`, // Include the token in the request headers
+        },
+      });
+
+      if (!assetResponse.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const assetData = await assetResponse.json();
+
+      updateUserAssets(assetData[0]); // Update the user in the user store
       updateUser(userData);
 
       const expiresAt = expires;
@@ -114,6 +138,7 @@ const useAuth = () => {
       Cookies.remove("auth-token");
       clearTransactions();
       await clearUser();
+      await clearUserAssets();
 
       // Redirect to home page
       router.push("/");

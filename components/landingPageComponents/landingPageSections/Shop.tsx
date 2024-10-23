@@ -4,24 +4,27 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 import useModalsStore from "@/store/modalsStore";
 import { useRouter } from "next/navigation";
+import PoolAllocated from "@/lib/poolallocated";
+import { formatDecimal } from "@/lib/decimalFormatter";
+import { formatCurrency } from "@/lib/currencyformatter";
 
 const items = [
   {
-    price: "₦10,000",
+    price: 10000,
     weight: "0.05g",
     change: "0.11%",
     changeType: "down",
     color: "text-red-500",
   },
   {
-    price: "₦15,000",
+    price: 15000,
     weight: "0.08g",
     change: "0.11%",
     changeType: "up",
     color: "text-dukiaBlue",
   },
   {
-    price: "₦20,000",
+    price: 20000,
     weight: "0.11g",
     change: "0.11%",
     changeType: "up",
@@ -30,6 +33,7 @@ const items = [
 ];
 
 const Shop = () => {
+  const { goldPricePerGram } = PoolAllocated();
   const router = useRouter();
   const token = Cookies.get("auth-token");
   const updateModals = useModalsStore((state: any) => state.updateModals);
@@ -50,37 +54,38 @@ const Shop = () => {
               </p>
             </div>
             <div>
-              <button className="bg-dukiaBlue text-white py-2 px-4 mt-10 flex items-center gap-2 rounded-md hover:bg-dukiaGold group">
-                <Link href="/buy-gold/bars">
+              <Link href="/buy-gold/bars">
+                <button className="bg-dukiaBlue text-white py-2 px-4 mt-10 flex items-center gap-2 rounded-md hover:bg-dukiaGold group">
                   <span>Explore</span>
-                </Link>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-4 h-4 group-hover:hidden"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-4 h-4 hidden group-hover:block"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-4 h-4 group-hover:hidden"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-4 h-4 hidden group-hover:block"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </Link>
             </div>
           </div>
           <div className="flex-grow flex items-end pt-24 lg:pt-16">
@@ -104,37 +109,38 @@ const Shop = () => {
               </p>
             </div>
             <div>
-              <button className="bg-dukiaBlue text-white py-2 px-4 mt-10 flex items-center gap-2 rounded-md hover:bg-dukiaGold group">
-                <Link href="/buy-gold/coins">
+              <Link href="/buy-gold/coins">
+                <button className="bg-dukiaBlue text-white py-2 px-4 mt-10 flex items-center gap-2 rounded-md hover:bg-dukiaGold group">
                   <span>Explore</span>
-                </Link>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-4 h-4 group-hover:hidden"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-4 h-4 hidden group-hover:block"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-4 h-4 group-hover:hidden"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-4 h-4 hidden group-hover:block"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </Link>
             </div>
           </div>
           <div className="flex-grow flex items-end pt-40 lg:pt-20">
@@ -209,10 +215,10 @@ const Shop = () => {
                 </p>
                 <div className="flex items-center justify-between">
                   <p className="text-[20px] font-extrabold leading-[30px] tracking-[-0.03em]">
-                    {item.price}
+                    {formatCurrency(item.price)}
                   </p>
                   <span className="flex items-center gap-3 text-dukiaBlue bg-dukiaGrey px-2 py-1 rounded-lg text-sm font-bold">
-                    {item.weight}
+                    {formatDecimal(item.price / goldPricePerGram, 4)}g
                     <span className={`flex text-xs ${item.color}`}>
                       {item.changeType === "down" ? (
                         <ArrowDown size={16} />

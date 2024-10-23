@@ -17,6 +17,7 @@
 }
 
 .index-module_type__E-SaG::after {
+  display: none;
   color: white !important;
 }
 

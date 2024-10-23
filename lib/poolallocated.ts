@@ -8,8 +8,13 @@ const PoolAllocated = () => {
   const [price, setPrice] = useState<string>("0");
   const [goldPricePerGram, setGoldPricePerGram] = useState<number>(0);
   const [timer, setTimer] = useState<number>(30);
-  const [isGramToPrice, setIsGramToPrice] = useState<boolean>(true);
+  const [isGramToPrice, setIsGramToPrice] = useState<boolean>(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Helper function to round up to the nearest 10
+  const roundUpToNearestTen = (value: number) => {
+    return Math.ceil(value / 100) * 100;
+  };
 
   const fetchGoldPrice = async () => {
     try {
@@ -17,17 +22,17 @@ const PoolAllocated = () => {
         "https://api.dukiapreciousmetals.co/api/products/pool-allocated-1g/withPrice",
         {
           headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
         }
       );
       const data = await response.json();
       setGoldPricePerGram(data.ask_price);
       if (isGramToPrice) {
-        setPrice(
-          formatDecimal(gram * data.ask_price, 2, true)
-        );
+        const precisePrice = gram * data.ask_price;
+        const roundedPrice = roundUpToNearestTen(precisePrice);
+        setPrice(formatDecimal(roundedPrice, 2, true));
       } else {
         setGram(formatDecimal(localPrice / goldPricePerGram, 4));
       }
@@ -41,7 +46,16 @@ const PoolAllocated = () => {
     if (!isNaN(Number(value)) || value === "" || value === ".") {
       setGram(value);
       gram = Number(value);
-      setPrice(formatDecimal(parseFloat(value) * goldPricePerGram, 2, true));
+
+      // Calculate the price with full precision
+      const precisePrice = parseFloat(value) * goldPricePerGram;
+
+      // Round up to the nearest 10 Naira
+      const roundedPrice = roundUpToNearestTen(precisePrice);
+
+      // Display the rounded price
+      setPrice(formatDecimal(roundedPrice, 2, true));
+
       if (parseFloat(value) > 0) {
         startTimer();
       } else {
@@ -55,11 +69,16 @@ const PoolAllocated = () => {
 
   const handlePriceInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/,/g, "");
-    console.log(e.target.value);
     if (!isNaN(Number(value)) || value === "" || value === ".") {
       localPrice = Number(value);
+
+      // Full precision gram calculation
+      const preciseGram = parseFloat(value) / goldPricePerGram;
+
+      // Display rounded values
       setPrice(formatNumber(value, true));
-      setGram(formatDecimal(parseFloat(value) / goldPricePerGram, 4));
+      setGram(formatDecimal(preciseGram, 4)); // Round grams to 4 decimal places for display
+
       if (parseFloat(value) > 0) {
         startTimer();
       } else {
