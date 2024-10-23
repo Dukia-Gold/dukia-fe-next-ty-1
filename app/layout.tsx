@@ -11,6 +11,7 @@ import SuccessfulDepositModal from "@/components/modals/SuccessfulDepositModal";
 import WithdrawalModal from "@/components/modals/WithdrawalModal";
 import LoginModal from "@/components/modals/authModals/LoginModal";
 import Copyright from "@/components/landingPageComponents/Copyright";
+import RegisterModal from "@/components/modals/authModals/RegisterModal";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -97,6 +98,7 @@ export default function RootLayout({
           <LoadingModal />
 
           <LoginModal />
+          <RegisterModal />
 
           <>
             <DepositModal />

@@ -40,11 +40,14 @@ const AuthButtons = ({ updateModals }: { updateModals: any }) => {
       >
         Login
       </p>
-      <Link href="/login">
-        <button className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-4 rounded-lg">
-          Register
-        </button>
-      </Link>
+      {/* <Link href="/login"> */}
+      <button
+        onClick={() => updateModals({ register: true })}
+        className="bg-dukiaBlue hover:bg-dukiaGold hover:text-dukiaBlue text-white font-semibold py-3 px-4 rounded-lg"
+      >
+        Register
+      </button>
+      {/* </Link> */}
     </div>
   );
 };

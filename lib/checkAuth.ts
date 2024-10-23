@@ -8,7 +8,7 @@ const checkAuth = async () => {
       const verifiedToken = await verifyAuth(token);
       return !!verifiedToken;
     } catch (err) {
-      console.log(err);
+      //   console.log(err);
       return false;
     }
   }

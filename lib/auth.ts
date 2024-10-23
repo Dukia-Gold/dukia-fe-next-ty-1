@@ -9,9 +9,9 @@ export const getJwtSecretKey = () => {
   const secret = process.env.JWT_SECRET_KEY;
 
   if (!secret || secret.length === 0) {
-    console.log(
-      "JWT_SECRET_KEY is not set. Please set it in your environment variables."
-    );
+    // console.log(
+    //   "JWT_SECRET_KEY is not set. Please set it in your environment variables."
+    // );
     throw new Error(
       "JWT_SECRET_KEY is not set. Please set it in your environment variables."
     );
@@ -28,7 +28,7 @@ export const verifyAuth = async (token: string) => {
     );
     return verified.payload as UserJwtPayload;
   } catch (error) {
-    console.log("Invalid token. Please login again.");
+    // console.log("Invalid token. Please login again.");
     throw new Error("Invalid token. Please login again.");
   }
 };

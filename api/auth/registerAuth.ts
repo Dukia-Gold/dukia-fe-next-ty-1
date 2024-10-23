@@ -25,6 +25,8 @@ const RegisterAuth = () => {
         description:
           "Your Individual Account has been successfully created. Please, proceed to log in.",
       });
+
+      return true;
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -32,6 +34,7 @@ const RegisterAuth = () => {
         description: error.response?.data?.message || "An error occured!",
       });
       updateLoading(false);
+      return false;
     }
   };
 
@@ -46,7 +49,7 @@ const RegisterAuth = () => {
           "Content-Type": "application/json",
         },
       });
-      
+
       updateLoading(false);
       window.location.reload();
       toast({
@@ -54,6 +57,8 @@ const RegisterAuth = () => {
         description:
           "Your Joint Account has been created. You can now login with the primary email address",
       });
+
+      return true;
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -61,6 +66,7 @@ const RegisterAuth = () => {
         description: error.response?.data?.message || "An error occured!",
       });
       updateLoading(false);
+      return false;
     }
   };
 
@@ -69,11 +75,11 @@ const RegisterAuth = () => {
       updateLoading(true);
       const response = await axios({
         url: "https://api.dukiapreciousmetals.co/api/company/register",
-          method: "POST",
-          data: formData,
-          headers: {
-            "Content-Type": "application/json",
-          },
+        method: "POST",
+        data: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
       updateLoading(false);
@@ -83,6 +89,8 @@ const RegisterAuth = () => {
         description:
           "Your Corporate Account has been created. You can now login with the primary email address",
       });
+
+      return true;
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -90,6 +98,7 @@ const RegisterAuth = () => {
         description: error.response?.data?.message || "An error occured!",
       });
       updateLoading(false);
+      return false;
     }
   };
 
