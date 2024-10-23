@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PoolAllocated from "@/lib/poolallocated";
+import { formatDecimal } from "@/lib/decimalFormatter";
 
 const PoolAllocatedCalculator = () => {
   const {
@@ -103,8 +104,7 @@ const PoolAllocatedCalculator = () => {
                 placeholder="Weight(g)"
               />
             </div>
-            <p className="text-sm text-dukiaGold font-semibold">
-              Minimum of 0.0301 grams
+            <p className="text-sm text-dukiaGold font-semibold">Minimum of {formatDecimal(5000 / goldPricePerGram, 4)} grams
             </p>
           </div>
 

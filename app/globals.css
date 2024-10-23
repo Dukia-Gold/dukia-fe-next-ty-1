@@ -16,6 +16,10 @@
   }
 }
 
+.index-module_type__E-SaG::after {
+  color: white !important;
+}
+
 /* custom.css */
 .custom-ant-picker-focus:focus,
 .custom-ant-picker-focus:focus-within,

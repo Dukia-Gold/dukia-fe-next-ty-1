@@ -15,6 +15,7 @@ import ConfirmModal from "@/components/modals/ConfirmModal";
 import TransactionCodeModal from "@/components/modals/TransactionCodeModal";
 import SellModal from "@/components/modals/SellModal";
 import GiftingModal from "@/components/modals/GiftingModal";
+import SetTransactionCodeModal from "@/components/profileComponents/settingsComponents/SetUpTransactionCodeModal";
 
 export default function DashboardLayout({
   catalogue,
@@ -60,6 +61,7 @@ export default function DashboardLayout({
         <Toaster />
         <ToastContainer theme="colored" />
 
+        <SetTransactionCodeModal />
         <TransactionCodeModal />
 
         <SellModal />

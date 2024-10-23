@@ -22,6 +22,7 @@ const useModalsStore = create((set) => ({
 
   confirmModal: false,
 
+  setTransactionCode: false,
   transactionCode: false,
   trade: "",
   payload: {},
