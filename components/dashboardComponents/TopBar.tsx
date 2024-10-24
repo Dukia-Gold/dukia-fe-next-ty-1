@@ -54,11 +54,22 @@ const TopBar = () => {
     <div className="text-dukiaBlue mt-7 space-y-7">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <div className="text-dukiaBlue">
-            <p className="font-semibold">
-              Hi {user ? capitalizeFirstLetter(user.first_name) : "Guest"},
-            </p>
-            <p className="text-sm">Welcome back to your dashboard!</p>
+          <div className="flex items-center gap-5">
+            <div className="text-dukiaBlue">
+              <p className="font-semibold">
+                Hi {user ? capitalizeFirstLetter(user.first_name) : "Guest"},
+              </p>
+              <p className="text-sm">Welcome back to your dashboard!</p>
+            </div>
+
+            {/* KYC (if not verified) */}
+            {user && user.is_verified === 0 && (
+              <Link href="/dashboard/profile/kyc">
+                <button className="flex items-center gap-1 py-2 px-3 text-[#ED7004] text-sm bg-[#FFF6F6] rounded-lg border-[0.5px] border-[#ED7004] font-semibold animate-pulse">
+                  Complete KYC <ArrowRight width={19} height={19} />
+                </button>
+              </Link>
+            )}
           </div>
 
           <div className="hidden md:flex items-center gap-2">
@@ -294,18 +305,6 @@ const TopBar = () => {
           </div>
         </div>
       </div>
-
-      {/* KYC (if not verified) */}
-      {user && user.is_verified === 0 && (
-        <div className="bg-[#FFF7F0] py-2.5 px-4 rounded-2xl flex items-center gap-11 border border-dukiaBlue/[10%]">
-          <p>You have not completed your KYC verification!</p>
-          <Link href="/dashboard/kyc">
-            <button className="flex items-center gap-2.5 py-3 px-4 border text-[#ED7004] rounded-lg border-[#ED7004] font-semibold">
-              Complete KYC <ArrowRight width={19} height={19} />
-            </button>
-          </Link>
-        </div>
-      )}
     </div>
   );
 };

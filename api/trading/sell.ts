@@ -13,9 +13,9 @@ const useSell = () => {
   const fetchTransactionHistory = useFetchTransactionHistory();
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
   const updateModals = useModalsStore((state: any) => state.updateModals);
-  const [cookies] = useCookies(["auth-token"]);
+  const [cookies] = useCookies(["xZ9qTn7p_K4wVd1Lm_jx8s2A"]);
 
-  const token = cookies["auth-token"];
+  const token = cookies["xZ9qTn7p_K4wVd1Lm_jx8s2A"];
   const sellPoolAllocated = async (
     order_weight: any,
     order_total: any,
@@ -53,12 +53,20 @@ const useSell = () => {
       console.log(error);
       if (error.response) {
         const { status, data } = error.response;
+        console.log(data.message);
 
         if (status === 401) {
           openModal({
             type: "error",
             title: "Unauthorized request!",
             message: "You're not authorized to perform this action.",
+          });
+        } else if (
+          status === 404 &&
+          data.message === "Transaction code not found."
+        ) {
+          updateModals({
+            setTransactionCode: true,
           });
         } else if (
           data.message ===

@@ -6,8 +6,8 @@ import { useCookies } from "react-cookie";
 import { RiEyeFill, RiEyeOffFill, RiInformation2Fill } from "react-icons/ri";
 
 const SavingsCard = () => {
-  const [cookies] = useCookies(["auth-token"]);
-  const token = cookies["auth-token"];
+  const [cookies] = useCookies(["xZ9qTn7p_K4wVd1Lm_jx8s2A"]);
+  const token = cookies["xZ9qTn7p_K4wVd1Lm_jx8s2A"];
   const [balance, setBalance] = React.useState<number>(0);
   const [seeBalance, setSeeBalance] = React.useState<boolean>(false);
 

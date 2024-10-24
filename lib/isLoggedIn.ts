@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 // Check if the user is logged in
 const isLoggedIn = () => {
-  const token = Cookies.get("auth-token");
+  const token = Cookies.get("xZ9qTn7p_K4wVd1Lm_jx8s2A");
   return !!token;
 };
 

@@ -21,7 +21,7 @@ const PoolAllocatedCalculator = () => {
   } = PoolAllocated();
   const router = useRouter();
   const updateModals = useModalsStore((state: any) => state.updateModals);
-  const token = Cookies.get("auth-token");
+  const token = Cookies.get("xZ9qTn7p_K4wVd1Lm_jx8s2A");
 
   return (
     <div className="text-black dark:text-white rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 shadow-2xl bg-white dark:bg-dukiaDark/[80%]">

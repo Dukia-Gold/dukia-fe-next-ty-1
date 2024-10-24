@@ -6,9 +6,9 @@ import useLoadingStore from "@/store/loadingStore";
 
 const useDownloadAccountStatement = () => {
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
-  const [cookies] = useCookies(["auth-token"]);
+  const [cookies] = useCookies(["xZ9qTn7p_K4wVd1Lm_jx8s2A"]);
 
-  const token = cookies["auth-token"];
+  const token = cookies["xZ9qTn7p_K4wVd1Lm_jx8s2A"];
 
   const downloadAccountStatement = async (
     start_date: string,

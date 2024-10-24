@@ -19,7 +19,7 @@ const useAuth = () => {
   const clearTransactions = transactionStore(
     (state: any) => state.clearTransactions
   );
-  const token = Cookies.get("auth-token");
+  const token = Cookies.get("xZ9qTn7p_K4wVd1Lm_jx8s2A");
   const { toast } = useToast();
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
   const { updateUser, clearUser } = userStore((state: any) => ({
@@ -34,6 +34,46 @@ const useAuth = () => {
     })
   );
   const router = useRouter();
+
+  function clearAllCookies() {
+    // Get all cookies from the document
+    const cookies = document.cookie.split(";");
+
+    // Iterate over all cookies and remove them
+    cookies.forEach((cookie) => {
+      const cookieName = cookie.split("=")[0].trim(); // Get cookie name
+      Cookies.remove(cookieName, {
+        secure: !isLocalhost,
+        sameSite: isLocalhost ? "lax" : "none",
+      });
+    });
+  }
+
+  const generateRandomName = () => {
+    return Math.random().toString(36).substring(2, 15);
+  };
+
+  // Function to generate a random Base64-like string of a specified length
+  const generateRandomBase64 = (length: number) => {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"; // Base64 URL-safe characters
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  };
+
+  // Function to generate a random JWT-like value
+  const generateJWTLikeValue = () => {
+    return (
+      generateRandomBase64(20) +
+      "." +
+      generateRandomBase64(40) +
+      "." +
+      generateRandomBase64(43)
+    );
+  };
 
   const loginUser = async (
     email: string,
@@ -84,11 +124,22 @@ const useAuth = () => {
 
       // Ensure the cookie is set before redirecting
 
-      Cookies.set("auth-token", authorization, {
-        expires: expiryDate,
-        secure: !isLocalhost, // Only secure if not localhost
-        sameSite: isLocalhost ? "lax" : "none", // Use "lax" for localhost
-      });
+      // Function to set a cookie with a random name
+      const setRandomCookie = (name: string, value: string) => {
+        Cookies.set(name, value, {
+          expires: expiryDate,
+          secure: !isLocalhost, // Only secure if not localhost
+          sameSite: isLocalhost ? "lax" : "none", // Use "lax" for localhost
+        });
+      };
+
+      // Set JWT Token with scrambled name
+      setRandomCookie("xZ9qTn7p_K4wVd1Lm_jx8s2A", authorization);
+
+      // Set a few random cookies with dummy values
+      for (let i = 0; i < 20; i++) {
+        setRandomCookie(generateRandomName(), generateJWTLikeValue());
+      }
 
       updateModals({ login: false });
       updateLoading(false);
@@ -135,7 +186,7 @@ const useAuth = () => {
       });
 
       // Clear all auth-related data
-      Cookies.remove("auth-token");
+      clearAllCookies();
       clearTransactions();
       await clearUser();
       await clearUserAssets();

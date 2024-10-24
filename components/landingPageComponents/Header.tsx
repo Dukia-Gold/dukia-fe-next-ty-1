@@ -21,7 +21,7 @@ type header = {
 
 const Header: FC<header> = () => {
   const router = useRouter();
-  const token = Cookies.get("auth-token");
+  const token = Cookies.get("xZ9qTn7p_K4wVd1Lm_jx8s2A");
   const updateModals = useModalsStore((state: any) => state.updateModals);
 
   const fetchUserData = useFetchUserData();

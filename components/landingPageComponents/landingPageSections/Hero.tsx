@@ -95,7 +95,7 @@ const Hero = () => {
         </div>
 
         <Image
-          src="https://res.cloudinary.com/dvcw253zw/image/upload/v1722957894/hero-img_mijtzn.png"
+          src="https://res.cloudinary.com/dvcw253zw/image/upload/v1729773585/hero-img.png"
           alt="Hero Image"
           width={660}
           height={304.97}

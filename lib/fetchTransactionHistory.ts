@@ -8,9 +8,9 @@ const useFetchTransactionHistory = () => {
   const updateTransactions = transactionStore(
     (state: any) => state.updateTransactions
   );
-  const [cookies] = useCookies(["auth-token"]);
+  const [cookies] = useCookies(["xZ9qTn7p_K4wVd1Lm_jx8s2A"]);
 
-  const token = cookies["auth-token"];
+  const token = cookies["xZ9qTn7p_K4wVd1Lm_jx8s2A"];
   const url = GetUrl();
 
   const fetchTransactionHistory = async (per_page: number, page: number) => {

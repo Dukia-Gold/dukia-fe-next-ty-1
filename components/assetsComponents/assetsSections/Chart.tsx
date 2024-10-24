@@ -1,3 +1,4 @@
+import BullionVaultChartComponent from "@/components/landingPageComponents/landingPageSections/BullionVaultChartComponent";
 import useFind from "@/lib/findById";
 import { useEffect, useState } from "react";
 
@@ -14,7 +15,7 @@ const Chart = ({ id }: { id: string }) => {
     <div className="bg-white rounded-2xl p-4">
       <p className="font-semibold">{item?.name} Market Price</p>
 
-      <div className="mt-4"></div>
+      <BullionVaultChartComponent />
     </div>
   );
 };

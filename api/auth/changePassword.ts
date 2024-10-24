@@ -7,8 +7,8 @@ import cookie from "js-cookie";
 
 const ChangePassword = () => {
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
-  const [cookies] = useCookies(["auth-token"]);
-  const jwtToken = cookies["auth-token"];
+  const [cookies] = useCookies(["xZ9qTn7p_K4wVd1Lm_jx8s2A"]);
+  const jwtToken = cookies["xZ9qTn7p_K4wVd1Lm_jx8s2A"];
 
   const changeUserPassword = async (
     token: string,
@@ -39,7 +39,7 @@ const ChangePassword = () => {
           "Your password has been changed successfully. You can now log in with your new password.",
       });
       if (jwtToken) {
-        cookie.set("auth-token", "", {
+        cookie.set("xZ9qTn7p_K4wVd1Lm_jx8s2A", "", {
           expires: new Date(0),
         });
       }

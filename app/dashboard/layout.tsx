@@ -61,13 +61,7 @@ export default function DashboardLayout({
         <MobileHeader />
         <TopBar />
 
-        <ScrollArea
-          className={`${
-            user && user.is_verified === 0
-              ? "mt-2 h-[calc(100vh-315px)]"
-              : "mt-4 h-[calc(100vh-222px)]"
-          } bg-dukiaGrey`}
-        >
+        <ScrollArea className="mt-4 h-[calc(100vh-222px)] bg-dukiaGrey">
           {children}
         </ScrollArea>
 

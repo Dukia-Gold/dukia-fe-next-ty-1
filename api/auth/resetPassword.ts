@@ -10,8 +10,8 @@ const ResetPassword = () => {
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
   const updateModals = useModalsStore((state: any) => state.updateModals);
   const user = userStore((state: any) => state.user);
-  const [cookies] = useCookies(["auth-token"]);
-  const token = cookies["auth-token"];
+  const [cookies] = useCookies(["xZ9qTn7p_K4wVd1Lm_jx8s2A"]);
+  const token = cookies["xZ9qTn7p_K4wVd1Lm_jx8s2A"];
 
   const resetUserPassword = async () => {
     try {

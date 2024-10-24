@@ -6,8 +6,8 @@ import { useCookies } from "react-cookie";
 
 const useGift = () => {
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const [cookies] = useCookies(["auth-token"]);
-  const token = cookies["auth-token"];
+  const [cookies] = useCookies(["xZ9qTn7p_K4wVd1Lm_jx8s2A"]);
+  const token = cookies["xZ9qTn7p_K4wVd1Lm_jx8s2A"];
 
   const openModal = useModalStore((state) => state.openModal);
   const updateLoading = useLoadingStore((state: any) => state.setLoading);

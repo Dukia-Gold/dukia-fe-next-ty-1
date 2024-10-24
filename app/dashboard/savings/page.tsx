@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/select";
 import { useModalStore } from "@/store/modalStore";
 import useLoadingStore from "@/store/loadingStore";
+import { userStore } from "@/store/user";
+import { capitalizeFirstLetter } from "@/lib/formatText";
 
 const SavingsPage = () => {
   const [createNew, setCreateNew] = React.useState<number>(0);
@@ -180,18 +182,6 @@ const Step2: React.FC<{
   formData: any;
   setFormData: (formData: any) => void;
 }> = ({ setCreateNew, setSelectedGateway, formData, setFormData }) => {
-  const amount = [
-    "5000",
-    "10000",
-    "25000",
-    "50000",
-    "80000",
-    "100000",
-    "150000",
-    "200000",
-    "250000",
-    "300000",
-  ];
   const [plans, setPlans] = React.useState<Array<any> | null>(null);
   const [error, setError] = React.useState<string>("");
 
@@ -223,6 +213,13 @@ const Step2: React.FC<{
     console.log(formData);
   };
 
+  const isFormValid = () => {
+    if (formData.title && formData.amount && formData.plan_code) {
+      return true;
+    }
+    return false;
+  };
+
   const closeModal = () => {
     setCreateNew(0);
     setSelectedGateway("");
@@ -248,12 +245,13 @@ const Step2: React.FC<{
               {/* Title */}
               <div className="font-semibold">
                 <label htmlFor="title" className="block mb-2 text-[#676D88]">
-                  Title
+                  Title <span className="text-red-600">*</span>
                 </label>
                 <input
                   type="text"
                   name="title"
                   id="title"
+                  required
                   value={formData.title}
                   onChange={(e) =>
                     handleInputChange(e.target.value, e.target.name)
@@ -266,10 +264,11 @@ const Step2: React.FC<{
               {/* Amount */}
               <div className="font-semibold">
                 <label htmlFor="amount" className="block mb-2 text-[#676D88]">
-                  Amount / month
+                  Amount / month <span className="text-red-600">*</span>
                 </label>
                 <Select
                   name="amount"
+                  required
                   value={formData.amount}
                   onValueChange={(value) => handleInputChange(value, "amount")}
                 >
@@ -292,10 +291,11 @@ const Step2: React.FC<{
               {/* Duration */}
               <div className="font-semibold">
                 <label htmlFor="duration" className="block mb-2 text-[#676D88]">
-                  Duration
+                  Duration <span className="text-red-600">*</span>
                 </label>
                 <Select
                   name="duration"
+                  required
                   disabled={formData.amount === ""}
                   value={formData.plan_code}
                   onValueChange={(value) =>
@@ -342,8 +342,9 @@ const Step2: React.FC<{
 
           {/* NEXT button */}
           <button
+            disabled={!isFormValid()}
             onClick={() => setCreateNew(3)}
-            className="rounded-lg py-3 px-4 text-white bg-dukiaBlue w-full font-semibold"
+            className="rounded-lg py-3 px-4 text-white bg-dukiaBlue w-full font-semibold disabled:opacity-50"
           >
             Next
           </button>
@@ -366,6 +367,7 @@ const Step3: React.FC<{
   formData,
   setFormData,
 }) => {
+  const user = userStore((state: any) => state.user);
   const openModal = useModalStore((state) => state.openModal);
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
   const closeModal = () => {
@@ -373,7 +375,7 @@ const Step3: React.FC<{
     setFormData({});
     setSelectedGateway("");
   };
-  const token = Cookies.get("auth-token");
+  const token = Cookies.get("xZ9qTn7p_K4wVd1Lm_jx8s2A");
   const [consent, setConsent] = React.useState(false);
 
   const submitSavingsPlan = async () => {
@@ -403,6 +405,7 @@ const Step3: React.FC<{
         title: "Successful!",
         message: data.message,
       });
+      setCreateNew(0);
       window.open(data.authorization_url, "_blank");
       // Handle success as needed
     } catch (error: any) {
@@ -444,9 +447,19 @@ const Step3: React.FC<{
                   Authorization for Direct Debit On My Bank Account
                 </span>
                 <br /> <br />
-                I, Boluwatife Eze ,with the account number 2038741832, hereby
-                authorize Dukia Gold to initiate a direct debit to automatically
-                debit my bank account at your bank.
+                I,{" "}
+                <span className="font-extrabold">
+                  {capitalizeFirstLetter(user.first_name)}{" "}
+                  {capitalizeFirstLetter(user.last_name)}
+                </span>
+                , with the account number{" "}
+                <span className="font-extrabold">{user.bank_account_number}</span>, hereby authorize Dukia
+                Gold to initiate a direct debit to automatically debit my bank
+                account at{" "}
+                <span className="font-extrabold">
+                  {capitalizeFirstLetter(user.bank_account_bank_name)}
+                </span>
+                .
               </p>
 
               <div className="flex items-center gap-3">
@@ -469,9 +482,20 @@ const Step3: React.FC<{
 
               <p>
                 Please note that, autodebit is initiated by our partner payment
-                gateway, {selectedGateway}. Your first autosave will be
-                initiated as soon as you create a saving plan with us. Next
-                autodebit is on 30th of September, 2024. <br /> <br />{" "}
+                gateway,{" "}
+                <span className="font-extrabold">{selectedGateway}</span>. Your
+                first autosave will be initiated as soon as you create a saving
+                plan with us. Next autodebit is on{" "}
+                <span className="font-extrabold">
+                  {new Date(
+                    new Date().setMonth(new Date().getMonth() + 1)
+                  ).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </span>
+                . <br /> <br />
                 Transaction charges: 1% on ₦100,000; 1.5% on amount over
                 ₦100,000.
               </p>

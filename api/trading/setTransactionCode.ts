@@ -5,7 +5,7 @@ export const setTransactionCode = async (
   modalFunc: Function,
   closeModal: Function
 ) => {
-  const token = cookies["auth-token"];
+  const token = cookies["xZ9qTn7p_K4wVd1Lm_jx8s2A"];
 
   loading(true);
   try {

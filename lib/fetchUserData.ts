@@ -10,9 +10,9 @@ const useFetchUserData = () => {
   const updateUserAssets = userAssetsStore(
     (state: any) => state.updateUserAssets
   );
-  const [cookies] = useCookies(["auth-token"]);
+  const [cookies] = useCookies(["xZ9qTn7p_K4wVd1Lm_jx8s2A"]);
 
-  const token = cookies["auth-token"];
+  const token = cookies["xZ9qTn7p_K4wVd1Lm_jx8s2A"];
   const { pathname } = GetUrl();
 
   const fetchUserData = useCallback(async () => {

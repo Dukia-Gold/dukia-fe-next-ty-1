@@ -10,7 +10,7 @@ import React from "react";
 import { useCookies } from "react-cookie";
 
 const SetTransactionCodeModal = () => {
-  const [cookies] = useCookies(["auth-token"]);
+  const [cookies] = useCookies(["xZ9qTn7p_K4wVd1Lm_jx8s2A"]);
   const [code, setCode] = React.useState<string>("");
   const [codeError, setCodeError] = React.useState<string>("");
   const [confirmCode, setConfirmCode] = React.useState<string>("");

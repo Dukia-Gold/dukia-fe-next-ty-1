@@ -12,9 +12,9 @@ const useBuy = () => {
   const fetchUserData = useFetchUserData();
   const fetchTransactionHistory = useFetchTransactionHistory();
   const updateLoading = useLoadingStore((state: any) => state.setLoading);
-  const [cookies] = useCookies(["auth-token"]);
+  const [cookies] = useCookies(["xZ9qTn7p_K4wVd1Lm_jx8s2A"]);
 
-  const token = cookies["auth-token"];
+  const token = cookies["xZ9qTn7p_K4wVd1Lm_jx8s2A"];
   const buyPoolAllocated = async (
     order_weight: any,
     order_total: any,

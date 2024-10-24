@@ -35,7 +35,7 @@ const items = [
 const Shop = () => {
   const { goldPricePerGram } = PoolAllocated();
   const router = useRouter();
-  const token = Cookies.get("auth-token");
+  const token = Cookies.get("xZ9qTn7p_K4wVd1Lm_jx8s2A");
   const updateModals = useModalsStore((state: any) => state.updateModals);
   return (
     <div>
@@ -310,7 +310,7 @@ const Shop = () => {
         </div>
 
         <Image
-          src="https://res.cloudinary.com/dvcw253zw/image/upload/v1729390084/cardss_pznvze.jpg"
+          src="https://res.cloudinary.com/dvcw253zw/image/upload/v1729774000/access-img.png"
           alt="Access to your assets"
           width={500}
           height={500}
