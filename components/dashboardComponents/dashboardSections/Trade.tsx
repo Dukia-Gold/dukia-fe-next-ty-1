@@ -46,18 +46,12 @@ interface Range {
 }
 
 const Trade = () => {
-  const { price, Gram } = usePoolAllocatedStore((state: any) => ({
+  const { price, Gram, update } = usePoolAllocatedStore((state: any) => ({
     price: state.price,
     Gram: state.gram,
+    update: state.update,
   }));
-  const {
-    handlePriceInput,
-    handleGramInput,
-    goldPricePerGram,
-    timer,
-    toggleMode,
-    isGramToPrice,
-  } = PoolAllocated();
+  const { handlePriceInput, isBuy, timer, resetTimer } = PoolAllocated();
   const openModal = useModalStore((state) => state.openModal);
   const getProductById = useProductStore((state) => state.getProductById);
 
@@ -65,8 +59,8 @@ const Trade = () => {
   const [goldType, setGoldType] = useState<string>("pool");
   const [discreteProduct, setDiscreteProduct] = useState<string>("");
 
-  const [buyValue, setBuyValue] = useState<string>("");
-  const [buyWorth, setBuyWorth] = useState<string>("");
+  // const [buyValue, setBuyValue] = useState<string>("");
+  // const [buyWorth, setBuyWorth] = useState<string>("");
   const [discreteBuyWorth, setDiscreteBuyWorth] = useState<number>(0.0);
   const [delivery, setDelivery] = useState<boolean>(false);
 
@@ -127,8 +121,6 @@ const Trade = () => {
     } else {
       await sellPoolAllocated(value, worth, price);
     }
-    setBuyValue("");
-    setBuyWorth("");
   };
 
   const discreteTradingFunc = async () => {
@@ -169,6 +161,8 @@ const Trade = () => {
             tradeType === "buy" ? "payment" : "withdrawal"
           } of ${formatCurrency(buyWorthParsed)} ?`,
           onConfirm: async () => {
+            update({ gram: "0", price: "0" });
+            resetTimer();
             await executeTrade(
               buyValueParsed,
               buyWorthParsed,
@@ -181,75 +175,18 @@ const Trade = () => {
     }
   };
 
-  // Calculate buy worth based on prod
-  const handleFigureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-
-    // Regex to match numbers with up to 4 decimal places
-    const decimalRegex = /^\d*\.?\d{0,4}$/;
-
-    if (decimalRegex.test(inputValue)) {
-      const numericValue = parseFloat(inputValue);
-
-      setBuyValue(inputValue);
-
-      if (!isNaN(numericValue) && numericValue > 0) {
-        // Function to calculate the price based on the value, rate, and rate key
-        const calculatePrice = (
-          value: number,
-          rate: number,
-          rateKey: keyof Rate
-        ): number => {
-          const divisor =
-            rateKey === "1kg"
-              ? 1000
-              : rateKey === "1oz"
-              ? 31.1035
-              : parseFloat(rateKey);
-          return (value / divisor) * rate;
-        };
-
-        // Retrieve the appropriate rate for the given numeric value and trade type
-        const tradeRate = getRate(numericValue, tradeType);
-
-        // Initialize the price variable
-        let price: number | null = null;
-
-        if (tradeRate !== undefined) {
-          // Find the corresponding rate key for the retrieved rate
-          const rateKey = ranges.find(
-            (r) => rates[tradeType][r.rateKey] === tradeRate
-          )?.rateKey;
-          if (rateKey) {
-            // Calculate the price using the rate and rate key
-            price = calculatePrice(numericValue, tradeRate, rateKey);
-            const formattedPrice = formatDecimal(price, 2, true);
-            setBuyWorth(formattedPrice);
-          }
-        }
-
-        // Log an error if no valid rate was found
-        if (price === null) {
-          console.error(
-            "No valid rate found for the given value and trade type."
-          );
-          setBuyWorth("");
-        }
-      } else {
-        setBuyWorth(""); // Optionally reset the buy worth if conditions aren't met
-      }
-    }
-  };
-
   const handleTabClick = (type: TradeType) => {
     if (tradeType !== type) {
-      setBuyValue("");
-      setBuyWorth("");
+      update({ price: "0", gram: "0" });
+      resetTimer();
       setTradeType(type);
       if (type === "sell") {
+        isBuy(false);
         setGoldType("pool");
         setDiscreteBuyWorth(0.0);
         setDiscreteProduct("");
+      } else {
+        isBuy(true);
       }
     }
   };
@@ -263,8 +200,8 @@ const Trade = () => {
       (type === "bars" && goldType !== "bars") ||
       (type === "coins" && goldType !== "coins")
     ) {
-      setBuyValue("");
-      setBuyWorth("");
+      update({ price: "0", gram: "0" });
+      resetTimer();
       setDiscreteProduct("");
       setDiscreteBuyWorth(0.0);
     }
@@ -409,7 +346,7 @@ const Trade = () => {
                   disabled
                   placeholder="Enter Gold Value"
                   value={Gram}
-                  className="outline-none px-6 placeholder:text-dukiaBlue/[50%] placeholder:font-normal w-[70%]"
+                  className="outline-none px-6 placeholder:text-dukiaBlue/[50%] placeholder:font-normal font-extrabold w-[70%] disabled:opacity-50"
                 />
               </div>
             </div>

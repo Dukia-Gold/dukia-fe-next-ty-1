@@ -8,9 +8,10 @@ const PoolAllocated = () => {
   const { update } = usePoolAllocatedStore((state: any) => ({
     update: state.update,
   }));
-  // const [Gram, setGram] = useState<string>("0");
+  const [buy, isBuy] = useState<boolean>(true);
   // const [price, setPrice] = useState<string>("0");
   const [goldPricePerGram, setGoldPricePerGram] = useState<number>(0);
+  const [goldBidPricePerGram, setGoldBidPricePerGram] = useState<number>(0);
   const [timer, setTimer] = useState<number>(30);
   const [isGramToPrice, setIsGramToPrice] = useState<boolean>(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -33,14 +34,18 @@ const PoolAllocated = () => {
       );
       const data = await response.json();
       setGoldPricePerGram(data.ask_price);
+      setGoldBidPricePerGram(data.bid_price);
       if (isGramToPrice) {
         const precisePrice = gram * data.ask_price;
         const roundedPrice = roundUpToNearestTen(precisePrice);
         update({ price: formatDecimal(roundedPrice, 2, true) });
         // setPrice(formatDecimal(roundedPrice, 2, true));
       } else {
-        update({ gram: formatDecimal(localPrice / goldPricePerGram, 4) });
-        // setGram(formatDecimal(localPrice / goldPricePerGram, 4));
+        if (buy) {
+          update({ gram: formatDecimal(localPrice / goldPricePerGram, 4) });
+        } else {
+          update({ gram: formatDecimal(localPrice / goldBidPricePerGram, 4) });
+        }
       }
     } catch (error) {
       console.error("Error fetching gold price:", error);
@@ -79,7 +84,12 @@ const PoolAllocated = () => {
       localPrice = Number(value);
 
       // Full precision gram calculation
-      const preciseGram = parseFloat(value) / goldPricePerGram;
+      let preciseGram;
+      if (buy) {
+        preciseGram = parseFloat(value) / goldPricePerGram;
+      } else {
+        preciseGram = parseFloat(value) / goldBidPricePerGram;
+      }
 
       // Display rounded values
       const roundedGram = formatDecimal(preciseGram, 4);
@@ -157,6 +167,8 @@ const PoolAllocated = () => {
     resetTimer,
     formatNumber,
     goldPricePerGram,
+    isBuy,
+    goldBidPricePerGram,
     timer,
     toggleMode,
     isGramToPrice,

@@ -94,7 +94,7 @@ const TransactionCodeModal = () => {
           },
         });
         if (
-          response.status === 200 &&
+          response.status >= 200 && response.status < 300 &&
           (response.data.response_data || response.data.message)
         ) {
           setInputValues(Array(10).fill("")); // Reset all inputs to empty strings
@@ -111,7 +111,7 @@ const TransactionCodeModal = () => {
             title: "Transaction Successful!",
             message:
               trade === "pool"
-                ? `${response.data.response_data}. You'll receive your funds in your bank account shortly. Please check your account balance for the updated amount.`
+                ? `${response.data.response_data.ref}. You'll receive your funds in your bank account shortly. Please check your account balance for the updated amount.`
                 : response.data.message,
           });
           fetchUserData();

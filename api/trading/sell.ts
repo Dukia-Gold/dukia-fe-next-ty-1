@@ -49,7 +49,6 @@ const useSell = () => {
           attemptsLeft: response.data.attempts,
         });
       }
-      updateLoading(false);
     } catch (error: any) {
       console.log(error);
       if (error.response) {
@@ -85,6 +84,7 @@ const useSell = () => {
             "Error connecting to the server. Please check your internet connection and try again.",
         });
       }
+    } finally {
       updateLoading(false);
     }
   };

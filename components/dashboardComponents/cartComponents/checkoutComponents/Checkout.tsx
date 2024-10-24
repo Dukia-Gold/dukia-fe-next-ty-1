@@ -19,12 +19,14 @@ import { Cart, CartItem } from "@/typings/cart";
 import { useModalStore } from "@/store/modalStore";
 import useModalsStore from "@/store/modalsStore";
 import useBuy from "@/api/trading/buy";
+import { useProductStore } from "@/store/product";
 
 const Checkout = () => {
   const { buyDiscrete } = useBuy();
   const openModal = useModalStore((state) => state.openModal);
   const updateModals = useModalsStore((state: any) => state.updateModals);
   const [delivery, setDelivery] = useState<"" | "delivery" | "storage">("");
+  const products = useProductStore((state) => state.products);
   const user = userStore((state: any) => state.user);
   const { cart, clearCart, updatePrices } = useCartStore();
   const router = useRouter();
@@ -61,23 +63,22 @@ const Checkout = () => {
 
   useEffect(() => {
     const updateCartPrices = async () => {
-      try {
-        const products = await fetchProductsPrices();
+      if (products) {
         updatePrices(products);
-      } catch (error) {
-        console.error("Failed to update cart prices:", error);
+      } else {
+        console.error("Failed to update cart prices");
       }
     };
 
     // Update cart prices immediately and set up the interval
     updateCartPrices();
-    const priceIntervalId = setInterval(updateCartPrices, 10000);
+    const priceIntervalId = setInterval(updateCartPrices, 60000);
 
     // Cleanup intervals on component unmount or when dependencies change
     return () => {
       clearInterval(priceIntervalId);
     };
-  }, [fetchProductsPrices, updatePrices]); // Dependency array
+  }, [products, updatePrices]); // Dependency array
 
   return (
     <>

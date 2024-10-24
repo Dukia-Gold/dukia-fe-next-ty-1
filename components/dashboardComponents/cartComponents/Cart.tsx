@@ -4,6 +4,7 @@ import { useFetchProductPrices } from "@/api/fetchGoldPrice";
 import CartItemCard from "@/components/dashboardComponents/cartComponents/CartItemCard";
 import { formatCurrency } from "@/lib/currencyformatter";
 import { useCartStore } from "@/store/cart";
+import { useProductStore } from "@/store/product";
 import { CartItem } from "@/typings/cart";
 import { Spin } from "antd";
 import { ShoppingCart, X } from "lucide-react";
@@ -14,6 +15,7 @@ import React, { useEffect } from "react";
 const Cart = () => {
   const { cart, updatePrices } = useCartStore();
   const router = useRouter();
+  const products = useProductStore((state) => state.products);
   const fetchProductsPrices = useFetchProductPrices();
 
   const handleBack = () => {
@@ -22,27 +24,22 @@ const Cart = () => {
 
   useEffect(() => {
     const updateCartPrices = async () => {
-      try {
-        const products = await fetchProductsPrices();
-        if (products) {
-          updatePrices(products);
-        } else {
-          console.error("Fetched products are undefined or null.");
-        }
-      } catch (error) {
-        console.error("Failed to update cart prices:", error);
+      if (products) {
+        updatePrices(products);
+      } else {
+        console.error("Fetched products are undefined or null.");
       }
     };
 
     // Update cart prices immediately and set up the interval
     updateCartPrices();
-    const priceIntervalId = setInterval(updateCartPrices, 10000);
+    const priceIntervalId = setInterval(updateCartPrices, 60000);
 
     // Cleanup intervals on component unmount or when dependencies change
     return () => {
       clearInterval(priceIntervalId);
     };
-  }, [fetchProductsPrices, updatePrices]); // Dependency array
+  }, [products, updatePrices]); // Dependency array
 
   if (!cart) {
     // If cart is null or undefined

@@ -80,7 +80,7 @@ const useFetchUserData = () => {
 
   useEffect(() => {
     if (token && pathname.startsWith("/dashboard")) {
-      const interval = setInterval(fetchUserData, 30000); // Fetch every 2 minutes (adjust as needed)
+      const interval = setInterval(fetchUserData, 120000); // Fetch every 2 minutes (adjust as needed)
       return () => clearInterval(interval); // Cleanup on component unmount
     }
   }, [token, pathname, fetchUserData]);
