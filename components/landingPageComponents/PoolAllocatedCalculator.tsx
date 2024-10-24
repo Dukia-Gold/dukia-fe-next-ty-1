@@ -1,21 +1,27 @@
 import React, { useState } from "react";
 import PoolAllocated from "@/lib/poolallocated";
 import { formatDecimal } from "@/lib/decimalFormatter";
+import Cookies from "js-cookie";
+import useModalsStore from "@/store/modalsStore";
+import { useRouter } from "next/navigation";
+import usePoolAllocatedStore from "@/store/usePoolAllocatedStore";
 
 const PoolAllocatedCalculator = () => {
+  const { price, Gram } = usePoolAllocatedStore((state: any) => ({
+    price: state.price,
+    Gram: state.gram,
+  }));
   const {
-    price,
     handlePriceInput,
-    Gram,
     handleGramInput,
-    resetTimer,
-    formatNumber,
     goldPricePerGram,
     timer,
     toggleMode,
     isGramToPrice,
   } = PoolAllocated();
-  const [tab, setTab] = useState(true);
+  const router = useRouter();
+  const updateModals = useModalsStore((state: any) => state.updateModals);
+  const token = Cookies.get("auth-token");
 
   return (
     <div className="text-black dark:text-white rounded-2xl w-full md:w-auto md:min-w-[35rem] xl:min-w-[26.25rem] flex flex-col gap-4 shadow-2xl bg-white dark:bg-dukiaDark/[80%]">
@@ -67,8 +73,8 @@ const PoolAllocatedCalculator = () => {
               </label>
               <input
                 type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
+                // inputMode="numeric"
+                // pattern="[0-9]*"
                 name="currency"
                 id="currency"
                 value={price}
@@ -104,7 +110,8 @@ const PoolAllocatedCalculator = () => {
                 placeholder="Weight(g)"
               />
             </div>
-            <p className="text-sm text-dukiaGold font-semibold">Minimum of {formatDecimal(5000 / goldPricePerGram, 4)} grams
+            <p className="text-sm text-dukiaGold font-semibold">
+              Minimum of {formatDecimal(5000 / goldPricePerGram, 4)} grams
             </p>
           </div>
 
@@ -166,7 +173,17 @@ const PoolAllocatedCalculator = () => {
           </div>
         </div>
 
-        <button className="bg-dukiaBlue text-white py-3 font-semibold rounded-lg">
+        <button
+          disabled={Number(price.replace(/,/g, "")) < 5000}
+          onClick={() => {
+            if (token) {
+              router.push("/dashboard");
+            } else {
+              updateModals({ login: true });
+            }
+          }}
+          className="bg-dukiaBlue disabled:opacity-50 text-white py-3 font-semibold rounded-lg"
+        >
           Buy Gold
         </button>
 
