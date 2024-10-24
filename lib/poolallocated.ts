@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { formatDecimal } from "./decimalFormatter";
+import usePoolAllocatedStore from "@/store/usePoolAllocatedStore";
 
 const PoolAllocated = () => {
   let gram = 0;
   let localPrice = 0;
-  const [Gram, setGram] = useState<string>("0");
-  const [price, setPrice] = useState<string>("0");
+  const { update } = usePoolAllocatedStore((state: any) => ({
+    update: state.update,
+  }));
+  // const [Gram, setGram] = useState<string>("0");
+  // const [price, setPrice] = useState<string>("0");
   const [goldPricePerGram, setGoldPricePerGram] = useState<number>(0);
   const [timer, setTimer] = useState<number>(30);
   const [isGramToPrice, setIsGramToPrice] = useState<boolean>(false);
@@ -32,9 +36,11 @@ const PoolAllocated = () => {
       if (isGramToPrice) {
         const precisePrice = gram * data.ask_price;
         const roundedPrice = roundUpToNearestTen(precisePrice);
-        setPrice(formatDecimal(roundedPrice, 2, true));
+        update({ price: formatDecimal(roundedPrice, 2, true) });
+        // setPrice(formatDecimal(roundedPrice, 2, true));
       } else {
-        setGram(formatDecimal(localPrice / goldPricePerGram, 4));
+        update({ gram: formatDecimal(localPrice / goldPricePerGram, 4) });
+        // setGram(formatDecimal(localPrice / goldPricePerGram, 4));
       }
     } catch (error) {
       console.error("Error fetching gold price:", error);
@@ -44,7 +50,7 @@ const PoolAllocated = () => {
   const handleGramInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (!isNaN(Number(value)) || value === "" || value === ".") {
-      setGram(value);
+      update({ gram: value });
       gram = Number(value);
 
       // Calculate the price with full precision
@@ -54,7 +60,7 @@ const PoolAllocated = () => {
       const roundedPrice = roundUpToNearestTen(precisePrice);
 
       // Display the rounded price
-      setPrice(formatDecimal(roundedPrice, 2, true));
+      update({ price: formatDecimal(roundedPrice, 2, true) });
 
       if (parseFloat(value) > 0) {
         startTimer();
@@ -62,7 +68,7 @@ const PoolAllocated = () => {
         resetTimer();
       }
     } else {
-      setGram("0");
+      update({ gram: "0" });
       resetTimer();
     }
   };
@@ -76,8 +82,11 @@ const PoolAllocated = () => {
       const preciseGram = parseFloat(value) / goldPricePerGram;
 
       // Display rounded values
-      setPrice(formatNumber(value, true));
-      setGram(formatDecimal(preciseGram, 4)); // Round grams to 4 decimal places for display
+      const roundedGram = formatDecimal(preciseGram, 4);
+      update({
+        price: formatNumber(value, true),
+        gram: roundedGram,
+      });
 
       if (parseFloat(value) > 0) {
         startTimer();
@@ -85,7 +94,7 @@ const PoolAllocated = () => {
         resetTimer();
       }
     } else {
-      setPrice("0");
+      update({ price: "0" });
       resetTimer();
     }
   };
@@ -117,8 +126,7 @@ const PoolAllocated = () => {
 
   const toggleMode = () => {
     setIsGramToPrice(!isGramToPrice);
-    setGram("0");
-    setPrice("0");
+    update({ gram: "0", price: "0" });
     resetTimer();
   };
 
@@ -144,9 +152,7 @@ const PoolAllocated = () => {
   }, []);
 
   return {
-    price,
     handlePriceInput,
-    Gram,
     handleGramInput,
     resetTimer,
     formatNumber,
@@ -154,7 +160,6 @@ const PoolAllocated = () => {
     timer,
     toggleMode,
     isGramToPrice,
-    setPrice,
   };
 };
 
