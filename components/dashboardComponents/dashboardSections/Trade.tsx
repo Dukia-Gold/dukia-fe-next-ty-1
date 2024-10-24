@@ -20,6 +20,8 @@ import GoldItem from "./TradeComponents/GoldItem";
 import { Cart } from "@/typings/cart";
 import { useProductStore } from "@/store/product";
 import { useModalStore } from "@/store/modalStore";
+import usePoolAllocatedStore from "@/store/usePoolAllocatedStore";
+import PoolAllocated from "@/lib/poolallocated";
 
 // Type definitions for the trade type and rates
 type TradeType = "buy" | "sell";
@@ -44,6 +46,18 @@ interface Range {
 }
 
 const Trade = () => {
+  const { price, Gram } = usePoolAllocatedStore((state: any) => ({
+    price: state.price,
+    Gram: state.gram,
+  }));
+  const {
+    handlePriceInput,
+    handleGramInput,
+    goldPricePerGram,
+    timer,
+    toggleMode,
+    isGramToPrice,
+  } = PoolAllocated();
   const openModal = useModalStore((state) => state.openModal);
   const getProductById = useProductStore((state) => state.getProductById);
 
@@ -58,9 +72,9 @@ const Trade = () => {
 
   const { buyPoolAllocated, buyDiscrete } = useBuy();
   const { sellPoolAllocated } = useSell();
-  const buyValueParsed = parseFloat(buyValue.replace(/,/g, ""));
-  const buyWorthParsed =
-    buyWorth !== undefined ? parseFloat(buyWorth.replace(/,/g, "")) : 0;
+  const buyValueParsed =
+    Gram !== undefined ? parseFloat(Gram.replace(/,/g, "")) : 0;
+  const buyWorthParsed = parseFloat(price.replace(/,/g, ""));
 
   // Define the ranges and corresponding rate keys
   const ranges: Range[] = [
@@ -392,9 +406,9 @@ const Trade = () => {
                 </Select>
                 <input
                   type="text"
+                  disabled
                   placeholder="Enter Gold Value"
-                  value={buyValue}
-                  onChange={handleFigureChange}
+                  value={Gram}
                   className="outline-none px-6 placeholder:text-dukiaBlue/[50%] placeholder:font-normal w-[70%]"
                 />
               </div>
@@ -417,20 +431,28 @@ const Trade = () => {
                 </Select>
                 <input
                   type="text"
-                  disabled
                   placeholder="Enter Gold Value"
-                  value={buyWorth}
+                  value={price}
+                  onChange={handlePriceInput}
                   className="outline-none px-6 placeholder:text-dukiaBlue/[50%] placeholder:font-normal w-[70%]"
                 />
               </div>
             </div>
+
+            <p className="text-center text-sm">
+              Time until next update:{" "}
+              <span id="timer" className="font-semibold">
+                {timer}
+              </span>{" "}
+              seconds
+            </p>
           </div>
 
           {/* Button */}
           <div className="flex justify-end">
             <button
               type="button"
-              disabled={buyValue === "" || buyWorth === "" || !buyWorth}
+              disabled={Gram === "" || price === "" || !price}
               className="text-white rounded-lg bg-dukiaBlue font-semibold py-3 px-4 disabled:bg-dukiaBlue/[50%] disabled:cursor-not-allowed"
               onClick={() => {
                 poolAllocatedTradingFunc();

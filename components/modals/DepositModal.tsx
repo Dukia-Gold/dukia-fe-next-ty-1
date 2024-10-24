@@ -347,6 +347,7 @@ const DepositModal = () => {
               if (bankTransfer) {
                 depositWithBankTransfer(Number(amount), receipt);
                 setAmount("");
+                setBankTransfer(false);
                 uploadReceipt(null);
               } else {
                 setBankTransfer(true);
